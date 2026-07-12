@@ -1,0 +1,50 @@
+# F-Droid build recipe DRAFT for Wird — Quran, Hadith & Dua Memorization.
+#
+# This lives here for review/version-history convenience. To actually
+# submit to F-Droid, copy this file to `metadata/io.github.ksulaiman579.wird.yml`
+# in a fork of https://gitlab.com/fdroid/fdroiddata and open a merge
+# request there (see RELEASE.md's "F-Droid" section) — F-Droid does not
+# read this file from this repository.
+#
+# NOTE: SourceCode/Repo below assume the GitHub repo is (re)created as
+# "Wird" per the rename — update these to the real URL once the repo
+# actually exists.
+Categories:
+  - Religion
+License: GPL-3.0-only
+AuthorName: ksulaiman579
+SourceCode: https://github.com/ksulaiman579/Wird
+IssueTracker: https://github.com/ksulaiman579/Wird/issues
+Changelog: https://github.com/ksulaiman579/Wird/blob/main/fastlane/metadata/android/en-US/changelogs
+
+AutoName: Wird
+Summary: Memorize the Quran, 40 Hadith & duas offline, with spaced repetition.
+Description: |-
+    Wird helps you memorize the Quran, the 40 Hadith of an-Nawawi, and
+    daily duas from Hisnul Muslim — at your own pace, fully offline, with
+    no account and no server.
+
+    Sessions follow the classic hifz structure (Sabaq/Sabqi/Manzil) with a
+    spaced-repetition scheduler adapting review timing to how well you
+    know each portion. Choose your own memorization plan (whole Quran,
+    specific surahs, or juz, in normal or traditional reversed order),
+    track streaks and achievements, and get local prayer-time reminders —
+    calculated fully offline, no location permission required.
+
+    No account, no analytics, no ads. Fully open source (GPL-3.0).
+
+RepoType: git
+Repo: https://github.com/ksulaiman579/Wird.git
+
+Builds:
+  - versionName: '1.0.0'
+    versionCode: 1
+    commit: v1.0.0
+    subdir: android
+    gradle:
+      - yes
+
+AutoUpdateMode: Version
+UpdateCheckMode: Tags
+CurrentVersion: '1.0.0'
+CurrentVersionCode: 1

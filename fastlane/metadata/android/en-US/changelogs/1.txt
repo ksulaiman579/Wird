@@ -1,0 +1,3 @@
+Initial release: Quran, 40 Hadith, and Hisnul Muslim dua memorization with
+spaced repetition, streaks and achievements, offline-first with local
+prayer-time reminders.

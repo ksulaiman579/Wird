@@ -1,0 +1,40 @@
+Wird helps you memorize the Quran, the 40 Hadith of an-Nawawi, and daily
+duas from Hisnul Muslim — at your own pace, fully offline, with no account
+and no server. Your progress stays on your device (export/import lets you
+back it up or move it to a new one).
+
+<b>Traditional method, modern tools</b>
+Sessions follow the classic hifz structure — Sabaq (today's new lesson),
+Sabqi (recent revision), and Manzil (long-term revision) — built on a
+spaced-repetition scheduler (SM-2) so review timing adapts to how well you
+actually know each portion. New material uses a listen-repeat-fade-recall
+flow; review uses hidden-text self-grading (Again/Hard/Good/Easy).
+
+<b>Choose your own plan</b>
+Memorize the whole Quran, specific surahs, or specific juz — in normal
+mushaf order or the traditional reversed order (juz 30 first). Set your own
+daily time budget; the app estimates your completion date and adjusts as
+you go.
+
+<b>Content, verified</b>
+Quran text (Uthmani script), the Saheeh International translation and
+transliteration, the 40 Hadith of an-Nawawi (Arabic, English, and a short
+summary for understanding), and Hisnul Muslim's duas and morning/evening
+adhkar — every source is documented in-app (Settings → About) for full
+transparency.
+
+<b>Stay motivated</b>
+Wird tracks daily streaks with freeze tokens for the occasional missed day, an
+"ease-back" mode that shrinks your portion for a couple of days after a
+longer gap, a weekly-goal ring, achievement badges, and a GitHub-style
+activity heatmap.
+
+<b>Prayer-time awareness</b>
+Pick your city (no location permission needed) for local Sunni prayer
+times — used to show morning/evening adhkar reminders around Fajr and Asr,
+and calculated fully offline as a fallback if you're not connected.
+
+<b>Privacy</b>
+No account, no analytics, no ads, no network access beyond fetching
+recitation audio and (optionally) online prayer-time tables — everything
+else works completely offline. Fully open source (GPL-3.0).

@@ -1,0 +1,39 @@
+name: Build debug APK
+
+# Manual/tag-triggered debug APK build for device testing. Uses the
+# debug signing key baked into every Flutter project (see RELEASE.md for
+# why release builds still use debug signing — no real key exists yet),
+# so this is for sideloading/testing only, not a real release artifact.
+on:
+  workflow_dispatch: {}
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.4'
+          channel: 'stable'
+
+      - run: flutter pub get
+
+      # Cloud backup is enabled only if these repo secrets are set
+      # (Settings → Secrets and variables → Actions). The publishable key is
+      # public/safe; if unset, the APK builds fully offline (cloud hidden).
+      # Never add the Supabase SECRET key here.
+      - run: >
+          flutter build apk --debug
+          --dart-define=WIRD_SUPABASE_URL="${{ secrets.WIRD_SUPABASE_URL }}"
+          --dart-define=WIRD_SUPABASE_PUBLISHABLE_KEY="${{ secrets.WIRD_SUPABASE_PUBLISHABLE_KEY }}"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wird-debug-apk
+          path: build/app/outputs/flutter-apk/app-debug.apk
+          retention-days: 30

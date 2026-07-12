@@ -1,0 +1,2250 @@
+{
+  "@@locale": "en",
+  "appTitle": "Wird",
+  "@appTitle": {
+    "description": "The app name. Usually left untranslated (proper noun)."
+  },
+  "commonContinue": "Continue",
+  "@commonContinue": {
+    "description": "Generic 'Continue' / 'Next' button used across onboarding and the session flow."
+  },
+  "commonStart": "Start",
+  "@commonStart": {
+    "description": "Generic 'Start' call-to-action."
+  },
+  "commonCancel": "Cancel",
+  "@commonCancel": {
+    "description": "Generic 'Cancel' action button."
+  },
+  "commonSave": "Save",
+  "@commonSave": {
+    "description": "Generic 'Save' action button."
+  },
+  "commonDelete": "Delete",
+  "@commonDelete": {
+    "description": "Generic 'Delete' action button."
+  },
+  "commonDone": "Done",
+  "@commonDone": {
+    "description": "Generic 'Done' action button."
+  },
+  "commonClose": "Close",
+  "@commonClose": {
+    "description": "Generic 'Close' action button."
+  },
+  "commonSearch": "Search",
+  "@commonSearch": {
+    "description": "Generic 'Search' placeholder or label."
+  },
+  "commonSettings": "Settings",
+  "@commonSettings": {
+    "description": "Settings navigation item or screen title."
+  },
+  "navToday": "Today",
+  "@navToday": {
+    "description": "Bottom navigation bar item for Today screen."
+  },
+  "navQuran": "Quran",
+  "@navQuran": {
+    "description": "Bottom navigation bar item for Quran tab."
+  },
+  "navHadith": "Hadith",
+  "@navHadith": {
+    "description": "Bottom navigation bar item for Hadith hub."
+  },
+  "readerContinueReading": "Continue Reading",
+  "@readerContinueReading": {
+    "description": "Quran hub card title shown once the user has a saved reading position."
+  },
+  "readerStartReading": "Start Reading",
+  "@readerStartReading": {
+    "description": "Quran hub card title shown on first boot before any reading position exists."
+  },
+  "progressStepOf": "Step {current} of {total}",
+  "@progressStepOf": {
+    "description": "Memorization session step indicator, e.g. 'Step 3 of 7'.",
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "achievementProgress": "{current} / {target}",
+  "@achievementProgress": {
+    "description": "Locked-achievement progress hint, e.g. '5 / 7'. Usually just digits+slash; translate only if the language needs different numerals/format.",
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "target": {
+        "type": "int"
+      }
+    }
+  },
+  "backupLastAuto": "Last automatic backup: {date}",
+  "@backupLastAuto": {
+    "description": "Settings line showing when the last automatic local backup ran.",
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "example": "2026-07-10"
+      }
+    }
+  },
+  "settingsTitle": "Settings",
+  "@settingsTitle": {
+    "description": "Settings screen title."
+  },
+  "settingsLanguage": "Language",
+  "@settingsLanguage": {
+    "description": "Language selection option in Settings."
+  },
+  "settingsTheme": "Theme",
+  "@settingsTheme": {
+    "description": "Theme mode selection option in Settings."
+  },
+  "settingsBackup": "Backup",
+  "@settingsBackup": {
+    "description": "Backup section title in Settings."
+  },
+  "settingsMonthlyBackupNotice": "Monthly backup saved to this device",
+  "@settingsMonthlyBackupNotice": {
+    "description": "Snackbar notice when monthly automatic backup succeeds."
+  },
+  "navHome": "Home",
+  "@navHome": {
+    "description": "Bottom navigation bar item for Home tab."
+  },
+  "navExplore": "Explore",
+  "@navExplore": {
+    "description": "Bottom navigation bar item for Explore tab."
+  },
+  "navDuas": "Duas",
+  "@navDuas": {
+    "description": "Bottom navigation bar item for Duas tab."
+  },
+  "navMore": "More",
+  "@navMore": {
+    "description": "Bottom navigation bar item for More tab."
+  },
+  "navAlManhaj": "Al-Manhaj",
+  "@navAlManhaj": {
+    "description": "Bottom navigation bar item for Al-Manhaj tab."
+  },
+  "headerProfileTooltip": "Profile & settings",
+  "@headerProfileTooltip": {
+    "description": "Tooltip for profile button in home header."
+  },
+  "headerRemindersTooltip": "Reminders",
+  "@headerRemindersTooltip": {
+    "description": "Tooltip for reminders bell button in home header."
+  },
+  "locationTitle": "Location",
+  "@locationTitle": {
+    "description": "Section header title for location selection."
+  },
+  "locationLoading": "Loading…",
+  "@locationLoading": {
+    "description": "Loading state indicator for location."
+  },
+  "locationUseMyLocation": "Use my location",
+  "@locationUseMyLocation": {
+    "description": "Button label to auto-detect device location."
+  },
+  "locationChooseCity": "Choose city",
+  "@locationChooseCity": {
+    "description": "Button label to open city selection dialog."
+  },
+  "locationDetecting": "Detecting…",
+  "@locationDetecting": {
+    "description": "Button label while detecting GPS location."
+  },
+  "todayMyProgress": "My Progress",
+  "@todayMyProgress": {
+    "description": "Page title on Today progress screen."
+  },
+  "todayGreeting": "Assalamu alaikum",
+  "@todayGreeting": {
+    "description": "Default Islamic greeting."
+  },
+  "todayAllDone": "All done for today",
+  "@todayAllDone": {
+    "description": "Status when all daily items are finished."
+  },
+  "todayStartSession": "Start Session",
+  "@todayStartSession": {
+    "description": "Button to start daily session."
+  },
+  "todayContinueReading": "Continue reading",
+  "@todayContinueReading": {
+    "description": "Card action to continue reading Quran."
+  },
+  "todayKeyInsights": "Key Insights",
+  "@todayKeyInsights": {
+    "description": "Title for 7-day activity chart."
+  },
+  "exploreTitle": "Explore",
+  "@exploreTitle": {
+    "description": "Title for Explore hub screen."
+  },
+  "exploreSectionDuasAdhkar": "Duas & Adhkar",
+  "@exploreSectionDuasAdhkar": {
+    "description": "Section title for Duas & Adhkar in Explore."
+  },
+  "exploreDailyAdhkarTitle": "Daily Adhkar",
+  "@exploreDailyAdhkarTitle": {
+    "description": "Card title for Daily Adhkar."
+  },
+  "exploreDailyAdhkarDesc": "Morning & Evening Remembrance",
+  "@exploreDailyAdhkarDesc": {
+    "description": "Card description for Daily Adhkar."
+  },
+  "exploreDuaCollectionsTitle": "Dua Collections",
+  "@exploreDuaCollectionsTitle": {
+    "description": "Card title for Dua collections."
+  },
+  "exploreDuaCollectionsDesc": "Supplications by Circumstance",
+  "@exploreDuaCollectionsDesc": {
+    "description": "Card description for Dua collections."
+  },
+  "moreTitle": "More",
+  "@moreTitle": {
+    "description": "Title for More screen."
+  },
+  "moreYourJourney": "Your Journey",
+  "@moreYourJourney": {
+    "description": "Section title on More screen."
+  },
+  "moreProgressTitle": "Progress",
+  "@moreProgressTitle": {
+    "description": "Card title for Progress on More screen."
+  },
+  "moreProgressDesc": "Your heatmap, streaks, and totals",
+  "@moreProgressDesc": {
+    "description": "Card description for Progress on More screen."
+  },
+  "moreAchievementsTitle": "Achievements",
+  "@moreAchievementsTitle": {
+    "description": "Card title for Achievements on More screen."
+  },
+  "moreAchievementsDesc": "Milestones unlocked on your journey",
+  "@moreAchievementsDesc": {
+    "description": "Card description for Achievements on More screen."
+  },
+  "qiblaTitle": "Qibla",
+  "@qiblaTitle": {
+    "description": "Title for Qibla compass screen."
+  },
+  "zakahTitle": "Zakah calculator",
+  "@zakahTitle": {
+    "description": "Title for Zakah screen."
+  },
+  "tasbihTitle": "Tasbih",
+  "@tasbihTitle": {
+    "description": "Title for Tasbih screen."
+  },
+  "quranTitle": "Quran",
+  "@quranTitle": {
+    "description": "Title for Quran screen."
+  },
+  "quranHubTitle": "The Holy Quran",
+  "@quranHubTitle": {
+    "description": "Title for Quran hub screen."
+  },
+  "progressTitle": "Progress",
+  "@progressTitle": {
+    "description": "Title for Progress screen."
+  },
+  "knowledgeLibraryTitle": "Knowledge Library",
+  "@knowledgeLibraryTitle": {
+    "description": "Title for Knowledge Library screen."
+  },
+  "hadithCollectionsTitle": "Hadith Collections",
+  "@hadithCollectionsTitle": {
+    "description": "Title for Hadith collections screen."
+  },
+  "searchTitle": "Search",
+  "@searchTitle": {
+    "description": "Title for Search screen."
+  },
+  "hadithNawawiTitle": "40 Hadith of an-Nawawi",
+  "@hadithNawawiTitle": {
+    "description": "Title for 40 Hadith Nawawi screen."
+  },
+  "duasTitle": "Duas",
+  "@duasTitle": {
+    "description": "Title for Duas screen."
+  },
+  "namesOfAllahTitle": "99 Names of Allah",
+  "@namesOfAllahTitle": {
+    "description": "Title for 99 Names of Allah screen."
+  },
+  "libraryTitle": "Library",
+  "@libraryTitle": {
+    "description": "Title for Library screen."
+  },
+  "alManhajTitle": "Al-Manhaj",
+  "@alManhajTitle": {
+    "description": "Title for Al-Manhaj screen."
+  },
+  "achievementsTitle": "Achievements",
+  "@achievementsTitle": {
+    "description": "Title for Achievements screen."
+  },
+  "sessionTitle": "Session",
+  "@sessionTitle": {
+    "description": "Title for Session screen."
+  },
+  "aboutTitle": "About",
+  "@aboutTitle": {
+    "description": "Title for About screen."
+  },
+  "downloadsTitle": "Downloads",
+  "@downloadsTitle": {
+    "description": "Title for Downloads screen."
+  },
+  "celebrationPortionComplete": "Today's portion complete!",
+  "@celebrationPortionComplete": {
+    "description": "Message shown on session celebration screen."
+  },
+  "exploreSectionStudy": "Study & Reference",
+  "@exploreSectionStudy": {
+    "description": "Section header for study and reference in Explore."
+  },
+  "readingSurahCollections": "Surah collections",
+  "@readingSurahCollections": {
+    "description": "Reading hub section header above the resume/index cards."
+  },
+  "readingBeginFatiha": "Begin with Al-Fatiha",
+  "@readingBeginFatiha": {
+    "description": "Reading hub Start card subtitle when the user has not read before."
+  },
+  "readingResume": "Resume",
+  "@readingResume": {
+    "description": "Reading hub Continue card button."
+  },
+  "readingSurahIndex": "Surah index",
+  "@readingSurahIndex": {
+    "description": "Reading hub card title: browse the full surah list."
+  },
+  "readingBrowseAll": "Browse all 114 surahs",
+  "@readingBrowseAll": {
+    "description": "Reading hub Surah index card subtitle."
+  },
+  "readingIndexList": "Index list",
+  "@readingIndexList": {
+    "description": "Reading hub Surah index card button."
+  },
+  "readingMemorization": "Memorization",
+  "@readingMemorization": {
+    "description": "Reading hub section header + card title for the spaced-repetition session."
+  },
+  "readingMemorizationDesc": "Your spaced-repetition session",
+  "@readingMemorizationDesc": {
+    "description": "Reading hub Memorization card subtitle."
+  },
+  "commonOpen": "Open",
+  "@commonOpen": {
+    "description": "Generic Open button."
+  },
+  "commonBrowse": "Browse",
+  "@commonBrowse": {
+    "description": "Generic Browse button."
+  },
+  "commonExplore": "Explore",
+  "@commonExplore": {
+    "description": "Generic Explore button."
+  },
+  "commonReview": "Review",
+  "@commonReview": {
+    "description": "Generic Review button."
+  },
+  "commonView": "View",
+  "@commonView": {
+    "description": "Generic View button."
+  },
+  "exploreSearchHint": "Search surahs, duas & hadiths",
+  "@exploreSearchHint": {
+    "description": "Explore hub search launcher placeholder."
+  },
+  "exploreSectionCalcNavigate": "Calculate & navigate",
+  "@exploreSectionCalcNavigate": {
+    "description": "Explore section header for Zakah + Qibla."
+  },
+  "exploreSectionReminders": "Time-aware reminders",
+  "@exploreSectionReminders": {
+    "description": "Explore section header for adhkar reminders."
+  },
+  "exploreSectionDhikr": "Dhikr & devotion",
+  "@exploreSectionDhikr": {
+    "description": "Explore section header for Tasbih + 99 Names."
+  },
+  "exploreHadithDesc": "Sahih Bukhari, Muslim & more",
+  "@exploreHadithDesc": {
+    "description": "Explore Hadith collections card subtitle."
+  },
+  "exploreKnowledgeDesc": "Books on Aqeedah, Fiqh, Tafsir & more",
+  "@exploreKnowledgeDesc": {
+    "description": "Explore Knowledge Library card subtitle."
+  },
+  "exploreZakahDesc": "Calculate your obligatory Zakah",
+  "@exploreZakahDesc": {
+    "description": "Explore Zakah card subtitle."
+  },
+  "exploreCalculate": "Calculate",
+  "@exploreCalculate": {
+    "description": "Explore Zakah card button."
+  },
+  "exploreQiblaDesc": "Find the direction to the Ka'bah",
+  "@exploreQiblaDesc": {
+    "description": "Explore Qibla card subtitle."
+  },
+  "exploreFindQibla": "Find Qibla",
+  "@exploreFindQibla": {
+    "description": "Explore Qibla card button."
+  },
+  "exploreMorningAdhkarTitle": "Morning adhkar",
+  "@exploreMorningAdhkarTitle": {
+    "description": "Explore morning adhkar card title."
+  },
+  "exploreMorningAdhkarDesc": "Hisn al-Muslim morning remembrance",
+  "@exploreMorningAdhkarDesc": {
+    "description": "Explore morning adhkar card subtitle."
+  },
+  "exploreEveningAdhkarTitle": "Evening adhkar",
+  "@exploreEveningAdhkarTitle": {
+    "description": "Explore evening adhkar card title."
+  },
+  "exploreEveningAdhkarDesc": "Hisn al-Muslim evening remembrance",
+  "@exploreEveningAdhkarDesc": {
+    "description": "Explore evening adhkar card subtitle."
+  },
+  "exploreRecite": "Recite",
+  "@exploreRecite": {
+    "description": "Explore adhkar card button."
+  },
+  "exploreTasbihTitle": "Tasbih counter",
+  "@exploreTasbihTitle": {
+    "description": "Explore Tasbih card title."
+  },
+  "exploreTasbihDesc": "Digital counter for daily dhikr",
+  "@exploreTasbihDesc": {
+    "description": "Explore Tasbih card subtitle."
+  },
+  "exploreOpenTasbih": "Open tasbih",
+  "@exploreOpenTasbih": {
+    "description": "Explore Tasbih card button."
+  },
+  "exploreNamesDesc": "Asma ul-Husna with meanings",
+  "@exploreNamesDesc": {
+    "description": "Explore 99 Names card subtitle."
+  },
+  "exploreOpenNames": "Open names",
+  "@exploreOpenNames": {
+    "description": "Explore 99 Names card button."
+  },
+  "moreLibraryDownloads": "Library & downloads",
+  "@moreLibraryDownloads": {
+    "description": "More tab section header."
+  },
+  "moreContentLibraryTitle": "Content Library",
+  "@moreContentLibraryTitle": {
+    "description": "More tab: manage translation/hadith downloads card."
+  },
+  "moreContentLibraryDesc": "Manage translations & collections",
+  "@moreContentLibraryDesc": {
+    "description": "More Content Library card subtitle."
+  },
+  "moreKnowledgeDesc": "Islamic books to read offline",
+  "@moreKnowledgeDesc": {
+    "description": "More Knowledge Library card subtitle."
+  },
+  "moreAlManhajDesc": "Guided learning — coming soon",
+  "@moreAlManhajDesc": {
+    "description": "More Al-Manhaj card subtitle."
+  },
+  "moreDiscover": "Discover",
+  "@moreDiscover": {
+    "description": "More Al-Manhaj card button."
+  },
+  "moreSettingsAbout": "Settings & about",
+  "@moreSettingsAbout": {
+    "description": "More tab section header."
+  },
+  "moreSettingsSubtitle": "Plan, reciter, theme, notifications",
+  "@moreSettingsSubtitle": {
+    "description": "More Settings tile subtitle."
+  },
+  "moreAboutSubtitle": "Foundation, license, and credits",
+  "@moreAboutSubtitle": {
+    "description": "More About tile subtitle."
+  },
+  "todayGreetingNamed": "Assalamu alaikum, {name}",
+  "@todayGreetingNamed": {
+    "description": "Home greeting with the user's name.",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "todayGoalDone": "Today's goal: done!",
+  "@todayGoalDone": {
+    "description": "Home hero card when nothing remains for today."
+  },
+  "todayGoalProgress": "Today's goal: {done}/{planned}",
+  "@todayGoalProgress": {
+    "description": "Home hero card goal heading with progress.",
+    "placeholders": {
+      "done": {},
+      "planned": {}
+    }
+  },
+  "todayBreakdown": "{newCount} new · {reviews} reviews · ~{minutes} min",
+  "@todayBreakdown": {
+    "description": "Home hero breakdown: new items, reviews, estimated minutes.",
+    "placeholders": {
+      "newCount": {},
+      "reviews": {},
+      "minutes": {}
+    }
+  },
+  "todayStreakWeek": "{streak} day streak · {completed}/{goal} this week",
+  "@todayStreakWeek": {
+    "description": "Home hero streak + weekly goal line.",
+    "placeholders": {
+      "streak": {},
+      "completed": {},
+      "goal": {}
+    }
+  },
+  "todaySabaq": "Sabaq (new)",
+  "@todaySabaq": {
+    "description": "Breakdown row: new memorization."
+  },
+  "todaySabqi": "Sabqi (recent revision)",
+  "@todaySabqi": {
+    "description": "Breakdown row: recent revision."
+  },
+  "todayManzil": "Manzil (long-term revision)",
+  "@todayManzil": {
+    "description": "Breakdown row: long-term revision."
+  },
+  "todaySectionContinue": "Continue",
+  "@todaySectionContinue": {
+    "description": "Home section eyebrow above the continue-reading card."
+  },
+  "todaySectionRecent": "Recent activity",
+  "@todaySectionRecent": {
+    "description": "Home section eyebrow."
+  },
+  "todaySectionStreak": "Streak & insights",
+  "@todaySectionStreak": {
+    "description": "Home section eyebrow."
+  },
+  "todaySectionRemembrance": "Remembrance",
+  "@todaySectionRemembrance": {
+    "description": "Home section eyebrow above adhkar tiles."
+  },
+  "todaySectionTools": "Tools",
+  "@todaySectionTools": {
+    "description": "Home section eyebrow above the tools row."
+  },
+  "todaySessionInProgress": "Today's session in progress",
+  "@todaySessionInProgress": {
+    "description": "Recent-activity row, session not yet done."
+  },
+  "todaySessionCompleted": "Today's session completed",
+  "@todaySessionCompleted": {
+    "description": "Recent-activity row, session done."
+  },
+  "todayUnlocked": "Unlocked: {title}",
+  "@todayUnlocked": {
+    "description": "Recent-activity row for a newly unlocked achievement.",
+    "placeholders": {
+      "title": {}
+    }
+  },
+  "todayCurrentStreak": "Current streak",
+  "@todayCurrentStreak": {
+    "description": "Streak card label."
+  },
+  "todayStreakDays": "{streak} days",
+  "@todayStreakDays": {
+    "description": "Streak card day count.",
+    "placeholders": {
+      "streak": {}
+    }
+  },
+  "todayInsightsEmpty": "Complete a session to start\nyour 7-day activity chart",
+  "@todayInsightsEmpty": {
+    "description": "Key-insights empty state on a fresh install."
+  },
+  "todayWelcomeBack": "Welcome back! Today's new material is halved to help you ease back in.",
+  "@todayWelcomeBack": {
+    "description": "Ease-back banner after a break."
+  },
+  "todayAlManhajTeaser": "Discover Al-Manhaj — coming soon",
+  "@todayAlManhajTeaser": {
+    "description": "Al-Manhaj teaser card on Home."
+  },
+  "zakahShort": "Zakah",
+  "@zakahShort": {
+    "description": "Short Zakah label for the Home tools pill."
+  },
+  "readerOptions": "Reader options",
+  "@readerOptions": {
+    "description": "Reader options bottom-sheet title."
+  },
+  "readerMushafMode": "Classic Mushaf mode",
+  "@readerMushafMode": {
+    "description": "Reader option toggle."
+  },
+  "readerMushafModeDesc": "Continuous Arabic page layout",
+  "@readerMushafModeDesc": {
+    "description": "Reader Mushaf-mode subtitle."
+  },
+  "readerTajweed": "Tajweed highlighting",
+  "@readerTajweed": {
+    "description": "Reader option toggle."
+  },
+  "readerTajweedDesc": "Color-coded waqf & elongation marks",
+  "@readerTajweedDesc": {
+    "description": "Reader Tajweed subtitle."
+  },
+  "readerTranslation": "Translation",
+  "@readerTranslation": {
+    "description": "Reader translation toggle + inline label."
+  },
+  "readerTranslationLabel": "Translation:",
+  "@readerTranslationLabel": {
+    "description": "Inline bold lead-in before the ayah translation."
+  },
+  "readerTransliteration": "Transliteration",
+  "@readerTransliteration": {
+    "description": "Reader transliteration toggle."
+  },
+  "readerTranslationLanguage": "Translation language",
+  "@readerTranslationLanguage": {
+    "description": "Reader translation-language chooser label."
+  },
+  "readerMoreTranslations": "More translations in Library",
+  "@readerMoreTranslations": {
+    "description": "Reader link to the Content Library."
+  },
+  "readerFontSize": "Font size",
+  "@readerFontSize": {
+    "description": "Reader font-size slider label."
+  },
+  "readerReciter": "Reciter",
+  "@readerReciter": {
+    "description": "Reader reciter picker label."
+  },
+  "readerAutoPlaySwipe": "Auto-play on swipe",
+  "@readerAutoPlaySwipe": {
+    "description": "Reader auto-play toggle."
+  },
+  "readerAutoPlaySwipeDesc": "Paging to another ayah plays it automatically",
+  "@readerAutoPlaySwipeDesc": {
+    "description": "Reader auto-play subtitle."
+  },
+  "readerLangNotDownloaded": "{language} isn't downloaded yet — get it from the Library.",
+  "@readerLangNotDownloaded": {
+    "description": "SnackBar when picking an uninstalled translation language.",
+    "placeholders": {
+      "language": {}
+    }
+  },
+  "readerPlaySample": "Play sample",
+  "@readerPlaySample": {
+    "description": "Reader reciter sample-play tooltip."
+  },
+  "commonDownload": "Download",
+  "@commonDownload": {
+    "description": "Generic Download button/tooltip."
+  },
+  "commonRead": "Read",
+  "@commonRead": {
+    "description": "Generic Read tooltip."
+  },
+  "bookReaderTitle": "Reading",
+  "@bookReaderTitle": {
+    "description": "Book reader app-bar fallback title."
+  },
+  "bookSearchHint": "Search titles and authors",
+  "@bookSearchHint": {
+    "description": "Knowledge book-list search placeholder."
+  },
+  "bookNoMatch": "No books match",
+  "@bookNoMatch": {
+    "description": "Knowledge book-list empty state."
+  },
+  "bookDownloadConfirmTitle": "Download book?",
+  "@bookDownloadConfirmTitle": {
+    "description": "Book download confirm dialog title."
+  },
+  "bookDownloadConfirmBody": "\"{title}\" is {size}. It will be saved to this device for offline reading.",
+  "@bookDownloadConfirmBody": {
+    "description": "Book download confirm dialog body.",
+    "placeholders": {
+      "title": {},
+      "size": {}
+    }
+  },
+  "surahOpenInReader": "Open in reader",
+  "@surahOpenInReader": {
+    "description": "Surah screen: open the paged reader tooltip."
+  },
+  "duaUnknownGroup": "Unknown group",
+  "@duaUnknownGroup": {
+    "description": "Dua group screen fallback title."
+  },
+  "hadithSearchHint": "Search by hadith number or keyword",
+  "@hadithSearchHint": {
+    "description": "Hadith chapter detail search placeholder."
+  },
+  "hadithNoMatch": "No matching hadith",
+  "@hadithNoMatch": {
+    "description": "Hadith chapter detail empty state."
+  },
+  "duasDailyAdhkar": "Daily Adhkar",
+  "@duasDailyAdhkar": {
+    "description": "Duas tab section header."
+  },
+  "duasSearchHint": "Search occasions (e.g. \"travel\", \"sleep\")",
+  "@duasSearchHint": {
+    "description": "Duas tab search placeholder."
+  },
+  "duasEssential": "Essential",
+  "@duasEssential": {
+    "description": "Duas tab section header for the essential shelf."
+  },
+  "duasByCircumstance": "By circumstance",
+  "@duasByCircumstance": {
+    "description": "Duas tab section header grouping occasions."
+  },
+  "duasNoMatch": "No matching occasions",
+  "@duasNoMatch": {
+    "description": "Duas tab search empty state."
+  },
+  "duasCompletedToday": "Completed today",
+  "@duasCompletedToday": {
+    "description": "Adhkar card status, done."
+  },
+  "duasNotDoneToday": "Not done yet today",
+  "@duasNotDoneToday": {
+    "description": "Adhkar card status, pending."
+  },
+  "duasViewMorning": "View morning adhkar",
+  "@duasViewMorning": {
+    "description": "Link to switch to morning adhkar."
+  },
+  "duasViewEvening": "View evening adhkar",
+  "@duasViewEvening": {
+    "description": "Link to switch to evening adhkar."
+  },
+  "hadithSearchCollections": "Search collections by book or title",
+  "@hadithSearchCollections": {
+    "description": "Hadith shelf search placeholder."
+  },
+  "hadithCount": "{count} hadiths",
+  "@hadithCount": {
+    "description": "Count pill on a hadith collection card.",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "hadithNawawiDesc": "Essential compilation covering core principles of Islam",
+  "@hadithNawawiDesc": {
+    "description": "Nawawi 40 collection card subtitle."
+  },
+  "hadithStatusDownloaded": "Downloaded — tap to open",
+  "@hadithStatusDownloaded": {
+    "description": "Hadith collection download status."
+  },
+  "hadithStatusFailed": "Download failed — tap to retry",
+  "@hadithStatusFailed": {
+    "description": "Hadith collection download status."
+  },
+  "hadithStatusNotDownloaded": "Not downloaded",
+  "@hadithStatusNotDownloaded": {
+    "description": "Hadith collection download status."
+  },
+  "hadithCollectionDetails": "Collection details",
+  "@hadithCollectionDetails": {
+    "description": "Hadith collection details tooltip."
+  },
+  "hadithListSearch": "Search hadith",
+  "@hadithListSearch": {
+    "description": "Hadith list search placeholder."
+  },
+  "commonAll": "All",
+  "@commonAll": {
+    "description": "Generic All filter chip."
+  },
+  "commonBookmarked": "Bookmarked",
+  "@commonBookmarked": {
+    "description": "Bookmarked filter chip."
+  },
+  "hadithListNoMatch": "No hadith match",
+  "@hadithListNoMatch": {
+    "description": "Hadith list empty state."
+  },
+  "tasbihMultiStage": "Multi-stage remembrance",
+  "@tasbihMultiStage": {
+    "description": "Tasbih preset section header."
+  },
+  "tasbihIndividualPresets": "Individual dhikr presets",
+  "@tasbihIndividualPresets": {
+    "description": "Tasbih preset section header."
+  },
+  "tasbihTapAnywhere": "Tap anywhere",
+  "@tasbihTapAnywhere": {
+    "description": "Tasbih counter hint."
+  },
+  "tasbihChooseAnother": "Choose another preset",
+  "@tasbihChooseAnother": {
+    "description": "Tasbih counter: change preset link."
+  },
+  "tasbihComplete": "Complete — {done} / {total}",
+  "@tasbihComplete": {
+    "description": "Tasbih completed count.",
+    "placeholders": {
+      "done": {},
+      "total": {}
+    }
+  },
+  "qiblaSetCity": "Set your city to calculate the Qibla direction — the same location used for prayer times.",
+  "@qiblaSetCity": {
+    "description": "Qibla empty state."
+  },
+  "qiblaBasedOn": "Based on {city} — a city-level estimate, not exact GPS.",
+  "@qiblaBasedOn": {
+    "description": "Qibla accuracy disclaimer.",
+    "placeholders": {
+      "city": {}
+    }
+  },
+  "qiblaFromNorth": "{degrees}° from North",
+  "@qiblaFromNorth": {
+    "description": "Qibla bearing readout.",
+    "placeholders": {
+      "degrees": {}
+    }
+  },
+  "qiblaReadingCompass": "Reading compass…",
+  "@qiblaReadingCompass": {
+    "description": "Qibla live-compass loading."
+  },
+  "qiblaFacing": "Facing {heading}° — Qibla is {qibla}°",
+  "@qiblaFacing": {
+    "description": "Qibla live heading vs bearing.",
+    "placeholders": {
+      "heading": {},
+      "qibla": {}
+    }
+  },
+  "qiblaNorth": "N",
+  "@qiblaNorth": {
+    "description": "Compass north abbreviation."
+  },
+  "asmaSearchHint": "Search by name or meaning",
+  "@asmaSearchHint": {
+    "description": "99 Names search placeholder."
+  },
+  "asmaNoMatch": "No matching name",
+  "@asmaNoMatch": {
+    "description": "99 Names empty state."
+  },
+  "adhkarAllDone": "All done! 🎉",
+  "@adhkarAllDone": {
+    "description": "Adhkar reader completion."
+  },
+  "adhkarMarkCompleted": "Mark as completed",
+  "@adhkarMarkCompleted": {
+    "description": "Adhkar reader complete button."
+  },
+  "adhkarReadAgain": "Read again",
+  "@adhkarReadAgain": {
+    "description": "Adhkar reader restart button."
+  },
+  "progressCurrentStreak": "Current streak",
+  "@progressCurrentStreak": {
+    "description": "Progress stat tile."
+  },
+  "progressLongestStreak": "Longest streak",
+  "@progressLongestStreak": {
+    "description": "Progress stat tile."
+  },
+  "progressDaysConsistent": "Days consistent",
+  "@progressDaysConsistent": {
+    "description": "Progress stat tile."
+  },
+  "progressAyahs": "Ayahs",
+  "@progressAyahs": {
+    "description": "Progress stat tile: memorized ayahs."
+  },
+  "progressHadith": "Hadith",
+  "@progressHadith": {
+    "description": "Progress stat tile: hadith learned."
+  },
+  "progressDuas": "Duas",
+  "@progressDuas": {
+    "description": "Progress stat tile: duas learned."
+  },
+  "progressReviewAccuracy": "Review accuracy",
+  "@progressReviewAccuracy": {
+    "description": "Progress stat label."
+  },
+  "progressNoReviews": "No reviews yet",
+  "@progressNoReviews": {
+    "description": "Progress review-accuracy empty state."
+  },
+  "progressEstimatedCompletion": "Estimated completion",
+  "@progressEstimatedCompletion": {
+    "description": "Progress estimate label."
+  },
+  "progressNoPaceData": "Not enough pace data yet",
+  "@progressNoPaceData": {
+    "description": "Progress estimate empty state."
+  },
+  "achievementsQuranicJourney": "Quranic journey",
+  "@achievementsQuranicJourney": {
+    "description": "Achievements category."
+  },
+  "achievementsPathOfHadith": "Path of hadith",
+  "@achievementsPathOfHadith": {
+    "description": "Achievements category."
+  },
+  "achievementsDhikrDevotion": "Dhikr & devotion",
+  "@achievementsDhikrDevotion": {
+    "description": "Achievements category."
+  },
+  "achievementsConsistency": "Consistency",
+  "@achievementsConsistency": {
+    "description": "Achievements category."
+  },
+  "achievementsUnlocked": "Unlocked",
+  "@achievementsUnlocked": {
+    "description": "Achievements progress header (N of M unlocked)."
+  },
+  "knowledgePublishedBy": "Books published by IslamHouse, downloaded on demand.",
+  "@knowledgePublishedBy": {
+    "description": "Knowledge Library subtitle."
+  },
+  "knowledgeNoBooks": "No books in this language yet.",
+  "@knowledgeNoBooks": {
+    "description": "Knowledge Library empty state for a language."
+  },
+  "libraryQuranAudio": "Quran audio",
+  "@libraryQuranAudio": {
+    "description": "Content Library section header."
+  },
+  "libraryRecitationDownloads": "Recitation audio downloads",
+  "@libraryRecitationDownloads": {
+    "description": "Content Library Quran-audio card."
+  },
+  "libraryQuranTranslations": "Quran translations",
+  "@libraryQuranTranslations": {
+    "description": "Content Library section header."
+  },
+  "librarySearchLanguages": "Search languages",
+  "@librarySearchLanguages": {
+    "description": "Content Library translation search placeholder."
+  },
+  "libraryHadithCollections": "Hadith collections",
+  "@libraryHadithCollections": {
+    "description": "Content Library section header."
+  },
+  "libraryDownloaded": "Downloaded",
+  "@libraryDownloaded": {
+    "description": "Content Library item status: complete."
+  },
+  "libraryDownloadFailed": "Download failed — tap to retry",
+  "@libraryDownloadFailed": {
+    "description": "Content Library item status: failed."
+  },
+  "libraryNotDownloaded": "Not downloaded",
+  "@libraryNotDownloaded": {
+    "description": "Content Library item status: not downloaded."
+  },
+  "almanhajComingSoon": "A structured Islamic-studies platform — coming soon, in shā’ Allah. It will offer sequenced courses grounded in the Qur’an and Sunnah upon the understanding of the Salaf: guided study tracks, vetted texts and audio, and teacher commentary — all in the same neutral, aqeedah-safe spirit as Wird.",
+  "@almanhajComingSoon": {
+    "description": "Al-Manhaj coming-soon description."
+  },
+  "almanhajOfflineNote": "Wird itself stays fully offline and account-free — no sign-in, ever.",
+  "@almanhajOfflineNote": {
+    "description": "Al-Manhaj offline reassurance."
+  },
+  "almanhajSupportTitle": "Support this project",
+  "@almanhajSupportTitle": {
+    "description": "Al-Manhaj support card title."
+  },
+  "almanhajSupportBody": "Wird has no account, no ads, and no server — it stays free. If it has been useful, you can support development here:",
+  "@almanhajSupportBody": {
+    "description": "Al-Manhaj support card body."
+  },
+  "knowledgeBooksCount": "{count} books",
+  "@knowledgeBooksCount": {
+    "description": "Knowledge Library discipline card: book count.",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "commonCopy": "Copy",
+  "@commonCopy": {
+    "description": "Generic Copy action."
+  },
+  "commonShare": "Share",
+  "@commonShare": {
+    "description": "Generic Share action."
+  },
+  "commonClear": "Clear",
+  "@commonClear": {
+    "description": "Generic Clear action."
+  },
+  "commonSurahWord": "Surah",
+  "@commonSurahWord": {
+    "description": "The word 'Surah' as a standalone label."
+  },
+  "sessionNothingToDo": "Nothing to do right now.",
+  "@sessionNothingToDo": {
+    "description": "Session screen empty state."
+  },
+  "flowReadOnceMore": "Read it once more, in full.",
+  "@flowReadOnceMore": {
+    "description": "Memorization fade step 1."
+  },
+  "flowFirstWord": "Just the first word of each line now — recall the rest.",
+  "@flowFirstWord": {
+    "description": "Memorization fade step 2."
+  },
+  "flowFullyHidden": "Fully hidden — recall it from memory.",
+  "@flowFullyHidden": {
+    "description": "Memorization fade step 3."
+  },
+  "flowListenRepeatAudio": "Listen & repeat — play the recitation, or recite it yourself and press Continue when ready.",
+  "@flowListenRepeatAudio": {
+    "description": "Talqin step, with audio."
+  },
+  "flowListenRepeatText": "Listen & repeat — read the text aloud, then Continue.",
+  "@flowListenRepeatText": {
+    "description": "Talqin step, no audio."
+  },
+  "flowPlayRecitation": "Play recitation",
+  "@flowPlayRecitation": {
+    "description": "Session play button."
+  },
+  "flowTapAfterRepeat": "Tap after each repeat",
+  "@flowTapAfterRepeat": {
+    "description": "Session repeat-counter hint."
+  },
+  "flowMeaning": "Meaning",
+  "@flowMeaning": {
+    "description": "Session meaning step header."
+  },
+  "flowChainRecall": "Chain recall — tap each line to reveal it, and recall the next one's beginning from the previous one's ending.",
+  "@flowChainRecall": {
+    "description": "Chain-recall step."
+  },
+  "flowSelfTest": "Self-test — recite it fully from memory, then reveal to check.",
+  "@flowSelfTest": {
+    "description": "Self-test step."
+  },
+  "flowReveal": "Reveal",
+  "@flowReveal": {
+    "description": "Self-test reveal button."
+  },
+  "flowNeedsWork": "Needs work",
+  "@flowNeedsWork": {
+    "description": "Self-grade: needs more practice."
+  },
+  "downloadsWebNote": "The web app streams audio — install the Android app for offline recitation.",
+  "@downloadsWebNote": {
+    "description": "Downloads screen web note."
+  },
+  "downloadsMyPlan": "My plan",
+  "@downloadsMyPlan": {
+    "description": "Downloads scope option."
+  },
+  "downloadsFullQuran": "Full Quran",
+  "@downloadsFullQuran": {
+    "description": "Downloads scope option."
+  },
+  "downloadsWifiOnly": "Wi-Fi only",
+  "@downloadsWifiOnly": {
+    "description": "Downloads Wi-Fi toggle."
+  },
+  "downloadsPaused": "Paused",
+  "@downloadsPaused": {
+    "description": "Download status: paused."
+  },
+  "downloadsFailed": "Failed — tap to retry",
+  "@downloadsFailed": {
+    "description": "Download status: failed."
+  },
+  "dataSourcesTitle": "Data sources & licenses",
+  "@dataSourcesTitle": {
+    "description": "Data sources screen title."
+  },
+  "logsTitle": "Diagnostics & logs",
+  "@logsTitle": {
+    "description": "Log viewer title."
+  },
+  "logsCopied": "Logs copied",
+  "@logsCopied": {
+    "description": "Log viewer copied toast."
+  },
+  "logsEmpty": "No logs captured yet.",
+  "@logsEmpty": {
+    "description": "Log viewer empty state."
+  },
+  "planEditTitle": "Edit Quran plan",
+  "@planEditTitle": {
+    "description": "Plan edit screen title."
+  },
+  "planSelection": "Selection",
+  "@planSelection": {
+    "description": "Plan edit section: what to memorize."
+  },
+  "planWholeQuran": "The whole Quran",
+  "@planWholeQuran": {
+    "description": "Plan scope option."
+  },
+  "planSpecificJuz": "Specific juz (para)",
+  "@planSpecificJuz": {
+    "description": "Plan scope option."
+  },
+  "planSpecificSurahs": "Specific surahs",
+  "@planSpecificSurahs": {
+    "description": "Plan scope option."
+  },
+  "planDirection": "Direction",
+  "@planDirection": {
+    "description": "Plan edit section: order."
+  },
+  "planNormalOrder": "Normal order (start to end)",
+  "@planNormalOrder": {
+    "description": "Plan order option."
+  },
+  "planReversedOrder": "Reversed order (an-Nas first)",
+  "@planReversedOrder": {
+    "description": "Plan order option."
+  },
+  "planDailyMinutes": "Daily minutes",
+  "@planDailyMinutes": {
+    "description": "Plan edit daily-minutes label."
+  },
+  "planSaveChanges": "Save changes",
+  "@planSaveChanges": {
+    "description": "Plan edit save button."
+  },
+  "commonMinutesShort": "{count} min",
+  "@commonMinutesShort": {
+    "description": "Short minutes label for chips.",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "flowRepeatedCount": "Repeated {done} of {target} times",
+  "@flowRepeatedCount": {
+    "description": "Talqin repeat counter.",
+    "placeholders": {
+      "done": {},
+      "target": {}
+    }
+  },
+  "commonStop": "Stop",
+  "@commonStop": {
+    "description": "Generic Stop button."
+  },
+  "flowGotIt": "I've got it",
+  "@flowGotIt": {
+    "description": "Self-grade: memorized well."
+  },
+  "settingsResetSure": "Are you sure?",
+  "@settingsResetSure": {
+    "description": "Reset confirm dialog title."
+  },
+  "settingsResetBody": "This cannot be undone from within the app — you would need to restore the backup manually. Reset {label} progress now?",
+  "@settingsResetBody": {
+    "description": "Reset confirm dialog body.",
+    "placeholders": {
+      "label": {}
+    }
+  },
+  "settingsPlan": "Plan",
+  "@settingsPlan": {
+    "description": "Settings section: memorization plan."
+  },
+  "settingsNoQuranSelection": "No Quran selection in your current plan.",
+  "@settingsNoQuranSelection": {
+    "description": "Settings note when plan has no Quran."
+  },
+  "settingsColour": "Colour",
+  "@settingsColour": {
+    "description": "Settings theme-colour label."
+  },
+  "settingsPrayerTimes": "Prayer times",
+  "@settingsPrayerTimes": {
+    "description": "Settings section."
+  },
+  "settingsNotifications": "Notifications",
+  "@settingsNotifications": {
+    "description": "Settings section."
+  },
+  "settingsWebNotifNote": "The web app can't reliably post reminders while it isn't open — install the Android app for daily and adhkar reminders. The Duas tab still shows which adhkar period it is right now.",
+  "@settingsWebNotifNote": {
+    "description": "Settings web notifications limitation note."
+  },
+  "settingsExportData": "Export my data",
+  "@settingsExportData": {
+    "description": "Settings backup export button."
+  },
+  "settingsBackupsMonthly": "Automatic backups run monthly on this device.",
+  "@settingsBackupsMonthly": {
+    "description": "Settings backup note when none yet."
+  },
+  "settingsResetProgress": "Reset progress",
+  "@settingsResetProgress": {
+    "description": "Settings reset section header."
+  },
+  "settingsResetEverything": "Reset everything",
+  "@settingsResetEverything": {
+    "description": "Settings reset-all button."
+  },
+  "settingsAboutDataSources": "About & data sources",
+  "@settingsAboutDataSources": {
+    "description": "Settings About row."
+  },
+  "settingsPrayerMethodAuto": "Auto (based on location)",
+  "@settingsPrayerMethodAuto": {
+    "description": "Prayer-time method option."
+  },
+  "settingsPrayerMethodOnline": "Online (AlAdhan calendar)",
+  "@settingsPrayerMethodOnline": {
+    "description": "Prayer-time method option."
+  },
+  "settingsPrayerMethodOffline": "Offline (calculated on-device)",
+  "@settingsPrayerMethodOffline": {
+    "description": "Prayer-time method option."
+  },
+  "settingsDailyReminder": "Daily reminder",
+  "@settingsDailyReminder": {
+    "description": "Settings notification toggle."
+  },
+  "settingsReminderTime": "Reminder time",
+  "@settingsReminderTime": {
+    "description": "Settings reminder-time label."
+  },
+  "settingsMorningReminder": "Morning adhkar reminder",
+  "@settingsMorningReminder": {
+    "description": "Settings notification toggle."
+  },
+  "settingsMorningReminderDesc": "A silent, ongoing reminder from Fajr until it's done",
+  "@settingsMorningReminderDesc": {
+    "description": "Morning adhkar reminder subtitle."
+  },
+  "settingsEveningReminder": "Evening adhkar reminder",
+  "@settingsEveningReminder": {
+    "description": "Settings notification toggle."
+  },
+  "settingsEveningReminderDesc": "A silent, ongoing reminder from Asr until it's done",
+  "@settingsEveningReminderDesc": {
+    "description": "Evening adhkar reminder subtitle."
+  },
+  "settingsStreakReminder": "Streak-at-risk reminder",
+  "@settingsStreakReminder": {
+    "description": "Settings notification toggle."
+  },
+  "settingsAdhanTone": "Adhan tone",
+  "@settingsAdhanTone": {
+    "description": "Settings adhan-tone label."
+  },
+  "settingsChooseAdhanTone": "Choose adhan tone",
+  "@settingsChooseAdhanTone": {
+    "description": "Adhan tone picker title."
+  },
+  "settingsPreviewAdhan": "Preview adhan",
+  "@settingsPreviewAdhan": {
+    "description": "Adhan preview button."
+  },
+  "settingsRemindAdhanFor": "Remind me with adhan for (needs a location set above):",
+  "@settingsRemindAdhanFor": {
+    "description": "Adhan per-prayer selector intro."
+  },
+  "settingsResetTitle": "Reset {label} progress?",
+  "@settingsResetTitle": {
+    "description": "Reset confirm dialog title (first).",
+    "placeholders": {
+      "label": {}
+    }
+  },
+  "settingsResetFirstBody": "This erases your {label} memorization progress and starts it over from scratch. A backup of your current data will be exported first.",
+  "@settingsResetFirstBody": {
+    "description": "Reset confirm dialog body (first).",
+    "placeholders": {
+      "label": {}
+    }
+  },
+  "settingsResetChip": "Reset {label}",
+  "@settingsResetChip": {
+    "description": "Reset-progress chip per scope.",
+    "placeholders": {
+      "label": {}
+    }
+  },
+  "settingsSource": "Source: {source}",
+  "@settingsSource": {
+    "description": "Prayer-times source indicator.",
+    "placeholders": {
+      "source": {}
+    }
+  },
+  "settingsStreakReminderDesc": "A heads-up 2 hours before your reminder if today's portion isn't done yet",
+  "@settingsStreakReminderDesc": {
+    "description": "Streak-at-risk reminder subtitle."
+  },
+  "obDisclaimerTitle": "Welcome — a quick note",
+  "@obDisclaimerTitle": {
+    "description": "Onboarding offline-disclaimer dialog title."
+  },
+  "obDisclaimerBody": "Wird is fully offline. Your progress lives on this device — you never need an account to use any part of the app.\n\nLater, you can optionally sign in with Al-Manhaj (one time) just to back up your progress to the cloud. That's the only thing an account does here.",
+  "@obDisclaimerBody": {
+    "description": "Onboarding offline-disclaimer dialog body."
+  },
+  "commonGotIt": "Got it",
+  "@commonGotIt": {
+    "description": "Generic acknowledge button."
+  },
+  "commonFinish": "Finish",
+  "@commonFinish": {
+    "description": "Generic finish button."
+  },
+  "obLanguageTitle": "Select language",
+  "@obLanguageTitle": {
+    "description": "Onboarding language step title."
+  },
+  "obLanguageSubtitle": "Choose your preferred display language for Wird.",
+  "@obLanguageSubtitle": {
+    "description": "Onboarding language step subtitle."
+  },
+  "obWelcomeTitle": "Welcome to Wird",
+  "@obWelcomeTitle": {
+    "description": "Onboarding welcome step title."
+  },
+  "obWelcomeBody": "Memorize the Quran, the 40 Hadith of an-Nawawi, and daily duas — at your own pace, fully offline.",
+  "@obWelcomeBody": {
+    "description": "Onboarding welcome body."
+  },
+  "obNameTitle": "What's your name?",
+  "@obNameTitle": {
+    "description": "Onboarding profile step title."
+  },
+  "obName": "Name",
+  "@obName": {
+    "description": "Onboarding name field label."
+  },
+  "obPickIcon": "Pick an icon",
+  "@obPickIcon": {
+    "description": "Onboarding avatar picker label."
+  },
+  "obRestoreBackup": "Restore from backup",
+  "@obRestoreBackup": {
+    "description": "Onboarding restore button."
+  },
+  "obRestoreFailed": "Restore failed: {error}",
+  "@obRestoreFailed": {
+    "description": "Onboarding restore error.",
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "obFinishError": "Could not finish setup: {error}",
+  "@obFinishError": {
+    "description": "Onboarding finish error.",
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "obScopeTitle": "What do you want to memorize?",
+  "@obScopeTitle": {
+    "description": "Onboarding scope step title."
+  },
+  "obScopeHadith": "40 Hadith of an-Nawawi",
+  "@obScopeHadith": {
+    "description": "Onboarding scope: hadith option."
+  },
+  "obScopeAlsoDuas": "Also start with morning/evening duas",
+  "@obScopeAlsoDuas": {
+    "description": "Onboarding scope: duas option."
+  },
+  "obScopeAlsoDuasDesc": "Adds the adhkar set to your memorization queue — you can add or remove individual duas any time from the Duas tab.",
+  "@obScopeAlsoDuasDesc": {
+    "description": "Onboarding duas option subtitle."
+  },
+  "obScopeChooseOne": "Choose at least one of Quran or Hadith.",
+  "@obScopeChooseOne": {
+    "description": "Onboarding scope validation."
+  },
+  "obQuranSelTitle": "Quran selection",
+  "@obQuranSelTitle": {
+    "description": "Onboarding Quran-selection step title (skip case)."
+  },
+  "obQuranSkip": "You've chosen to skip Quran memorization.",
+  "@obQuranSkip": {
+    "description": "Onboarding when Quran not chosen."
+  },
+  "obQuranHowMuch": "How much of the Quran?",
+  "@obQuranHowMuch": {
+    "description": "Onboarding Quran-scope step title."
+  },
+  "obReversedNote": "Reversed order follows the traditional \"from the back\" method: juz 30 first, shortest surahs first — great for building momentum early on.",
+  "@obReversedNote": {
+    "description": "Onboarding reversed-order explanation."
+  },
+  "obTimeTitle": "How much time per day?",
+  "@obTimeTitle": {
+    "description": "Onboarding daily-time step title."
+  },
+  "obPaceEstimate": "At this pace, you could finish your Quran selection in {duration}.",
+  "@obPaceEstimate": {
+    "description": "Onboarding pace estimate.",
+    "placeholders": {
+      "duration": {}
+    }
+  },
+  "obConsistentTitle": "Stay consistent",
+  "@obConsistentTitle": {
+    "description": "Onboarding notifications step title."
+  },
+  "obNotifWeb": "Notifications aren't available in the web app — install the Android app for reminders.",
+  "@obNotifWeb": {
+    "description": "Onboarding web-notifications note."
+  },
+  "obMorningReminderDesc": "30 minutes after Fajr",
+  "@obMorningReminderDesc": {
+    "description": "Onboarding morning adhkar reminder subtitle."
+  },
+  "obEveningReminderDesc": "30 minutes after Asr",
+  "@obEveningReminderDesc": {
+    "description": "Onboarding evening adhkar reminder subtitle."
+  },
+  "obPrayerAdhan": "Prayer-time adhan",
+  "@obPrayerAdhan": {
+    "description": "Onboarding adhan toggle."
+  },
+  "obPrayerAdhanDesc": "Play the call to prayer at each of the five prayer times (needs your location; fine-tune per prayer in Settings)",
+  "@obPrayerAdhanDesc": {
+    "description": "Onboarding adhan toggle subtitle."
+  },
+  "obAllSet": "All set",
+  "@obAllSet": {
+    "description": "Onboarding final step title."
+  },
+  "obWebAudioNote": "The web app streams recitation audio, so there's nothing to download here — install the Android app if you want it fully offline.",
+  "@obWebAudioNote": {
+    "description": "Onboarding final step web note."
+  },
+  "obDownloadTitle": "Download for offline use",
+  "@obDownloadTitle": {
+    "description": "Onboarding download step title."
+  },
+  "obDownloadDesc": "Download the recitation audio for your plan now, so everything works without an internet connection. You can always do this later from Settings → Downloads.",
+  "@obDownloadDesc": {
+    "description": "Onboarding download step body."
+  },
+  "obDownloadNow": "Download now",
+  "@obDownloadNow": {
+    "description": "Onboarding download button."
+  },
+  "obSkipForNow": "Skip for now",
+  "@obSkipForNow": {
+    "description": "Onboarding skip-download button."
+  },
+  "obAddlTranslation": "Additional translation (optional)",
+  "@obAddlTranslation": {
+    "description": "Onboarding extra-translation picker label."
+  },
+  "obAddlTranslationDesc": "Choose one more language to download alongside the bundled English translation. You can change this later.",
+  "@obAddlTranslationDesc": {
+    "description": "Onboarding extra-translation description."
+  },
+  "obSelectTranslation": "Select translation… ({label})",
+  "@obSelectTranslation": {
+    "description": "Onboarding translation picker button.",
+    "placeholders": {
+      "label": {}
+    }
+  },
+  "commonBack": "Back",
+  "@commonBack": {
+    "description": "Generic Back nav button."
+  },
+  "commonNext": "Next",
+  "@commonNext": {
+    "description": "Generic Next nav button."
+  },
+  "commonNone": "None",
+  "@commonNone": {
+    "description": "Generic 'None' option."
+  },
+  "obSelectJuz": "Select juz (para)…",
+  "@obSelectJuz": {
+    "description": "Onboarding juz picker trigger, none selected."
+  },
+  "obSelectedJuz": "Selected juz ({count}/30) — tap to edit",
+  "@obSelectedJuz": {
+    "description": "Onboarding juz picker trigger, some selected.",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "obSelectJuzTitle": "Select juz (para)",
+  "@obSelectJuzTitle": {
+    "description": "Onboarding juz picker dialog title."
+  },
+  "commonJuzN": "Juz {n}",
+  "@commonJuzN": {
+    "description": "Juz number label.",
+    "placeholders": {
+      "n": {}
+    }
+  },
+  "commonSurahN": "Surah {n}",
+  "@commonSurahN": {
+    "description": "Surah number label.",
+    "placeholders": {
+      "n": {}
+    }
+  },
+  "commonSelectAll": "Select all",
+  "@commonSelectAll": {
+    "description": "Select-all action."
+  },
+  "commonClearAll": "Clear all",
+  "@commonClearAll": {
+    "description": "Clear-all action."
+  },
+  "obDoneCount": "Done ({count})",
+  "@obDoneCount": {
+    "description": "Picker done button with selected count.",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "obSelectSurahs": "Select surahs…",
+  "@obSelectSurahs": {
+    "description": "Onboarding surah picker trigger, none selected."
+  },
+  "obSelectedSurahs": "Selected surahs ({count}/114) — tap to edit",
+  "@obSelectedSurahs": {
+    "description": "Onboarding surah picker trigger, some selected.",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "obSelectSurahsTitle": "Select surahs",
+  "@obSelectSurahsTitle": {
+    "description": "Onboarding surah picker dialog title."
+  },
+  "obSearchSurah": "Search surah name or number…",
+  "@obSearchSurah": {
+    "description": "Onboarding surah picker search."
+  },
+  "obErrorSurahs": "Error loading surahs: {error}",
+  "@obErrorSurahs": {
+    "description": "Onboarding surah picker load error.",
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "obSelectTranslationTitle": "Select translation",
+  "@obSelectTranslationTitle": {
+    "description": "Onboarding translation picker dialog title."
+  },
+  "obHadithCollections": "Hadith collections (optional)",
+  "@obHadithCollections": {
+    "description": "Onboarding hadith-collections picker label."
+  },
+  "obHadithCollectionsDesc": "The 40 Hadith of an-Nawawi is always included. Download any of these larger collections now, or later from the Hadith tab.",
+  "@obHadithCollectionsDesc": {
+    "description": "Onboarding hadith-collections description."
+  },
+  "obSelectHadith": "Select Hadith collections… ({count})",
+  "@obSelectHadith": {
+    "description": "Onboarding hadith picker trigger.",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "obSelectHadithTitle": "Select hadith collections",
+  "@obSelectHadithTitle": {
+    "description": "Onboarding hadith picker dialog title."
+  },
+  "quranSearchHint": "Search surah name or number",
+  "@quranSearchHint": {
+    "description": "Surah browser search placeholder."
+  },
+  "quranAyahsCount": "{count} ayahs",
+  "@quranAyahsCount": {
+    "description": "Surah metadata: ayah count.",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "quranMeccan": "Meccan",
+  "@quranMeccan": {
+    "description": "Surah revelation type."
+  },
+  "quranMedinan": "Medinan",
+  "@quranMedinan": {
+    "description": "Surah revelation type."
+  },
+  "aboutIntro": "Wird is an offline-first, ad-free companion for memorizing the Quran, the 40 Hadith of an-Nawawi, and daily duas — at your own pace, with no account required.",
+  "@aboutIntro": {
+    "description": "About screen intro."
+  },
+  "aboutFoundation": "Our foundation",
+  "@aboutFoundation": {
+    "description": "About screen section header."
+  },
+  "aboutFoundationBody": "Wird presents content in line with the understanding of Ahlus Sunnah wal Jama'ah, upon the manhaj (methodology) of the Salaf — free of sectarian bias, drawing only from authentic, attributed sources.",
+  "@aboutFoundationBody": {
+    "description": "About screen methodology statement."
+  },
+  "aboutLicense": "License",
+  "@aboutLicense": {
+    "description": "About screen section header."
+  },
+  "aboutLicenseBody": "Wird is free and open-source software, licensed under the GNU General Public License v3 (GPL-3.0).",
+  "@aboutLicenseBody": {
+    "description": "About screen license text."
+  },
+  "aboutDataSourcesLink": "Data sources & full licenses",
+  "@aboutDataSourcesLink": {
+    "description": "About screen link to data sources."
+  },
+  "aboutCredits": "Credits & acknowledgements",
+  "@aboutCredits": {
+    "description": "About screen credits expander."
+  },
+  "searchHint": "Search surahs and duas",
+  "@searchHint": {
+    "description": "Global search placeholder."
+  },
+  "searchTypePrompt": "Type to search surahs and duas",
+  "@searchTypePrompt": {
+    "description": "Global search empty prompt."
+  },
+  "searchSurahs": "Surahs",
+  "@searchSurahs": {
+    "description": "Global search results header."
+  },
+  "citySearchHint": "Search for a city",
+  "@citySearchHint": {
+    "description": "City picker search placeholder."
+  },
+  "cityCoordManually": "Enter coordinates manually",
+  "@cityCoordManually": {
+    "description": "City picker manual-coords option."
+  },
+  "cityEnterCoords": "Enter coordinates",
+  "@cityEnterCoords": {
+    "description": "City picker manual-coords dialog title."
+  },
+  "cityLabelOptional": "Label (optional)",
+  "@cityLabelOptional": {
+    "description": "City picker label field."
+  },
+  "cityLatitude": "Latitude",
+  "@cityLatitude": {
+    "description": "City picker latitude field."
+  },
+  "cityLongitude": "Longitude",
+  "@cityLongitude": {
+    "description": "City picker longitude field."
+  },
+  "cityCustomLocation": "Custom location",
+  "@cityCustomLocation": {
+    "description": "City picker default custom label."
+  },
+  "cityUseCoords": "Use these coordinates",
+  "@cityUseCoords": {
+    "description": "City picker confirm button."
+  },
+  "locationCouldNotDetect": "Could not detect your location.",
+  "@locationCouldNotDetect": {
+    "description": "Location section detect error."
+  },
+  "locationNoCity": "No city selected — using fixed 06:00/17:00 reminder times.",
+  "@locationNoCity": {
+    "description": "Location section no-city note."
+  },
+  "celebrationStreak": "{count}-day streak",
+  "@celebrationStreak": {
+    "description": "Celebration streak count.",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "zakahCatMonetary": "Cash & savings",
+  "@zakahCatMonetary": {
+    "description": "Zakah category."
+  },
+  "zakahCatMonetaryBlurb": "Cash, bank balances, and money owed to you",
+  "@zakahCatMonetaryBlurb": {
+    "description": "Zakah category blurb."
+  },
+  "zakahCatMetals": "Gold & silver",
+  "@zakahCatMetals": {
+    "description": "Zakah category."
+  },
+  "zakahCatMetalsBlurb": "By weight, valued at your entered price",
+  "@zakahCatMetalsBlurb": {
+    "description": "Zakah category blurb."
+  },
+  "zakahCatBusiness": "Business assets",
+  "@zakahCatBusiness": {
+    "description": "Zakah category."
+  },
+  "zakahCatBusinessBlurb": "Trade goods / inventory held for sale",
+  "@zakahCatBusinessBlurb": {
+    "description": "Zakah category blurb."
+  },
+  "zakahCatInvestments": "Investments & shares",
+  "@zakahCatInvestments": {
+    "description": "Zakah category."
+  },
+  "zakahCatInvestmentsBlurb": "Trading or long-term holdings",
+  "@zakahCatInvestmentsBlurb": {
+    "description": "Zakah category blurb."
+  },
+  "zakahCatAgriculture": "Agriculture",
+  "@zakahCatAgriculture": {
+    "description": "Zakah category."
+  },
+  "zakahCatAgricultureBlurb": "Crops & fruits (ushr, in kind)",
+  "@zakahCatAgricultureBlurb": {
+    "description": "Zakah category blurb."
+  },
+  "zakahCatLivestock": "Livestock",
+  "@zakahCatLivestock": {
+    "description": "Zakah category."
+  },
+  "zakahCatLivestockBlurb": "Free-grazing camels, cattle, sheep/goats",
+  "@zakahCatLivestockBlurb": {
+    "description": "Zakah category blurb."
+  },
+  "zakahCatRikaz": "Rikaz",
+  "@zakahCatRikaz": {
+    "description": "Zakah category."
+  },
+  "zakahCatRikazBlurb": "Buried treasure / windfall find (20%)",
+  "@zakahCatRikazBlurb": {
+    "description": "Zakah category blurb."
+  },
+  "zakahSetup": "Setup",
+  "@zakahSetup": {
+    "description": "Zakah setup section header."
+  },
+  "zakahCurrency": "Currency",
+  "@zakahCurrency": {
+    "description": "Zakah currency label."
+  },
+  "zakahNisabBasis": "Nisab basis",
+  "@zakahNisabBasis": {
+    "description": "Zakah nisab basis label."
+  },
+  "zakahSilverBasis": "Silver (595g)",
+  "@zakahSilverBasis": {
+    "description": "Zakah nisab basis: silver."
+  },
+  "zakahGoldBasis": "Gold (85g)",
+  "@zakahGoldBasis": {
+    "description": "Zakah nisab basis: gold."
+  },
+  "zakahGoldPrice": "Gold price / gram",
+  "@zakahGoldPrice": {
+    "description": "Zakah gold price field."
+  },
+  "zakahSilverPrice": "Silver price / gram",
+  "@zakahSilverPrice": {
+    "description": "Zakah silver price field."
+  },
+  "zakahWhichApply": "Which apply to you?",
+  "@zakahWhichApply": {
+    "description": "Zakah category-toggle section header."
+  },
+  "zakahReceivables": "Receivables (money owed to you)",
+  "@zakahReceivables": {
+    "description": "Zakah field."
+  },
+  "zakahDebtsDue": "Debts due now (deducted)",
+  "@zakahDebtsDue": {
+    "description": "Zakah field."
+  },
+  "zakahGoldGrams": "Gold owned (grams)",
+  "@zakahGoldGrams": {
+    "description": "Zakah field."
+  },
+  "zakahSilverGrams": "Silver owned (grams)",
+  "@zakahSilverGrams": {
+    "description": "Zakah field."
+  },
+  "zakahTradeGoods": "Trade goods value",
+  "@zakahTradeGoods": {
+    "description": "Zakah field."
+  },
+  "zakahInvestmentValue": "Zakatable investment value",
+  "@zakahInvestmentValue": {
+    "description": "Zakah field."
+  },
+  "zakahRainFed": "Rain-fed (10%)",
+  "@zakahRainFed": {
+    "description": "Zakah agriculture option."
+  },
+  "zakahIrrigated": "Irrigated (5%)",
+  "@zakahIrrigated": {
+    "description": "Zakah agriculture option."
+  },
+  "zakahHarvestWeight": "Harvest weight (kg)",
+  "@zakahHarvestWeight": {
+    "description": "Zakah agriculture field."
+  },
+  "zakahNumberAnimals": "Number of animals",
+  "@zakahNumberAnimals": {
+    "description": "Zakah livestock field."
+  },
+  "zakahFindValue": "Value of the find",
+  "@zakahFindValue": {
+    "description": "Zakah rikaz field."
+  },
+  "zakahCamels": "Camels",
+  "@zakahCamels": {
+    "description": "Zakah livestock type."
+  },
+  "zakahCattle": "Cattle",
+  "@zakahCattle": {
+    "description": "Zakah livestock type."
+  },
+  "zakahSheepGoats": "Sheep/goats",
+  "@zakahSheepGoats": {
+    "description": "Zakah livestock type."
+  },
+  "zakahZakatableWealth": "Zakatable wealth",
+  "@zakahZakatableWealth": {
+    "description": "Zakah summary row."
+  },
+  "zakahNisabThreshold": "Nisab threshold",
+  "@zakahNisabThreshold": {
+    "description": "Zakah summary row."
+  },
+  "zakahMonetaryDue": "Monetary Zakah (2.5%)",
+  "@zakahMonetaryDue": {
+    "description": "Zakah summary row."
+  },
+  "zakahBelowNisabNothing": "Below nisab — nothing due",
+  "@zakahBelowNisabNothing": {
+    "description": "Zakah summary: below nisab."
+  },
+  "zakahAgricultureBelowNisab": "Agriculture — below nisab",
+  "@zakahAgricultureBelowNisab": {
+    "description": "Zakah summary row."
+  },
+  "zakahLivestock": "Livestock",
+  "@zakahLivestock": {
+    "description": "Zakah summary row."
+  },
+  "zakahBelowNisab": "Below nisab",
+  "@zakahBelowNisab": {
+    "description": "Zakah summary: below nisab (short)."
+  },
+  "zakahLivestockDue": "Livestock due",
+  "@zakahLivestockDue": {
+    "description": "Zakah summary row."
+  },
+  "zakahRikazDue": "Rikaz (20%)",
+  "@zakahRikazDue": {
+    "description": "Zakah summary row."
+  },
+  "zakahSummary": "Summary",
+  "@zakahSummary": {
+    "description": "Zakah summary section header."
+  },
+  "zakahSelectCategories": "Select the categories above and enter your values.",
+  "@zakahSelectCategories": {
+    "description": "Zakah summary empty state."
+  },
+  "prayerFajr": "Fajr",
+  "@prayerFajr": {
+    "description": "Prayer name."
+  },
+  "prayerDhuhr": "Dhuhr",
+  "@prayerDhuhr": {
+    "description": "Prayer name."
+  },
+  "prayerAsr": "Asr",
+  "@prayerAsr": {
+    "description": "Prayer name."
+  },
+  "prayerMaghrib": "Maghrib",
+  "@prayerMaghrib": {
+    "description": "Prayer name."
+  },
+  "prayerIsha": "Isha",
+  "@prayerIsha": {
+    "description": "Prayer name."
+  },
+  "settingsPreviewError": "Could not play preview: {error}",
+  "@settingsPreviewError": {
+    "description": "Adhan preview error.",
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "settingsExportError": "Export failed: {error}",
+  "@settingsExportError": {
+    "description": "Backup export error.",
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "settingsResetDone": "{label} progress reset.",
+  "@settingsResetDone": {
+    "description": "Reset confirmation.",
+    "placeholders": {
+      "label": {}
+    }
+  },
+  "settingsResetError": "Reset failed: {error}",
+  "@settingsResetError": {
+    "description": "Reset error.",
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "themeSystem": "System",
+  "@themeSystem": {
+    "description": "Theme mode: follow system."
+  },
+  "themeLight": "Light",
+  "@themeLight": {
+    "description": "Theme mode: light."
+  },
+  "themeDark": "Dark",
+  "@themeDark": {
+    "description": "Theme mode: dark."
+  },
+  "themeAmoled": "AMOLED",
+  "@themeAmoled": {
+    "description": "Theme mode: AMOLED black."
+  },
+  "obPreparingPlan": "Preparing your plan…",
+  "@obPreparingPlan": {
+    "description": "Shown under the Finish button while the plan is being generated."
+  },
+  "duaGroupDailyRoutine": "Daily routine",
+  "@duaGroupDailyRoutine": {
+    "description": "Dua circumstance-group title."
+  },
+  "duaGroupPrayer": "Prayer & the mosque",
+  "@duaGroupPrayer": {
+    "description": "Dua circumstance-group title."
+  },
+  "duaGroupMorningEveningSleep": "Morning, evening & sleep",
+  "@duaGroupMorningEveningSleep": {
+    "description": "Dua circumstance-group title."
+  },
+  "duaGroupDistressProtection": "Distress & protection",
+  "@duaGroupDistressProtection": {
+    "description": "Dua circumstance-group title."
+  },
+  "duaGroupFoodSocialFamily": "Food, family & social life",
+  "@duaGroupFoodSocialFamily": {
+    "description": "Dua circumstance-group title."
+  },
+  "duaGroupIllnessDeath": "Illness & bereavement",
+  "@duaGroupIllnessDeath": {
+    "description": "Dua circumstance-group title."
+  },
+  "duaGroupTravelHajj": "Travel, Hajj & Umrah",
+  "@duaGroupTravelHajj": {
+    "description": "Dua circumstance-group title."
+  },
+  "duaGroupRemembranceNature": "Remembrance & nature",
+  "@duaGroupRemembranceNature": {
+    "description": "Dua circumstance-group title."
+  },
+  "duasOccasionCount": "{count, plural, =1{1 occasion} other{{count} occasions}}",
+  "@duasOccasionCount": {
+    "description": "Count of occasions inside a dua group.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "duasDuaCount": "{count, plural, =1{1 dua} other{{count} duas}}",
+  "@duasDuaCount": {
+    "description": "Count of duas inside a category.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "hadithCollectionNawawi": "Nawawi",
+  "@hadithCollectionNawawi": {
+    "description": "Nawawi collection label (gold) in the hadith detail app-bar."
+  },
+  "hadithNumbered": "Hadith {number}",
+  "@hadithNumbered": {
+    "description": "Hadith detail app-bar, the numbered part.",
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "hadithNoteSahihayn": "One of the two most authentic books after the Qur'an. Its hadith are accepted as authentic (ṣaḥīḥ).",
+  "@hadithNoteSahihayn": {
+    "description": "Authenticity note for Bukhari/Muslim."
+  },
+  "hadithNoteMuwatta": "The Muwaṭṭaʾ of Imām Mālik — one of the earliest collections. Grades shown are from the noted verifier.",
+  "@hadithNoteMuwatta": {
+    "description": "Authenticity note for Malik's Muwatta."
+  },
+  "hadithNoteSunan": "A Sunan collection containing hadith of varying authenticity. Each hadith shows its grade — verify weak (ḍaʿīf) narrations before relying on them.",
+  "@hadithNoteSunan": {
+    "description": "Authenticity note for the Sunan collections."
+  },
+  "hadithNoteGeneric": "Each hadith shows its authenticity grade where the source provides one.",
+  "@hadithNoteGeneric": {
+    "description": "Fallback authenticity note."
+  },
+  "durationMin": "{count, plural, =1{1 min} other{{count} min}}",
+  "@durationMin": {
+    "description": "Duration in minutes (time chip).",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "durationHr": "{count, plural, =1{1 hr} other{{count} hr}}",
+  "@durationHr": {
+    "description": "Duration in whole hours (time chip).",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "durationHrMin": "{hours} hr {minutes} min",
+  "@durationHrMin": {
+    "description": "Duration hours + minutes (time chip).",
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "durationLessThanDay": "less than a day",
+  "@durationLessThanDay": {
+    "description": "Pace estimate, very short."
+  },
+  "durationDaysValue": "{count, plural, =1{1 day} other{{count} days}}",
+  "@durationDaysValue": {
+    "description": "Pace estimate in days.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "durationWeeksValue": "{count, plural, =1{1 week} other{{count} weeks}}",
+  "@durationWeeksValue": {
+    "description": "Pace estimate in weeks.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "durationAboutMonth": "{count, plural, =1{about a month} other{about {count} months}}",
+  "@durationAboutMonth": {
+    "description": "Pace estimate in months.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "durationYearsValue": "{count, plural, =1{1 year} other{{count} years}}",
+  "@durationYearsValue": {
+    "description": "Number of years for a pace estimate.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "durationMonthsValue": "{count, plural, =1{1 month} other{{count} months}}",
+  "@durationMonthsValue": {
+    "description": "Number of months for a pace estimate.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "durationAbout": "about {value}",
+  "@durationAbout": {
+    "description": "Pace estimate, single unit (value is a localized duration).",
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "durationAboutTwo": "about {first}, {second}",
+  "@durationAboutTwo": {
+    "description": "Pace estimate, two units (both localized durations).",
+    "placeholders": {
+      "first": {
+        "type": "String"
+      },
+      "second": {
+        "type": "String"
+      }
+    }
+  },
+  "tourStep1Title": "Five tabs, and a sixth",
+  "@tourStep1Title": {
+    "description": "First-run tour, step 1 title."
+  },
+  "tourStep1Body": "Home, Quran, Explore, Duas, and More sit on the bar below. Press and swipe the bar sideways to reveal Al-Manhaj just past the edge.",
+  "@tourStep1Body": {
+    "description": "First-run tour, step 1 body."
+  },
+  "tourStep2Title": "Keep listening anywhere",
+  "@tourStep2Title": {
+    "description": "First-run tour, step 2 title."
+  },
+  "tourStep2Body": "When you play Quran audio, a mini-player docks above the tabs so you can keep listening while you browse Duas, Explore, or anywhere else.",
+  "@tourStep2Body": {
+    "description": "First-run tour, step 2 body."
+  },
+  "tourStep3Title": "Explore is your toolbox",
+  "@tourStep3Title": {
+    "description": "First-run tour, step 3 title."
+  },
+  "tourStep3Body": "Hadith collections, the Qibla compass, the Zakah calculator, and the Tasbih counter all live in the Explore tab.",
+  "@tourStep3Body": {
+    "description": "First-run tour, step 3 body."
+  },
+  "referenceLabel": "Reference: ",
+  "@referenceLabel": {
+    "description": "Bold lead-in before hadith citations."
+  },
+  "zakahMetalPriceLabel": "Metal price per gram ({code}), entered manually",
+  "@zakahMetalPriceLabel": {
+    "description": "Zakah calculator, manual metal-price input label. {code} is the currency code.",
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "zakahGeneralNote": "Zakah is due on wealth held for one lunar year (hawl) that reaches the nisab threshold. Amounts here are estimates to help you plan — consult a trustworthy scholar for your specific situation.",
+  "@zakahGeneralNote": {
+    "description": "Zakah calculator intro/disclaimer banner."
+  },
+  "sessionTapNextWord": "Tap the next word",
+  "@sessionTapNextWord": {
+    "description": "Memorization exercise prompt."
+  },
+  "sessionFillBlank": "Fill in the blank",
+  "@sessionFillBlank": {
+    "description": "Memorization exercise prompt."
+  },
+  "sessionRecallFirstLetters": "Recall the ayah from these first letters",
+  "@sessionRecallFirstLetters": {
+    "description": "Memorization exercise prompt."
+  },
+  "sessionShowFullText": "Show full text",
+  "@sessionShowFullText": {
+    "description": "Memorization exercise action."
+  },
+  "sessionDragOrder": "Drag the ayahs into the correct order",
+  "@sessionDragOrder": {
+    "description": "Memorization exercise prompt."
+  },
+  "sessionNotQuite": "Not quite — try again",
+  "@sessionNotQuite": {
+    "description": "Memorization exercise, wrong answer."
+  },
+  "sessionCheckOrder": "Check order",
+  "@sessionCheckOrder": {
+    "description": "Memorization exercise action, verify ordering."
+  },
+  "sessionStepOf": "Step {current} of {total}",
+  "@sessionStepOf": {
+    "description": "Memorization new-material step progress.",
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "sessionReveal": "Reveal",
+  "@sessionReveal": {
+    "description": "Review flow, reveal the answer."
+  },
+  "sessionRecallThenReveal": "Recall it from memory, then reveal to check.",
+  "@sessionRecallThenReveal": {
+    "description": "Review flow instruction."
+  },
+  "gradeAgain": "Again",
+  "@gradeAgain": {
+    "description": "SM-2 review grade (hardest)."
+  },
+  "gradeHard": "Hard",
+  "@gradeHard": {
+    "description": "SM-2 review grade."
+  },
+  "gradeGood": "Good",
+  "@gradeGood": {
+    "description": "SM-2 review grade."
+  },
+  "gradeEasy": "Easy",
+  "@gradeEasy": {
+    "description": "SM-2 review grade (easiest)."
+  },
+  "sessionAchievementUnlocked": "Achievement unlocked: {names}",
+  "@sessionAchievementUnlocked": {
+    "description": "Snackbar when achievements unlock after a session.",
+    "placeholders": {
+      "names": {
+        "type": "String"
+      }
+    }
+  },
+  "commonFailedToLoad": "Failed to load: {error}",
+  "@commonFailedToLoad": {
+    "description": "Generic load-error state.",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  }
+}

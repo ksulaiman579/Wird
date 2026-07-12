@@ -1,0 +1,522 @@
+{
+  "hm-cat-1": {
+    "en": "supplications for when you wake up",
+    "ar": "أذكار الاستيقاظ من النوم"
+  },
+  "hm-cat-2": {
+    "en": "Invocation when getting dressed",
+    "ar": "دعاء لبس الثوب"
+  },
+  "hm-cat-3": {
+    "en": "Invocation when putting on new clothes",
+    "ar": "دعاء لبس الثوب الجديد"
+  },
+  "hm-cat-4": {
+    "en": "Invocations for someone who has put on new clothes",
+    "ar": "الدعاء لمن لبس ثوباً جديداً"
+  },
+  "hm-cat-5": {
+    "en": "What to say when undressing",
+    "ar": "ما يقول إذا وضع الثوب"
+  },
+  "hm-cat-6": {
+    "en": "Invocation for entering the restroom",
+    "ar": "دعاء دخول الخلاء"
+  },
+  "hm-cat-7": {
+    "en": "Invocation for leaving the restroom",
+    "ar": "دعاء الخروج من الخلاء"
+  },
+  "hm-cat-8": {
+    "en": "What to say before performing ablution",
+    "ar": "الذكر قبل الوضوء"
+  },
+  "hm-cat-9": {
+    "en": "What to say upon completing ablution",
+    "ar": "الذكر بعد الفراغ من الوضوء"
+  },
+  "hm-cat-10": {
+    "en": "What to say when leaving the home",
+    "ar": "دعاء الخروج من المنزل"
+  },
+  "hm-cat-11": {
+    "en": "What to say when entering the home",
+    "ar": "دعاء دخول المنزل"
+  },
+  "hm-cat-12": {
+    "en": "Invocation for going to the mosque",
+    "ar": "دعاء الذهاب إلى المسجد"
+  },
+  "hm-cat-13": {
+    "en": "Invocation for entering the mosque",
+    "ar": "دعاء دخول المسجد"
+  },
+  "hm-cat-14": {
+    "en": "Invocation for leaving the mosque",
+    "ar": "دعاء الخروج من المسجد"
+  },
+  "hm-cat-15": {
+    "en": "What to say upon hearing the Athan (call to prayer)",
+    "ar": "ما يقول عند سماع الأذان"
+  },
+  "hm-cat-16": {
+    "en": "Invocations for the beginning of the prayer",
+    "ar": "دعاء الاستفتاح"
+  },
+  "hm-cat-17": {
+    "en": "Invocations during Ruki' (bowing in prayer)",
+    "ar": "دعاء الركوع"
+  },
+  "hm-cat-18": {
+    "en": "Invocations for rising from the Ruki'",
+    "ar": "دعاء الرفع من الركوع"
+  },
+  "hm-cat-19": {
+    "en": "Invocations during Sujood",
+    "ar": "دعاء السجود"
+  },
+  "hm-cat-20": {
+    "en": "Invocations for sitting between two prostrations",
+    "ar": "دعاء الجلوس بين السجدتين"
+  },
+  "hm-cat-21": {
+    "en": "Supplications for prostrating due to recitation of the Qur'an",
+    "ar": "دعاء سجود التلاوة"
+  },
+  "hm-cat-22": {
+    "en": "Invocation for At-Tashahhud (sitting in prayer)",
+    "ar": "التشهد"
+  },
+  "hm-cat-23": {
+    "en": "How to recite blessings on the Prophet after the Tashahhud",
+    "ar": "الصلاة على النبي بعد التشهد"
+  },
+  "hm-cat-24": {
+    "en": "Invocations after the final Tash-ahhud and before ending the prayer",
+    "ar": "الدعاء بعد التشهد الأخير قبل السلام"
+  },
+  "hm-cat-25": {
+    "en": "What to say after completing the prayer",
+    "ar": "أذكار بعد السلام من الصلاة"
+  },
+  "hm-cat-26": {
+    "en": "Istikharah (seeking Allah's Counsel)",
+    "ar": "دعاء صلاة الاستخارة"
+  },
+  "hm-cat-27": {
+    "en": "Words of remembrance for morning and evening",
+    "ar": "أذكار الصباح والمساء"
+  },
+  "hm-cat-28": {
+    "en": "What to say before sleeping",
+    "ar": "أذكار النوم"
+  },
+  "hm-cat-29": {
+    "en": "Invocation to say if you stir in the night",
+    "ar": "الذكر عند التقلب في النوم ليلاً"
+  },
+  "hm-cat-30": {
+    "en": "What to say if you are afraid to go to sleep or feel lonely and depressed",
+    "ar": "دعاء الفزع في النوم ومن بلي بالوحشة"
+  },
+  "hm-cat-31": {
+    "en": "What to do if you have a bad dream or nightmare",
+    "ar": "ما يفعل من رأى الرؤيا أو الحلم"
+  },
+  "hm-cat-32": {
+    "en": "Invocations for Qunut in the Witr prayer",
+    "ar": "دعاء القنوت في الوتر"
+  },
+  "hm-cat-33": {
+    "en": "What to say immediately following the Witr prayer",
+    "ar": "الذكر عقب السلام من الوتر"
+  },
+  "hm-cat-34": {
+    "en": "Invocations in times of worry and grief",
+    "ar": "دعاء الهم والحزن"
+  },
+  "hm-cat-35": {
+    "en": "Invocations for anguish",
+    "ar": "دعاء الكرب"
+  },
+  "hm-cat-36": {
+    "en": "Invocations for when you meet an adversary or a powerful ruler.",
+    "ar": "دعاء لقاء العدو وذي السلطان"
+  },
+  "hm-cat-37": {
+    "en": "Invocations against the oppression of rulers",
+    "ar": "دعاء من خاف ظلم السلطان"
+  },
+  "hm-cat-38": {
+    "en": "Invocation against an enemy",
+    "ar": "الدعاء على العدو"
+  },
+  "hm-cat-39": {
+    "en": "What to say if you fear people may harm you",
+    "ar": "ما يقول من خاف قوماً"
+  },
+  "hm-cat-40": {
+    "en": "Invocations for if you are stricken by in your faith",
+    "ar": "دعاء من أصابه شك في الإيمان"
+  },
+  "hm-cat-41": {
+    "en": "Invocations for the setting of a debt",
+    "ar": "دعاء قضاء الدين"
+  },
+  "hm-cat-42": {
+    "en": "Invocation against the distractions of Satan during the prayer and recitation of the Quran",
+    "ar": "دعاء الوسوسة في الصلاة والقراءة"
+  },
+  "hm-cat-43": {
+    "en": "Invocation for when you find something becoming difficult for you",
+    "ar": "دعاء من استصعب عليه أمر"
+  },
+  "hm-cat-44": {
+    "en": "What to say and do if you commit a sin",
+    "ar": "ما يقول ويفعل من أذنب ذنباً"
+  },
+  "hm-cat-45": {
+    "en": "Invocations against the Devil and his promptings",
+    "ar": "دعاء طرد الشيطان ووسوسته"
+  },
+  "hm-cat-46": {
+    "en": "Invocation for when something you dislike happens, or for when you fail to achieve what you attempt to do",
+    "ar": "الدعاء عند وقوع ما يكره أو العجز عن تحقيق ما يريد"
+  },
+  "hm-cat-47": {
+    "en": "Congratulations for new parents and how they should respond",
+    "ar": "تهنئة المولود له وجوابه"
+  },
+  "hm-cat-48": {
+    "en": "How to seek Allah's protection for children",
+    "ar": "ما يعوذ به الأولاد"
+  },
+  "hm-cat-49": {
+    "en": "Invocations for visiting the sick",
+    "ar": "دعاء زيارة المريض"
+  },
+  "hm-cat-50": {
+    "en": "The reward for visiting the sick",
+    "ar": "فضل عيادة المريض"
+  },
+  "hm-cat-51": {
+    "en": "Invocations of the terminal ill",
+    "ar": "دعاء المريض الذي يئس من حياته"
+  },
+  "hm-cat-52": {
+    "en": "What to encourage the dying person to say",
+    "ar": "تلقين المحتضر"
+  },
+  "hm-cat-53": {
+    "en": "Invocation for when tragedy strikes",
+    "ar": "دعاء من أصيب بمصيبة"
+  },
+  "hm-cat-54": {
+    "en": "Invocation for closing the eyes of the dead",
+    "ar": "دعاء إغماض الميت"
+  },
+  "hm-cat-55": {
+    "en": "Invocations for the dead in the Funeral prayer",
+    "ar": "الدعاء للميت في الصلاة عليه"
+  },
+  "hm-cat-56": {
+    "en": "Invocations for a child in the Funeral prayer",
+    "ar": "الدعاء للطفل في صلاة الجنازة"
+  },
+  "hm-cat-57": {
+    "en": "Invocation for the bereaved",
+    "ar": "دعاء التعزية"
+  },
+  "hm-cat-58": {
+    "en": "Invocation to be recited when placing the dead in his grave",
+    "ar": "الدعاء عند إدخال الميت القبر"
+  },
+  "hm-cat-59": {
+    "en": "Invocation to be recited after burying the dead",
+    "ar": "الدعاء بعد دفن الميت"
+  },
+  "hm-cat-60": {
+    "en": "Invocation for visiting the graves",
+    "ar": "دعاء زيارة القبور"
+  },
+  "hm-cat-61": {
+    "en": "Invocations for when the wind blows",
+    "ar": "دعاء هبوب الريح"
+  },
+  "hm-cat-62": {
+    "en": "Invocation for when it thunder",
+    "ar": "دعاء سماع الرعد"
+  },
+  "hm-cat-63": {
+    "en": "Some invocations for rain",
+    "ar": "من أدعية الاستسقاء"
+  },
+  "hm-cat-64": {
+    "en": "Invocation for when it rains",
+    "ar": "دعاء نزول المطر"
+  },
+  "hm-cat-65": {
+    "en": "Supplication after it rains",
+    "ar": "الذكر بعد نزول المطر"
+  },
+  "hm-cat-66": {
+    "en": "Invocation for the withholding of the rain",
+    "ar": "دعاء الاستصحاء (طلب توقف المطر)"
+  },
+  "hm-cat-67": {
+    "en": "Invocation for sighting the new moon",
+    "ar": "دعاء رؤية الهلال"
+  },
+  "hm-cat-68": {
+    "en": "Invocations for breaking the fast",
+    "ar": "دعاء الإفطار للصائم"
+  },
+  "hm-cat-69": {
+    "en": "Invocations before eating",
+    "ar": "الدعاء قبل الطعام"
+  },
+  "hm-cat-70": {
+    "en": "Invocations after eating",
+    "ar": "الدعاء بعد الطعام"
+  },
+  "hm-cat-71": {
+    "en": "A dinner guest's invocation for his host",
+    "ar": "دعاء الضيف لصاحب الطعام"
+  },
+  "hm-cat-72": {
+    "en": "Invocation for someone who gives you drink or offers it to you",
+    "ar": "الدعاء لمن سقاك أو أراد ذلك"
+  },
+  "hm-cat-73": {
+    "en": "Invocation for a family who invites you to break your fast with them",
+    "ar": "الدعاء لأهل الطعام إذا دعوك للإفطار عندهم"
+  },
+  "hm-cat-75": {
+    "en": "What to say when you are fasting and someone is rude to you",
+    "ar": "ما يقول الصائم إذا سابّه أحد"
+  },
+  "hm-cat-76": {
+    "en": "Invocation for when you see the first dates of the season",
+    "ar": "دعاء رؤية باكورة الثمر"
+  },
+  "hm-cat-77": {
+    "en": "Invocation for sneezing",
+    "ar": "دعاء العطاس"
+  },
+  "hm-cat-78": {
+    "en": "What to say to the disbeliever if he sneezes and praises Allah",
+    "ar": "ما يقال للكافر إذا عطس فحمد الله"
+  },
+  "hm-cat-79": {
+    "en": "Invocation for the groom",
+    "ar": "دعاء المتزوج"
+  },
+  "hm-cat-80": {
+    "en": "The groom’s supplication on the wedding night or when buying an animal",
+    "ar": "دعاء المتزوج ليلة الزفاف وعند شراء الدابة"
+  },
+  "hm-cat-81": {
+    "en": "Invocation to be recited before intercourse",
+    "ar": "الدعاء قبل الجماع"
+  },
+  "hm-cat-82": {
+    "en": "Invocation for anger",
+    "ar": "دعاء الغضب"
+  },
+  "hm-cat-83": {
+    "en": "What to say if you see someone afflicted by misfortune",
+    "ar": "دعاء من رأى مبتلى"
+  },
+  "hm-cat-84": {
+    "en": "What to say while sitting in an assembly",
+    "ar": "ما يقال في المجلس"
+  },
+  "hm-cat-85": {
+    "en": "The Expiation of Assembly - Kaffaratul-Majlis",
+    "ar": "كفارة المجلس"
+  },
+  "hm-cat-86": {
+    "en": "vocation for someone who says: May Allah forgive you",
+    "ar": "الدعاء لمن قال: غفر الله لك"
+  },
+  "hm-cat-87": {
+    "en": "Invocation for someone who does good to you",
+    "ar": "الدعاء لمن صنع إليك معروفاً"
+  },
+  "hm-cat-88": {
+    "en": "Invocation for Allah's protection from the False Messiah",
+    "ar": "دعاء الاستعاذة من المسيح الدجال"
+  },
+  "hm-cat-89": {
+    "en": "Invocation for someone who tells you I love you for the sake of Allah",
+    "ar": "الدعاء لمن قال: إني أحبك في الله"
+  },
+  "hm-cat-90": {
+    "en": "Invocation for someone who offers you a share of his wealth",
+    "ar": "الدعاء لمن عرض عليك ماله"
+  },
+  "hm-cat-91": {
+    "en": "Invocation (upon receipt of the loan) for someone who lends you money",
+    "ar": "الدعاء عند القرض لمن أقرضك"
+  },
+  "hm-cat-92": {
+    "en": "Invocation for fear of Shirk",
+    "ar": "دعاء الخوف من الشرك"
+  },
+  "hm-cat-93": {
+    "en": "Invocation for someone who tells you: May Allah bless you",
+    "ar": "الدعاء لمن قال: بارك الله فيك"
+  },
+  "hm-cat-94": {
+    "en": "Invocation against evil portent",
+    "ar": "دعاء كراهية الطيرة"
+  },
+  "hm-cat-95": {
+    "en": "Invocation for riding in a vehicle or on an animal",
+    "ar": "دعاء الركوب"
+  },
+  "hm-cat-96": {
+    "en": "Invocation for traveling",
+    "ar": "دعاء السفر"
+  },
+  "hm-cat-97": {
+    "en": "Invocation for entering a town or city",
+    "ar": "دعاء دخول القرية أو البلدة"
+  },
+  "hm-cat-98": {
+    "en": "Invocation for entering a market",
+    "ar": "دعاء دخول السوق"
+  },
+  "hm-cat-99": {
+    "en": "Invocation for when your vehicle or mount begins to fail",
+    "ar": "الدعاء إذا تعس المركوب"
+  },
+  "hm-cat-100": {
+    "en": "The traveler's invocation for the one he leaves behind",
+    "ar": "دعاء المسافر للمقيم"
+  },
+  "hm-cat-101": {
+    "en": "The resident's invocations for the traveler",
+    "ar": "دعاء المقيم للمسافر"
+  },
+  "hm-cat-102": {
+    "en": "Glorifying and magnifying Allah on the journey",
+    "ar": "التكبير والتسبيح في سير السفر"
+  },
+  "hm-cat-103": {
+    "en": "The traveler's invocation at dawn",
+    "ar": "دعاء المسافر إذا أسحر"
+  },
+  "hm-cat-104": {
+    "en": "Invocation for a layover (stopping along the way) on the journey",
+    "ar": "الدعاء إذا نزل منزلاً في السفر"
+  },
+  "hm-cat-105": {
+    "en": "What to say upon returning from a Journey",
+    "ar": "ذكر الرجوع من السفر"
+  },
+  "hm-cat-106": {
+    "en": "What to say if something happens to please you or to displease you",
+    "ar": "ما يقول من سرّه أو ساءه أمر"
+  },
+  "hm-cat-107": {
+    "en": "The excellence of asking for Allah's blessings upon the Prophet pbuh",
+    "ar": "فضل الصلاة على النبي صلى الله عليه وسلم"
+  },
+  "hm-cat-108": {
+    "en": "spreading the greetings of Salam (Peace)",
+    "ar": "إفشاء السلام"
+  },
+  "hm-cat-109": {
+    "en": "How to reply to a disbeliever if he says Salam to you",
+    "ar": "كيف يرد السلام على الكافر إذا سلّم"
+  },
+  "hm-cat-110": {
+    "en": "Invocation upon hearing the cock's crow or the bray of a donkey",
+    "ar": "دعاء سماع صياح الديك ونهيق الحمار"
+  },
+  "hm-cat-111": {
+    "en": "Invocation upon hearing a dog barking in the night",
+    "ar": "دعاء سماع نباح الكلاب بالليل"
+  },
+  "hm-cat-112": {
+    "en": "Invocation for someone you have spoken ill to",
+    "ar": "الدعاء لمن سببته"
+  },
+  "hm-cat-113": {
+    "en": "How a Muslim should praise another Muslim",
+    "ar": "كيف يثني المسلم على المسلم"
+  },
+  "hm-cat-114": {
+    "en": "What a Muslim should say when he is praised",
+    "ar": "ما يقول المسلم إذا أُثني عليه"
+  },
+  "hm-cat-115": {
+    "en": "The pilgrim's announcement of his arrival for Hajj or Umrah",
+    "ar": "التلبية في الحج والعمرة"
+  },
+  "hm-cat-116": {
+    "en": "Saying Allahu Akbar when passing the Black Stone",
+    "ar": "التكبير عند استلام الحجر الأسود"
+  },
+  "hm-cat-117": {
+    "en": "Invocation to be recited between the Yemenite Corner and the Black Stone",
+    "ar": "الدعاء بين الركن اليماني والحجر الأسود"
+  },
+  "hm-cat-118": {
+    "en": "Invocation to be recited while standing at Safa and Marwah",
+    "ar": "الدعاء عند الوقوف على الصفا والمروة"
+  },
+  "hm-cat-119": {
+    "en": "Invocation to be recited on the Day of Arafat",
+    "ar": "دعاء يوم عرفة"
+  },
+  "hm-cat-120": {
+    "en": "Supplication to be recited at the sacred area of Muzdalifah",
+    "ar": "الدعاء عند المشعر الحرام بمزدلفة"
+  },
+  "hm-cat-121": {
+    "en": "Saying Allahu Akbar while stoning the three pillars at Mina",
+    "ar": "التكبير عند رمي الجمرات الثلاث"
+  },
+  "hm-cat-122": {
+    "en": "What to say when surprised or startled",
+    "ar": "ما يقول عند التعجب والأمر السار"
+  },
+  "hm-cat-123": {
+    "en": "What to say when something that pleases you happens",
+    "ar": "ما يفعل من أتاه أمر يسره"
+  },
+  "hm-cat-124": {
+    "en": "What to say when you feel a pain in your body",
+    "ar": "ما يقول ويفعل من أحس وجعاً في جسده"
+  },
+  "hm-cat-125": {
+    "en": "What to say when you fear you may afflict something with the evil eye",
+    "ar": "ما يقول من خشي أن يصيب شيئاً بعينه"
+  },
+  "hm-cat-126": {
+    "en": "What to say when you feel frightened",
+    "ar": "دعاء من استشعر الخوف"
+  },
+  "hm-cat-127": {
+    "en": "What to say when slaughtering or sacrificing an animal",
+    "ar": "ما يقول عند الذبح أو النحر"
+  },
+  "hm-cat-128": {
+    "en": "What to say to foil the devil's plots",
+    "ar": "ما يقال لرد كيد الشياطين"
+  },
+  "hm-cat-129": {
+    "en": "Repentance and seeking forgiveness",
+    "ar": "التوبة والاستغفار"
+  },
+  "hm-cat-130": {
+    "en": "The excellence of remembering Allah",
+    "ar": "فضل ذكر الله"
+  },
+  "hm-cat-131": {
+    "en": "How the Prophet glorified Allah",
+    "ar": "كيف كان النبي صلى الله عليه وسلم يسبح"
+  }
+}

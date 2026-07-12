@@ -1,0 +1,39 @@
+#Bug tracker and feature enahncements#
+1)	During on-boarding, listing of the juz needs to be an infinite scrollable list, with the user selecting whichever juz, choosing the juz option should open a small box with this scrollable list and a small check box next to the juz names.
+1.1) The same should be for Specific surah options.
+1.2) The design should align with the existing UI.
+1.3) Time per day should go upto 2hr in increments of 5 mins.
+1.4) Additional translation during on-boarding, should be the same as point 1, an small box, keeping the search bar and an scrollable list with checkboxes.
+1.5) Same for hadith collection list should be done as 1.4.
+1.6) There needs to be a back button or swipe action to go back, during on-boarding, if user wants to change a selection.
+1.7) We need to add a  language picker in the initial screen itself , before on-boarding flow starts, so the UI is in the language the user wants, match the language list to the existing Qur'an languages within the app.
+
+2) The background of the app , should resemble a parchment , we need to add the texture of parchments.
+2.1) The exisitng theme list should have one option named 'Custom', where users are allowed to pick colours from a an entire colour paletter, based on our existing themes , as in the emerald green ,a gold , which are tied to specific elements that are the defining traits of our UI, we link the colour palette to that option so user can truly customize.
+
+3)Need to add auto-location detection on time during onboarding and within the Qibla direction ( for accurate qibla).
+
+4) Duting the session, through all stages the hidden ayahs should be revealed, if the user hits the or touches the blanking boxes.
+4.1)And we add ayah number , as fully hidden is just a bunch of blur boxes and nothin else.
+4.2) Chain recall is messing up the ayas. there are mistakes in the ayah itself
+
+5)Upon first boot itself the continue section is showing continue surah fatiha , even though this the first boot for the user.
+5.1) Quran reader should have an option in preference to classic style of full mushaf with the player at the bottom, or if switched off the pillbox version that we have now.
+5.2) The reader options the font size bar is not moving , it's stuck and user is not able to increase the font.
+5.3) Even though device has internet access, some users are complaining that they are getting no internet error when trying to play the quran.
+5.4) If in pill box mode for the reader, below every ayah box, tajweed rules should be highlighted, where you have to stop, where it is okay to stop, where you cant stop at all, etc. Or add an option in reader options and we highlight with different colours and during first boot of the quran tab , we tell the user the colour and what tajweed ruling it applies to.
+
+6) Explore section is not rendering proprly on some devices and throwing error of pixels being exceeded, we need to add app layout for different combinations of screen resolutions for different mobile devices.
+6.1) Somedevices are getting the text cut-off due to improper layout.
+6.2)Even though user is goig through the evening or morning adhkar , the app is not saving taht the user has done them for that day.
+6.3) There are a lot of spelling mistakes and lower case where there should ber upper case etc.
+6.4) Daily adhkhar and du Collections is the same view. needs to be fixes or remove one option and keep it combine.
+6.5) The text within the pill boxes is getting cut off in some cases, need proper formatting based on screen resolution.
+6.6) Hadith collection has text getting cut-off. and the hadith are listed as 1 ,2 ,3 etc. They should be listed within collection with the actual hadith number, and each should have a summarized title of what the hadith is about, and keep the hadith pill boxes small, when the user clicks one, expand for full text to show arabic and english.
+6.7) Within the hadith collection add, and option to search by hadith numbera and hadith book.
+6.8) Within knowledge library, dowload is not working, and if the user hit download same dowload progress bar as hadith collection to be used.
+6.9) Tashbi counte r shoudl have multiple presets based on actual Adhkhar as pe Ahlus sunnah and the salaf. And the customer options should allow user to add the customer adhkar and the count of it, the textbox field should allow for languges based on the quran collection language.
+6.10) Icon for the dua needs to be changed to raised hands rather than the yoga pose.
+6.11) Also if the user is downloading the quran in different languages there is not actual options for them to read the quran in that language, this is to be added in the quran reader settings, where user can switch the language of the quran and it;s related translation.
+6.12) Achievements should show the icons for the achievements , and with the lock on top if it is locked, and these icons should be inline with Ahlus Sunnah and the salaf methodology.
+6.12) Adhan should be picked based on the countries local sunni waqf , and there should be an option to reminde the user with an actual adhan tone for all the salah or particular ones etc.

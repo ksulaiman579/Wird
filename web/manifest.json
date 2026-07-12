@@ -1,0 +1,35 @@
+{
+    "name": "Wird — Quran, Hadith & Dua Memorization",
+    "short_name": "Wird",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#EBE2CF",
+    "theme_color": "#244C3A",
+    "description": "Memorize the Quran, the 40 Hadith of an-Nawawi, and daily duas — at your own pace, fully offline.",
+    "orientation": "portrait-primary",
+    "prefer_related_applications": false,
+    "icons": [
+        {
+            "src": "icons/Icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-maskable-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "icons/Icon-maskable-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}
