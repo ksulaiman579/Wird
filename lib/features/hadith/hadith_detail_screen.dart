@@ -70,7 +70,7 @@ class _HadithDetailScreenState extends ConsumerState<HadithDetailScreen> {
       ),
       body: hadithAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Failed to load: $error')),
+        error: (error, stack) => Center(child: Text(AppLocalizations.of(context).commonFailedToLoad('$error'))),
         data: (hadith) => ListView(
           children: [
             Text(hadith.titleEnglish, style: theme.textTheme.headlineSmall),

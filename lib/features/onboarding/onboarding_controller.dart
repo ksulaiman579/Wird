@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/chunking/selection_ordering.dart';
 import '../../core/content/dua_repository.dart';
 import '../../core/content/hadith_repository.dart';
+import '../../core/srs/queue_interleave.dart';
 import '../../core/content/models/quran_models.dart';
 import '../../core/content/quran_repository.dart';
 import '../../core/db/database.dart';
@@ -110,8 +111,13 @@ class OnboardingController extends Notifier<OnboardingFormState> {
             ),
           );
 
-      final items = <SrsItemsCompanion>[];
-      var orderIndex = 0;
+      // Build each selected content type's queue separately, then interleave
+      // them so Hadith and Dua are introduced from the beginning alongside
+      // Quran — not appended after the entire Quran (which, with a whole-Quran
+      // scope, meant they'd never surface in practice).
+      final quranQueue = <SeedItem>[];
+      final hadithQueue = <SeedItem>[];
+      final duaQueue = <SeedItem>[];
 
       if (state.wantsQuran) {
         final quranRepo = ref.read(quranRepositoryProvider);
@@ -136,10 +142,9 @@ class OnboardingController extends Notifier<OnboardingFormState> {
           direction: state.direction,
         );
         for (final group in groups) {
-          items.add(SrsItemsCompanion.insert(
+          quranQueue.add(SeedItem(
             contentType: 'quran',
             contentKey: group.contentKey,
-            orderIndex: orderIndex++,
             wordCount: group.wordCount,
           ));
         }
@@ -152,10 +157,9 @@ class OnboardingController extends Notifier<OnboardingFormState> {
             .toList()
           ..sort((a, b) => a.id.compareTo(b.id));
         for (final hadith in hadiths) {
-          items.add(SrsItemsCompanion.insert(
+          hadithQueue.add(SeedItem(
             contentType: 'hadith',
             contentKey: 'h:nawawi:${hadith.id}',
-            orderIndex: orderIndex++,
             wordCount: hadith.wordCount,
           ));
         }
@@ -165,14 +169,24 @@ class OnboardingController extends Notifier<OnboardingFormState> {
         final duaRepo = ref.read(duaRepositoryProvider);
         final adhkar = await duaRepo.loadAdhkar();
         for (final dhikr in adhkar.morning) {
-          items.add(SrsItemsCompanion.insert(
+          duaQueue.add(SeedItem(
             contentType: 'dua',
             contentKey: 'd:${dhikr.id}',
-            orderIndex: orderIndex++,
             wordCount: dhikr.wordCount,
           ));
         }
       }
+
+      final ordered = interleaveQueues([quranQueue, hadithQueue, duaQueue]);
+      final items = <SrsItemsCompanion>[
+        for (var i = 0; i < ordered.length; i++)
+          SrsItemsCompanion.insert(
+            contentType: ordered[i].contentType,
+            contentKey: ordered[i].contentKey,
+            orderIndex: i,
+            wordCount: ordered[i].wordCount,
+          ),
+      ];
 
       await db.batch((batch) => batch.insertAll(db.srsItems, items));
     });

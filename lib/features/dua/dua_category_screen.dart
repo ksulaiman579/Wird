@@ -29,7 +29,7 @@ class DuaCategoryScreen extends ConsumerWidget {
       contentPadding: EdgeInsets.zero,
       body: categoryAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Failed to load: $error')),
+        error: (error, stack) => Center(child: Text(AppLocalizations.of(context).commonFailedToLoad('$error'))),
         data: (category) => ListView.builder(
           padding: const EdgeInsets.all(16),
           itemCount: category.duas.length,

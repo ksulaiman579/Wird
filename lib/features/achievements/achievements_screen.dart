@@ -46,7 +46,7 @@ class AchievementsScreen extends ConsumerWidget {
       contentPadding: EdgeInsets.zero,
       body: achievementsAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Failed to load: $error')),
+        error: (error, stack) => Center(child: Text(AppLocalizations.of(context).commonFailedToLoad('$error'))),
         data: (unlocked) {
           final unlockedIds = unlocked.map((a) => a.achievementId).toSet();
           final rules = buildAchievementRules();

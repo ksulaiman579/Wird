@@ -32,8 +32,10 @@ void main() {
     expect(find.text('Quran'), findsOneWidget);
     expect(find.text('Explore'), findsOneWidget);
     expect(find.text('Duas'), findsOneWidget);
-    expect(find.text('Al-Manhaj'), findsOneWidget);
     expect(find.text('More'), findsOneWidget);
+    // Al-Manhaj is no longer a bottom-nav tab (moved to the Explore hub);
+    // the bar shows exactly five fixed destinations.
+    expect(find.text('Al-Manhaj'), findsNothing);
 
     // TodayScreen holds live Drift .watch() stream subscriptions; dispose
     // the widget tree before addTearDown closes the database, or a

@@ -8,6 +8,8 @@ import '../../core/srs/sm2_scheduler.dart' show Grade;
 import '../../core/theme/app_theme.dart';
 import 'session_content_provider.dart';
 import '../../core/haptics.dart';
+import '../quran_reader/reader_prefs.dart';
+import '../quran_reader/tajweed_formatter.dart';
 
 /// The Sabqi/Manzil review flow: a prompt (the item's surah:ayah label,
 /// hadith title, or dua occasion) with the text hidden, a Reveal button,
@@ -85,13 +87,20 @@ class _HiddenPrompt extends StatelessWidget {
   }
 }
 
-class _RevealedContent extends StatelessWidget {
+class _RevealedContent extends ConsumerWidget {
   const _RevealedContent({required this.content});
 
   final SessionItemContent content;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Apply the reader's Tajweed highlighting here too, so the coloring is
+    // consistent across surfaces (Item A2). Honors the same `showTajweed`
+    // pref, so it's a no-op unless the reader has it enabled. When disabled,
+    // format() returns a plain span in the same Uthmani style as before.
+    final prefs = ref.watch(readerPrefsProvider).value;
+    final showTajweed = prefs?.showTajweed ?? false;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -103,8 +112,15 @@ class _RevealedContent extends StatelessWidget {
               children: [
                 Directionality(
                   textDirection: TextDirection.rtl,
-                  child:
-                      Text(content.arabicSegments[i], style: quranTextStyle),
+                  child: Text.rich(
+                    TajweedTextFormatter.format(
+                      content.arabicSegments[i],
+                      fontSize: quranTextStyle.fontSize ?? 26,
+                      baseColor: quranTextStyle.color,
+                      height: quranTextStyle.height ?? 2.0,
+                      enabled: showTajweed,
+                    ),
+                  ),
                 ),
                 if (showLatinReadingAids(Localizations.localeOf(context))) ...[
                   const SizedBox(height: 8),

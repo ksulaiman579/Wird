@@ -78,14 +78,14 @@ class AppLocalizationsFil extends AppLocalizations {
   String get settingsTheme => 'Tema';
 
   @override
-  String get settingsBackup => 'Backup';
+  String get settingsBackup => 'Pag-back up';
 
   @override
   String get settingsMonthlyBackupNotice =>
       'Na-save ang buwanang backup sa device na ito';
 
   @override
-  String get navHome => 'Home';
+  String get navHome => 'Sa tahanan';
 
   @override
   String get navExplore => 'Tuklasin';
@@ -236,130 +236,136 @@ class AppLocalizationsFil extends AppLocalizations {
   String get exploreSectionStudy => 'Pag-aaral at sanggunian';
 
   @override
-  String get readingSurahCollections => 'Surah collections';
+  String get readingSurahCollections => 'Koleksyon ng mga suras';
 
   @override
-  String get readingBeginFatiha => 'Begin with Al-Fatiha';
+  String get readingBeginFatiha => 'Magsimula sa Al-Fatiha';
 
   @override
-  String get readingResume => 'Resume';
+  String get readingResume => 'Magpatuloy';
 
   @override
-  String get readingSurahIndex => 'Surah index';
+  String get readingSurahIndex => 'Indise ng Surah';
 
   @override
-  String get readingBrowseAll => 'Browse all 114 surahs';
+  String get readingBrowseAll => 'Mag-browse sa lahat ng 114 surah';
 
   @override
-  String get readingIndexList => 'Index list';
+  String get readingIndexList => 'Listahan ng mga indeks';
 
   @override
-  String get readingMemorization => 'Memorization';
+  String get readingMemorization => 'Pag-alala';
 
   @override
-  String get readingMemorizationDesc => 'Your spaced-repetition session';
+  String get readingMemorizationDesc =>
+      'Ang iyong sesyon ng paulit-ulit na pag-uulit';
 
   @override
-  String get commonOpen => 'Open';
+  String get commonOpen => 'Bukas';
 
   @override
-  String get commonBrowse => 'Browse';
+  String get commonBrowse => 'Mag-browse';
 
   @override
   String get commonExplore => 'Explore';
 
   @override
-  String get commonReview => 'Review';
+  String get commonReview => 'Pagsubok';
 
   @override
-  String get commonView => 'View';
+  String get commonView => 'Pananaw';
 
   @override
-  String get exploreSearchHint => 'Search surahs, duas & hadiths';
+  String get exploreSearchHint => 'Maghanap ng mga surah, duas & hadith';
 
   @override
-  String get exploreSectionCalcNavigate => 'Calculate & navigate';
+  String get exploreSectionCalcNavigate => 'Pagkalkula at pag-navigate';
 
   @override
-  String get exploreSectionReminders => 'Time-aware reminders';
+  String get exploreSectionReminders => 'Mga paalala na may kaugnayan sa oras';
 
   @override
-  String get exploreSectionDhikr => 'Dhikr & devotion';
+  String get exploreSectionDhikr => 'Dhikr at debosyon';
 
   @override
-  String get exploreHadithDesc => 'Sahih Bukhari, Muslim & more';
+  String get exploreHadithDesc => 'Sahih Bukhari, Muslim & higit pa';
 
   @override
-  String get exploreKnowledgeDesc => 'Books on Aqeedah, Fiqh, Tafsir & more';
+  String get exploreKnowledgeDesc =>
+      'Mga aklat sa Aqeedah, Fiqh, Tafsir at marami pa';
 
   @override
-  String get exploreZakahDesc => 'Calculate your obligatory Zakah';
+  String get exploreZakahDesc => 'At gawin ninyo ang inyong alok na zakat';
 
   @override
-  String get exploreCalculate => 'Calculate';
+  String get exploreCalculate => 'Bilangin';
 
   @override
-  String get exploreQiblaDesc => 'Find the direction to the Ka\'bah';
+  String get exploreQiblaDesc => 'Hanapin ang direksyon sa Ka\'bah';
 
   @override
-  String get exploreFindQibla => 'Find Qibla';
+  String get exploreFindQibla => 'Hanapin ang Qibla';
 
   @override
-  String get exploreMorningAdhkarTitle => 'Morning adhkar';
+  String get exploreMorningAdhkarTitle => 'Pag-aalaga sa umaga';
 
   @override
-  String get exploreMorningAdhkarDesc => 'Hisn al-Muslim morning remembrance';
+  String get exploreMorningAdhkarDesc => 'Hisn al-Muslim umaga paggunita';
 
   @override
-  String get exploreEveningAdhkarTitle => 'Evening adhkar';
+  String get exploreEveningAdhkarTitle => 'Adhkar ng gabi';
 
   @override
-  String get exploreEveningAdhkarDesc => 'Hisn al-Muslim evening remembrance';
+  String get exploreEveningAdhkarDesc =>
+      'Pag-alaala ng hapon ng Hisn al-Muslim';
 
   @override
-  String get exploreRecite => 'Recite';
+  String get exploreRecite => 'Magbasa ng mga salita';
 
   @override
-  String get exploreTasbihTitle => 'Tasbih counter';
+  String get exploreTasbihTitle => 'Mga counter ng tasbih';
 
   @override
-  String get exploreTasbihDesc => 'Digital counter for daily dhikr';
+  String get exploreTasbihDesc =>
+      'Digital counter para sa pang-araw-araw na dhikr';
 
   @override
-  String get exploreOpenTasbih => 'Open tasbih';
+  String get exploreOpenTasbih => 'Buksan ang tasbih';
 
   @override
-  String get exploreNamesDesc => 'Asma ul-Husna with meanings';
+  String get exploreNamesDesc => 'Asma ul-Husna na may mga kahulugan';
 
   @override
-  String get exploreOpenNames => 'Open names';
+  String get exploreOpenNames => 'Mga pangalan na hindi pa nakatala';
 
   @override
-  String get moreLibraryDownloads => 'Library & downloads';
+  String get moreLibraryDownloads => 'Aklatan at pag-download';
 
   @override
-  String get moreContentLibraryTitle => 'Content Library';
+  String get moreContentLibraryTitle => 'Aklat ng Nilalaman';
 
   @override
-  String get moreContentLibraryDesc => 'Manage translations & collections';
+  String get moreContentLibraryDesc =>
+      'pamahalaan ang mga pagsasalin at koleksyon';
 
   @override
-  String get moreKnowledgeDesc => 'Islamic books to read offline';
+  String get moreKnowledgeDesc => 'Mga aklat ng Islam na basahin sa offline';
 
   @override
-  String get moreAlManhajDesc => 'Guided learning — coming soon';
+  String get moreAlManhajDesc =>
+      'Pinatnubayan ang pag-aaral  malapit nang dumating';
 
   @override
-  String get moreDiscover => 'Discover';
+  String get moreDiscover => 'Tuklasin';
 
   @override
-  String get moreSettingsAbout => 'Settings & about';
+  String get moreSettingsAbout => 'Mga setting at tungkol';
 
   @override
-  String get moreSettingsSubtitle => 'Plan, reciter, theme, notifications';
+  String get moreSettingsSubtitle => 'Plano, tagapagsalita, tema, mga abiso';
 
   @override
-  String get moreAboutSubtitle => 'Foundation, license, and credits';
+  String get moreAboutSubtitle => 'Pundasyon, lisensya, at mga kredito';
 
   @override
   String todayGreetingNamed(Object name) {
@@ -367,297 +373,305 @@ class AppLocalizationsFil extends AppLocalizations {
   }
 
   @override
-  String get todayGoalDone => 'Today\'s goal: done!';
+  String get todayGoalDone => 'Layunin ng araw na ito: tapos na!';
 
   @override
   String todayGoalProgress(Object done, Object planned) {
-    return 'Today\'s goal: $done/$planned';
+    return 'Layunin ngayon: $done/$planned';
   }
 
   @override
   String todayBreakdown(Object newCount, Object reviews, Object minutes) {
-    return '$newCount new · $reviews reviews · ~$minutes min';
+    return '$newCount bago · $reviews pagsusuri · ~$minutes min';
   }
 
   @override
   String todayStreakWeek(Object streak, Object completed, Object goal) {
-    return '$streak day streak · $completed/$goal this week';
+    return '$streak sunod-sunod na araw · $completed/$goal ngayong linggo';
   }
 
   @override
-  String get todaySabaq => 'Sabaq (new)';
+  String get todaySabaq => 'Sabaq (bagong)';
 
   @override
-  String get todaySabqi => 'Sabqi (recent revision)';
+  String get todaySabqi => 'Sabqi (kabagong revision)';
 
   @override
-  String get todayManzil => 'Manzil (long-term revision)';
+  String get todayManzil => 'Manzil (mahabang rebisyon)';
 
   @override
-  String get todaySectionContinue => 'Continue';
+  String get todaySectionContinue => 'Magpatuloy';
 
   @override
-  String get todaySectionRecent => 'Recent activity';
+  String get todaySectionRecent => 'Kamakailan lamang na aktibidad';
 
   @override
-  String get todaySectionStreak => 'Streak & insights';
+  String get todaySectionStreak => 'Streak at pananaw';
 
   @override
-  String get todaySectionRemembrance => 'Remembrance';
+  String get todaySectionRemembrance => 'Pag-alaala';
 
   @override
-  String get todaySectionTools => 'Tools';
+  String get todaySectionTools => 'Mga kasangkapan';
 
   @override
-  String get todaySessionInProgress => 'Today\'s session in progress';
+  String get todaySessionInProgress => 'Ang sesyon ngayon ay patuloy';
 
   @override
-  String get todaySessionCompleted => 'Today\'s session completed';
+  String get todaySessionCompleted => 'Natapos ang sesyon sa araw na ito';
 
   @override
   String todayUnlocked(Object title) {
-    return 'Unlocked: $title';
+    return 'Na-unlock: $title';
   }
 
   @override
-  String get todayCurrentStreak => 'Current streak';
+  String get todayCurrentStreak => 'kasalukuyang linya';
+
+  @override
+  String get todayReadingStreak => 'Pagbabasa ng mga tala';
 
   @override
   String todayStreakDays(Object streak) {
-    return '$streak days';
+    return '$streak araw';
   }
 
   @override
   String get todayInsightsEmpty =>
-      'Complete a session to start\nyour 7-day activity chart';
+      'Isumite ang isang session upang simulan ang iyong 7-araw na tsart ng aktibidad';
 
   @override
-  String get todayWelcomeBack =>
-      'Welcome back! Today\'s new material is halved to help you ease back in.';
+  String get todayWelcomeBack => 'Maligayang pagdating sa pagbabalik!';
 
   @override
-  String get todayAlManhajTeaser => 'Discover Al-Manhaj — coming soon';
+  String get todayAlManhajTeaser =>
+      'Alamin ang Al-Manhaj  malapit nang dumating';
 
   @override
   String get zakahShort => 'Zakah';
 
   @override
-  String get readerOptions => 'Reader options';
+  String get readerOptions => 'Mga pagpipilian ng mambabasa';
 
   @override
-  String get readerMushafMode => 'Classic Mushaf mode';
+  String get readerMushafMode => 'Klasikong Mushaf mode';
 
   @override
-  String get readerMushafModeDesc => 'Continuous Arabic page layout';
+  String get readerMushafModeDesc =>
+      'Kontinadong layout ng pahina sa wikang Arabe';
 
   @override
-  String get readerTajweed => 'Tajweed highlighting';
+  String get readerTajweed => 'Tajweed na naka-highlight';
 
   @override
-  String get readerTajweedDesc => 'Color-coded waqf & elongation marks';
+  String get readerTajweedDesc =>
+      'Mga marka ng waqf at elongation na may kulay';
 
   @override
-  String get readerTranslation => 'Translation';
+  String get readerTranslation => 'Pagsalin';
 
   @override
-  String get readerTranslationLabel => 'Translation:';
+  String get readerTranslationLabel => 'Pagsalin:';
 
   @override
-  String get readerTransliteration => 'Transliteration';
+  String get readerTransliteration => 'Pag-transliterasyon';
 
   @override
-  String get readerTranslationLanguage => 'Translation language';
+  String get readerTranslationLanguage => 'wika ng pagsasalin';
 
   @override
-  String get readerMoreTranslations => 'More translations in Library';
+  String get readerMoreTranslations => 'Higit pang mga salin sa Library';
 
   @override
-  String get readerFontSize => 'Font size';
+  String get readerFontSize => 'Laki ng font';
 
   @override
-  String get readerReciter => 'Reciter';
+  String get readerReciter => 'Tagapagbasa';
 
   @override
-  String get readerAutoPlaySwipe => 'Auto-play on swipe';
+  String get readerAutoPlaySwipe => 'Auto-play sa pag-swipe';
 
   @override
   String get readerAutoPlaySwipeDesc =>
-      'Paging to another ayah plays it automatically';
+      'Ang pag-paging sa ibang ayah ay awtomatikong naglalaro nito';
 
   @override
   String readerLangNotDownloaded(Object language) {
-    return '$language isn\'t downloaded yet — get it from the Library.';
+    return 'Hindi pa na-download ang $language — kunin ito mula sa Library.';
   }
 
   @override
-  String get readerPlaySample => 'Play sample';
+  String get readerPlaySample => 'I-play ang sample';
 
   @override
-  String get commonDownload => 'Download';
+  String get commonDownload => 'I-download';
 
   @override
-  String get commonRead => 'Read';
+  String get commonRead => 'Basahin';
 
   @override
-  String get bookReaderTitle => 'Reading';
+  String get bookReaderTitle => 'Pagbabasa';
 
   @override
-  String get bookSearchHint => 'Search titles and authors';
+  String get bookSearchHint => 'Maghanap ng mga pamagat at may-akda';
 
   @override
-  String get bookNoMatch => 'No books match';
+  String get bookNoMatch => 'Walang mga aklat na tumutugma';
 
   @override
-  String get bookDownloadConfirmTitle => 'Download book?';
+  String get bookDownloadConfirmTitle => 'Mag-download ng aklat?';
 
   @override
   String bookDownloadConfirmBody(Object title, Object size) {
-    return '\"$title\" is $size. It will be saved to this device for offline reading.';
+    return 'Ang \"$title\" ay $size. Ito ay ise-save sa device na ito para sa offline na pagbabasa.';
   }
 
   @override
-  String get surahOpenInReader => 'Open in reader';
+  String get surahOpenInReader => 'Buksan sa mambabasa';
 
   @override
-  String get duaUnknownGroup => 'Unknown group';
+  String get duaUnknownGroup => 'Hindi kilalang grupo';
 
   @override
-  String get hadithSearchHint => 'Search by hadith number or keyword';
+  String get hadithSearchHint => 'Maghanap ayon sa numero ng hadith o keyword';
 
   @override
-  String get hadithNoMatch => 'No matching hadith';
+  String get hadithNoMatch => 'Walang katumbas na hadith';
 
   @override
-  String get duasDailyAdhkar => 'Daily Adhkar';
+  String get duasDailyAdhkar => 'Araw-araw na Adhkar';
 
   @override
-  String get duasSearchHint => 'Search occasions (e.g. \"travel\", \"sleep\")';
+  String get duasSearchHint =>
+      'Mga okasyon ng paghahanap (hal. \"travel\", \"sleep\")';
 
   @override
-  String get duasEssential => 'Essential';
+  String get duasEssential => 'Mahalaga';
 
   @override
-  String get duasByCircumstance => 'By circumstance';
+  String get duasByCircumstance => 'Ayon sa kalagayan';
 
   @override
-  String get duasNoMatch => 'No matching occasions';
+  String get duasNoMatch => 'Walang katumbas na okasyon';
 
   @override
-  String get duasCompletedToday => 'Completed today';
+  String get duasCompletedToday => 'Natapos ngayon';
 
   @override
-  String get duasNotDoneToday => 'Not done yet today';
+  String get duasNotDoneToday => 'Hindi pa tapos ngayon';
 
   @override
-  String get duasViewMorning => 'View morning adhkar';
+  String get duasViewMorning => 'Tingnan ang umaga adhkar';
 
   @override
-  String get duasViewEvening => 'View evening adhkar';
+  String get duasViewEvening => 'Tingnan ang gabi adhkar';
 
   @override
-  String get hadithSearchCollections => 'Search collections by book or title';
+  String get hadithSearchCollections =>
+      'Maghanap ng mga koleksyon ayon sa aklat o pamagat';
 
   @override
   String hadithCount(Object count) {
-    return '$count hadiths';
+    return '$count Hadith';
   }
 
   @override
   String get hadithNawawiDesc =>
-      'Essential compilation covering core principles of Islam';
+      'Mahalagang kompilasiyon na sumasaklaw sa mga pangunahing prinsipyo ng Islam';
 
   @override
-  String get hadithStatusDownloaded => 'Downloaded — tap to open';
+  String get hadithStatusDownloaded => 'I-download  pindutin upang buksan';
 
   @override
-  String get hadithStatusFailed => 'Download failed — tap to retry';
+  String get hadithStatusFailed =>
+      'Hindi nagtagumpay ang pag-download  pindutin upang subukan muli';
 
   @override
-  String get hadithStatusNotDownloaded => 'Not downloaded';
+  String get hadithStatusNotDownloaded => 'Hindi nai-download';
 
   @override
-  String get hadithCollectionDetails => 'Collection details';
+  String get hadithCollectionDetails => 'Mga detalye ng koleksyon';
 
   @override
-  String get hadithListSearch => 'Search hadith';
+  String get hadithListSearch => 'Maghanap ng hadith';
 
   @override
-  String get commonAll => 'All';
+  String get commonAll => 'Lahat';
 
   @override
-  String get commonBookmarked => 'Bookmarked';
+  String get commonBookmarked => 'May mga bookmark';
 
   @override
-  String get hadithListNoMatch => 'No hadith match';
+  String get hadithListNoMatch => 'Walang katumbas ng hadith';
 
   @override
-  String get tasbihMultiStage => 'Multi-stage remembrance';
+  String get tasbihMultiStage => 'Mga yugto ng pag-alala';
 
   @override
-  String get tasbihIndividualPresets => 'Individual dhikr presets';
+  String get tasbihIndividualPresets => 'Mga preset ng indibidwal na dhikr';
 
   @override
-  String get tasbihTapAnywhere => 'Tap anywhere';
+  String get tasbihTapAnywhere => 'I-tap saanman';
 
   @override
-  String get tasbihChooseAnother => 'Choose another preset';
+  String get tasbihChooseAnother => 'Pumili ng ibang preset';
 
   @override
   String tasbihComplete(Object done, Object total) {
-    return 'Complete — $done / $total';
+    return 'Kumpleto — $done / $total';
   }
 
   @override
   String get qiblaSetCity =>
-      'Set your city to calculate the Qibla direction — the same location used for prayer times.';
+      'I-set ang iyong lungsod upang kalkulahin ang direksyon ng Qibla  ang parehong lokasyon na ginagamit para sa mga oras ng panalangin.';
 
   @override
   String qiblaBasedOn(Object city) {
-    return 'Based on $city — a city-level estimate, not exact GPS.';
+    return 'Batay sa $city — isang pagtatantya sa antas ng lungsod, hindi eksaktong GPS.';
   }
 
   @override
   String qiblaFromNorth(Object degrees) {
-    return '$degrees° from North';
+    return '$degrees° mula sa Hilaga';
   }
 
   @override
-  String get qiblaReadingCompass => 'Reading compass…';
+  String get qiblaReadingCompass => 'Pagbabasa ng kompas...';
 
   @override
   String qiblaFacing(Object heading, Object qibla) {
-    return 'Facing $heading° — Qibla is $qibla°';
+    return 'Nakaharap sa $heading° — Ang Qibla ay $qibla°';
   }
 
   @override
-  String get qiblaNorth => 'N';
+  String get qiblaNorth => 'H';
 
   @override
-  String get asmaSearchHint => 'Search by name or meaning';
+  String get asmaSearchHint => 'Paghahanap ayon sa pangalan o kahulugan';
 
   @override
-  String get asmaNoMatch => 'No matching name';
+  String get asmaNoMatch => 'Walang katumbas na pangalan';
 
   @override
-  String get adhkarAllDone => 'All done! 🎉';
+  String get adhkarAllDone => 'Lahat ay tapos na! ';
 
   @override
-  String get adhkarMarkCompleted => 'Mark as completed';
+  String get adhkarMarkCompleted => 'Mag-sign bilang nakumpleto';
 
   @override
-  String get adhkarReadAgain => 'Read again';
+  String get adhkarReadAgain => 'Basahin muli';
 
   @override
-  String get progressCurrentStreak => 'Current streak';
+  String get progressCurrentStreak => 'kasalukuyang linya';
 
   @override
-  String get progressLongestStreak => 'Longest streak';
+  String get progressLongestStreak => 'Pinakamatagal na linya';
 
   @override
-  String get progressDaysConsistent => 'Days consistent';
+  String get progressDaysConsistent => 'Mga araw na pare-pareho';
 
   @override
-  String get progressAyahs => 'Ayahs';
+  String get progressAyahs => 'Mga Ayah';
 
   @override
   String get progressHadith => 'Hadith';
@@ -666,199 +680,204 @@ class AppLocalizationsFil extends AppLocalizations {
   String get progressDuas => 'Duas';
 
   @override
-  String get progressReviewAccuracy => 'Review accuracy';
+  String get progressReviewAccuracy => 'Katumpakan ng pagsusuri';
 
   @override
-  String get progressNoReviews => 'No reviews yet';
+  String get progressNoReviews => 'Walang mga pagsusuri pa';
 
   @override
-  String get progressEstimatedCompletion => 'Estimated completion';
+  String get progressEstimatedCompletion => 'Tinatayang pagtatapos';
 
   @override
-  String get progressNoPaceData => 'Not enough pace data yet';
+  String get progressNoPaceData => 'Hindi pa sapat ang datos tungkol sa bilis';
 
   @override
-  String get achievementsQuranicJourney => 'Quranic journey';
+  String get achievementsQuranicJourney => 'Paglalakbay sa Qur\'an';
 
   @override
-  String get achievementsPathOfHadith => 'Path of hadith';
+  String get achievementsPathOfHadith => 'Daan ng hadith';
 
   @override
-  String get achievementsDhikrDevotion => 'Dhikr & devotion';
+  String get achievementsDhikrDevotion => 'Dhikr at debosyon';
 
   @override
-  String get achievementsConsistency => 'Consistency';
+  String get achievementsConsistency => 'Pagkakasundo';
 
   @override
-  String get achievementsUnlocked => 'Unlocked';
+  String get achievementsUnlocked => 'Hindi naka-lock';
 
   @override
   String get knowledgePublishedBy =>
-      'Books published by IslamHouse, downloaded on demand.';
+      'Mga aklat na inilathala ng IslamHouse, na mai-download sa pangangailangan.';
 
   @override
-  String get knowledgeNoBooks => 'No books in this language yet.';
+  String get knowledgeNoBooks => 'Walang mga aklat sa wikang ito.';
 
   @override
-  String get libraryQuranAudio => 'Quran audio';
+  String get libraryQuranAudio => 'Audio ng Qur\'an';
 
   @override
-  String get libraryRecitationDownloads => 'Recitation audio downloads';
+  String get libraryRecitationDownloads =>
+      'Mga pag-download ng audio ng pag-uulat';
 
   @override
-  String get libraryQuranTranslations => 'Quran translations';
+  String get libraryQuranTranslations => 'Mga salin ng Qur\'an';
 
   @override
-  String get librarySearchLanguages => 'Search languages';
+  String get librarySearchLanguages => 'Mga wika ng paghahanap';
 
   @override
-  String get libraryHadithCollections => 'Hadith collections';
+  String get libraryHadithCollections => 'Koleksyon ng mga hadith';
 
   @override
-  String get libraryDownloaded => 'Downloaded';
+  String get libraryDownloaded => 'I-download';
 
   @override
-  String get libraryDownloadFailed => 'Download failed — tap to retry';
+  String get libraryDownloadFailed =>
+      'Hindi nagtagumpay ang pag-download  pindutin upang subukan muli';
 
   @override
-  String get libraryNotDownloaded => 'Not downloaded';
+  String get libraryNotDownloaded => 'Hindi nai-download';
 
   @override
   String get almanhajComingSoon =>
-      'A structured Islamic-studies platform — coming soon, in shā’ Allah. It will offer sequenced courses grounded in the Qur’an and Sunnah upon the understanding of the Salaf: guided study tracks, vetted texts and audio, and teacher commentary — all in the same neutral, aqeedah-safe spirit as Wird.';
+      'Isang istrukturang platform ng pag-aaral sa Islam  darating sa lalong madaling panahon, sa shā Allah. Magbibigay ito ng mga sekwensiyang kurso na nakabatay sa Qur\'an at Sunnah sa pag-unawa ng Salaf: mga pinamunuan na pag-aaral, mga pinag-aaralan na teksto at audio, at komento ng guro  lahat sa parehong neutral, ligtas na espiritu ng aqeedah tulad ng Wird.';
 
   @override
   String get almanhajOfflineNote =>
-      'Wird itself stays fully offline and account-free — no sign-in, ever.';
+      'Ang Wird mismo ay nananatiling ganap na offline at walang account  walang pag-login, kailanman.';
 
   @override
-  String get almanhajSupportTitle => 'Support this project';
+  String get almanhajSupportTitle => 'Suportahan ang proyektong ito';
 
   @override
   String get almanhajSupportBody =>
-      'Wird has no account, no ads, and no server — it stays free. If it has been useful, you can support development here:';
+      'Ang Wird ay walang account, walang mga ad, at walang server  ito ay nananatiling libre. Kung ito ay naging kapaki-pakinabang, maaari mong suportahan ang pag-unlad dito:';
 
   @override
   String knowledgeBooksCount(Object count) {
-    return '$count books';
+    return '$count libro';
   }
 
   @override
-  String get commonCopy => 'Copy';
+  String get commonCopy => 'Natanggap';
 
   @override
-  String get commonShare => 'Share';
+  String get commonShare => 'Pagbahagi';
 
   @override
-  String get commonClear => 'Clear';
+  String get commonClear => 'Maliwanag';
 
   @override
   String get commonSurahWord => 'Surah';
 
   @override
-  String get sessionNothingToDo => 'Nothing to do right now.';
+  String get sessionNothingToDo => 'Walang magagawa ngayon.';
 
   @override
-  String get flowReadOnceMore => 'Read it once more, in full.';
+  String get flowReadOnceMore => 'Basahin mo ulit ito, sa kabuuan.';
 
   @override
   String get flowFirstWord =>
-      'Just the first word of each line now — recall the rest.';
+      'Ang unang salita lamang ng bawat linya ngayon  alalahanin ang natitirang bahagi.';
 
   @override
-  String get flowFullyHidden => 'Fully hidden — recall it from memory.';
+  String get flowFullyHidden =>
+      'Lubusang nakatago  alalahanin ito mula sa memorya.';
 
   @override
   String get flowListenRepeatAudio =>
-      'Listen & repeat — play the recitation, or recite it yourself and press Continue when ready.';
+      'Pakinggan at ulitin  i-play ang pag-uulat, o i-recite ito sa iyong sarili at pindutin ang Magpatuloy kapag handa ka na.';
 
   @override
   String get flowListenRepeatText =>
-      'Listen & repeat — read the text aloud, then Continue.';
+      'Pakinggan at ulitin  basahin nang malakas ang teksto, pagkatapos ay Magpatuloy.';
 
   @override
-  String get flowPlayRecitation => 'Play recitation';
+  String get flowPlayRecitation => 'Paglalaro ng pag-uulat';
 
   @override
-  String get flowTapAfterRepeat => 'Tap after each repeat';
+  String get flowTapAfterRepeat => 'I-tap pagkatapos ng bawat ulit';
 
   @override
-  String get flowMeaning => 'Meaning';
+  String get flowMeaning => 'Kahulugan';
 
   @override
   String get flowChainRecall =>
-      'Chain recall — tap each line to reveal it, and recall the next one\'s beginning from the previous one\'s ending.';
+      'Chain recall  pindutin ang bawat linya upang ipakita ito, at tandaan ang simula ng susunod mula sa pagtatapos ng nakaraang isa.';
 
   @override
   String get flowSelfTest =>
-      'Self-test — recite it fully from memory, then reveal to check.';
+      'Pagsusuri sa sarili  magbasa ng buong salita mula sa memorya, pagkatapos ay ipahayag upang suriin.';
 
   @override
-  String get flowReveal => 'Reveal';
+  String get flowReveal => 'Pagpapahayag';
 
   @override
-  String get flowNeedsWork => 'Needs work';
+  String get flowNeedsWork => 'Kailangan ng trabaho';
 
   @override
   String get downloadsWebNote =>
-      'The web app streams audio — install the Android app for offline recitation.';
+      'Ang web app ay nag-stream ng audio  i-install ang Android app para sa pag-uulat ng offline.';
 
   @override
-  String get downloadsMyPlan => 'My plan';
+  String get downloadsMyPlan => 'Ang aking plano';
 
   @override
-  String get downloadsFullQuran => 'Full Quran';
+  String get downloadsFullQuran => 'Buong Qur\'an';
 
   @override
-  String get downloadsWifiOnly => 'Wi-Fi only';
+  String get downloadsWifiOnly => 'Wi-Fi lamang';
 
   @override
-  String get downloadsPaused => 'Paused';
+  String get downloadsPaused => 'Nag-iwan';
 
   @override
-  String get downloadsFailed => 'Failed — tap to retry';
+  String get downloadsFailed =>
+      'Hindi nagtagumpay  pindutin upang subukan muli';
 
   @override
-  String get dataSourcesTitle => 'Data sources & licenses';
+  String get dataSourcesTitle => 'Mga pinagmulan ng data at lisensya';
 
   @override
-  String get logsTitle => 'Diagnostics & logs';
+  String get logsTitle => 'Mga Diagnostics at mga log';
 
   @override
-  String get logsCopied => 'Logs copied';
+  String get logsCopied => 'Mga log na kinopya';
 
   @override
-  String get logsEmpty => 'No logs captured yet.';
+  String get logsEmpty => 'Walang mga tala ng mga log na nakuha pa.';
 
   @override
-  String get planEditTitle => 'Edit Quran plan';
+  String get planEditTitle => 'I-edit ang plano ng Quran';
 
   @override
-  String get planSelection => 'Selection';
+  String get planSelection => 'Pagpipili';
 
   @override
-  String get planWholeQuran => 'The whole Quran';
+  String get planWholeQuran => 'Ang buong Qur\'an';
 
   @override
-  String get planSpecificJuz => 'Specific juz (para)';
+  String get planSpecificJuz => 'Pangkalahatang juz (para)';
 
   @override
-  String get planSpecificSurahs => 'Specific surahs';
+  String get planSpecificSurahs => 'Mga partikular na surah';
 
   @override
-  String get planDirection => 'Direction';
+  String get planDirection => 'Patnubay';
 
   @override
-  String get planNormalOrder => 'Normal order (start to end)';
+  String get planNormalOrder =>
+      'Karaniwang pagkakasunud-sunod (simulan hanggang pagtatapos)';
 
   @override
-  String get planReversedOrder => 'Reversed order (an-Nas first)';
+  String get planReversedOrder => 'Bumalik na pagkakasunud-sunod (an-Nas muna)';
 
   @override
-  String get planDailyMinutes => 'Daily minutes';
+  String get planDailyMinutes => 'Araw-araw na minuto';
 
   @override
-  String get planSaveChanges => 'Save changes';
+  String get planSaveChanges => 'I-save ang mga pagbabago';
 
   @override
   String commonMinutesShort(Object count) {
@@ -867,285 +886,286 @@ class AppLocalizationsFil extends AppLocalizations {
 
   @override
   String flowRepeatedCount(Object done, Object target) {
-    return 'Repeated $done of $target times';
+    return 'Inulit $done sa $target beses';
   }
 
   @override
-  String get commonStop => 'Stop';
+  String get commonStop => 'Huminto ka na';
 
   @override
-  String get flowGotIt => 'I\'ve got it';
+  String get flowGotIt => 'Nasasagot ko na ito';
 
   @override
-  String get settingsResetSure => 'Are you sure?';
+  String get settingsResetSure => 'Sigurado ka ba?';
 
   @override
   String settingsResetBody(Object label) {
-    return 'This cannot be undone from within the app — you would need to restore the backup manually. Reset $label progress now?';
+    return 'Hindi ito maaaring i-undo mula sa loob ng app — kailangan mong i-restore ang backup nang manu-mano. I-reset ang progreso ng $label ngayon?';
   }
 
   @override
-  String get settingsPlan => 'Plan';
+  String get settingsPlan => 'Plano';
 
   @override
   String get settingsNoQuranSelection =>
-      'No Quran selection in your current plan.';
+      'Walang pagpili ng Qur\'an sa iyong kasalukuyang plano.';
 
   @override
-  String get settingsColour => 'Colour';
+  String get settingsColour => 'kulay';
 
   @override
-  String get settingsPrayerTimes => 'Prayer times';
+  String get settingsPrayerTimes => 'Oras ng panalangin';
 
   @override
-  String get settingsNotifications => 'Notifications';
+  String get settingsNotifications => 'Mga abiso';
 
   @override
   String get settingsWebNotifNote =>
-      'The web app can\'t reliably post reminders while it isn\'t open — install the Android app for daily and adhkar reminders. The Duas tab still shows which adhkar period it is right now.';
+      'Hindi maaaring mapagkakatiwalaan ng web app ang mga paalala habang hindi ito bukas  i-install ang Android app para sa pang-araw-araw at mga paalala sa adhkar.';
 
   @override
-  String get settingsExportData => 'Export my data';
+  String get settingsExportData => 'I-export ang aking data';
 
   @override
   String get settingsBackupsMonthly =>
-      'Automatic backups run monthly on this device.';
+      'Ang mga awtomatikong backup ay lilipad kada buwan sa aparatong ito.';
 
   @override
-  String get settingsResetProgress => 'Reset progress';
+  String get settingsResetProgress => 'I-reset ang pag-unlad';
 
   @override
-  String get settingsResetEverything => 'Reset everything';
+  String get settingsResetEverything => 'I-reset ang lahat';
 
   @override
-  String get settingsAboutDataSources => 'About & data sources';
+  String get settingsAboutDataSources => 'Tungkol sa & pinagmulan ng data';
 
   @override
-  String get settingsPrayerMethodAuto => 'Auto (based on location)';
+  String get settingsPrayerMethodAuto => 'Auto (batay sa lokasyon)';
 
   @override
-  String get settingsPrayerMethodOnline => 'Online (AlAdhan calendar)';
+  String get settingsPrayerMethodOnline => 'Online (kalendaryong Al-Adhan)';
 
   @override
-  String get settingsPrayerMethodOffline => 'Offline (calculated on-device)';
+  String get settingsPrayerMethodOffline => 'Offline (kinakalkula sa aparato)';
 
   @override
-  String get settingsDailyReminder => 'Daily reminder';
+  String get settingsDailyReminder => 'Araw-araw na paalala';
 
   @override
-  String get settingsReminderTime => 'Reminder time';
+  String get settingsReminderTime => 'Oras ng paalala';
 
   @override
-  String get settingsMorningReminder => 'Morning adhkar reminder';
+  String get settingsMorningReminder => 'Pagpaalala sa umaga';
 
   @override
   String get settingsMorningReminderDesc =>
-      'A silent, ongoing reminder from Fajr until it\'s done';
+      'Isang tahimik, patuloy na paalala mula sa Fajr hanggang sa ito ay tapos na';
 
   @override
-  String get settingsEveningReminder => 'Evening adhkar reminder';
+  String get settingsEveningReminder => 'Pagpaalala sa Adhkar ng gabi';
 
   @override
   String get settingsEveningReminderDesc =>
-      'A silent, ongoing reminder from Asr until it\'s done';
+      'Isang tahimik, patuloy na paalala mula kay Asr hanggang sa ito ay tapos na';
 
   @override
-  String get settingsStreakReminder => 'Streak-at-risk reminder';
+  String get settingsStreakReminder => 'Paalala sa panganib ng pag-iipon';
 
   @override
-  String get settingsAdhanTone => 'Adhan tone';
+  String get settingsAdhanTone => 'Adhan tono';
 
   @override
-  String get settingsChooseAdhanTone => 'Choose adhan tone';
+  String get settingsChooseAdhanTone => 'Piliin ang tono ng adhan';
 
   @override
-  String get settingsPreviewAdhan => 'Preview adhan';
+  String get settingsPreviewAdhan => 'I-preview ang Adhan';
 
   @override
   String get settingsRemindAdhanFor =>
-      'Remind me with adhan for (needs a location set above):';
+      'Paalalahanan mo ako sa adhan para sa (kailangan ng isang lokasyon na itinakda sa itaas):';
 
   @override
   String settingsResetTitle(Object label) {
-    return 'Reset $label progress?';
+    return 'I-reset ang progreso ng $label?';
   }
 
   @override
   String settingsResetFirstBody(Object label) {
-    return 'This erases your $label memorization progress and starts it over from scratch. A backup of your current data will be exported first.';
+    return 'Buburahin nito ang iyong progreso sa pagsasaulo ng $label at sisimulan itong muli mula sa simula. Isang backup ng iyong kasalukuyang data ang i-e-export muna.';
   }
 
   @override
   String settingsResetChip(Object label) {
-    return 'Reset $label';
+    return 'I-reset ang $label';
   }
 
   @override
   String settingsSource(Object source) {
-    return 'Source: $source';
+    return 'Pinagmulan: $source';
   }
 
   @override
   String get settingsStreakReminderDesc =>
-      'A heads-up 2 hours before your reminder if today\'s portion isn\'t done yet';
+      'Isang heads-up 2 oras bago ang iyong paalala kung ang bahagi ng araw ay hindi pa tapos';
 
   @override
-  String get obDisclaimerTitle => 'Welcome — a quick note';
+  String get obDisclaimerTitle => 'Maligayang pagdating  isang mabilis na tala';
 
   @override
   String get obDisclaimerBody =>
-      'Wird is fully offline. Your progress lives on this device — you never need an account to use any part of the app.\n\nLater, you can optionally sign in with Al-Manhaj (one time) just to back up your progress to the cloud. That\'s the only thing an account does here.';
+      'Ang Wird ay ganap na offline. Ang iyong pag-unlad ay nabubuhay sa aparato na ito  hindi mo kailanman kailangan ng isang account upang gamitin ang anumang bahagi ng app. Mamaya, maaari kang opsyunal na mag-sign in sa Al-Manhaj (isang beses) upang i-backup lamang ang iyong pag-unlad sa ulap. Iyon lamang ang ginagawa ng isang account dito.';
 
   @override
-  String get commonGotIt => 'Got it';
+  String get commonGotIt => 'Nalaman ko na';
 
   @override
-  String get commonFinish => 'Finish';
+  String get commonFinish => 'Tapusin';
 
   @override
-  String get obLanguageTitle => 'Select language';
+  String get obLanguageTitle => 'Piliin ang wika';
 
   @override
   String get obLanguageSubtitle =>
-      'Choose your preferred display language for Wird.';
+      'Piliin ang iyong paboritong wika ng pagpapakita para sa Wird.';
 
   @override
-  String get obWelcomeTitle => 'Welcome to Wird';
+  String get obWelcomeTitle => 'Maligayang pagdating sa Wird';
 
   @override
   String get obWelcomeBody =>
-      'Memorize the Quran, the 40 Hadith of an-Nawawi, and daily duas — at your own pace, fully offline.';
+      'Alamin nang sabay-sabay ang Qur\'an, ang 40 Hadith ng an-Nawawi, at araw-araw na dua  sa iyong sariling bilis, ganap na offline.';
 
   @override
-  String get obNameTitle => 'What\'s your name?';
+  String get obNameTitle => 'Ano ang pangalan mo?';
 
   @override
-  String get obName => 'Name';
+  String get obName => 'Pangalan';
 
   @override
-  String get obPickIcon => 'Pick an icon';
+  String get obPickIcon => 'Pumili ng isang icon';
 
   @override
-  String get obRestoreBackup => 'Restore from backup';
+  String get obRestoreBackup => 'I-restore mula sa backup';
 
   @override
   String obRestoreFailed(Object error) {
-    return 'Restore failed: $error';
+    return 'Nabigo ang pagpapanumbalik: $error';
   }
 
   @override
   String obFinishError(Object error) {
-    return 'Could not finish setup: $error';
+    return 'Hindi matapos ang pag-setup: $error';
   }
 
   @override
-  String get obScopeTitle => 'What do you want to memorize?';
+  String get obScopeTitle => 'Ano ang gusto mong matuto sa memorya?';
 
   @override
-  String get obScopeHadith => '40 Hadith of an-Nawawi';
+  String get obScopeHadith => '40 Hadith ng an-Nawawi';
 
   @override
-  String get obScopeAlsoDuas => 'Also start with morning/evening duas';
+  String get obScopeAlsoDuas => 'Magsimula rin sa umaga/gabi na dua';
 
   @override
   String get obScopeAlsoDuasDesc =>
-      'Adds the adhkar set to your memorization queue — you can add or remove individual duas any time from the Duas tab.';
+      'Nagdaragdag ng adhkar set sa iyong memorya linya  maaari mong idagdag o alisin ang indibidwal duas anumang oras mula sa Duas tab.';
 
   @override
-  String get obScopeChooseOne => 'Choose at least one of Quran or Hadith.';
+  String get obScopeChooseOne =>
+      'Pumili ng hindi bababa sa isa sa Qur\'an o Hadith.';
 
   @override
-  String get obQuranSelTitle => 'Quran selection';
+  String get obQuranSelTitle => 'Pagpipili ng Qur\'an';
 
   @override
-  String get obQuranSkip => 'You\'ve chosen to skip Quran memorization.';
+  String get obQuranSkip => 'Pinili mong i-skip ang memorya ng Qur\'an.';
 
   @override
-  String get obQuranHowMuch => 'How much of the Quran?';
+  String get obQuranHowMuch => 'Gaano karaming Quran?';
 
   @override
   String get obReversedNote =>
-      'Reversed order follows the traditional \"from the back\" method: juz 30 first, shortest surahs first — great for building momentum early on.';
+      'Ang nakabalik na pagkakasunud-sunod ay sumusunod sa tradisyunal na pamamaraan ng \"mula sa likod\": juz 30 muna, pinakamaikling surah muna  mahusay para sa pagbuo ng momentum sa maagang panahon.';
 
   @override
-  String get obTimeTitle => 'How much time per day?';
+  String get obTimeTitle => 'Magkano ang oras sa isang araw?';
 
   @override
   String obPaceEstimate(Object duration) {
-    return 'At this pace, you could finish your Quran selection in $duration.';
+    return 'Sa bilis na ito, matatapos mo ang iyong napiling Quran sa loob ng $duration.';
   }
 
   @override
-  String get obConsistentTitle => 'Stay consistent';
+  String get obConsistentTitle => 'Maging pare-pareho';
 
   @override
   String get obNotifWeb =>
-      'Notifications aren\'t available in the web app — install the Android app for reminders.';
+      'Hindi magagamit ang mga abiso sa web app  i-install ang Android app para sa mga paalala.';
 
   @override
-  String get obMorningReminderDesc => '30 minutes after Fajr';
+  String get obMorningReminderDesc => '30 minuto pagkatapos ng Fajr';
 
   @override
-  String get obEveningReminderDesc => '30 minutes after Asr';
+  String get obEveningReminderDesc => '30 minuto pagkatapos ng Asr';
 
   @override
-  String get obPrayerAdhan => 'Prayer-time adhan';
+  String get obPrayerAdhan => 'Adhan sa oras ng panalangin';
 
   @override
   String get obPrayerAdhanDesc =>
-      'Play the call to prayer at each of the five prayer times (needs your location; fine-tune per prayer in Settings)';
+      'I-play ang tawag sa panalangin sa bawat isa sa limang oras ng panalangin (kinailangan ang iyong lokasyon; fine-tune bawat panalangin sa Mga Setting)';
 
   @override
-  String get obAllSet => 'All set';
+  String get obAllSet => 'Lahat ay handa na';
 
   @override
   String get obWebAudioNote =>
-      'The web app streams recitation audio, so there\'s nothing to download here — install the Android app if you want it fully offline.';
+      'Ang web app ay nag-stream ng audio ng pag-uulat, kaya walang dapat i-download dito  i-install ang Android app kung nais mong ganap na offline.';
 
   @override
-  String get obDownloadTitle => 'Download for offline use';
+  String get obDownloadTitle => 'I-download para sa offline na paggamit';
 
   @override
   String get obDownloadDesc =>
-      'Download the recitation audio for your plan now, so everything works without an internet connection. You can always do this later from Settings → Downloads.';
+      'I-download ang audio ng pagbabasa para sa iyong plano ngayon, kaya\'t lahat ay gumagana nang walang koneksyon sa internet. Maaari mong gawin ito sa ibang pagkakataon mula sa Mga Setting → Mga I-download.';
 
   @override
-  String get obDownloadNow => 'Download now';
+  String get obDownloadNow => 'I-download ngayon';
 
   @override
-  String get obSkipForNow => 'Skip for now';
+  String get obSkipForNow => 'Hayaan mo na lang ngayon';
 
   @override
-  String get obAddlTranslation => 'Additional translation (optional)';
+  String get obAddlTranslation => 'Karagdagang pagsasalin (opsyunal)';
 
   @override
   String get obAddlTranslationDesc =>
-      'Choose one more language to download alongside the bundled English translation. You can change this later.';
+      'Piliin ang isa pang wika upang i-download kasama ang nakabalot na pagsasalin sa Ingles. Maaari mong baguhin ito mamaya.';
 
   @override
   String obSelectTranslation(Object label) {
-    return 'Select translation… ($label)';
+    return 'Pumili ng salin… ($label)';
   }
 
   @override
-  String get commonBack => 'Back';
+  String get commonBack => 'Bumalik';
 
   @override
-  String get commonNext => 'Next';
+  String get commonNext => 'Susunod';
 
   @override
-  String get commonNone => 'None';
+  String get commonNone => 'Walang';
 
   @override
-  String get obSelectJuz => 'Select juz (para)…';
+  String get obSelectJuz => 'Piliin ang juz (para)...';
 
   @override
   String obSelectedJuz(Object count) {
-    return 'Selected juz ($count/30) — tap to edit';
+    return 'Napiling Juz ($count/30) — i-tap para i-edit';
   }
 
   @override
-  String get obSelectJuzTitle => 'Select juz (para)';
+  String get obSelectJuzTitle => 'Piliin ang juz (para)';
 
   @override
   String commonJuzN(Object n) {
@@ -1158,279 +1178,286 @@ class AppLocalizationsFil extends AppLocalizations {
   }
 
   @override
-  String get commonSelectAll => 'Select all';
+  String get commonSelectAll => 'Piliin ang lahat';
 
   @override
-  String get commonClearAll => 'Clear all';
+  String get commonClearAll => 'Lakas lahat';
 
   @override
   String obDoneCount(Object count) {
-    return 'Done ($count)';
+    return 'Tapos na ($count)';
   }
 
   @override
-  String get obSelectSurahs => 'Select surahs…';
+  String get obSelectSurahs => 'Pumili ng mga surah...';
 
   @override
   String obSelectedSurahs(Object count) {
-    return 'Selected surahs ($count/114) — tap to edit';
+    return 'Napiling Surahs ($count/114) — i-tap para i-edit';
   }
 
   @override
-  String get obSelectSurahsTitle => 'Select surahs';
+  String get obSelectSurahsTitle => 'Pumili ng mga surah';
 
   @override
-  String get obSearchSurah => 'Search surah name or number…';
+  String get obSearchSurah => 'Maghanap ng pangalan o numero ng surah...';
 
   @override
   String obErrorSurahs(Object error) {
-    return 'Error loading surahs: $error';
+    return 'Error sa pag-load ng Surahs: $error';
   }
 
   @override
-  String get obSelectTranslationTitle => 'Select translation';
+  String get obSelectTranslationTitle => 'Piliin ang pagsasalin';
 
   @override
-  String get obHadithCollections => 'Hadith collections (optional)';
+  String get obHadithCollections => 'Koleksyon ng mga hadith (opsyunal)';
 
   @override
   String get obHadithCollectionsDesc =>
-      'The 40 Hadith of an-Nawawi is always included. Download any of these larger collections now, or later from the Hadith tab.';
+      'Ang 40 Hadith ng an-Nawawi ay palaging kasama. I-download ang alinman sa mga mas malaking koleksyon ngayon, o mamaya mula sa tab na Hadith.';
 
   @override
   String obSelectHadith(Object count) {
-    return 'Select Hadith collections… ($count)';
+    return 'Pumili ng mga koleksyon ng Hadith… ($count)';
   }
 
   @override
-  String get obSelectHadithTitle => 'Select hadith collections';
+  String get obSelectHadithTitle => 'Pumili ng mga koleksyon ng hadith';
 
   @override
-  String get quranSearchHint => 'Search surah name or number';
+  String get quranSearchHint => 'Maghanap ng pangalan o numero ng surah';
 
   @override
   String quranAyahsCount(Object count) {
-    return '$count ayahs';
+    return '$count Ayah';
   }
 
   @override
-  String get quranMeccan => 'Meccan';
+  String get quranMeccan => 'Mekan';
 
   @override
   String get quranMedinan => 'Medinan';
 
   @override
   String get aboutIntro =>
-      'Wird is an offline-first, ad-free companion for memorizing the Quran, the 40 Hadith of an-Nawawi, and daily duas — at your own pace, with no account required.';
+      'Ang Wird ay isang offline-first, ad-free na kasama para sa memorya ng Qur\'an, ang 40 Hadith ng an-Nawawi, at araw-araw na duas  sa iyong sariling bilis, nang walang kinakailangang account.';
 
   @override
-  String get aboutFoundation => 'Our foundation';
+  String get aboutFoundation => 'Ang aming pundasyon';
 
   @override
   String get aboutFoundationBody =>
-      'Wird presents content in line with the understanding of Ahlus Sunnah wal Jama\'ah, upon the manhaj (methodology) of the Salaf — free of sectarian bias, drawing only from authentic, attributed sources.';
+      'Naghaharap ang Wird ng nilalaman na naaayon sa pag-unawa ng Ahlus Sunnah wal Jama\'ah, sa manhaj (metodolohiya) ng Salaf  na walang bias sa sekta, na nagmumula lamang mula sa mga tunay, naiugnay na mapagkukunan.';
 
   @override
-  String get aboutLicense => 'License';
+  String get aboutLicense => 'Lisensya';
 
   @override
   String get aboutLicenseBody =>
-      'Wird is free and open-source software, licensed under the GNU General Public License v3 (GPL-3.0).';
+      'Ang Wird ay libreng at open-source na software, na lisensyado sa ilalim ng GNU General Public License v3 (GPL-3.0).';
 
   @override
-  String get aboutDataSourcesLink => 'Data sources & full licenses';
+  String get aboutDataSourcesLink =>
+      'Mga pinagmulan ng data at buong mga lisensya';
 
   @override
-  String get aboutCredits => 'Credits & acknowledgements';
+  String get aboutCredits => 'Mga credit at pagkilala';
 
   @override
-  String get searchHint => 'Search surahs and duas';
+  String get searchHint => 'Maghanap ng mga surah at dua';
 
   @override
-  String get searchTypePrompt => 'Type to search surahs and duas';
+  String get searchTypePrompt => 'I-type upang maghanap ng mga surah at dua';
 
   @override
-  String get searchSurahs => 'Surahs';
+  String get searchSurahs => 'Mga Surah';
 
   @override
-  String get citySearchHint => 'Search for a city';
+  String get citySearchHint => 'Maghanap ng isang lungsod';
 
   @override
-  String get cityCoordManually => 'Enter coordinates manually';
+  String get cityCoordManually => 'Magpasok ng mga koordinate nang manu-manong';
 
   @override
-  String get cityEnterCoords => 'Enter coordinates';
+  String get cityEnterCoords => 'Ipasok ang mga koordinate';
 
   @override
-  String get cityLabelOptional => 'Label (optional)';
+  String get cityLabelOptional => 'Label (hindi kinakailangang)';
 
   @override
-  String get cityLatitude => 'Latitude';
+  String get cityLatitude => 'Latitud';
 
   @override
-  String get cityLongitude => 'Longitude';
+  String get cityLongitude => 'Longhitud';
 
   @override
-  String get cityCustomLocation => 'Custom location';
+  String get cityCustomLocation => 'Mga lugar na nilagyan ng mga tao';
 
   @override
-  String get cityUseCoords => 'Use these coordinates';
+  String get cityUseCoords => 'Gamitin ang mga koordinadong ito';
 
   @override
-  String get locationCouldNotDetect => 'Could not detect your location.';
+  String get locationCouldNotDetect =>
+      'Hindi namin nasusuri ang iyong lokasyon.';
 
   @override
   String get locationNoCity =>
-      'No city selected — using fixed 06:00/17:00 reminder times.';
+      'Walang lungsod na napiling  gamit ang mga itinatag na oras ng paalala 06:00/17:00.';
 
   @override
   String celebrationStreak(Object count) {
-    return '$count-day streak';
+    return '$count-araw na sunod-sunod';
   }
 
   @override
-  String get zakahCatMonetary => 'Cash & savings';
+  String get zakahCatMonetary => 'Pera at ipon';
 
   @override
   String get zakahCatMonetaryBlurb =>
-      'Cash, bank balances, and money owed to you';
+      'Cash, mga balanse sa bangko, at pera na utang sa iyo';
 
   @override
-  String get zakahCatMetals => 'Gold & silver';
+  String get zakahCatMetals => 'Ginto at pilak';
 
   @override
-  String get zakahCatMetalsBlurb => 'By weight, valued at your entered price';
+  String get zakahCatMetalsBlurb =>
+      'Sa timbang, pinahalaga sa iyong nai-enter na presyo';
 
   @override
-  String get zakahCatBusiness => 'Business assets';
+  String get zakahCatBusiness => 'Mga asset ng negosyo';
 
   @override
-  String get zakahCatBusinessBlurb => 'Trade goods / inventory held for sale';
+  String get zakahCatBusinessBlurb =>
+      'Mga kalakal sa kalakalan / imbentaryo na inilalaan para sa pagbebenta';
 
   @override
-  String get zakahCatInvestments => 'Investments & shares';
+  String get zakahCatInvestments => 'Mga pamumuhunan at mga bahagi';
 
   @override
-  String get zakahCatInvestmentsBlurb => 'Trading or long-term holdings';
+  String get zakahCatInvestmentsBlurb =>
+      'Pagtataguyod o pangmatagalang pag-aari';
 
   @override
-  String get zakahCatAgriculture => 'Agriculture';
+  String get zakahCatAgriculture => 'Pag-uumasan';
 
   @override
-  String get zakahCatAgricultureBlurb => 'Crops & fruits (ushr, in kind)';
+  String get zakahCatAgricultureBlurb => 'Mga taniman at prutas (ushr, sa uri)';
 
   @override
-  String get zakahCatLivestock => 'Livestock';
+  String get zakahCatLivestock => 'Mga hayop';
 
   @override
   String get zakahCatLivestockBlurb =>
-      'Free-grazing camels, cattle, sheep/goats';
+      'Mga kamelyo, baka, tupa/kapris na malaya\'y nag-aalaga';
 
   @override
   String get zakahCatRikaz => 'Rikaz';
 
   @override
-  String get zakahCatRikazBlurb => 'Buried treasure / windfall find (20%)';
+  String get zakahCatRikazBlurb =>
+      'Natagpuan ang isang libing na kayamanan (20%)';
 
   @override
-  String get zakahSetup => 'Setup';
+  String get zakahSetup => 'Pag-setup';
 
   @override
-  String get zakahCurrency => 'Currency';
+  String get zakahCurrency => 'Mga pera';
 
   @override
-  String get zakahNisabBasis => 'Nisab basis';
+  String get zakahNisabBasis => 'Batayan ng Nisab';
 
   @override
-  String get zakahSilverBasis => 'Silver (595g)';
+  String get zakahSilverBasis => 'Pinto (595g)';
 
   @override
-  String get zakahGoldBasis => 'Gold (85g)';
+  String get zakahGoldBasis => 'Ginto (85g)';
 
   @override
-  String get zakahGoldPrice => 'Gold price / gram';
+  String get zakahGoldPrice => 'Presyo ng ginto / gramo';
 
   @override
-  String get zakahSilverPrice => 'Silver price / gram';
+  String get zakahSilverPrice => 'Presyo ng pilak/gram';
 
   @override
-  String get zakahWhichApply => 'Which apply to you?';
+  String get zakahWhichApply => 'Alin sa mga ito ang tumutukoy sa iyo?';
 
   @override
-  String get zakahReceivables => 'Receivables (money owed to you)';
+  String get zakahReceivables => 'Mga utang (mga pera na utang sa iyo)';
 
   @override
-  String get zakahDebtsDue => 'Debts due now (deducted)';
+  String get zakahDebtsDue => 'Mga utang na dapat bayaran ngayon (tinanggi)';
 
   @override
-  String get zakahGoldGrams => 'Gold owned (grams)';
+  String get zakahGoldGrams => 'Ginto na pagmamay-ari (gram)';
 
   @override
-  String get zakahSilverGrams => 'Silver owned (grams)';
+  String get zakahSilverGrams => 'Mga pilak na pagmamay-ari (gram)';
 
   @override
-  String get zakahTradeGoods => 'Trade goods value';
+  String get zakahTradeGoods => 'halaga ng kalakalan';
 
   @override
-  String get zakahInvestmentValue => 'Zakatable investment value';
+  String get zakahInvestmentValue =>
+      'Ang halaga ng pamumuhunan na dapat i-zacatable';
 
   @override
-  String get zakahRainFed => 'Rain-fed (10%)';
+  String get zakahRainFed => 'Nag-uulan (10%)';
 
   @override
-  String get zakahIrrigated => 'Irrigated (5%)';
+  String get zakahIrrigated => 'Nag-irrigate (5%)';
 
   @override
-  String get zakahHarvestWeight => 'Harvest weight (kg)';
+  String get zakahHarvestWeight => 'Timbang ng ani (kg)';
 
   @override
-  String get zakahNumberAnimals => 'Number of animals';
+  String get zakahNumberAnimals => 'Bilang ng mga hayop';
 
   @override
-  String get zakahFindValue => 'Value of the find';
+  String get zakahFindValue => 'Kahalagahan ng natuklasan';
 
   @override
-  String get zakahCamels => 'Camels';
+  String get zakahCamels => 'Mga kamelyo';
 
   @override
-  String get zakahCattle => 'Cattle';
+  String get zakahCattle => 'Baka';
 
   @override
-  String get zakahSheepGoats => 'Sheep/goats';
+  String get zakahSheepGoats => 'Mga tupa/kapris';
 
   @override
-  String get zakahZakatableWealth => 'Zakatable wealth';
+  String get zakahZakatableWealth => 'Ang kayamanan na dapat na mag-zakata';
 
   @override
-  String get zakahNisabThreshold => 'Nisab threshold';
+  String get zakahNisabThreshold => 'Hangganan ng Nisab';
 
   @override
-  String get zakahMonetaryDue => 'Monetary Zakah (2.5%)';
+  String get zakahMonetaryDue => 'Zakah sa Pera (2.5%)';
 
   @override
-  String get zakahBelowNisabNothing => 'Below nisab — nothing due';
+  String get zakahBelowNisabNothing => 'Sa ibaba ng nisab  walang dapat';
 
   @override
-  String get zakahAgricultureBelowNisab => 'Agriculture — below nisab';
+  String get zakahAgricultureBelowNisab => 'Agriculture  sa ibaba ng nisab';
 
   @override
-  String get zakahLivestock => 'Livestock';
+  String get zakahLivestock => 'Mga hayop';
 
   @override
-  String get zakahBelowNisab => 'Below nisab';
+  String get zakahBelowNisab => 'Sa ibaba ng nisab';
 
   @override
-  String get zakahLivestockDue => 'Livestock due';
+  String get zakahLivestockDue => 'Mga hayop na dapat';
 
   @override
   String get zakahRikazDue => 'Rikaz (20%)';
 
   @override
-  String get zakahSummary => 'Summary';
+  String get zakahSummary => 'Buod ng mga artikulo';
 
   @override
   String get zakahSelectCategories =>
-      'Select the categories above and enter your values.';
+      'Piliin ang mga kategorya sa itaas at ipasok ang iyong mga halaga.';
 
   @override
   String get prayerFajr => 'Fajr';
@@ -1449,70 +1476,70 @@ class AppLocalizationsFil extends AppLocalizations {
 
   @override
   String settingsPreviewError(Object error) {
-    return 'Could not play preview: $error';
+    return 'Hindi mapatugtog ang preview: $error';
   }
 
   @override
   String settingsExportError(Object error) {
-    return 'Export failed: $error';
+    return 'Nabigo ang pag-export: $error';
   }
 
   @override
   String settingsResetDone(Object label) {
-    return '$label progress reset.';
+    return '$label na-reset ang progreso.';
   }
 
   @override
   String settingsResetError(Object error) {
-    return 'Reset failed: $error';
+    return 'Nabigo ang pag-reset: $error';
   }
 
   @override
-  String get themeSystem => 'System';
+  String get themeSystem => 'Sistema';
 
   @override
-  String get themeLight => 'Light';
+  String get themeLight => 'Liwanag';
 
   @override
-  String get themeDark => 'Dark';
+  String get themeDark => 'Madilim';
 
   @override
   String get themeAmoled => 'AMOLED';
 
   @override
-  String get obPreparingPlan => 'Preparing your plan…';
+  String get obPreparingPlan => 'Paghahanda ng iyong plano...';
 
   @override
-  String get duaGroupDailyRoutine => 'Daily routine';
+  String get duaGroupDailyRoutine => 'Araw-araw na gawain';
 
   @override
-  String get duaGroupPrayer => 'Prayer & the mosque';
+  String get duaGroupPrayer => 'Panalangin at ang moske';
 
   @override
-  String get duaGroupMorningEveningSleep => 'Morning, evening & sleep';
+  String get duaGroupMorningEveningSleep => 'umaga, gabi at pagtulog';
 
   @override
-  String get duaGroupDistressProtection => 'Distress & protection';
+  String get duaGroupDistressProtection => 'Pangangalaga at proteksyon';
 
   @override
-  String get duaGroupFoodSocialFamily => 'Food, family & social life';
+  String get duaGroupFoodSocialFamily => 'Pagkain, pamilya at buhay panlipunan';
 
   @override
-  String get duaGroupIllnessDeath => 'Illness & bereavement';
+  String get duaGroupIllnessDeath => 'Sakit at pagkamatay';
 
   @override
-  String get duaGroupTravelHajj => 'Travel, Hajj & Umrah';
+  String get duaGroupTravelHajj => 'Paglalakbay, Hajj & Umrah';
 
   @override
-  String get duaGroupRemembranceNature => 'Remembrance & nature';
+  String get duaGroupRemembranceNature => 'Pag-alaala at kalikasan';
 
   @override
   String duasOccasionCount(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count occasions',
-      one: '1 occasion',
+      other: '$count okasyon',
+      one: '1 okasyon',
     );
     return '$_temp0';
   }
@@ -1522,8 +1549,8 @@ class AppLocalizationsFil extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count duas',
-      one: '1 dua',
+      other: '$count Duas',
+      one: '1 Dua',
     );
     return '$_temp0';
   }
@@ -1538,19 +1565,19 @@ class AppLocalizationsFil extends AppLocalizations {
 
   @override
   String get hadithNoteSahihayn =>
-      'One of the two most authentic books after the Qur\'an. Its hadith are accepted as authentic (ṣaḥīḥ).';
+      'Isa sa dalawang pinaka-tunay na aklat pagkatapos ng Qur\'an. Ang mga hadith nito ay tinanggap bilang tunay (ṣaḥīḥ).';
 
   @override
   String get hadithNoteMuwatta =>
-      'The Muwaṭṭaʾ of Imām Mālik — one of the earliest collections. Grades shown are from the noted verifier.';
+      'Ang Muwaṭṭaʾ ng Imām Mālik  isa sa mga pinakaunang koleksyon.';
 
   @override
   String get hadithNoteSunan =>
-      'A Sunan collection containing hadith of varying authenticity. Each hadith shows its grade — verify weak (ḍaʿīf) narrations before relying on them.';
+      'Isang koleksyon ng Sunan na naglalaman ng mga hadith ng iba\'t ibang pagiging tunay.';
 
   @override
   String get hadithNoteGeneric =>
-      'Each hadith shows its authenticity grade where the source provides one.';
+      'Ipinakikita ng bawat hadith ang antas ng katotohanang ibinigay ng pinagmulan.';
 
   @override
   String durationMin(int count) {
@@ -1580,15 +1607,15 @@ class AppLocalizationsFil extends AppLocalizations {
   }
 
   @override
-  String get durationLessThanDay => 'less than a day';
+  String get durationLessThanDay => 'mas mababa sa isang araw';
 
   @override
   String durationDaysValue(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count days',
-      one: '1 day',
+      other: '$count araw',
+      one: '1 araw',
     );
     return '$_temp0';
   }
@@ -1598,8 +1625,8 @@ class AppLocalizationsFil extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count weeks',
-      one: '1 week',
+      other: '$count linggo',
+      one: '1 linggo',
     );
     return '$_temp0';
   }
@@ -1609,8 +1636,8 @@ class AppLocalizationsFil extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'about $count months',
-      one: 'about a month',
+      other: 'mga $count buwan',
+      one: 'mga isang buwan',
     );
     return '$_temp0';
   }
@@ -1620,8 +1647,8 @@ class AppLocalizationsFil extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count years',
-      one: '1 year',
+      other: '$count taon',
+      one: '1 taon',
     );
     return '$_temp0';
   }
@@ -1631,108 +1658,175 @@ class AppLocalizationsFil extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count months',
-      one: '1 month',
+      other: '$count buwan',
+      one: '1 buwan',
     );
     return '$_temp0';
   }
 
   @override
   String durationAbout(String value) {
-    return 'about $value';
+    return 'mga $value';
   }
 
   @override
   String durationAboutTwo(String first, String second) {
-    return 'about $first, $second';
+    return 'mga $first, $second';
   }
 
   @override
-  String get tourStep1Title => 'Five tabs, and a sixth';
+  String get tourStep1Title => 'Limang tab, at isang ikaanim';
 
   @override
   String get tourStep1Body =>
-      'Home, Quran, Explore, Duas, and More sit on the bar below. Press and swipe the bar sideways to reveal Al-Manhaj just past the edge.';
+      'Ang Home, Quran, Explore, Duas, at More ay nakaupo sa bar sa ibaba.';
 
   @override
-  String get tourStep2Title => 'Keep listening anywhere';
+  String get tourStep2Title => 'Magpatuloy na makinig kahit saan';
 
   @override
   String get tourStep2Body =>
-      'When you play Quran audio, a mini-player docks above the tabs so you can keep listening while you browse Duas, Explore, or anywhere else.';
+      'Kapag naglalaro ka ng audio ng Quran, may mini-player na nakatakdang sa itaas ng mga tab upang maaari kang patuloy na makinig habang nag-browse ka sa Duas, Explore, o saanman.';
 
   @override
-  String get tourStep3Title => 'Explore is your toolbox';
+  String get tourStep3Title => 'Ang Explore ang iyong toolbox';
 
   @override
   String get tourStep3Body =>
-      'Hadith collections, the Qibla compass, the Zakah calculator, and the Tasbih counter all live in the Explore tab.';
+      'Ang mga koleksyon ng Hadith, ang kompas ng Qibla, ang kalkulador ng Zakah, at ang counter ng Tasbih ay lahat ay nakatira sa tab na Explore.';
 
   @override
-  String get referenceLabel => 'Reference: ';
+  String get referenceLabel => 'Mga Referensya: ';
 
   @override
   String zakahMetalPriceLabel(String code) {
-    return 'Metal price per gram ($code), entered manually';
+    return 'Presyo ng metal bawat gramo ($code), manu-manong inilagay';
   }
 
   @override
   String get zakahGeneralNote =>
-      'Zakah is due on wealth held for one lunar year (hawl) that reaches the nisab threshold. Amounts here are estimates to help you plan — consult a trustworthy scholar for your specific situation.';
+      'Ang Zakah ay dapat sa kayamanan na hawak para sa isang lunar year (hawl) na umabot sa threshold ng nisab.';
 
   @override
-  String get sessionTapNextWord => 'Tap the next word';
+  String get sessionTapNextWord => 'I-tap ang susunod na salita';
 
   @override
-  String get sessionFillBlank => 'Fill in the blank';
+  String get sessionFillBlank => 'Punan ang puwang';
 
   @override
   String get sessionRecallFirstLetters =>
-      'Recall the ayah from these first letters';
+      'Tandaan ang ayat mula sa unang mga titik na ito';
 
   @override
-  String get sessionShowFullText => 'Show full text';
+  String get sessionShowFullText => 'Ipakita ang buong teksto';
 
   @override
-  String get sessionDragOrder => 'Drag the ayahs into the correct order';
+  String get sessionDragOrder =>
+      'I-drag ang mga ayat sa tamang pagkakasunud-sunod';
 
   @override
-  String get sessionNotQuite => 'Not quite — try again';
+  String get sessionNotQuite => 'Hindi talaga  subukan mo ulit';
 
   @override
-  String get sessionCheckOrder => 'Check order';
+  String get sessionCheckOrder => 'Suriin ang pagkakasunud-sunod';
 
   @override
   String sessionStepOf(int current, int total) {
-    return 'Step $current of $total';
+    return 'Hakbang $current ng $total';
   }
 
   @override
-  String get sessionReveal => 'Reveal';
+  String get sessionReveal => 'Pagpapahayag';
 
   @override
   String get sessionRecallThenReveal =>
-      'Recall it from memory, then reveal to check.';
+      'Alalahanin ito mula sa memorya, pagkatapos ay ipahayag upang suriin.';
 
   @override
-  String get gradeAgain => 'Again';
+  String get gradeAgain => 'Muli';
 
   @override
-  String get gradeHard => 'Hard';
+  String get gradeHard => 'Mahirap';
 
   @override
-  String get gradeGood => 'Good';
+  String get gradeGood => 'Magaling';
 
   @override
-  String get gradeEasy => 'Easy';
+  String get gradeEasy => 'Maging madali';
 
   @override
   String sessionAchievementUnlocked(String names) {
-    return 'Achievement unlocked: $names';
+    return 'Na-unlock ang tagumpay: $names';
   }
 
   @override
   String commonFailedToLoad(String error) {
-    return 'Failed to load: $error';
+    return 'Nabigo ang pag-load: $error';
   }
+
+  @override
+  String get updateCheck => 'Suriin ang mga update';
+
+  @override
+  String get updateChecking => 'Naghahanap ng mga update...';
+
+  @override
+  String get updateAvailableTitle => 'May magagamit na update';
+
+  @override
+  String updateAvailableBanner(String version) {
+    return 'Wird $version ay magagamit';
+  }
+
+  @override
+  String get updateNow => 'I-update ngayon';
+
+  @override
+  String get updateLater => 'Mamaya';
+
+  @override
+  String get updateUpToDate => 'Nasa pinakabagong bersyon ka';
+
+  @override
+  String get updateDownloading => 'Nag-download ng update...';
+
+  @override
+  String get quranMarkMemorized => 'Markahan bilang naisaulo';
+
+  @override
+  String get quranMarkMemorizedBody =>
+      'Markahan ang buong surah na ito bilang naisaulo na? Ita-tatakda ito para sa pangmatagalang pagbabalik-aral sa halip na ipakita bilang bago.';
+
+  @override
+  String get quranMarkMemorizedConfirm => 'Markahang naisaulo';
+
+  @override
+  String get quranMarkedForRevision =>
+      'Naidagdag sa pangmatagalang pagbabalik-aral';
+
+  @override
+  String get planIncludeHadith => 'Isama ang Hadith';
+
+  @override
+  String get planIncludeDuas => 'Isama ang mga Dua at Adhkar';
+
+  @override
+  String get settingsUseManualTimes => 'Manwal na itakda ang mga oras ng dasal';
+
+  @override
+  String get settingsPlayingAdhan => 'Nagpapatugtog ng adhan…';
+
+  @override
+  String get adhanCallTitle => 'Oras na magdasal';
+
+  @override
+  String adhanCallFor(String salah) {
+    return 'Oras na para sa $salah';
+  }
+
+  @override
+  String get adhanTapToSilence => 'I-tap kahit saan para patahimikin';
+
+  @override
+  String get quranMarkJuzMemorized => 'Markahan ang isang juz bilang naisaulo';
 }

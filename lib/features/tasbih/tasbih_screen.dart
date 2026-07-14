@@ -228,7 +228,7 @@ class _PresetPicker extends ConsumerWidget {
         const SizedBox(height: 8),
         historyAsync.when(
           loading: () => const Center(child: CircularProgressIndicator()),
-          error: (e, st) => Text('Failed to load: $e'),
+          error: (e, st) => Text(AppLocalizations.of(context).commonFailedToLoad('$e')),
           data: (sessions) => sessions.isEmpty
               ? const Text('No sessions yet')
               : Column(

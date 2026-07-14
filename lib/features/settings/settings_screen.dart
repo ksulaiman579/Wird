@@ -10,6 +10,9 @@ import '../../core/audio/ayah_audio_urls.dart' show reciters;
 import '../../core/backup/backup_service.dart';
 import '../../core/backup/reset_service.dart';
 import '../../core/db/database.dart';
+import '../../core/prefs/app_language_provider.dart';
+import '../../core/update/app_update_service.dart';
+import '../update/update_ui.dart';
 import '../../core/notifications/notification_prefs.dart';
 import '../../core/notifications/notification_providers.dart';
 import '../../core/notifications/prayer_method_prefs.dart';
@@ -30,19 +33,47 @@ class SettingsScreen extends ConsumerStatefulWidget {
   ConsumerState<SettingsScreen> createState() => _SettingsScreenState();
 }
 
-/// Plays the bundled adhan asset once so the user can hear it before
-/// enabling prayer reminders. Self-contained: creates a one-shot player
-/// and disposes it when playback completes.
+/// Plays the bundled adhan asset so the user can hear it before enabling
+/// prayer reminders. Shows a persistent "Stop" SnackBar action so the
+/// preview is tap-to-silenceable (U9); the player is disposed on stop, on
+/// completion, or when the SnackBar is dismissed.
 Future<void> _previewAdhan(BuildContext context) async {
   final player = AudioPlayer();
+  final messenger = ScaffoldMessenger.of(context);
+  var disposed = false;
+  Future<void> stop() async {
+    if (disposed) return;
+    disposed = true;
+    await player.stop();
+    await player.dispose();
+  }
+
   player.playerStateStream.listen((s) {
-    if (s.processingState == ProcessingState.completed) player.dispose();
+    if (s.processingState == ProcessingState.completed) {
+      messenger.hideCurrentSnackBar();
+      stop();
+    }
   });
   try {
     await player.setAsset('assets/audio/adhan.ogg');
     await player.play();
+    if (!context.mounted) {
+      await stop();
+      return;
+    }
+    final l = AppLocalizations.of(context);
+    messenger
+        .showSnackBar(
+          SnackBar(
+            content: Text(l.settingsPlayingAdhan),
+            duration: const Duration(minutes: 5),
+            action: SnackBarAction(label: l.commonStop, onPressed: stop),
+          ),
+        )
+        .closed
+        .then((_) => stop());
   } catch (e) {
-    await player.dispose();
+    await stop();
     if (context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(AppLocalizations.of(context).settingsPreviewError('$e'))),
@@ -144,6 +175,20 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       appBar: GlassAppBar(title: Text(AppLocalizations.of(context).settingsTitle)),
       body: ListView(
         children: [
+          GlassCard(
+            enableBlur: false,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(AppLocalizations.of(context).settingsLanguage,
+                    style: const TextStyle(fontWeight: FontWeight.bold)),
+                const SizedBox(height: 8),
+                const _LanguagePicker(),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
+          const _UpdateTile(),
           GlassCard(
             enableBlur: false,
             child: Column(
@@ -331,6 +376,91 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           ),
         ],
       ),
+    );
+  }
+}
+
+/// "Check for updates" — Android-only (the PWA auto-updates). Re-runs the
+/// update check and either offers the update or confirms up-to-date.
+class _UpdateTile extends ConsumerStatefulWidget {
+  const _UpdateTile();
+
+  @override
+  ConsumerState<_UpdateTile> createState() => _UpdateTileState();
+}
+
+class _UpdateTileState extends ConsumerState<_UpdateTile> {
+  bool _checking = false;
+
+  @override
+  Widget build(BuildContext context) {
+    if (!ref.read(appUpdateServiceProvider).supportsInAppUpdate) {
+      return const SizedBox.shrink();
+    }
+    final l = AppLocalizations.of(context);
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: GlassCard(
+        enableBlur: false,
+        onTap: _checking ? null : _check,
+        child: Row(
+          children: [
+            const Icon(Icons.system_update_rounded),
+            const SizedBox(width: 12),
+            Expanded(
+                child: Text(_checking ? l.updateChecking : l.updateCheck)),
+            if (_checking)
+              const SizedBox(
+                  width: 18,
+                  height: 18,
+                  child: CircularProgressIndicator(strokeWidth: 2))
+            else
+              const Icon(Icons.chevron_right_rounded),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _check() async {
+    setState(() => _checking = true);
+    final info = await ref.refresh(updateCheckProvider.future);
+    if (!mounted) return;
+    setState(() => _checking = false);
+    if (info != null) {
+      await promptAndInstallUpdate(context, ref, info);
+    } else if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(AppLocalizations.of(context).updateUpToDate)),
+      );
+    }
+  }
+}
+
+/// UI-language switcher — changes the app's display language on the spot
+/// (app.dart watches appLanguageProvider and updates MaterialApp.locale).
+class _LanguagePicker extends ConsumerWidget {
+  const _LanguagePicker();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final current = ref.watch(appLanguageProvider).value ?? 'en';
+    return DropdownButton<String>(
+      value: current,
+      isExpanded: true,
+      items: [
+        for (final lang in supportedAppLanguages)
+          DropdownMenuItem(
+            value: lang.code,
+            child: Text('${lang.flagEmoji}  ${lang.nativeName}',
+                overflow: TextOverflow.ellipsis),
+          ),
+      ],
+      onChanged: (code) {
+        if (code != null) {
+          ref.read(appLanguageProvider.notifier).setLanguage(code);
+        }
+      },
     );
   }
 }
@@ -640,6 +770,46 @@ class _NotificationsSection extends ConsumerWidget {
             onChanged: (v) => update((p) => p.copyWith(adhanIsha: v)),
           ),
         ],
+        const Divider(),
+        SwitchListTile(
+          title: Text(AppLocalizations.of(context).settingsUseManualTimes),
+          value: prefs.useManualTimes,
+          onChanged: (v) => update((p) => p.copyWith(useManualTimes: v)),
+        ),
+        if (prefs.useManualTimes)
+          for (final row in <(String, int, NotificationPrefs Function(NotificationPrefs, int))>[
+            (AppLocalizations.of(context).prayerFajr, prefs.manualFajrMinutes,
+                (p, m) => p.copyWith(manualFajrMinutes: m)),
+            (AppLocalizations.of(context).prayerDhuhr, prefs.manualDhuhrMinutes,
+                (p, m) => p.copyWith(manualDhuhrMinutes: m)),
+            (AppLocalizations.of(context).prayerAsr, prefs.manualAsrMinutes,
+                (p, m) => p.copyWith(manualAsrMinutes: m)),
+            (AppLocalizations.of(context).prayerMaghrib, prefs.manualMaghribMinutes,
+                (p, m) => p.copyWith(manualMaghribMinutes: m)),
+            (AppLocalizations.of(context).prayerIsha, prefs.manualIshaMinutes,
+                (p, m) => p.copyWith(manualIshaMinutes: m)),
+          ])
+            ListTile(
+              dense: true,
+              title: Text(row.$1),
+              trailing: Text(
+                MaterialLocalizations.of(context).formatTimeOfDay(
+                  TimeOfDay(hour: row.$2 ~/ 60, minute: row.$2 % 60),
+                ),
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              onTap: () async {
+                final picked = await showTimePicker(
+                  context: context,
+                  initialTime:
+                      TimeOfDay(hour: row.$2 ~/ 60, minute: row.$2 % 60),
+                );
+                if (picked != null) {
+                  await update((p) =>
+                      row.$3(p, picked.hour * 60 + picked.minute));
+                }
+              },
+            ),
       ],
     );
   }

@@ -30,21 +30,25 @@ void main() {
     expect(prefs.getString(appLanguagePrefsKey), 'ar');
   });
 
-  test('supportedAppLanguages contains all 64 languages', () {
-    expect(supportedAppLanguages.length, 64);
-    final codes = supportedAppLanguages.map((l) => l.code).toSet();
-    expect(codes.contains('en'), isTrue);
-    expect(codes.contains('ar'), isTrue);
-    expect(codes.contains('fr'), isTrue);
-    expect(codes.contains('id'), isTrue);
-    expect(codes.contains('tr'), isTrue);
-    expect(codes.contains('ur'), isTrue);
-    expect(codes.contains('yo'), isTrue);
+  test('picker ships exactly the 7 fully-localized UI languages', () {
+    // UI selection is intentionally limited to the locales we ship 100%
+    // translated; other locales stay in allAppLanguages (data) + the Quran
+    // translation editions, just not offered as a display language.
+    expect(supportedAppLanguages.map((l) => l.code).toList(),
+        ['en', 'ar', 'ur', 'hi', 'bn', 'ml', 'fil']);
   });
 
-  testWidgets('AppLocalizations loads cleanly for all 64 supported locales without missing-key fallback errors',
+  test('allAppLanguages retains the full locale set (data preserved)', () {
+    final codes = allAppLanguages.map((l) => l.code).toSet();
+    expect(codes.length, greaterThanOrEqualTo(60));
+    for (final c in ['en', 'ar', 'ur', 'hi', 'bn', 'ml', 'fil', 'fr', 'yo', 'zh']) {
+      expect(codes.contains(c), isTrue, reason: c);
+    }
+  });
+
+  testWidgets('AppLocalizations loads cleanly for every ARB locale without missing-key fallback errors',
       (WidgetTester tester) async {
-    for (final option in supportedAppLanguages) {
+    for (final option in allAppLanguages) {
       final locale = Locale(option.code);
       final localizations = await AppLocalizations.delegate.load(locale);
 

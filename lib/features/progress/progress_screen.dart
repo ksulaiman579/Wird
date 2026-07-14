@@ -17,7 +17,7 @@ class ProgressScreen extends ConsumerWidget {
       appBar: GlassAppBar(title: Text(AppLocalizations.of(context).progressTitle)),
       body: statsAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Failed to load: $error')),
+        error: (error, stack) => Center(child: Text(AppLocalizations.of(context).commonFailedToLoad('$error'))),
         data: (stats) => ListView(
           children: [
             GlassCard(

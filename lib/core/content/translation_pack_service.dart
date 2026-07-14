@@ -87,6 +87,17 @@ class TranslationPackService {
     return row?.status == 'downloaded';
   }
 
+  /// The edition ids of every fully-downloaded translation pack — used to
+  /// build the reader's translation picker from what's actually installed
+  /// (rather than a hardcoded list).
+  Future<Set<String>> installedEditionIds() async {
+    final rows = await (_db.select(_db.contentPacks)
+          ..where((t) =>
+              t.type.equals('translation') & t.status.equals('downloaded')))
+        .get();
+    return rows.map((r) => r.editionOrCollection).toSet();
+  }
+
   Future<ContentPack?> _packRow(String editionId) {
     return (_db.select(_db.contentPacks)
           ..where((t) =>

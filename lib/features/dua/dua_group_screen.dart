@@ -32,7 +32,7 @@ class DuaGroupScreen extends ConsumerWidget {
           : categoriesAsync.when(
               loading: () => const Center(child: CircularProgressIndicator()),
               error: (error, stack) =>
-                  Center(child: Text('Failed to load: $error')),
+                  Center(child: Text(AppLocalizations.of(context).commonFailedToLoad('$error'))),
               data: (hisnulMuslim) {
                 final byId = {
                   for (final c in hisnulMuslim.categories) c.id: c,

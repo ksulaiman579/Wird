@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/content/models/dua_models.dart';
 import '../../core/gamification/achievements.dart' show AchievementRule;
+import '../../core/i18n/bidi.dart';
 import '../../core/l10n/reading_locale.dart';
 import '../../core/notifications/notification_plan.dart';
 import '../../core/notifications/notification_providers.dart';
@@ -177,7 +178,7 @@ class _AdhkarReaderScreenState extends ConsumerState<AdhkarReaderScreen> {
       contentPadding: EdgeInsets.zero,
       body: setAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Failed to load: $error')),
+        error: (error, stack) => Center(child: Text(AppLocalizations.of(context).commonFailedToLoad('$error'))),
         data: (set) {
           final items = widget.period == 'evening' ? set.evening : set.morning;
           _items = items;
@@ -272,43 +273,50 @@ class _DhikrCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('${index + 1} / $total',
+            Text(Bidi.isolateNumbers('${index + 1} / $total'),
                 style: Theme.of(context).textTheme.bodySmall),
             const SizedBox(height: 8),
+            // Arabic (the primary content) leads, then — for non-Arabic UI —
+            // the transliteration + translation, all in ONE scroll view so a
+            // long item can't squeeze the Arabic out of an Expanded above it.
             Expanded(
               child: SingleChildScrollView(
-                child: Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: Text(
-                    dhikr.arabic,
-                    style: const TextStyle(
-                      fontFamily: 'UthmanicHafs',
-                      fontSize: 22,
-                      height: 1.8,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: Text(
+                        dhikr.arabic,
+                        style: const TextStyle(
+                          fontFamily: 'UthmanicHafs',
+                          fontSize: 22,
+                          height: 1.8,
+                        ),
+                      ),
                     ),
-                  ),
+                    if (showLatinReadingAids(
+                        Localizations.localeOf(context))) ...[
+                      if (dhikr.transliteration != null)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8),
+                          child: Text(
+                            dhikr.transliteration!,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(fontStyle: FontStyle.italic),
+                          ),
+                        ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8),
+                        child: Text(dhikr.translation),
+                      ),
+                    ],
+                  ],
                 ),
               ),
             ),
-            // Arabic UI: skip the Latin transliteration + English translation
-            // (redundant for an Arabic reader).
-            if (showLatinReadingAids(Localizations.localeOf(context))) ...[
-              if (dhikr.transliteration != null)
-                Padding(
-                  padding: const EdgeInsets.only(top: 8),
-                  child: Text(
-                    dhikr.transliteration!,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium
-                        ?.copyWith(fontStyle: FontStyle.italic),
-                  ),
-                ),
-              Padding(
-                padding: const EdgeInsets.only(top: 8),
-                child: Text(dhikr.translation),
-              ),
-            ],
             const SizedBox(height: 16),
             Center(
               child: GestureDetector(

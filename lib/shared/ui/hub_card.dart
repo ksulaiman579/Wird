@@ -84,10 +84,11 @@ class HubCard extends StatelessWidget {
 
 /// Lays [children] out as the renders' 2-column hub grid.
 class HubCardGrid extends StatelessWidget {
-  // 230 left a visible void between a card's 2-line description and its CTA
-  // (the Expanded description absorbed the slack); 196 fits the icon + title
-  // + 2-line description + pill snugly for the iOS-tight look (D8).
-  const HubCardGrid({super.key, required this.children, this.mainAxisExtent = 196});
+  // 230 left a visible void between a card's 2-line description and its CTA;
+  // 196 was too tight and clipped the 2nd line of longer (and localized)
+  // descriptions. 212 fits icon + title + a full 2-line description + pill
+  // without clipping, while staying close to the iOS-tight look (D8).
+  const HubCardGrid({super.key, required this.children, this.mainAxisExtent = 212});
 
   final List<Widget> children;
   final double? mainAxisExtent;

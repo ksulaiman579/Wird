@@ -75,7 +75,7 @@ class _BookListScreenState extends ConsumerState<BookListScreen> {
           Expanded(
             child: booksAsync.when(
               loading: () => const Center(child: CircularProgressIndicator()),
-              error: (e, _) => Center(child: Text('Failed to load: $e')),
+              error: (e, _) => Center(child: Text(AppLocalizations.of(context).commonFailedToLoad('$e'))),
               data: (books) => books.isEmpty
                   ? Center(child: Text(AppLocalizations.of(context).bookNoMatch))
                   : ListView.builder(

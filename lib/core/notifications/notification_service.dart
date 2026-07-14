@@ -8,7 +8,13 @@ import 'notification_plan.dart';
 const dailyReminderChannelId = 'daily_reminder';
 const adhkarMorningChannelId = 'adhkar_morning';
 const adhkarEveningChannelId = 'adhkar_evening';
-const adhanChannelId = 'adhan_reminder';
+// The adhan is played by an in-app player (see AdhanPlayingScreen) so it can
+// be silenced with one tap — the notification itself is SILENT and uses a
+// full-screen intent to surface the player. A channel's sound is locked at
+// creation, so this silent channel gets a fresh id (…_v3); older adhan
+// channels (which carried the now-unwanted channel sound) are deleted on init.
+const adhanChannelId = 'adhan_reminder_v3';
+const _legacyAdhanChannelIds = ['adhan_reminder', 'adhan_reminder_v2'];
 
 /// Android raw-resource name (android/app/src/main/res/raw/adhan.ogg) used
 /// as the adhan channel's notification sound. Bundled CC0 recording — see
@@ -60,6 +66,10 @@ class NotificationService {
         AndroidFlutterLocalNotificationsPlugin>();
     if (android != null) {
       await android.requestNotificationsPermission();
+      // Drop older adhan channels so their locked channel-sound can't linger.
+      for (final id in _legacyAdhanChannelIds) {
+        await android.deleteNotificationChannel(channelId: id);
+      }
       for (final channel in const [
         AndroidNotificationChannel(
           dailyReminderChannelId,
@@ -85,14 +95,14 @@ class NotificationService {
           playSound: false,
           enableVibration: false,
         ),
-        // High importance + the bundled adhan as the channel sound: this
-        // is an attention-grabbing prayer-time call, not a passive marker.
+        // High importance so it can use a full-screen intent, but SILENT —
+        // the adhan audio comes from the in-app player, not the channel.
         AndroidNotificationChannel(
           adhanChannelId,
           'Adhan (prayer times)',
-          description: 'Plays the adhan at your selected prayer times.',
+          description: 'Surfaces the adhan player at your prayer times.',
           importance: Importance.high,
-          sound: RawResourceAndroidNotificationSound(adhanSoundResource),
+          playSound: false,
         ),
       ]) {
         await android.createNotificationChannel(channel);
@@ -135,10 +145,12 @@ class NotificationService {
                 : isAdhkar
                     ? Priority.low
                     : Priority.defaultPriority,
-            playSound: !isAdhkar,
-            sound: isAdhan
-                ? const RawResourceAndroidNotificationSound(adhanSoundResource)
-                : null,
+            // Adhan is silent here — the in-app AdhanPlayingScreen plays the
+            // call so it stays tap-to-silenceable. A full-screen intent
+            // surfaces that screen (auto-launches it on the lock screen).
+            playSound: !isAdhkar && !isAdhan,
+            fullScreenIntent: isAdhan,
+            category: isAdhan ? AndroidNotificationCategory.alarm : null,
             enableVibration: !isAdhkar,
             // Ongoing/non-dismissible (M14.4): cleared explicitly, either
             // when the user completes that period's adhkar or the next

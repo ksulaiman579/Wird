@@ -70,10 +70,10 @@ List<SurahSlice> _mergeAdjacentSlices(List<SurahSlice> slices) {
 
 /// Orders a Quran selection into surah slices ready for ayah-grouping.
 ///
-/// - `selectionType: 'surahs'` always visits the selected surahs in
-///   ascending mushaf order (direction only applies to juz/whole-Quran
-///   selections in the onboarding flow — an arbitrary surah pick has no
-///   traditional "reversed" reading order).
+/// - `selectionType: 'surahs'`: `direction: 'normal'` visits the selected
+///   surahs in ascending mushaf order; `'reversed'` visits them descending
+///   (highest surah first — the "from the back" order), with ayahs inside
+///   each surah still ascending, matching the juz/whole behavior (U2).
 /// - `selectionType: 'juz'` or `'whole'`: `direction: 'normal'` visits
 ///   selected juz ascending; `'reversed'` visits them descending (juz
 ///   30 → 1 for a whole-Quran selection) with surahs *within* each juz
@@ -90,7 +90,8 @@ List<SurahSlice> orderSelection({
 
   if (selectionType == 'surahs') {
     final sorted = [...selectionIds]..sort();
-    return sorted.map((surahNumber) {
+    final ordered = reversed ? sorted.reversed.toList() : sorted;
+    return ordered.map((surahNumber) {
       final surahMeta = meta.surahs.firstWhere((s) => s.number == surahNumber);
       return SurahSlice(surah: surahNumber, startAyah: 1, endAyah: surahMeta.ayahCount);
     }).toList();

@@ -284,8 +284,11 @@ class HadithPackRepository {
     final sectionRanges = <(int, int, String)>[];
     for (final entry in sectionDetails.entries) {
       final bounds = entry.value as Map<String, dynamic>;
-      final first = bounds['hadithnumber_first'] as int;
-      final last = bounds['hadithnumber_last'] as int;
+      // Upstream metadata occasionally stores a bound as a float (e.g.
+      // Tirmidhi's last section ends at 3956.x); `as int` would throw and
+      // fail the whole download, so coerce via num. (U4)
+      final first = (bounds['hadithnumber_first'] as num).toInt();
+      final last = (bounds['hadithnumber_last'] as num).toInt();
       if (first == 0 && last == 0) continue;
       sectionRanges.add((first, last, entry.key));
     }

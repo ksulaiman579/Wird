@@ -5,12 +5,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/gamification/achievements.dart';
+import '../../core/i18n/bidi.dart';
 import '../../shared/glass/glass.dart';
 import '../../shared/ui/ui.dart';
 import '../../shared/widgets/wird_home_header.dart';
 import '../achievements/achievement_providers.dart';
 import '../quran_browser/quran_providers.dart';
 import '../quran_reader/reader_prefs.dart';
+import '../quran_reader/reading_streak.dart';
+import '../update/update_ui.dart';
 import 'today_providers.dart';
 
 /// `AchievementRule.id` → human title, e.g. `'streak_7'` → `'7-Day Streak'`
@@ -59,9 +62,10 @@ class TodayScreen extends ConsumerWidget {
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             const SizedBox(height: 16),
+            const UpdateBanner(),
             breakdownAsync.when(
               loading: () => const Center(child: CircularProgressIndicator()),
-              error: (e, st) => Text('Failed to load: $e'),
+              error: (e, st) => Text(AppLocalizations.of(context).commonFailedToLoad('$e')),
               data: (breakdown) => Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -85,7 +89,7 @@ class TodayScreen extends ConsumerWidget {
               children: [
                 Expanded(child: _StreakCard()),
                 SizedBox(width: 12),
-                Expanded(child: _KeyInsightsCard()),
+                Expanded(child: _ReadingStreakCard()),
               ],
             ),
             const SizedBox(height: 24),
@@ -185,10 +189,12 @@ class _TodayHeroCard extends ConsumerWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      AppLocalizations.of(context).todayBreakdown(
-                        breakdown.sabaqCount,
-                        breakdown.sabqiCount + breakdown.manzilCount,
-                        breakdown.estimatedMinutes,
+                      Bidi.isolateNumbers(
+                        AppLocalizations.of(context).todayBreakdown(
+                          breakdown.sabaqCount,
+                          breakdown.sabqiCount + breakdown.manzilCount,
+                          breakdown.estimatedMinutes,
+                        ),
                       ),
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
@@ -203,10 +209,12 @@ class _TodayHeroCard extends ConsumerWidget {
                         const SizedBox(width: 4),
                         Flexible(
                           child: Text(
-                            AppLocalizations.of(context).todayStreakWeek(
-                              streak,
-                              goal.completed,
-                              goal.goal,
+                            Bidi.isolateNumbers(
+                              AppLocalizations.of(context).todayStreakWeek(
+                                streak,
+                                goal.completed,
+                                goal.goal,
+                              ),
                             ),
                             style: Theme.of(context).textTheme.bodySmall,
                             overflow: TextOverflow.ellipsis,
@@ -573,87 +581,41 @@ class _StreakCard extends ConsumerWidget {
   }
 }
 
-/// Right half of the Streak/Insights 2-up row: a 7-day mini bar chart of
-/// items completed per day, from real `daily_sessions` data (M23.3 design
-/// spec's "Key Insights").
-class _KeyInsightsCard extends ConsumerWidget {
-  const _KeyInsightsCard();
+/// Right half of the Streak row: the *normal Quran reading* streak, tracked
+/// separately from the memorization/SRS streak in `_StreakCard`. Counts days
+/// the user actually read in the Quran reader (see `readingStreakProvider`) —
+/// this replaced the old "Key Insights" 7-day bar chart per the user's
+/// request for a distinct non-lesson reading streak.
+class _ReadingStreakCard extends ConsumerWidget {
+  const _ReadingStreakCard();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final sessions = ref.watch(dailySessionsStreamProvider).value ?? const [];
-    const weekdayInitials = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
-    final today = DateTime.now();
-    final days = List.generate(7, (i) {
-      final d = today.subtract(Duration(days: 6 - i));
-      final key =
-          '${d.year.toString().padLeft(4, '0')}-'
-          '${d.month.toString().padLeft(2, '0')}-'
-          '${d.day.toString().padLeft(2, '0')}';
-      final row = sessions.where((s) => s.day == key).firstOrNull;
-      // DateTime.weekday is 1=Mon..7=Sun; map to the initials index.
-      final done = (row?.newItemsDone ?? 0) + (row?.reviewsDone ?? 0);
-      return (label: weekdayInitials[d.weekday - 1], done: done);
-    });
-    final total = days.fold(0, (m, v) => m + v.done);
-    final maxDone = days.fold(0, (m, v) => v.done > m ? v.done : m).clamp(1, 999999);
-    final theme = Theme.of(context);
-
+    final streak = ref.watch(readingStreakProvider).value?.currentStreak ?? 0;
     return GlassCard(
       enableBlur: false,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(AppLocalizations.of(context).todayKeyInsights, style: theme.textTheme.labelMedium),
-          const SizedBox(height: 12),
-          if (total == 0)
-            // Chart is correctly wired to daily_sessions, but a bar strip of
-            // zeros reads as broken — show why it's empty until there's a
-            // day with completed items to plot (Item 1.8).
-            SizedBox(
-              height: 56,
-              child: Center(
-                child: Text(
-                  AppLocalizations.of(context).todayInsightsEmpty,
-                  textAlign: TextAlign.center,
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.textTheme.bodySmall?.color?.withValues(alpha: 0.7),
-                  ),
-                ),
+          Text(
+            AppLocalizations.of(context).todayReadingStreak,
+            style: Theme.of(context).textTheme.labelMedium,
+          ),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              Icon(
+                Icons.menu_book_rounded,
+                color: Theme.of(context).colorScheme.secondary,
+                size: 28,
               ),
-            )
-          else
-            SizedBox(
-              height: 56,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  for (final d in days)
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 2),
-                            child: Container(
-                              height: d.done == 0
-                                  ? 3
-                                  : 40 * (d.done / maxDone).clamp(0.08, 1.0),
-                              decoration: BoxDecoration(
-                                color: theme.colorScheme.secondary
-                                    .withValues(alpha: d.done == 0 ? 0.3 : 1),
-                                borderRadius: BorderRadius.circular(3),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 4),
-                          Text(d.label, style: theme.textTheme.labelSmall),
-                        ],
-                      ),
-                    ),
-                ],
+              const SizedBox(width: 6),
+              Text(
+                AppLocalizations.of(context).todayStreakDays(streak),
+                style: Theme.of(context).textTheme.titleLarge,
               ),
-            ),
+            ],
+          ),
         ],
       ),
     );

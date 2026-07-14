@@ -75,7 +75,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Daily routine'), findsOneWidget);
-    expect(find.text('supplications for when you wake up'), findsOneWidget);
+    expect(find.text('Supplications for when you wake up'), findsOneWidget);
   });
 
   testWidgets('DuaCategoryScreen shows dua cards', (tester) async {
@@ -89,7 +89,7 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    expect(find.text('supplications for when you wake up'), findsOneWidget);
+    expect(find.text('Supplications for when you wake up'), findsOneWidget);
     // Cards are collapsed by default now; the translation appears on expand.
     expect(find.textContaining('resurrection'), findsNothing);
     await tester.tap(find.byIcon(Icons.keyboard_arrow_down_rounded).first);
@@ -160,6 +160,6 @@ void main() {
 
     // hm-cat-1 Arabic header shows; the English title must not.
     expect(find.text('أذكار الاستيقاظ من النوم'), findsOneWidget);
-    expect(find.text('supplications for when you wake up'), findsNothing);
+    expect(find.text('Supplications for when you wake up'), findsNothing);
   });
 }

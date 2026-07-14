@@ -12,6 +12,8 @@ import '../../core/platform/storage_estimate.dart';
 import '../../core/platform/storage_warning.dart';
 import '../../shared/glass/glass.dart';
 import '../onboarding/onboarding_screen.dart' show hadithCollectionSizeMb;
+import '../quran_reader/quran_reader_screen.dart'
+    show installedTranslationEditionsProvider;
 
 /// A single Quran translation pack is small (roughly this many MB) — no
 /// per-edition size is tracked upstream, so this flat estimate is used
@@ -108,7 +110,7 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
               padding: EdgeInsets.all(16),
               child: Center(child: CircularProgressIndicator()),
             ),
-            error: (error, stack) => Text('Failed to load: $error'),
+            error: (error, stack) => Text(AppLocalizations.of(context).commonFailedToLoad('$error')),
             data: (allowlist) {
               final editions = allowlist.editions
                   .where((e) =>
@@ -206,6 +208,10 @@ class _TranslationPackRow extends ConsumerWidget {
                     await ref
                         .read(translationPackServiceProvider)
                         .downloadAndInstall(edition);
+                    // Refresh the reader's picker so the just-downloaded
+                    // edition is selectable immediately — no app restart
+                    // (U3). The provider is a cached FutureProvider.
+                    ref.invalidate(installedTranslationEditionsProvider);
                   }
                 },
               ),

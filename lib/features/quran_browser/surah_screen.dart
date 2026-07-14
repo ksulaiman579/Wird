@@ -11,6 +11,7 @@ import '../../core/l10n/reading_locale.dart';
 import '../../shared/glass/glass.dart';
 import '../../shared/ui/verse_roundel.dart';
 import '../session/session_audio_providers.dart';
+import 'mark_memorized_controller.dart';
 import 'quran_providers.dart';
 
 class SurahScreen extends ConsumerStatefulWidget {
@@ -62,6 +63,39 @@ class _SurahScreenState extends ConsumerState<SurahScreen> {
     }
   }
 
+  Future<void> _markMemorized() async {
+    final l = AppLocalizations.of(context);
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(l.quranMarkMemorized),
+        content: Text(l.quranMarkMemorizedBody),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(false),
+            child: Text(l.commonCancel),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.of(dialogContext).pop(true),
+            child: Text(l.quranMarkMemorizedConfirm),
+          ),
+        ],
+      ),
+    );
+    if (confirmed != true || !mounted) return;
+
+    await markQuranMemorized(
+      ref,
+      selectionType: 'surahs',
+      selectionIds: [widget.surahNumber],
+      now: DateTime.now(),
+    );
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(l.quranMarkedForRevision)),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final surahAsync = ref.watch(surahProvider(widget.surahNumber));
@@ -79,6 +113,11 @@ class _SurahScreenState extends ConsumerState<SurahScreen> {
       appBar: GlassAppBar(
         title: Text(title),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.download_done_rounded),
+            tooltip: AppLocalizations.of(context).quranMarkMemorized,
+            onPressed: _markMemorized,
+          ),
           // Surah Index is a browse list + route only (Item 1.15): all
           // layout/display options live in the reader's options sheet, so
           // this view has no per-view toggles — it always shows Arabic,
@@ -93,7 +132,7 @@ class _SurahScreenState extends ConsumerState<SurahScreen> {
       ),
       body: surahAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Failed to load: $error')),
+        error: (error, stack) => Center(child: Text(AppLocalizations.of(context).commonFailedToLoad('$error'))),
         data: (surah) => ListView.builder(
           padding: const EdgeInsets.all(16),
           itemCount: surah.ayahs.length,

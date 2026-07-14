@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:wird/l10n/gen/app_localizations.dart';
 
 /// The one-time "what's where" orientation shown the first time the app
-/// shell mounts (M23.2 design spec) — a short 3-step carousel covering the
-/// swipeable nav bar, the mini-player, and the Explore hub. Shown once via
-/// a prefs flag in [AppShell]; never repeats.
+/// shell mounts — a short carousel covering the mini-player and the Explore
+/// hub. Shown once via a prefs flag in [AppShell]; never repeats. (The old
+/// step 1 explained a swipe-to-reveal 6th nav tab, which was removed; the
+/// five-tab bar is self-explanatory, so that step is gone — its now-obsolete
+/// tourStep1* strings are intentionally left unused in the ARBs.)
 Future<void> showWirdTourOverlay(BuildContext context) {
   return showDialog<void>(
     context: context,
@@ -20,7 +22,6 @@ class _TourStep {
 }
 
 List<_TourStep> _tourSteps(AppLocalizations l) => [
-      _TourStep(l.tourStep1Title, l.tourStep1Body),
       _TourStep(l.tourStep2Title, l.tourStep2Body),
       _TourStep(l.tourStep3Title, l.tourStep3Body),
     ];

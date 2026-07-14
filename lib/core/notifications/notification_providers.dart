@@ -74,7 +74,18 @@ Future<void> rescheduleNotifications(dynamic ref) async {
   final allPrayerTimes = <Map<Salah, DateTime>>[];
   for (var day = 0; day < rollingWindowDays; day++) {
     final date = today.add(Duration(days: day));
-    if (location == null) {
+    if (prefs.useManualTimes) {
+      // Manual times (U9): user-entered minutes-since-midnight, no location
+      // needed. Drives both adhkar (Fajr/Asr) and the full adhan set.
+      DateTime at(int minutes) => DateTime(
+          date.year, date.month, date.day, minutes ~/ 60, minutes % 60);
+      final manual = prefs.manualMinutesBySalah;
+      fajrTimes.add(at(manual[Salah.fajr]!));
+      asrTimes.add(at(manual[Salah.asr]!));
+      allPrayerTimes.add({
+        for (final entry in manual.entries) entry.key: at(entry.value),
+      });
+    } else if (location == null) {
       // No city picked — fixed fallback times, per the plan.
       fajrTimes.add(DateTime(date.year, date.month, date.day, 6, 0));
       asrTimes.add(DateTime(date.year, date.month, date.day, 17, 0));
@@ -119,7 +130,8 @@ Future<void> rescheduleNotifications(dynamic ref) async {
   // Adhan reminders (5H): only when a location is set (real prayer times
   // required) and a tone is selected. Appended to the same plan so the
   // service's cancel-all + reschedule covers them too.
-  if (location != null && allPrayerTimes.length == rollingWindowDays) {
+  if ((location != null || prefs.useManualTimes) &&
+      allPrayerTimes.length == rollingWindowDays) {
     plan.addAll(buildAdhanPlan(
       now: now,
       prayerTimes: allPrayerTimes,

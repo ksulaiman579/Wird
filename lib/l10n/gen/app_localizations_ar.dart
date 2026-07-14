@@ -422,6 +422,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get todayCurrentStreak => 'التتابع الحالي';
 
   @override
+  String get todayReadingStreak => 'تتابع القراءة';
+
+  @override
   String todayStreakDays(Object streak) {
     return '$streak يوم';
   }
@@ -1725,4 +1728,69 @@ class AppLocalizationsAr extends AppLocalizations {
   String commonFailedToLoad(String error) {
     return 'تعذّر التحميل: $error';
   }
+
+  @override
+  String get updateCheck => 'التحقق من التحديثات';
+
+  @override
+  String get updateChecking => 'جارٍ التحقق من التحديثات…';
+
+  @override
+  String get updateAvailableTitle => 'يتوفر تحديث';
+
+  @override
+  String updateAvailableBanner(String version) {
+    return 'الإصدار $version من وِرد متاح';
+  }
+
+  @override
+  String get updateNow => 'حدّث الآن';
+
+  @override
+  String get updateLater => 'لاحقًا';
+
+  @override
+  String get updateUpToDate => 'أنت على أحدث إصدار';
+
+  @override
+  String get updateDownloading => 'جارٍ تنزيل التحديث…';
+
+  @override
+  String get quranMarkMemorized => 'تحديد كمحفوظ';
+
+  @override
+  String get quranMarkMemorizedBody =>
+      'تحديد هذه السورة كاملةً كمحفوظة مسبقًا؟ ستُجدوَل للمراجعة طويلة المدى بدلًا من عرضها كجديدة.';
+
+  @override
+  String get quranMarkMemorizedConfirm => 'تحديد كمحفوظ';
+
+  @override
+  String get quranMarkedForRevision => 'أُضيفت إلى المراجعة طويلة المدى';
+
+  @override
+  String get planIncludeHadith => 'تضمين الأحاديث';
+
+  @override
+  String get planIncludeDuas => 'تضمين الأدعية والأذكار';
+
+  @override
+  String get settingsUseManualTimes => 'ضبط أوقات الصلاة يدويًا';
+
+  @override
+  String get settingsPlayingAdhan => 'جارٍ تشغيل الأذان…';
+
+  @override
+  String get adhanCallTitle => 'حان وقت الصلاة';
+
+  @override
+  String adhanCallFor(String salah) {
+    return 'حان وقت $salah';
+  }
+
+  @override
+  String get adhanTapToSilence => 'انقر في أي مكان للإسكات';
+
+  @override
+  String get quranMarkJuzMemorized => 'تحديد جزء كمحفوظ';
 }

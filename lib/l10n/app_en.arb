@@ -570,6 +570,10 @@
   "@todayCurrentStreak": {
     "description": "Streak card label."
   },
+  "todayReadingStreak": "Reading streak",
+  "@todayReadingStreak": {
+    "description": "Home card label for the normal Quran reading streak (distinct from the memorization streak)."
+  },
   "todayStreakDays": "{streak} days",
   "@todayStreakDays": {
     "description": "Streak card day count.",
@@ -2246,5 +2250,96 @@
         "type": "String"
       }
     }
+  },
+  "updateCheck": "Check for updates",
+  "@updateCheck": {
+    "description": "Settings row to check for an app update."
+  },
+  "updateChecking": "Checking for updates…",
+  "@updateChecking": {
+    "description": "Progress while checking."
+  },
+  "updateAvailableTitle": "Update available",
+  "@updateAvailableTitle": {
+    "description": "Update dialog/banner title."
+  },
+  "updateAvailableBanner": "Wird {version} is available",
+  "@updateAvailableBanner": {
+    "description": "Update banner text.",
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "updateNow": "Update now",
+  "@updateNow": {
+    "description": "Confirm update action."
+  },
+  "updateLater": "Later",
+  "@updateLater": {
+    "description": "Dismiss update prompt."
+  },
+  "updateUpToDate": "You're on the latest version",
+  "@updateUpToDate": {
+    "description": "Shown when no update is available."
+  },
+  "updateDownloading": "Downloading update…",
+  "@updateDownloading": {
+    "description": "Progress while downloading the APK."
+  },
+  "quranMarkMemorized": "Mark as memorized",
+  "@quranMarkMemorized": {
+    "description": "App-bar action/tooltip on a surah to mark the whole surah as already memorized."
+  },
+  "quranMarkMemorizedBody": "Mark this entire surah as already memorized? It will be scheduled for long-term revision instead of shown as new.",
+  "@quranMarkMemorizedBody": {
+    "description": "Confirmation dialog body when marking a surah as already memorized."
+  },
+  "quranMarkMemorizedConfirm": "Mark memorized",
+  "@quranMarkMemorizedConfirm": {
+    "description": "Confirm button that marks the surah memorized."
+  },
+  "quranMarkedForRevision": "Added to long-term revision",
+  "@quranMarkedForRevision": {
+    "description": "Snackbar shown after marking a surah memorized."
+  },
+  "planIncludeHadith": "Include Hadith",
+  "@planIncludeHadith": {
+    "description": "Toggle in plan editing to add/remove the Hadith track."
+  },
+  "planIncludeDuas": "Include Duas & Adhkar",
+  "@planIncludeDuas": {
+    "description": "Toggle in plan editing to add/remove the Duas & Adhkar track."
+  },
+  "settingsUseManualTimes": "Set prayer times manually",
+  "@settingsUseManualTimes": {
+    "description": "Toggle: enter the five prayer times by hand instead of computing them from a location."
+  },
+  "settingsPlayingAdhan": "Playing adhan…",
+  "@settingsPlayingAdhan": {
+    "description": "SnackBar shown while the adhan preview is playing, with a Stop action."
+  },
+  "adhanCallTitle": "Time to pray",
+  "@adhanCallTitle": {
+    "description": "Title on the full-screen adhan player when the prayer name is unknown."
+  },
+  "adhanCallFor": "Time for {salah}",
+  "@adhanCallFor": {
+    "description": "Title on the adhan player naming the prayer, e.g. \"Time for Fajr\".",
+    "placeholders": {
+      "salah": {
+        "type": "String",
+        "example": "Fajr"
+      }
+    }
+  },
+  "adhanTapToSilence": "Tap anywhere to silence",
+  "@adhanTapToSilence": {
+    "description": "Hint on the adhan player telling the user tapping stops the adhan."
+  },
+  "quranMarkJuzMemorized": "Mark a juz as memorized",
+  "@quranMarkJuzMemorized": {
+    "description": "App-bar action opening a picker to mark whole juz as already memorized."
   }
 }

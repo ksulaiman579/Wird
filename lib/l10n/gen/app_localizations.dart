@@ -1014,6 +1014,12 @@ abstract class AppLocalizations {
   /// **'Current streak'**
   String get todayCurrentStreak;
 
+  /// Home card label for the normal Quran reading streak (distinct from the memorization streak).
+  ///
+  /// In en, this message translates to:
+  /// **'Reading streak'**
+  String get todayReadingStreak;
+
   /// Streak card day count.
   ///
   /// In en, this message translates to:
@@ -3233,6 +3239,126 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Failed to load: {error}'**
   String commonFailedToLoad(String error);
+
+  /// Settings row to check for an app update.
+  ///
+  /// In en, this message translates to:
+  /// **'Check for updates'**
+  String get updateCheck;
+
+  /// Progress while checking.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking for updates…'**
+  String get updateChecking;
+
+  /// Update dialog/banner title.
+  ///
+  /// In en, this message translates to:
+  /// **'Update available'**
+  String get updateAvailableTitle;
+
+  /// Update banner text.
+  ///
+  /// In en, this message translates to:
+  /// **'Wird {version} is available'**
+  String updateAvailableBanner(String version);
+
+  /// Confirm update action.
+  ///
+  /// In en, this message translates to:
+  /// **'Update now'**
+  String get updateNow;
+
+  /// Dismiss update prompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Later'**
+  String get updateLater;
+
+  /// Shown when no update is available.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re on the latest version'**
+  String get updateUpToDate;
+
+  /// Progress while downloading the APK.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloading update…'**
+  String get updateDownloading;
+
+  /// App-bar action/tooltip on a surah to mark the whole surah as already memorized.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark as memorized'**
+  String get quranMarkMemorized;
+
+  /// Confirmation dialog body when marking a surah as already memorized.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark this entire surah as already memorized? It will be scheduled for long-term revision instead of shown as new.'**
+  String get quranMarkMemorizedBody;
+
+  /// Confirm button that marks the surah memorized.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark memorized'**
+  String get quranMarkMemorizedConfirm;
+
+  /// Snackbar shown after marking a surah memorized.
+  ///
+  /// In en, this message translates to:
+  /// **'Added to long-term revision'**
+  String get quranMarkedForRevision;
+
+  /// Toggle in plan editing to add/remove the Hadith track.
+  ///
+  /// In en, this message translates to:
+  /// **'Include Hadith'**
+  String get planIncludeHadith;
+
+  /// Toggle in plan editing to add/remove the Duas & Adhkar track.
+  ///
+  /// In en, this message translates to:
+  /// **'Include Duas & Adhkar'**
+  String get planIncludeDuas;
+
+  /// Toggle: enter the five prayer times by hand instead of computing them from a location.
+  ///
+  /// In en, this message translates to:
+  /// **'Set prayer times manually'**
+  String get settingsUseManualTimes;
+
+  /// SnackBar shown while the adhan preview is playing, with a Stop action.
+  ///
+  /// In en, this message translates to:
+  /// **'Playing adhan…'**
+  String get settingsPlayingAdhan;
+
+  /// Title on the full-screen adhan player when the prayer name is unknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Time to pray'**
+  String get adhanCallTitle;
+
+  /// Title on the adhan player naming the prayer, e.g. "Time for Fajr".
+  ///
+  /// In en, this message translates to:
+  /// **'Time for {salah}'**
+  String adhanCallFor(String salah);
+
+  /// Hint on the adhan player telling the user tapping stops the adhan.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap anywhere to silence'**
+  String get adhanTapToSilence;
+
+  /// App-bar action opening a picker to mark whole juz as already memorized.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark a juz as memorized'**
+  String get quranMarkJuzMemorized;
 }
 
 class _AppLocalizationsDelegate

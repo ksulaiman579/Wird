@@ -90,7 +90,7 @@ class KnowledgeLibraryScreen extends ConsumerWidget {
               padding: EdgeInsets.all(32),
               child: Center(child: CircularProgressIndicator()),
             ),
-            error: (e, _) => Text('Failed to load: $e'),
+            error: (e, _) => Text(AppLocalizations.of(context).commonFailedToLoad('$e')),
             data: (counts) {
               final available = libraryDisciplines
                   .where((d) => (counts[d.slug] ?? 0) > 0)

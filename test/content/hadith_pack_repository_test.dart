@@ -124,6 +124,33 @@ void main() {
     expect(row.status, 'failed');
   });
 
+  test('downloadAndInstall tolerates a float section bound (U4 / Tirmidhi)',
+      () async {
+    // Upstream Tirmidhi metadata stores the final section's last bound as a
+    // float; the old `as int` cast threw and failed the whole download.
+    final body = jsonDecode(_fakeEditionBody('arabic')) as Map<String, dynamic>;
+    ((body['metadata'] as Map)['section_details'] as Map)['2']
+        ['hadithnumber_last'] = 5.0;
+
+    // Both editions carry the same float bound so their number sets agree.
+    final englishBody =
+        jsonDecode(_fakeEditionBody('english')) as Map<String, dynamic>;
+    ((englishBody['metadata'] as Map)['section_details'] as Map)['2']
+        ['hadithnumber_last'] = 5.0;
+    final client = _FakeClient({
+      arabicUrl: http.Response(jsonEncode(body), 200),
+      englishUrl: http.Response(jsonEncode(englishBody), 200),
+    });
+    final repo = HadithPackRepository(db, client: client);
+
+    await repo.downloadAndInstall('bukhari');
+
+    final row = await db.select(db.contentPacks).getSingle();
+    expect(row.status, 'downloaded');
+    final chapters = await repo.chaptersFor('bukhari');
+    expect(chapters.firstWhere((c) => c.number == '2').count, 3);
+  });
+
   test('chaptersFor returns empty when nothing is downloaded', () async {
     final repo = HadithPackRepository(db, client: _FakeClient({}));
     final chapters = await repo.chaptersFor('bukhari');

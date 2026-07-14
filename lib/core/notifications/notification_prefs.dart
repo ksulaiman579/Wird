@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'notification_plan.dart';
+
 const notificationPrefsKey = 'notification_prefs';
 
 /// Adhan tone for prayer-time reminders. Only one bundled recording ships
@@ -37,6 +39,12 @@ class NotificationPrefs {
     this.adhanAsr = false,
     this.adhanMaghrib = false,
     this.adhanIsha = false,
+    this.useManualTimes = false,
+    this.manualFajrMinutes = 5 * 60,
+    this.manualDhuhrMinutes = 12 * 60 + 30,
+    this.manualAsrMinutes = 15 * 60 + 45,
+    this.manualMaghribMinutes = 18 * 60 + 15,
+    this.manualIshaMinutes = 19 * 60 + 45,
   });
 
   final bool dailyReminderEnabled;
@@ -56,6 +64,26 @@ class NotificationPrefs {
   final bool adhanMaghrib;
   final bool adhanIsha;
 
+  /// When true, prayer times are taken from the [manualFajrMinutes]… fields
+  /// (minutes since local midnight) instead of being computed from a
+  /// location — so adhan/prayer reminders work with no city set, and the
+  /// user can override an inaccurate calculation for their locale.
+  final bool useManualTimes;
+  final int manualFajrMinutes;
+  final int manualDhuhrMinutes;
+  final int manualAsrMinutes;
+  final int manualMaghribMinutes;
+  final int manualIshaMinutes;
+
+  /// The five manual times as minutes-since-midnight, keyed by salah.
+  Map<Salah, int> get manualMinutesBySalah => {
+        Salah.fajr: manualFajrMinutes,
+        Salah.dhuhr: manualDhuhrMinutes,
+        Salah.asr: manualAsrMinutes,
+        Salah.maghrib: manualMaghribMinutes,
+        Salah.isha: manualIshaMinutes,
+      };
+
   NotificationPrefs copyWith({
     bool? dailyReminderEnabled,
     int? dailyReminderHour,
@@ -69,6 +97,12 @@ class NotificationPrefs {
     bool? adhanAsr,
     bool? adhanMaghrib,
     bool? adhanIsha,
+    bool? useManualTimes,
+    int? manualFajrMinutes,
+    int? manualDhuhrMinutes,
+    int? manualAsrMinutes,
+    int? manualMaghribMinutes,
+    int? manualIshaMinutes,
   }) {
     return NotificationPrefs(
       dailyReminderEnabled: dailyReminderEnabled ?? this.dailyReminderEnabled,
@@ -83,6 +117,12 @@ class NotificationPrefs {
       adhanAsr: adhanAsr ?? this.adhanAsr,
       adhanMaghrib: adhanMaghrib ?? this.adhanMaghrib,
       adhanIsha: adhanIsha ?? this.adhanIsha,
+      useManualTimes: useManualTimes ?? this.useManualTimes,
+      manualFajrMinutes: manualFajrMinutes ?? this.manualFajrMinutes,
+      manualDhuhrMinutes: manualDhuhrMinutes ?? this.manualDhuhrMinutes,
+      manualAsrMinutes: manualAsrMinutes ?? this.manualAsrMinutes,
+      manualMaghribMinutes: manualMaghribMinutes ?? this.manualMaghribMinutes,
+      manualIshaMinutes: manualIshaMinutes ?? this.manualIshaMinutes,
     );
   }
 
@@ -99,6 +139,12 @@ class NotificationPrefs {
         'adhanAsr': adhanAsr,
         'adhanMaghrib': adhanMaghrib,
         'adhanIsha': adhanIsha,
+        'useManualTimes': useManualTimes,
+        'manualFajrMinutes': manualFajrMinutes,
+        'manualDhuhrMinutes': manualDhuhrMinutes,
+        'manualAsrMinutes': manualAsrMinutes,
+        'manualMaghribMinutes': manualMaghribMinutes,
+        'manualIshaMinutes': manualIshaMinutes,
       };
 
   factory NotificationPrefs.fromJson(Map<String, dynamic> json) {
@@ -118,6 +164,13 @@ class NotificationPrefs {
       adhanAsr: json['adhanAsr'] as bool? ?? false,
       adhanMaghrib: json['adhanMaghrib'] as bool? ?? false,
       adhanIsha: json['adhanIsha'] as bool? ?? false,
+      useManualTimes: json['useManualTimes'] as bool? ?? false,
+      manualFajrMinutes: json['manualFajrMinutes'] as int? ?? 5 * 60,
+      manualDhuhrMinutes: json['manualDhuhrMinutes'] as int? ?? 12 * 60 + 30,
+      manualAsrMinutes: json['manualAsrMinutes'] as int? ?? 15 * 60 + 45,
+      manualMaghribMinutes:
+          json['manualMaghribMinutes'] as int? ?? 18 * 60 + 15,
+      manualIshaMinutes: json['manualIshaMinutes'] as int? ?? 19 * 60 + 45,
     );
   }
 }

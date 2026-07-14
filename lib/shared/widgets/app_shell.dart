@@ -4,16 +4,17 @@ import 'package:wird/l10n/gen/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../features/whats_new/whats_new.dart';
 import '../glass/glass.dart';
 import '../ui/ui.dart';
 import 'global_mini_player.dart';
 import 'wird_tour_overlay.dart';
 
-/// Persistent bottom navigation (M23.2): Home · Quran · Explore · Duas ·
-/// More, with Al-Manhaj as a 6th branch reachable by pressing and swiping
-/// the nav bar past the trailing edge (see [GlassNavBar]). Quran and
-/// Hadith still share the "Quran" slot (a hub screen linking to both, the
-/// former "Read" tab) so Al-Manhaj can join the bar without crowding it.
+/// Persistent bottom navigation: Home · Quran · Explore · Duas · More — five
+/// fixed tabs, no hidden/overflow destinations (per HIG "Tab bars": don't hide
+/// tabs behind a gesture). Quran and Hadith share the "Quran" slot (a hub
+/// screen linking to both). Al-Manhaj is reached from the Explore hub and the
+/// More/Home cards rather than a swipe-revealed 6th tab.
 class AppShell extends StatefulWidget {
   const AppShell({super.key, required this.navigationShell});
 
@@ -29,20 +30,28 @@ class _AppShellState extends State<AppShell> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _maybeShowTour());
+    WidgetsBinding.instance.addPostFrameCallback((_) => _maybeShowIntros());
   }
 
-  Future<void> _maybeShowTour() async {
+  /// First-run users see the one-time tour; returning users who've just
+  /// updated see the "What's new" dialog. A brand-new install never shows
+  /// the changelog for the version it shipped with — [recordWhatsNewSeen]
+  /// silently marks the current build as seen instead.
+  Future<void> _maybeShowIntros() async {
     final prefs = await SharedPreferences.getInstance();
-    if (prefs.getBool(_tourSeenKey) ?? false) return;
+    final tourSeen = prefs.getBool(_tourSeenKey) ?? false;
+    if (!tourSeen) {
+      // Mark seen *before* showing (Item A7): the tour is a one-time
+      // orientation aid, so navigating away or reloading mid-tour must not
+      // make it reappear.
+      await prefs.setBool(_tourSeenKey, true);
+      await recordWhatsNewSeen();
+      if (!mounted) return;
+      await showWirdTourOverlay(context);
+      return;
+    }
     if (!mounted) return;
-    // Mark seen *before* showing (Item A7): the tour is a one-time
-    // orientation aid, so navigating away or reloading mid-tour must not
-    // make it reappear — previously the flag was only written after the
-    // user tapped "Got it", so any other dismissal re-showed it every boot.
-    await prefs.setBool(_tourSeenKey, true);
-    if (!mounted) return;
-    await showWirdTourOverlay(context);
+    await maybeShowWhatsNew(context);
   }
 
   @override
@@ -85,11 +94,6 @@ class _AppShellState extends State<AppShell> {
               NavigationDestination(
                 icon: Icon(Icons.more_horiz_rounded),
                 label: AppLocalizations.of(context).navMore,
-              ),
-              NavigationDestination(
-                icon: Icon(Icons.school_outlined),
-                selectedIcon: Icon(Icons.school_rounded),
-                label: AppLocalizations.of(context).navAlManhaj,
               ),
             ],
           ),

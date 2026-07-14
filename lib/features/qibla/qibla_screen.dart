@@ -32,7 +32,7 @@ class QiblaScreen extends ConsumerWidget {
       appBar: GlassAppBar(title: Text(AppLocalizations.of(context).qiblaTitle)),
       body: locationAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, st) => Center(child: Text('Failed to load: $e')),
+        error: (e, st) => Center(child: Text(AppLocalizations.of(context).commonFailedToLoad('$e'))),
         data: (location) {
           if (location == null) {
             return Padding(
@@ -114,21 +114,31 @@ class _LiveCompass extends StatefulWidget {
 
 class _LiveCompassState extends State<_LiveCompass> {
   StreamSubscription<MagnetometerEvent>? _sub;
+  Timer? _sensorTimeout;
   double? _heading;
   bool _sensorFailed = false;
 
   @override
   void initState() {
     super.initState();
+    // Many devices/emulators have no magnetometer: the stream then never
+    // emits AND never errors, leaving the compass stuck on "Reading
+    // compass…" forever (U11). Fall back to the static bearing dial — which
+    // still shows the correct Qibla degree — if no sample arrives in time.
+    _sensorTimeout = Timer(const Duration(seconds: 4), () {
+      if (mounted && _heading == null) setState(() => _sensorFailed = true);
+    });
     _sub = magnetometerEventStream().listen(
       (event) {
         // Simplified flat-plane heading — no tilt compensation. Good
         // enough for "roughly which way to face", not surveying-grade.
         final headingRad = math.atan2(event.y, event.x);
         final heading = (90 - headingRad * 180 / math.pi + 360) % 360;
+        _sensorTimeout?.cancel();
         if (mounted) setState(() => _heading = heading);
       },
       onError: (_) {
+        _sensorTimeout?.cancel();
         if (mounted) setState(() => _sensorFailed = true);
       },
       cancelOnError: true,
@@ -137,6 +147,7 @@ class _LiveCompassState extends State<_LiveCompass> {
 
   @override
   void dispose() {
+    _sensorTimeout?.cancel();
     _sub?.cancel();
     super.dispose();
   }

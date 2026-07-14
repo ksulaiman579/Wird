@@ -51,8 +51,15 @@ class _HadithChapterDetailScreenState
       appBar: GlassAppBar(title: Text(title)),
       body: entriesAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Failed to load: $error')),
-        data: (entries) {
+        error: (error, stack) => Center(child: Text(AppLocalizations.of(context).commonFailedToLoad('$error'))),
+        data: (allEntries) {
+          // Some collections (e.g. Sahih Muslim's introduction) carry entries
+          // with no Arabic and no translation — skip them so the reader never
+          // shows blank cards.
+          final entries = allEntries
+              .where((e) =>
+                  e.arabic.trim().isNotEmpty || e.translation.trim().isNotEmpty)
+              .toList();
           // Match by exact hadith number or a translation-text substring.
           final filtered = q.isEmpty
               ? entries

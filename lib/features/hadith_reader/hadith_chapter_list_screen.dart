@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wird/l10n/gen/app_localizations.dart';
 
 import '../../core/content/hadith_pack_repository.dart';
 import '../../shared/glass/glass.dart';
@@ -21,7 +22,7 @@ class HadithChapterListScreen extends ConsumerWidget {
       contentPadding: EdgeInsets.zero,
       body: chaptersAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Failed to load: $error')),
+        error: (error, stack) => Center(child: Text(AppLocalizations.of(context).commonFailedToLoad('$error'))),
         data: (chapters) => ListView.builder(
           padding: const EdgeInsets.all(16),
           itemCount: chapters.length,

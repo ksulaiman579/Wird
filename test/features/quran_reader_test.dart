@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:wird/core/audio/ayah_audio_service.dart';
 import 'package:wird/core/db/database.dart';
+import 'package:wird/core/i18n/bidi.dart';
 import 'package:wird/core/theme/app_theme.dart';
 import 'package:wird/features/quran_reader/ayah_player_bar.dart';
 import 'package:wird/features/quran_reader/quran_reader_screen.dart';
@@ -78,24 +79,26 @@ void main() {
     );
     await tester.pumpAndSettle();
 
+    // The n/total counter is wrapped in bidi isolates so it doesn't reorder
+    // in RTL locales (Item A1), so match the isolated form.
     expect(find.text('Al-Falaq'), findsOneWidget);
-    expect(find.text('1 / 5'), findsOneWidget);
+    expect(find.text(Bidi.isolateNumbers('1 / 5')), findsOneWidget);
 
     for (var i = 0; i < 4; i++) {
       await tester.tap(find.byIcon(Icons.arrow_forward_rounded));
       await tester.pumpAndSettle();
     }
-    expect(find.text('5 / 5'), findsOneWidget);
+    expect(find.text(Bidi.isolateNumbers('5 / 5')), findsOneWidget);
 
     await tester.tap(find.byIcon(Icons.arrow_forward_rounded));
     await tester.pumpAndSettle();
     expect(find.text('An-Nas'), findsOneWidget);
-    expect(find.text('1 / 6'), findsOneWidget);
+    expect(find.text(Bidi.isolateNumbers('1 / 6')), findsOneWidget);
 
     await tester.tap(find.byIcon(Icons.arrow_back_rounded));
     await tester.pumpAndSettle();
     expect(find.text('Al-Falaq'), findsOneWidget);
-    expect(find.text('5 / 5'), findsOneWidget);
+    expect(find.text(Bidi.isolateNumbers('5 / 5')), findsOneWidget);
 
     await tester.tap(find.byIcon(Icons.tune_rounded));
     await tester.pumpAndSettle();

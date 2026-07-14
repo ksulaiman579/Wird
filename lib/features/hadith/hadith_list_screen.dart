@@ -43,7 +43,7 @@ class _HadithListScreenState extends ConsumerState<HadithListScreen> {
       contentPadding: EdgeInsets.zero,
       body: hadithsAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Failed to load: $error')),
+        error: (error, stack) => Center(child: Text(AppLocalizations.of(context).commonFailedToLoad('$error'))),
         data: (hadiths) {
           final q = _query.trim().toLowerCase();
           final filtered = hadiths.where((h) {

@@ -111,6 +111,17 @@ void main() {
     expect(translation, 'fake 2:1');
   });
 
+  test('installedEditionIds lists only downloaded editions', () async {
+    final client = _FakeClient({
+      entry.link: http.Response(_fakeUpstreamBody(), 200),
+    });
+    final service = TranslationPackService(db, client: client);
+
+    expect(await service.installedEditionIds(), isEmpty);
+    await service.downloadAndInstall(entry);
+    expect(await service.installedEditionIds(), {entry.id});
+  });
+
   test('extraTranslationFor returns null when nothing is downloaded yet',
       () async {
     final service = TranslationPackService(db, client: _FakeClient({}));

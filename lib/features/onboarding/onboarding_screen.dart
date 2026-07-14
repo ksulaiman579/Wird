@@ -695,29 +695,31 @@ class _QuranSelectionStep extends ConsumerWidget {
             onChanged: (ids) =>
                 controller.updateQuranSelection(selectedSurahs: ids),
           ),
-        if (state.quranSelectionType != 'surahs') ...[
-          const SizedBox(height: 16),
+        // Reversed order applies to surahs too (U2) — the explanatory note is
+        // juz/whole-specific, so show it only there, but offer the toggle for
+        // every multi-item selection.
+        const SizedBox(height: 16),
+        if (state.quranSelectionType != 'surahs')
           Text(
             l.obReversedNote,
             style: const TextStyle(fontStyle: FontStyle.italic),
           ),
-          RadioGroup<String>(
-            groupValue: state.direction,
-            onChanged: (v) => controller.updateQuranSelection(direction: v),
-            child: Column(
-              children: [
-                RadioListTile<String>(
-                  title: Text(l.planNormalOrder),
-                  value: 'normal',
-                ),
-                RadioListTile<String>(
-                  title: Text(l.planReversedOrder),
-                  value: 'reversed',
-                ),
-              ],
-            ),
+        RadioGroup<String>(
+          groupValue: state.direction,
+          onChanged: (v) => controller.updateQuranSelection(direction: v),
+          child: Column(
+            children: [
+              RadioListTile<String>(
+                title: Text(l.planNormalOrder),
+                value: 'normal',
+              ),
+              RadioListTile<String>(
+                title: Text(l.planReversedOrder),
+                value: 'reversed',
+              ),
+            ],
           ),
-        ],
+        ),
       ],
     );
   }

@@ -79,7 +79,9 @@ List<PlannedNotification> buildAdhanPlan({
         scheduledAt: at,
         title: '${salah.label} — time to pray',
         body: 'It is time for ${salah.label}. حَيَّ عَلَى الصَّلَاة',
-        payload: '/',
+        // Opens the in-app adhan player (tap-to-silence) rather than the
+        // home tab — the adhan is played in-app, not as a channel sound.
+        payload: '/adhan?salah=${salah.label}',
       ));
     }
   }

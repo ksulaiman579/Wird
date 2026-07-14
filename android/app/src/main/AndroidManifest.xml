@@ -1,6 +1,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Downloads (translations, hadith packs, audio), Supabase backup, and
+         the in-app update check all need network access. Flutter only injects
+         INTERNET into the debug/profile manifests, so a release build must
+         declare it explicitly. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- In-app self-update: install the downloaded APK via the system installer. -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- Adhan (U9): surface the full-screen in-app adhan player at prayer time
+         so the call can be silenced with one tap instead of playing as an
+         un-stoppable notification channel sound. -->
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
     <application
         android:label="Wird"
         android:name="${applicationName}"

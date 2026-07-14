@@ -59,7 +59,7 @@ class _DownloadsScreenState extends ConsumerState<DownloadsScreen> {
       appBar: AppBar(title: Text(AppLocalizations.of(context).downloadsTitle)),
       body: metaAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Failed to load: $error')),
+        error: (error, stack) => Center(child: Text(AppLocalizations.of(context).commonFailedToLoad('$error'))),
         data: (meta) {
           final ayahCounts = {
             for (final s in meta.surahs) s.number: s.ayahCount,

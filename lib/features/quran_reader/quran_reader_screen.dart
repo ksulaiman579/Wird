@@ -10,7 +10,10 @@ import '../../core/audio/ayah_audio_service.dart' show AyahPlayback, formatAudio
 import '../../core/audio/ayah_audio_urls.dart' show reciters;
 import '../../core/content/bookmark_service.dart';
 import '../../core/content/models/quran_models.dart';
+import '../../core/content/models/translation_pack_models.dart';
 import '../../core/content/translation_pack_service.dart';
+import '../../core/i18n/bidi.dart';
+import 'reading_streak.dart';
 import '../../core/l10n/reading_locale.dart';
 import '../../core/theme/app_theme.dart';
 import '../../shared/glass/glass.dart';
@@ -36,6 +39,17 @@ final _extraTranslationProvider =
           .watch(translationPackServiceProvider)
           .extraTranslationFor(editionId: editionId, surah: surah, ayah: ayah);
     });
+
+/// The translation editions actually installed on the device (bundled English
+/// is always available separately). Drives the reader's language picker so it
+/// only offers what the user has downloaded — not a hardcoded list.
+final installedTranslationEditionsProvider =
+    FutureProvider<List<TranslationEditionEntry>>((ref) async {
+  final svc = ref.watch(translationPackServiceProvider);
+  final allowlist = await svc.loadAllowlist();
+  final installed = await svc.installedEditionIds();
+  return allowlist.editions.where((e) => installed.contains(e.id)).toList();
+});
 
 /// Paged Quran reader (M20.2) — one ayah per page with an `n/total`
 /// indicator and round back/next arrows, per the reference design. Crossing
@@ -218,6 +232,8 @@ class _QuranReaderScreenState extends ConsumerState<QuranReaderScreen> {
     ref
         .read(readerPrefsProvider.notifier)
         .setLastRead(surah: _surah!, ayah: _ayah);
+    // Count today toward the normal reading streak (idempotent per day).
+    ref.read(readingStreakProvider.notifier).recordReadToday();
   }
 
   /// Jump to another surah, rebuilding the controller so the PageView
@@ -276,7 +292,7 @@ class _QuranReaderScreenState extends ConsumerState<QuranReaderScreen> {
           contentPadding: EdgeInsets.zero,
           body: surahAsync.when(
             loading: () => const Center(child: CircularProgressIndicator()),
-            error: (e, st) => Center(child: Text('Failed to load: $e')),
+            error: (e, st) => Center(child: Text(AppLocalizations.of(context).commonFailedToLoad('$e'))),
             data: (surah) {
               final total = surah.ayahs.length;
               // -1 sentinel from a back-crossing resolves to the last ayah
@@ -291,7 +307,7 @@ class _QuranReaderScreenState extends ConsumerState<QuranReaderScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: Text(
-                      '$_ayah / $total',
+                      Bidi.isolateNumbers('$_ayah / $total'),
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ),
@@ -425,43 +441,6 @@ class _QuranReaderScreenState extends ConsumerState<QuranReaderScreen> {
     );
   }
 
-  /// Item A2: switching translation language used to set the edition even
-  /// when its pack wasn't downloaded — the reader silently kept showing
-  /// English. Now the selection only sticks if the pack is installed;
-  /// otherwise the user gets a SnackBar with a jump to the Library.
-  Future<void> _selectExtraEdition(
-    BuildContext context,
-    String editionId,
-    String languageName,
-  ) async {
-    final installed =
-        await ref.read(translationPackServiceProvider).isInstalled(editionId);
-    if (!context.mounted) return;
-    if (installed) {
-      ref.read(readerPrefsProvider.notifier).updatePrefs(
-            (p) => p.copyWith(
-              showExtraTranslation: true,
-              extraEditionId: editionId,
-            ),
-          );
-      return;
-    }
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          AppLocalizations.of(context).readerLangNotDownloaded(languageName),
-        ),
-        action: SnackBarAction(
-          label: AppLocalizations.of(context).libraryTitle,
-          onPressed: () {
-            Navigator.of(context).popUntil((r) => r.isFirst);
-            this.context.push('/library');
-          },
-        ),
-      ),
-    );
-  }
-
   void _showOptionsSheet(BuildContext context, ReaderPrefs prefs) {
     final notifier = ref.read(readerPrefsProvider.notifier);
     showGlassSheet<void>(
@@ -527,44 +506,48 @@ class _QuranReaderScreenState extends ConsumerState<QuranReaderScreen> {
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     const SizedBox(height: 8),
-                    Wrap(
-                      spacing: 8,
-                      children: [
-                        ChoiceChip(
-                          label: const Text('English'),
-                          selected: !currentPrefs.showExtraTranslation ||
-                              currentPrefs.extraEditionId == null,
-                          onSelected: (_) => notifier.updatePrefs(
-                            (p) => p.copyWith(
-                              showTranslation: true,
-                              showExtraTranslation: false,
-                              clearExtraEdition: true,
+                    // Data-driven: bundled English + one chip per translation
+                    // the user has actually downloaded (Library / onboarding).
+                    // Selecting an installed edition switches to it directly.
+                    Consumer(
+                      builder: (context, ref, _) {
+                        final prefs =
+                            ref.watch(readerPrefsProvider).value ?? currentPrefs;
+                        final editions = ref
+                                .watch(installedTranslationEditionsProvider)
+                                .value ??
+                            const <TranslationEditionEntry>[];
+                        return Wrap(
+                          spacing: 8,
+                          children: [
+                            ChoiceChip(
+                              label: const Text('English'),
+                              selected: !prefs.showExtraTranslation ||
+                                  prefs.extraEditionId == null,
+                              onSelected: (_) => notifier.updatePrefs(
+                                (p) => p.copyWith(
+                                  showTranslation: true,
+                                  showExtraTranslation: false,
+                                  clearExtraEdition: true,
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                        ChoiceChip(
-                          label: const Text('French'),
-                          selected: currentPrefs.showExtraTranslation &&
-                              currentPrefs.extraEditionId ==
-                                  'fra_muhammadhamidul',
-                          onSelected: (_) => _selectExtraEdition(
-                            context,
-                            'fra_muhammadhamidul',
-                            'French',
-                          ),
-                        ),
-                        ChoiceChip(
-                          label: const Text('Urdu'),
-                          selected: currentPrefs.showExtraTranslation &&
-                              currentPrefs.extraEditionId ==
-                                  'urd_abulaalamaududi',
-                          onSelected: (_) => _selectExtraEdition(
-                            context,
-                            'urd_abulaalamaududi',
-                            'Urdu',
-                          ),
-                        ),
-                      ],
+                            for (final e in editions)
+                              ChoiceChip(
+                                label: Text(e.language),
+                                selected: prefs.showExtraTranslation &&
+                                    prefs.extraEditionId == e.id,
+                                onSelected: (_) => notifier.updatePrefs(
+                                  (p) => p.copyWith(
+                                    showTranslation: true,
+                                    showExtraTranslation: true,
+                                    extraEditionId: e.id,
+                                  ),
+                                ),
+                              ),
+                          ],
+                        );
+                      },
                     ),
                     const SizedBox(height: 4),
                     Align(

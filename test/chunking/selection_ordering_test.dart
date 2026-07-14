@@ -50,25 +50,29 @@ const _meta = QuranMeta(
 
 void main() {
   group('orderSelection — surahs', () {
-    test('always ascends by surah number regardless of direction', () {
+    test('normal ascends by surah number', () {
       final normal = orderSelection(
         meta: _meta,
         selectionType: 'surahs',
         selectionIds: [2, 1],
         direction: 'normal',
       );
+      expect(normal.map((s) => s.surah), [1, 2]);
+      expect(normal[0].startAyah, 1);
+      expect(normal[0].endAyah, 10);
+    });
+
+    test('reversed descends by surah number, ayahs still ascending (U2)', () {
       final reversed = orderSelection(
         meta: _meta,
         selectionType: 'surahs',
         selectionIds: [2, 1],
         direction: 'reversed',
       );
-
-      for (final slices in [normal, reversed]) {
-        expect(slices.map((s) => s.surah), [1, 2]);
-        expect(slices[0].startAyah, 1);
-        expect(slices[0].endAyah, 10);
-      }
+      expect(reversed.map((s) => s.surah), [2, 1]);
+      // ayahs within each surah stay in normal ascending order
+      expect(reversed[0].startAyah, 1);
+      expect(reversed[0].endAyah, 10);
     });
   });
 

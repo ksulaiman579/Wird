@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import 'core/db/database.dart';
 import 'features/achievements/achievements_screen.dart';
+import 'features/adhan/adhan_playing_screen.dart';
 import 'features/asma/asma_screen.dart';
 import 'features/almanhaj/almanhaj_screen.dart';
 import 'features/adhkar/adhkar_reader_screen.dart';
@@ -156,12 +157,25 @@ final routerProvider = Provider<GoRouter>((ref) {
           ),
         ],
       ),
+      GoRoute(
+        path: '/adhan',
+        builder: (context, state) => AdhanPlayingScreen(
+          salahLabel: state.uri.queryParameters['salah'],
+        ),
+      ),
       GoRoute(path: '/asma', builder: (context, state) => const AsmaScreen()),
       GoRoute(path: '/qibla', builder: (context, state) => const QiblaScreen()),
       GoRoute(path: '/zakah', builder: (context, state) => const ZakahScreen()),
       GoRoute(
         path: '/tasbih',
         builder: (context, state) => const TasbihScreen(),
+      ),
+      // Al-Manhaj is a standalone pushed destination reached from the Explore
+      // hub and the More/Home cards — no longer a bottom-nav tab (removed the
+      // swipe-to-reveal 6th tab per the HIG "don't hide tabs" guidance).
+      GoRoute(
+        path: '/almanhaj',
+        builder: (context, state) => const AlManhajScreen(),
       ),
       GoRoute(
         path: '/settings',
@@ -254,9 +268,8 @@ final routerProvider = Provider<GoRouter>((ref) {
           ),
           // "Explore" tab (M23.2): the renders' hub-page pattern for tools
           // that don't have their own bottom-nav slot (Hadith collections,
-          // Qibla, Zakah, Tasbih). Positioned between Quran and Duas so
-          // the nav order reads Home/Quran/Explore/Duas/More at rest, with
-          // Al-Manhaj — the last branch below — reachable by swiping.
+          // Qibla, Zakah, Tasbih, Al-Manhaj). Positioned between Quran and
+          // Duas so the nav order reads Home/Quran/Explore/Duas/More.
           StatefulShellBranch(
             routes: [
               GoRoute(
@@ -292,17 +305,6 @@ final routerProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: '/more',
                 builder: (context, state) => const MoreScreen(),
-              ),
-            ],
-          ),
-          // Kept last (M23 nav decision): not one of the 5 tabs visible at
-          // rest (Home/Quran/Explore/Duas/More) — reached by pressing and
-          // swiping the nav bar, plus a Home card / More entry.
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: '/almanhaj',
-                builder: (context, state) => const AlManhajScreen(),
               ),
             ],
           ),

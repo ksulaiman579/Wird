@@ -32,6 +32,8 @@ class _PlanEditScreenState extends ConsumerState<PlanEditScreen> {
   List<int> _selectedSurahs = [];
   String _direction = 'normal';
   int _dailyMinutes = 10;
+  bool _wantsHadith = false;
+  bool _wantsDuas = false;
 
   @override
   void initState() {
@@ -49,12 +51,21 @@ class _PlanEditScreenState extends ConsumerState<PlanEditScreen> {
         ? const <int>[]
         : (jsonDecode(plan.quranSelectionJson!) as List).cast<int>();
 
+    // Track presence rather than scope so the Dua toggle (not captured by
+    // the quran|hadith|both scope enum) reflects reality.
+    final types = (await db.select(db.srsItems).get())
+        .map((i) => i.contentType)
+        .toSet();
+
+    if (!mounted) return;
     setState(() {
       _selectionType = plan.quranSelectionType ?? 'whole';
       _selectedJuz = _selectionType == 'juz' ? ids : [];
       _selectedSurahs = _selectionType == 'surahs' ? ids : [];
       _direction = plan.direction;
       _dailyMinutes = plan.dailyMinutes;
+      _wantsHadith = types.contains('hadith');
+      _wantsDuas = types.contains('dua');
       _loaded = true;
     });
   }
@@ -75,6 +86,14 @@ class _PlanEditScreenState extends ConsumerState<PlanEditScreen> {
         selectionIds: _selectionIds,
         direction: _direction,
         dailyMinutes: _dailyMinutes,
+      );
+      // Add/drop the Hadith & Dua tracks and re-interleave (U8). Runs after
+      // the Quran edit so it interleaves against the freshly re-planned
+      // Quran items.
+      await applyContentPlanEdit(
+        ref,
+        wantsHadith: _wantsHadith,
+        wantsDua: _wantsDuas,
       );
       if (mounted) context.pop();
     } catch (e) {
@@ -162,6 +181,19 @@ class _PlanEditScreenState extends ConsumerState<PlanEditScreen> {
                           onSelected: (_) => setState(() => _dailyMinutes = minutes),
                         );
                       }).toList(),
+                    ),
+                    const SizedBox(height: 16),
+                    SwitchListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: Text(l.planIncludeHadith),
+                      value: _wantsHadith,
+                      onChanged: (v) => setState(() => _wantsHadith = v),
+                    ),
+                    SwitchListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: Text(l.planIncludeDuas),
+                      value: _wantsDuas,
+                      onChanged: (v) => setState(() => _wantsDuas = v),
                     ),
                   ],
                 ),

@@ -423,6 +423,9 @@ class AppLocalizationsMy extends AppLocalizations {
   String get todayCurrentStreak => 'Current streak';
 
   @override
+  String get todayReadingStreak => 'Reading streak';
+
+  @override
   String todayStreakDays(Object streak) {
     return '$streak days';
   }
@@ -1735,4 +1738,69 @@ class AppLocalizationsMy extends AppLocalizations {
   String commonFailedToLoad(String error) {
     return 'Failed to load: $error';
   }
+
+  @override
+  String get updateCheck => 'Check for updates';
+
+  @override
+  String get updateChecking => 'Checking for updates…';
+
+  @override
+  String get updateAvailableTitle => 'Update available';
+
+  @override
+  String updateAvailableBanner(String version) {
+    return 'Wird $version is available';
+  }
+
+  @override
+  String get updateNow => 'Update now';
+
+  @override
+  String get updateLater => 'Later';
+
+  @override
+  String get updateUpToDate => 'You\'re on the latest version';
+
+  @override
+  String get updateDownloading => 'Downloading update…';
+
+  @override
+  String get quranMarkMemorized => 'Mark as memorized';
+
+  @override
+  String get quranMarkMemorizedBody =>
+      'Mark this entire surah as already memorized? It will be scheduled for long-term revision instead of shown as new.';
+
+  @override
+  String get quranMarkMemorizedConfirm => 'Mark memorized';
+
+  @override
+  String get quranMarkedForRevision => 'Added to long-term revision';
+
+  @override
+  String get planIncludeHadith => 'Include Hadith';
+
+  @override
+  String get planIncludeDuas => 'Include Duas & Adhkar';
+
+  @override
+  String get settingsUseManualTimes => 'Set prayer times manually';
+
+  @override
+  String get settingsPlayingAdhan => 'Playing adhan…';
+
+  @override
+  String get adhanCallTitle => 'Time to pray';
+
+  @override
+  String adhanCallFor(String salah) {
+    return 'Time for $salah';
+  }
+
+  @override
+  String get adhanTapToSilence => 'Tap anywhere to silence';
+
+  @override
+  String get quranMarkJuzMemorized => 'Mark a juz as memorized';
 }

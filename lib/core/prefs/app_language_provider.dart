@@ -17,7 +17,10 @@ class AppLanguageOption {
   final String flagEmoji;
 }
 
-const supportedAppLanguages = <AppLanguageOption>[
+/// Every locale we have an ARB for (data only). The picker offers a subset —
+/// see [shipLocaleCodes]/[supportedAppLanguages] — so languages can be re-added
+/// as they reach 100% translation without re-entering their metadata.
+const allAppLanguages = <AppLanguageOption>[
   AppLanguageOption(code: 'en', nativeName: 'English', englishName: 'English', flagEmoji: '🇬🇧'),
   AppLanguageOption(code: 'ar', nativeName: 'العربية', englishName: 'Arabic', flagEmoji: '🇸🇦'),
   AppLanguageOption(code: 'fr', nativeName: 'Français', englishName: 'French', flagEmoji: '🇫🇷'),
@@ -82,6 +85,19 @@ const supportedAppLanguages = <AppLanguageOption>[
   AppLanguageOption(code: 'ug', nativeName: 'ئۇيغۇرچە', englishName: 'Uyghur', flagEmoji: '🇨🇳'),
   AppLanguageOption(code: 'sd', nativeName: 'سنڌي', englishName: 'Sindhi', flagEmoji: '🇵🇰'),
   AppLanguageOption(code: 'yo', nativeName: 'Yorùbá', englishName: 'Yoruba', flagEmoji: '🇳🇬'),
+];
+
+/// UI display languages we currently ship fully localized. Only these appear in
+/// the language picker. The 64 Quran *translation* editions are a separate
+/// download system and are unaffected by this list. Add a code here (and finish
+/// its translation) to offer another UI language.
+const shipLocaleCodes = <String>['en', 'ar', 'ur', 'hi', 'bn', 'ml', 'fil'];
+
+/// The picker's languages: [allAppLanguages] filtered to [shipLocaleCodes],
+/// in that order.
+final supportedAppLanguages = <AppLanguageOption>[
+  for (final code in shipLocaleCodes)
+    allAppLanguages.firstWhere((l) => l.code == code),
 ];
 
 /// Persists the user's chosen UI language code to shared_preferences.

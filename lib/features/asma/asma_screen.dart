@@ -72,7 +72,7 @@ class _AsmaScreenState extends ConsumerState<AsmaScreen> {
       contentPadding: EdgeInsets.zero,
       body: namesAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, st) => Center(child: Text('Failed to load: $e')),
+        error: (e, st) => Center(child: Text(AppLocalizations.of(context).commonFailedToLoad('$e'))),
         data: (names) {
           final filtered =
               names.where((n) => _matches(n, _query)).toList(growable: false);

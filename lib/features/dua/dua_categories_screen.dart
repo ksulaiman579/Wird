@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/adhkar/adhkar_window.dart';
+import '../../core/content/dua_search.dart';
 import '../../core/notifications/notification_providers.dart';
 import '../../shared/glass/glass.dart';
 import '../../shared/ui/corner_flourishes.dart';
@@ -212,11 +213,9 @@ class _SearchResults extends ConsumerWidget {
 
     return categoriesAsync.when(
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, stack) => Text('Failed to load: $error'),
+      error: (error, stack) => Text(AppLocalizations.of(context).commonFailedToLoad('$error')),
       data: (hisnulMuslim) {
-        final matches = hisnulMuslim.categories
-            .where((c) => c.titleEnglish.toLowerCase().contains(query))
-            .toList();
+        final matches = duaSearchMatches(hisnulMuslim.categories, query);
         if (matches.isEmpty) {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 24),

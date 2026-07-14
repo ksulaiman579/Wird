@@ -54,13 +54,19 @@ void main() {
     expect(hadithItems, hasLength(40)); // the 40 core hadiths, not 41-42
     expect(duaItems, isEmpty);
 
-    // Quran items should come before hadith items in orderIndex, and
-    // every item should start fresh with SM-2 defaults.
+    // Content types are interleaved from the start (Item #3) so Hadith is
+    // introduced alongside Quran, not buried after the entire Quran: at least
+    // one hadith has a lower orderIndex than the last Quran portion. Every
+    // item still starts fresh with SM-2 defaults.
     final quranMaxOrder =
         quranItems.map((i) => i.orderIndex).reduce((a, b) => a > b ? a : b);
     final hadithMinOrder =
         hadithItems.map((i) => i.orderIndex).reduce((a, b) => a < b ? a : b);
-    expect(quranMaxOrder, lessThan(hadithMinOrder));
+    expect(hadithMinOrder, lessThan(quranMaxOrder));
+    // The first introduced item is still a Quran portion (queue priority).
+    final firstItem =
+        items.reduce((a, b) => a.orderIndex < b.orderIndex ? a : b);
+    expect(firstItem.contentType, 'quran');
 
     for (final item in items) {
       expect(item.status, 'new');
