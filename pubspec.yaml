@@ -67,6 +67,9 @@ dependencies:
   # downloaded APK with the system installer.
   package_info_plus: ^10.2.0
   open_filex: ^4.5.0
+  # Periodic background check (Android) for update/announcement notifications
+  # — no backend: it polls the same GitHub JSON the in-app updater uses.
+  android_alarm_manager_plus: ^4.0.4
   web: ^1.1.0
   sensors_plus: ^6.1.1
   pdfrx: ^2.4.4

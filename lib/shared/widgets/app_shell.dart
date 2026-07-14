@@ -4,6 +4,7 @@ import 'package:wird/l10n/gen/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../features/announcement/announcement_gate.dart';
 import '../../features/whats_new/whats_new.dart';
 import '../glass/glass.dart';
 import '../ui/ui.dart';
@@ -52,6 +53,10 @@ class _AppShellState extends State<AppShell> {
     }
     if (!mounted) return;
     await maybeShowWhatsNew(context);
+    if (!mounted) return;
+    // Maintainer broadcasts (PWA users get these here since they can't run
+    // the background poll; Android users get whichever fires first).
+    await maybeShowAnnouncement(context);
   }
 
   @override

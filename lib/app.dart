@@ -9,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'core/backup/backup_service.dart';
 import 'core/db/database.dart';
 import 'core/notifications/notification_providers.dart';
+import 'core/update/background_update_check.dart';
 import 'core/theme/app_theme.dart';
 import 'core/theme/palette.dart';
 import 'core/theme/palette_provider.dart';
@@ -77,6 +78,10 @@ class _DailyAppState extends ConsumerState<DailyApp> {
       };
       await service.init();
       await rescheduleNotifications(ref);
+      // Register the ~twice-daily background poll that surfaces an "update
+      // available" / announcement notification even when the app is closed
+      // (Android only; no backend — it reads the same GitHub JSON).
+      await registerBackgroundUpdateCheck();
     } catch (_) {
       // Notification setup is best-effort: a missing plugin (e.g. no
       // device/emulator backing flutter_local_notifications) must never
