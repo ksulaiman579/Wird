@@ -92,8 +92,14 @@ tool/supabase_upload/
 /TASKS.md
 /task.md
 /IMPLEMENTATION_PLAN.md
+/Reviewing WIRD Implementation Plan.md
+/NEXT_UPDATE.md
+/memory.md
+/HANDOFF*.md
+/*.chatlog.md
 /docs/L10N_AND_POLISH_AUDIT.md
 /tool/l10n_batches/
+/inspiration/
 
 # Local ARB translation tool runtime artifacts
 .translate_arb.pid
