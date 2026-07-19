@@ -307,7 +307,7 @@ class AppLocalizationsFil extends AppLocalizations {
   String get exploreFindQibla => 'Hanapin ang Qibla';
 
   @override
-  String get exploreMorningAdhkarTitle => 'Pag-aalaga sa umaga';
+  String get exploreMorningAdhkarTitle => 'Adhkar ng umaga';
 
   @override
   String get exploreMorningAdhkarDesc => 'Hisn al-Muslim umaga paggunita';
@@ -663,15 +663,15 @@ class AppLocalizationsFil extends AppLocalizations {
 
   @override
   String get adhkarCompletedMorning =>
-      'You\'ve completed today\'s morning adhkar.';
+      'Natapos mo na ang adhkar ng umaga ngayong araw.';
 
   @override
   String get adhkarCompletedEvening =>
-      'You\'ve completed today\'s evening adhkar.';
+      'Natapos mo na ang adhkar ng gabi ngayong araw.';
 
   @override
   String adhkarAchievementUnlocked(String names) {
-    return 'Achievement unlocked: $names';
+    return 'Na-unlock ang tagumpay: $names';
   }
 
   @override

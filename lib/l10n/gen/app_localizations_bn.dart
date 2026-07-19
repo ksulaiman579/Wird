@@ -304,13 +304,13 @@ class AppLocalizationsBn extends AppLocalizations {
   String get exploreFindQibla => 'কিবলা খুঁজুন';
 
   @override
-  String get exploreMorningAdhkarTitle => 'সকালের আড্ডা';
+  String get exploreMorningAdhkarTitle => 'সকালের যিকির';
 
   @override
   String get exploreMorningAdhkarDesc => 'হসান আল-মুসলিম সকালের স্মৃতি';
 
   @override
-  String get exploreEveningAdhkarTitle => 'সন্ধ্যার আড়ম্বর';
+  String get exploreEveningAdhkarTitle => 'সন্ধ্যার যিকির';
 
   @override
   String get exploreEveningAdhkarDesc => 'হিসান আল-মুসলিম সন্ধ্যার স্মৃতিচারণ';
@@ -653,15 +653,15 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get adhkarCompletedMorning =>
-      'You\'ve completed today\'s morning adhkar.';
+      'আপনি আজকের সকালের যিকির সম্পন্ন করেছেন।';
 
   @override
   String get adhkarCompletedEvening =>
-      'You\'ve completed today\'s evening adhkar.';
+      'আপনি আজকের সন্ধ্যার যিকির সম্পন্ন করেছেন।';
 
   @override
   String adhkarAchievementUnlocked(String names) {
-    return 'Achievement unlocked: $names';
+    return 'অর্জন আনলক হয়েছে: $names';
   }
 
   @override

@@ -304,13 +304,13 @@ class AppLocalizationsHi extends AppLocalizations {
   String get exploreFindQibla => 'क़िबला का पता लगाओ';
 
   @override
-  String get exploreMorningAdhkarTitle => 'सुबह का समय';
+  String get exploreMorningAdhkarTitle => 'सुबह के अज़कार';
 
   @override
   String get exploreMorningAdhkarDesc => 'हसन अल-मुस्लिम का सुबह का स्मरण';
 
   @override
-  String get exploreEveningAdhkarTitle => 'शाम का समय';
+  String get exploreEveningAdhkarTitle => 'शाम के अज़कार';
 
   @override
   String get exploreEveningAdhkarDesc => 'हसन अल-मुस्लिम की शाम की याद';
@@ -652,16 +652,14 @@ class AppLocalizationsHi extends AppLocalizations {
   String get adhkarReadAgain => 'फिर से पढ़ें';
 
   @override
-  String get adhkarCompletedMorning =>
-      'You\'ve completed today\'s morning adhkar.';
+  String get adhkarCompletedMorning => 'आपने आज के सुबह के अज़कार पूरे कर लिए।';
 
   @override
-  String get adhkarCompletedEvening =>
-      'You\'ve completed today\'s evening adhkar.';
+  String get adhkarCompletedEvening => 'आपने आज के शाम के अज़कार पूरे कर लिए।';
 
   @override
   String adhkarAchievementUnlocked(String names) {
-    return 'Achievement unlocked: $names';
+    return 'उपलब्धि प्राप्त हुई: $names';
   }
 
   @override

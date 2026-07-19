@@ -659,15 +659,15 @@ class AppLocalizationsMl extends AppLocalizations {
 
   @override
   String get adhkarCompletedMorning =>
-      'You\'ve completed today\'s morning adhkar.';
+      'നിങ്ങൾ ഇന്നത്തെ രാവിലെ അദ്ഖര് പൂർത്തിയാക്കി.';
 
   @override
   String get adhkarCompletedEvening =>
-      'You\'ve completed today\'s evening adhkar.';
+      'നിങ്ങൾ ഇന്നത്തെ സായാഹ്ന അദ്ഖര് പൂർത്തിയാക്കി.';
 
   @override
   String adhkarAchievementUnlocked(String names) {
-    return 'Achievement unlocked: $names';
+    return 'നേട്ടം അൺലോക്ക് ചെയ്തു: $names';
   }
 
   @override
