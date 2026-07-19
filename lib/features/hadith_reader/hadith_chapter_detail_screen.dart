@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:wird/l10n/gen/app_localizations.dart';
 
 import '../../core/content/bookmark_service.dart';
@@ -7,6 +8,7 @@ import '../../core/content/hadith_pack_repository.dart';
 import '../../core/hadith/hadith_grade.dart';
 import '../../core/l10n/reading_locale.dart';
 import '../../shared/glass/glass.dart';
+import '../../shared/ui/font_size_chips.dart';
 import '../../shared/ui/verse_roundel.dart';
 import 'hadith_reader_providers.dart';
 
@@ -38,6 +40,7 @@ class HadithChapterDetailScreen extends ConsumerStatefulWidget {
 class _HadithChapterDetailScreenState
     extends ConsumerState<HadithChapterDetailScreen> {
   String _query = '';
+  double _scale = 1.0;
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +85,21 @@ class _HadithChapterDetailScreenState
                   onChanged: (v) => setState(() => _query = v),
                 ),
               ),
+              // A±/A− text sizing for the whole chapter — the same reading
+              // control the Nawawi reader offers, so every collection reads
+              // consistently.
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 4),
+                child: Align(
+                  alignment: AlignmentDirectional.centerStart,
+                  child: FontSizeChips(
+                    onIncrease: () =>
+                        setState(() => _scale = (_scale + 0.1).clamp(0.8, 1.8)),
+                    onDecrease: () =>
+                        setState(() => _scale = (_scale - 0.1).clamp(0.8, 1.8)),
+                  ),
+                ),
+              ),
               Expanded(
                 child: filtered.isEmpty
                     ? Center(child: Text(AppLocalizations.of(context).hadithNoMatch))
@@ -96,7 +114,8 @@ class _HadithChapterDetailScreenState
                           }
                           return _HadithEntryCard(
                               collection: widget.collection,
-                              entry: filtered[index - 1]);
+                              entry: filtered[index - 1],
+                              scale: _scale);
                         },
                       ),
               ),
@@ -135,10 +154,15 @@ String _collectionNote(BuildContext context, String collection) {
 /// "tap to read" feel and keeps long collections (Bukhari chapters) from
 /// rendering as one enormous scroll (user request).
 class _HadithEntryCard extends ConsumerStatefulWidget {
-  const _HadithEntryCard({required this.collection, required this.entry});
+  const _HadithEntryCard({
+    required this.collection,
+    required this.entry,
+    this.scale = 1.0,
+  });
 
   final String collection;
   final HadithEntry entry;
+  final double scale;
 
   @override
   ConsumerState<_HadithEntryCard> createState() => _HadithEntryCardState();
@@ -177,6 +201,18 @@ class _HadithEntryCardState extends ConsumerState<_HadithEntryCard> {
                 GradeBadge(grade: grade),
                 const Spacer(),
                 IconButton(
+                  tooltip: 'Share',
+                  icon: const Icon(Icons.share_outlined),
+                  onPressed: () {
+                    final ref =
+                        '${hadithCollections[collection] ?? collection} ${entry.number}';
+                    SharePlus.instance.share(
+                      ShareParams(
+                          text: '${entry.translation}\n\n— $ref\n\nvia Wird'),
+                    );
+                  },
+                ),
+                IconButton(
                   icon: Icon(
                     isBookmarkedAsync.value == true
                         ? Icons.bookmark_rounded
@@ -201,9 +237,9 @@ class _HadithEntryCardState extends ConsumerState<_HadithEntryCard> {
                 maxLines: _expanded ? null : 2,
                 overflow:
                     _expanded ? TextOverflow.clip : TextOverflow.ellipsis,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'UthmanicHafs',
-                  fontSize: 24,
+                  fontSize: 24 * widget.scale,
                   height: 2.0,
                 ),
               ),
@@ -216,6 +252,12 @@ class _HadithEntryCardState extends ConsumerState<_HadithEntryCard> {
                 maxLines: _expanded ? null : 2,
                 overflow:
                     _expanded ? TextOverflow.clip : TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize:
+                      (Theme.of(context).textTheme.bodyMedium?.fontSize ?? 14) *
+                          widget.scale,
+                  height: 1.5,
+                ),
               ),
             ],
             if (_expanded) _GradeCaution(grade: grade),

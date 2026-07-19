@@ -57,7 +57,7 @@ void main() {
       expect(tapped, isTrue);
     });
 
-    testWidgets('ornamented adds corner flourish painters', (tester) async {
+    testWidgets('always renders corner flourish painters', (tester) async {
       await tester.pumpWidget(_wrap(SizedBox(
         width: 200,
         height: 260,
@@ -67,10 +67,10 @@ void main() {
           description: 'Full list',
           ctaLabel: 'Index list',
           onTap: () {},
-          ornamented: true,
         ),
       )));
-      // 4 corners + 1 WirdIcon CustomPaint = 5 CustomPaint descendants.
+      // Flourishes are now universal (no opt-in): 4 corner painters +
+      // 1 WirdIcon CustomPaint render as CustomPaint descendants.
       expect(find.byType(CustomPaint), findsWidgets);
     });
   });
