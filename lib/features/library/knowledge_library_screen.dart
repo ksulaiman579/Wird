@@ -113,7 +113,6 @@ class KnowledgeLibraryScreen extends ConsumerWidget {
                           .knowledgeBooksCount(counts[d.slug] ?? 0),
                       ctaLabel: AppLocalizations.of(context).commonBrowse,
                       onTap: () => context.push('/knowledge/${d.slug}'),
-                      ornamented: true,
                     ),
                 ],
               );

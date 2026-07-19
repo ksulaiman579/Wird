@@ -53,7 +53,6 @@ class MoreScreen extends StatelessWidget {
                 description: l.moreKnowledgeDesc,
                 ctaLabel: l.commonExplore,
                 onTap: () => context.push('/knowledge'),
-                ornamented: true,
               ),
               HubCard(
                 glyph: WirdGlyph.scroll,

@@ -59,7 +59,6 @@ class ExploreHubScreen extends StatelessWidget {
                 description: l.exploreHadithDesc,
                 ctaLabel: l.commonBrowse,
                 onTap: () => context.push('/hadith'),
-                ornamented: true,
               ),
               HubCard(
                 glyph: WirdGlyph.book,
@@ -67,7 +66,6 @@ class ExploreHubScreen extends StatelessWidget {
                 description: l.exploreKnowledgeDesc,
                 ctaLabel: l.commonExplore,
                 onTap: () => context.push('/knowledge'),
-                ornamented: true,
               ),
               HubCard(
                 glyph: WirdGlyph.minaret,
@@ -75,7 +73,6 @@ class ExploreHubScreen extends StatelessWidget {
                 description: l.moreAlManhajDesc,
                 ctaLabel: l.commonOpen,
                 onTap: () => context.push('/almanhaj'),
-                ornamented: true,
               ),
             ],
           ),

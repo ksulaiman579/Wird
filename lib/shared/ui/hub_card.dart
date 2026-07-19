@@ -7,8 +7,10 @@ import 'wird_icons.dart';
 
 /// The card used throughout every hub page (Home/Quran/Explore/More — M23
 /// design spec): an illustration slot, bold title, a short two-line grey
-/// description, and a full-width gold pill call to action. Optional corner
-/// ornaments give the Quran-related cards the renders' manuscript feel.
+/// description, and a full-width gold pill call to action. Every hub card
+/// carries the same faint gold corner flourishes so the manuscript identity
+/// is consistent across all hubs (no per-card opt-in — that made the Explore
+/// grid look half-ornamented).
 ///
 /// Two of these sit side by side in a 2-column grid on hub pages — see
 /// [HubCardGrid].
@@ -20,7 +22,6 @@ class HubCard extends StatelessWidget {
     required this.description,
     required this.ctaLabel,
     required this.onTap,
-    this.ornamented = false,
   });
 
   final WirdGlyph glyph;
@@ -29,10 +30,6 @@ class HubCard extends StatelessWidget {
   final String ctaLabel;
   final VoidCallback onTap;
 
-  /// Draws faint gold corner flourishes — reserved for Quran-related cards
-  /// per the design spec's "ornamental corner flourishes on Quran cards".
-  final bool ornamented;
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -40,7 +37,7 @@ class HubCard extends StatelessWidget {
       padding: const EdgeInsets.all(14),
       child: Stack(
         children: [
-          if (ornamented) ...cornerFlourishes(context),
+          ...cornerFlourishes(context),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

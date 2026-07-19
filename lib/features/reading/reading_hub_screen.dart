@@ -58,7 +58,6 @@ class ReadingHubScreen extends ConsumerWidget {
                 ctaLabel: hasReadBefore ? l.readingResume : l.commonStart,
                 onTap: () =>
                     context.push('/read?surah=${hasReadBefore ? surah : 1}'),
-                ornamented: true,
               ),
               HubCard(
                 glyph: WirdGlyph.scroll,
@@ -66,7 +65,6 @@ class ReadingHubScreen extends ConsumerWidget {
                 description: l.readingBrowseAll,
                 ctaLabel: l.readingIndexList,
                 onTap: () => context.push('/quran'),
-                ornamented: true,
               ),
             ],
           ),
