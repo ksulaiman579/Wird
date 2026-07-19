@@ -78,8 +78,11 @@ void main() {
     final service = TranslationPackService(db, bundle: FileAssetBundle());
     final allowlist = await service.loadAllowlist();
 
-    // 46 original + 10 M24.1 (institutional) + 8 M24.2 (academic) editions.
-    expect(allowlist.editions.length, 64);
+    // 46 original + 10 M24.1 (institutional) editions. The 8 M24.2 academic/
+    // orientalist editions were removed after a Salaf/Ahlus-Sunnah screening
+    // (non-Muslim orientalist or Asad-based translators — failed the app's
+    // institutional-provenance bar).
+    expect(allowlist.editions.length, 56);
     expect(
       allowlist.editions.any((e) => e.id == 'fra_muhammadhamidul'),
       isTrue,
