@@ -13,13 +13,35 @@
 //  2. Cache-first-then-network for everything else (bundled Quran/Hadith/
 //     dua JSON, fonts, icons) — opportunistically caught as the user
 //     browses, no manifest to keep in sync with each build.
-// RULE: bump this version on EVERY release that changes icons, splash
-// images, theme colors, or any other cached asset — the cache-first layer
-// below happily serves stale files forever otherwise (that's exactly how
-// the old M17-era icon survived the M19 logo swap on returning clients).
-// v5: M21 — logo re-cut + Royal Emerald restyle.
-// v6: M22.8 palette+layout.
-const CACHE_NAME = 'wird-offline-v7'; // M23 overhaul: responsive shell, hadith grades, zakah, motion
+// STRATEGY (v8): the app CODE + shell (index.html, main.dart.js,
+// flutter_bootstrap.js, flutter.js and any navigation) is now **network-first**
+// — always fetch the latest when online, fall back to cache only when offline.
+// This fixes the "installed/home-screen PWA never sees updates" bug: previously
+// EVERYTHING was cache-first, so a returning client served a stale main.dart.js
+// forever unless CACHE_NAME was manually bumped (easy to forget — and it was
+// forgotten for 1.2.1). Immutable DATA/assets (Quran/Hadith/dua JSON, fonts,
+// wasm, canvaskit, icons) stay cache-first for instant offline use.
+//
+// Bumping CACHE_NAME is now only needed when a CACHED DATA asset or icon must be
+// force-refreshed; code updates propagate on their own.
+// v5: M21 logo re-cut. v6: M22.8 palette. v7: M23 overhaul.
+const CACHE_NAME = 'wird-offline-v8'; // v8: network-first app shell (PWA update fix)
+
+// Requests that must always prefer the network so updates reach returning
+// clients: the HTML document and the Flutter bootstrap/code entrypoints.
+const NETWORK_FIRST = [
+  'index.html',
+  'flutter_bootstrap.js',
+  'flutter.js',
+  'main.dart.js',
+];
+
+function isNetworkFirst(request) {
+  if (request.mode === 'navigate') return true;
+  const path = new URL(request.url).pathname;
+  if (path === '/' || path.endsWith('/')) return true;
+  return NETWORK_FIRST.some((name) => path.endsWith(name));
+}
 
 const APP_SHELL = [
   './',
@@ -68,18 +90,33 @@ self.addEventListener('fetch', (event) => {
 
   event.respondWith(
     caches.open(CACHE_NAME).then(async (cache) => {
+      // Code + navigation: network-first so returning (installed) clients
+      // always pick up a new deploy, with the cache as an offline fallback.
+      if (isNetworkFirst(request)) {
+        try {
+          const response = await fetch(request);
+          if (response && response.ok) cache.put(request, response.clone());
+          return response;
+        } catch (err) {
+          const cached =
+              (await cache.match(request)) ??
+              (request.mode === 'navigate'
+                  ? (await cache.match('index.html')) ?? (await cache.match('./'))
+                  : undefined);
+          if (cached) return cached;
+          throw err;
+        }
+      }
+
+      // Everything else (immutable data/assets): cache-first for instant
+      // offline use, populated opportunistically as the user browses.
       const cached = await cache.match(request);
       if (cached) return cached;
-
       try {
         const response = await fetch(request);
-        if (response.ok) {
-          cache.put(request, response.clone());
-        }
+        if (response.ok) cache.put(request, response.clone());
         return response;
       } catch (err) {
-        // Offline and not yet cached — nothing more we can do for this
-        // request.
         throw err;
       }
     }),
