@@ -128,21 +128,27 @@ class _AdhkarReaderScreenState extends ConsumerState<AdhkarReaderScreen> {
   void _showCelebration(List<AchievementRule> newlyUnlocked) {
     showDialog<void>(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context).adhkarAllDone),
-        content: Text(
-          newlyUnlocked.isEmpty
-              ? 'You have completed your ${widget.period} adhkar for today.'
-              : 'You have completed your ${widget.period} adhkar for today.\n\n'
-                  'Achievement unlocked: ${newlyUnlocked.map((r) => r.title).join(', ')}',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context).commonClose),
+      builder: (context) {
+        final l = AppLocalizations.of(context);
+        final base = widget.period == 'evening'
+            ? l.adhkarCompletedEvening
+            : l.adhkarCompletedMorning;
+        return AlertDialog(
+          title: Text(l.adhkarAllDone),
+          content: Text(
+            newlyUnlocked.isEmpty
+                ? base
+                : '$base\n\n'
+                    '${l.adhkarAchievementUnlocked(newlyUnlocked.map((r) => r.title).join(', '))}',
           ),
-        ],
-      ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(l.commonClose),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -231,7 +237,12 @@ class _AlreadyDoneView extends StatelessWidget {
             children: [
               const Icon(Icons.check_circle_rounded, size: 64, color: Colors.green),
               const SizedBox(height: 16),
-              Text("You've completed today's $period adhkar."),
+              Text(
+                period == 'evening'
+                    ? AppLocalizations.of(context).adhkarCompletedEvening
+                    : AppLocalizations.of(context).adhkarCompletedMorning,
+                textAlign: TextAlign.center,
+              ),
               const SizedBox(height: 16),
               GlassPill(
                 enableBlur: false,

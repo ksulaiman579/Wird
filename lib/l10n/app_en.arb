@@ -873,6 +873,23 @@
   "@adhkarReadAgain": {
     "description": "Adhkar reader restart button."
   },
+  "adhkarCompletedMorning": "You've completed today's morning adhkar.",
+  "@adhkarCompletedMorning": {
+    "description": "Shown when the morning adhkar are done for the day (celebration dialog and already-done view)."
+  },
+  "adhkarCompletedEvening": "You've completed today's evening adhkar.",
+  "@adhkarCompletedEvening": {
+    "description": "Shown when the evening adhkar are done for the day (celebration dialog and already-done view)."
+  },
+  "adhkarAchievementUnlocked": "Achievement unlocked: {names}",
+  "@adhkarAchievementUnlocked": {
+    "description": "Adhkar completion — one or more achievements newly unlocked.",
+    "placeholders": {
+      "names": {
+        "type": "String"
+      }
+    }
+  },
   "progressCurrentStreak": "Current streak",
   "@progressCurrentStreak": {
     "description": "Progress stat tile."

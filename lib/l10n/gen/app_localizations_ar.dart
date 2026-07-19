@@ -648,6 +648,17 @@ class AppLocalizationsAr extends AppLocalizations {
   String get adhkarReadAgain => 'اقرأ مرة أخرى';
 
   @override
+  String get adhkarCompletedMorning => 'لقد أتممت أذكار الصباح لهذا اليوم.';
+
+  @override
+  String get adhkarCompletedEvening => 'لقد أتممت أذكار المساء لهذا اليوم.';
+
+  @override
+  String adhkarAchievementUnlocked(String names) {
+    return 'تم فتح إنجاز: $names';
+  }
+
+  @override
   String get progressCurrentStreak => 'التتابع الحالي';
 
   @override

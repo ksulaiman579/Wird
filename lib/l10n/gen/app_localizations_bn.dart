@@ -652,6 +652,19 @@ class AppLocalizationsBn extends AppLocalizations {
   String get adhkarReadAgain => 'আবার পড়ুন';
 
   @override
+  String get adhkarCompletedMorning =>
+      'You\'ve completed today\'s morning adhkar.';
+
+  @override
+  String get adhkarCompletedEvening =>
+      'You\'ve completed today\'s evening adhkar.';
+
+  @override
+  String adhkarAchievementUnlocked(String names) {
+    return 'Achievement unlocked: $names';
+  }
+
+  @override
   String get progressCurrentStreak => 'বর্তমান স্ট্রিপ';
 
   @override

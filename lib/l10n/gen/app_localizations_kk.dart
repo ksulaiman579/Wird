@@ -651,6 +651,19 @@ class AppLocalizationsKk extends AppLocalizations {
   String get adhkarReadAgain => 'Read again';
 
   @override
+  String get adhkarCompletedMorning =>
+      'You\'ve completed today\'s morning adhkar.';
+
+  @override
+  String get adhkarCompletedEvening =>
+      'You\'ve completed today\'s evening adhkar.';
+
+  @override
+  String adhkarAchievementUnlocked(String names) {
+    return 'Achievement unlocked: $names';
+  }
+
+  @override
   String get progressCurrentStreak => 'Current streak';
 
   @override

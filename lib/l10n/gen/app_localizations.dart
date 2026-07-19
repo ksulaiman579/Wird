@@ -1428,6 +1428,24 @@ abstract class AppLocalizations {
   /// **'Read again'**
   String get adhkarReadAgain;
 
+  /// Shown when the morning adhkar are done for the day (celebration dialog and already-done view).
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve completed today\'s morning adhkar.'**
+  String get adhkarCompletedMorning;
+
+  /// Shown when the evening adhkar are done for the day (celebration dialog and already-done view).
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve completed today\'s evening adhkar.'**
+  String get adhkarCompletedEvening;
+
+  /// Adhkar completion — one or more achievements newly unlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Achievement unlocked: {names}'**
+  String adhkarAchievementUnlocked(String names);
+
   /// Progress stat tile.
   ///
   /// In en, this message translates to:
