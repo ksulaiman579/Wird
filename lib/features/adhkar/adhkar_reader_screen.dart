@@ -306,22 +306,32 @@ class _DhikrCard extends StatelessWidget {
                         ),
                       ),
                     ),
+                    // The transliteration and translation are always Latin
+                    // script. In an RTL UI locale (Urdu) they would otherwise
+                    // be laid out as RTL paragraphs, which throws the trailing
+                    // full stop to the start of the line — so pin them to LTR.
                     if (showLatinReadingAids(
                         Localizations.localeOf(context))) ...[
                       if (dhikr.transliteration != null)
                         Padding(
                           padding: const EdgeInsets.only(top: 8),
-                          child: Text(
-                            dhikr.transliteration!,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(fontStyle: FontStyle.italic),
+                          child: Directionality(
+                            textDirection: TextDirection.ltr,
+                            child: Text(
+                              dhikr.transliteration!,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(fontStyle: FontStyle.italic),
+                            ),
                           ),
                         ),
                       Padding(
                         padding: const EdgeInsets.only(top: 8),
-                        child: Text(dhikr.translation),
+                        child: Directionality(
+                          textDirection: TextDirection.ltr,
+                          child: Text(dhikr.translation),
+                        ),
                       ),
                     ],
                   ],

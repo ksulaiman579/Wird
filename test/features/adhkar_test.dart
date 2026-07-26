@@ -63,6 +63,34 @@ void main() {
       expect(find.textContaining('Ever-Living'), findsOneWidget);
       expect(find.text('0/1'), findsOneWidget);
     });
+
+    // M25.A locale pass: in an RTL UI locale (Urdu still shows the Latin
+    // reading aids) the English translation was being laid out as an RTL
+    // paragraph, which threw its trailing full stop to the start of the line.
+    // The Latin text must be pinned to LTR regardless of the UI direction.
+    testWidgets('Latin translation stays LTR in an RTL locale', (tester) async {
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [duaRepositoryProvider.overrideWithValue(repository)],
+          child: const MaterialApp(
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            locale: Locale('ur'),
+            home: AdhkarReaderScreen(period: 'morning'),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final translation = find.textContaining('Ever-Living');
+      expect(translation, findsOneWidget);
+      // The nearest enclosing Directionality must force LTR.
+      expect(
+        Directionality.of(tester.element(translation)),
+        TextDirection.ltr,
+        reason: 'English translation must not inherit the RTL page direction',
+      );
+    });
   });
 
   group('with a small synthetic set', () {
