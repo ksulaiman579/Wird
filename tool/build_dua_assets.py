@@ -98,10 +98,25 @@ _ADHKAR_TL = {
         "Asbahna AAala fitratil-islam, waAAala kalimatil-ikhlas, waAAala deeni nabiyyina Muhammad, waAAala millati abeena Ibraheem, haneefan musliman wama kana minal-mushrikeen.",
         "Amsayna AAala fitratil-islam, waAAala kalimatil-ikhlas, waAAala deeni nabiyyina Muhammad, waAAala millati abeena Ibraheem, haneefan musliman wama kana minal-mushrikeen."),
 }
+# Period-EXCLUSIVE duas. The source marks these two cases differently and the
+# distinction decides list MEMBERSHIP, not just wording:
+#   * "[وإذا أمسى ...]" in SQUARE BRACKETS  -> said in both periods, evening
+#     swaps some words. Handled by _ADHKAR_AR_SUBS above; stays in both lists.
+#   * "(... إذا أصبحَ)" / "(... إذا أمسى)" in the trailing PARENTHESISED rubric
+#     -> said in that period ONLY. Must appear in exactly one list.
+# Getting this wrong put the morning-only knowledge/rizq/deeds dua (hm-95) into
+# the evening list — user-reported, see M25.A.
+ADHKAR_MORNING_ONLY_IDS = {"hm-93", "hm-94", "hm-95"}
+ADHKAR_EVENING_ONLY_IDS = {"hm-97"}
+
 _ADHKAR_BRACKET = re.compile(r"\s*\[[^\]]*\]")
 _ADHKAR_RUBRIC_AR = [("مائةَ مرَّةٍ إذا أصبحَ", "مائةَ مرَّةٍ"),
                      ("ثلاثَ مرَّاتٍ إذا أصبحَ", "ثلاثَ مرَّاتٍ"),
                      ("ثلاثَ مرَّاتٍ إذا أمسى", "ثلاثَ مرَّاتٍ"),
+                     # A rubric that is ONLY the period marker (no repeat count)
+                     # is redundant once the dua sits in its own period list —
+                     # drop the whole parenthesis (hm-95).
+                     ("(إذا أصبحَ)", ""), ("(إذا أمسى)", ""),
                      (" إذا أصبحَ", ""), (" إذا أمسى", "")]
 _ADHKAR_RUBRIC_EN = [("(one hundred times every day)", "(one hundred times)"),
                      ("(three times in the evening)", "(three times)"),
@@ -112,6 +127,13 @@ def _apply(text: str, subs) -> str:
     for a, b in subs:
         text = text.replace(a, b)
     return text
+
+
+def _tidy(text: str) -> str:
+    """Collapse whitespace left behind by removing a rubric/note."""
+    text = re.sub(r"[ \t]{2,}", " ", text)
+    text = re.sub(r"\s+([.،؛:])", r"\1", text)
+    return text.strip()
 
 
 def split_morning_evening(items: list[dict]) -> tuple[list[dict], list[dict]]:
@@ -130,15 +152,23 @@ def split_morning_evening(items: list[dict]) -> tuple[list[dict], list[dict]]:
             v.update(arabic=e_ar, translation=_ADHKAR_TR[mid][1],
                      transliteration=_ADHKAR_TL[mid][1])
         else:
-            ar2 = _apply(_ADHKAR_BRACKET.sub("", e["arabic"]).strip(), _ADHKAR_RUBRIC_AR)
-            tr2 = _apply(e["translation"], _ADHKAR_RUBRIC_EN)
-            tl2 = _apply(e["transliteration"], _ADHKAR_RUBRIC_EN) if e["transliteration"] else None
+            ar2 = _tidy(_apply(_ADHKAR_BRACKET.sub("", e["arabic"]).strip(), _ADHKAR_RUBRIC_AR))
+            tr2 = _tidy(_apply(e["translation"], _ADHKAR_RUBRIC_EN))
+            tl2 = (_tidy(_apply(e["transliteration"], _ADHKAR_RUBRIC_EN))
+                   if e["transliteration"] else None)
             m.update(arabic=ar2, translation=tr2, transliteration=tl2)
             v.update(arabic=ar2, translation=tr2, transliteration=tl2)
         for o in (m, v):
             o["wordCount"] = word_count(o["arabic"])
-        morning.append(m)
-        evening.append(v)
+        # Period-exclusive duas belong to exactly one list.
+        if mid not in ADHKAR_EVENING_ONLY_IDS:
+            morning.append(m)
+        if mid not in ADHKAR_MORNING_ONLY_IDS:
+            evening.append(v)
+
+    for mid in ADHKAR_MORNING_ONLY_IDS | ADHKAR_EVENING_ONLY_IDS:
+        if not any(e["id"] == mid for e in items):
+            raise SystemExit(f"FAIL: period-exclusive id {mid} not in the adhkar chapter")
     return morning, evening
 
 # Items whose "transliteration" field is actually a Quran-recitation
@@ -240,7 +270,7 @@ def build() -> None:
     print(
         f"OK: wrote {DUA_OUT.relative_to(REPO_ROOT)} "
         f"({len(categories)} categories, {total_duas} duas) and "
-        f"{ADHKAR_OUT.relative_to(REPO_ROOT)} ({len(adhkar_items)} items x2)."
+        f"{ADHKAR_OUT.relative_to(REPO_ROOT)} ({len(morning_items)} morning + {len(evening_items)} evening adhkar)."
     )
 
 

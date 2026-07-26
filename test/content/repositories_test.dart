@@ -61,7 +61,69 @@ void main() {
     test('loads morning and evening adhkar', () async {
       final adhkar = await repo.loadAdhkar();
       expect(adhkar.morning, isNotEmpty);
-      expect(adhkar.evening.length, adhkar.morning.length);
+      expect(adhkar.evening, isNotEmpty);
+    });
+
+    // M25.A: the two lists are NOT interchangeable. Most duas are said in both
+    // periods (the evening one swapping asbaha->amsa wording), but a few carry a
+    // period-exclusive rubric in the source and must appear in exactly one list.
+    // Regression guard: the knowledge/rizq/deeds dua (hm-95) is morning-only and
+    // was wrongly showing up in the evening list.
+    test('period-exclusive adhkar appear in exactly one list', () async {
+      final adhkar = await repo.loadAdhkar();
+      final morningIds = adhkar.morning.map((d) => d.id).toSet();
+      final eveningIds = adhkar.evening.map((d) => d.id).toSet();
+
+      for (final id in const ['hm-93', 'hm-94', 'hm-95']) {
+        expect(morningIds, contains(id), reason: '$id is morning-only');
+        expect(eveningIds, isNot(contains(id)), reason: '$id must not be evening');
+      }
+      expect(eveningIds, contains('hm-97'), reason: 'hm-97 is evening-only');
+      expect(morningIds, isNot(contains('hm-97')),
+          reason: 'hm-97 must not be morning');
+    });
+
+    // The asbaha/amsa split must not leak across periods.
+    test('morning uses asbaha wording and evening uses amsa wording', () async {
+      final adhkar = await repo.loadAdhkar();
+      for (final d in adhkar.morning) {
+        expect(d.arabic, isNot(contains('أَمْسَيْنَا وَأَمْسَى')));
+        expect(d.arabic, isNot(contains('أَمْسَيْتُ')));
+      }
+      for (final d in adhkar.evening) {
+        expect(d.arabic, isNot(contains('أَصْبَحْنَا وَأَصْبَحَ')));
+        expect(d.arabic, isNot(contains('أَصْبَحْتُ')));
+      }
+      // The signature pair actually flipped.
+      expect(
+        adhkar.morning.firstWhere((d) => d.id == 'hm-77').arabic,
+        contains('أَصْبَحْنَا وَأَصْبَحَ'),
+      );
+      expect(
+        adhkar.evening.firstWhere((d) => d.id == 'hm-77').arabic,
+        contains('أَمْسَيْنَا وَأَمْسَى'),
+      );
+    });
+
+    // No "say this in the morning / that in the evening" instructions should
+    // survive in either list — each list shows one clean form.
+    test('no cross-period instruction notes remain', () async {
+      final adhkar = await repo.loadAdhkar();
+      for (final d in [...adhkar.morning, ...adhkar.evening]) {
+        final blob = '${d.arabic} ${d.translation} ${d.transliteration ?? ''}';
+        for (final marker in const [
+          'إذا أصبحَ',
+          'إذا أمسى',
+          'وإذا',
+          'In the evening',
+          'For the evening',
+          'Note:',
+          'instead of',
+        ]) {
+          expect(blob, isNot(contains(marker)),
+              reason: '${d.id} still carries "$marker"');
+        }
+      }
     });
   });
 
