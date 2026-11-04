@@ -108,3 +108,6 @@ tool/supabase_upload/
 # Gemini API key (never commit)
 *gemini_key*
 .env
+
+# Local archive (notes backups, design refs)
+/_archive/
