@@ -180,6 +180,34 @@ void main() {
         reason: 'this was the only queued item, so the portion is done');
   });
 
+  test('a double tap grades the current item only once', () async {
+    await insertPlan(dailyMinutes: 30);
+    final today = DateTime.now();
+    final dateOnly = DateTime(today.year, today.month, today.day);
+    await insertItem(
+      contentKey: 'q:1:1',
+      status: 'review',
+      dueDate: dateOnly,
+      orderIndex: 0,
+    );
+    await insertItem(
+      contentKey: 'q:1:2',
+      status: 'review',
+      dueDate: dateOnly,
+      orderIndex: 1,
+    );
+
+    await firstValue<SessionState>(container, sessionControllerProvider);
+    final controller = container.read(sessionControllerProvider.notifier);
+    await Future.wait([
+      controller.gradeCurrent(sm2.Grade.good),
+      controller.gradeCurrent(sm2.Grade.good),
+    ]);
+
+    expect(await db.select(db.reviewLogs).get(), hasLength(1));
+    expect(container.read(sessionControllerProvider).value!.currentIndex, 1);
+  });
+
   test(
       'completing the last queued item marks daily_sessions.completed and '
       'updates streak_state, setting justCompletedStreak', () async {

@@ -110,9 +110,21 @@ String _statusToDb(sm2.ItemStatus status) => switch (status) {
 /// and persists the result to `srs_items` + `review_logs` + today's
 /// `daily_sessions` done-counts.
 class SessionController extends AsyncNotifier<SessionState> {
+  /// The day this queue was planned for. Grades are counted against this
+  /// day's `daily_sessions` row even if the session runs past midnight —
+  /// the next day's row may not exist yet, and the counts were silently
+  /// lost (M26.5).
+  late String _sessionDayKey;
+
+  /// Blocks a second grade while the first is still writing (double tap
+  /// used to grade the same item twice).
+  bool _grading = false;
+
   @override
   Future<SessionState> build() async {
     final db = ref.read(appDatabaseProvider);
+    _sessionDayKey = _dayKeyFor(DateTime.now());
+    _grading = false;
 
     final plan = await db.select(db.userPlans).getSingleOrNull();
     if (plan == null) return SessionState.empty;
@@ -178,8 +190,18 @@ class SessionController extends AsyncNotifier<SessionState> {
   }
 
   Future<void> gradeCurrent(sm2.Grade grade) async {
+    if (_grading) return;
     final current = state.value?.current;
     if (current == null) return;
+    _grading = true;
+    try {
+      await _grade(current, grade);
+    } finally {
+      _grading = false;
+    }
+  }
+
+  Future<void> _grade(SessionQueueEntry current, sm2.Grade grade) async {
 
     final db = ref.read(appDatabaseProvider);
     final item = current.srsItem;
@@ -223,7 +245,7 @@ class SessionController extends AsyncNotifier<SessionState> {
             ));
       }
 
-      final dayKey = _dayKeyFor(now);
+      final dayKey = _sessionDayKey;
       final session = await (db.select(db.dailySessions)
             ..where((t) => t.day.equals(dayKey)))
           .getSingleOrNull();
@@ -305,6 +327,11 @@ class SessionController extends AsyncNotifier<SessionState> {
   }
 }
 
+/// autoDispose: the queue is a snapshot of one day's portion. Keeping it
+/// alive forever meant reopening /session showed the old celebration, the
+/// next day (app still in memory) re-ran yesterday's queue, and a plan edit
+/// left the session grading deleted items (M26.5). Only the session screen
+/// watches this, so it's rebuilt fresh every time that screen opens.
 final sessionControllerProvider =
-    AsyncNotifierProvider<SessionController, SessionState>(
+    AsyncNotifierProvider.autoDispose<SessionController, SessionState>(
         SessionController.new);
