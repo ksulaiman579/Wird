@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:just_audio/just_audio.dart';
 
 import 'ayah_audio_urls.dart';
+import 'local_ayah_file.dart';
 
 /// Three-tier source selection for one ayah's audio, cheapest/most-offline
 /// first: a locally downloaded file (native only — M4.3), a streamed URL
@@ -106,10 +107,22 @@ abstract class AyahPlayback {
 /// whole-group playlists, configurable loop scope/repeat count, and
 /// playback speed. Pure URL/reciter/repeat logic lives in
 /// `ayah_audio_urls.dart` so it stays unit-testable without a real player.
+typedef LocalAyahLookup = Future<String?> Function({
+  required String reciter,
+  required int surah,
+  required int ayah,
+});
+
 class AyahAudioService extends AyahPlayback {
-  AyahAudioService({AudioPlayer? player}) : _player = player ?? AudioPlayer();
+  AyahAudioService({AudioPlayer? player, LocalAyahLookup? findLocal})
+      : _player = player ?? AudioPlayer(),
+        _findLocal = findLocal ?? findLocalAyahFile;
 
   final AudioPlayer _player;
+
+  /// Looks up a downloaded file for the current reciter, so every caller
+  /// plays offline audio when it exists without passing paths in (M26.2).
+  final LocalAyahLookup _findLocal;
 
   int _completedPlays = 0;
 
@@ -137,6 +150,10 @@ class AyahAudioService extends AyahPlayback {
     _completedPlays = 0;
     _loadedSurah = surah;
     _loadedAyahs = [ayah];
+    if (!kIsWeb) {
+      localFilePath ??=
+          await _findLocal(reciter: reciter, surah: surah, ayah: ayah);
+    }
     try {
       await _player.setAudioSource(_sourceFor(
         reciter: reciter,
@@ -148,12 +165,13 @@ class AyahAudioService extends AyahPlayback {
       await _player.setSpeed(speed);
       await _player.play();
     } catch (e) {
-      if (!kIsWeb && localFilePath == null) {
+      // Cache or local file failed: fall back to a plain stream.
+      if (!kIsWeb) {
         await _player.setAudioSource(_sourceFor(
           reciter: reciter,
           surah: surah,
           ayah: ayah,
-          localFilePath: localFilePath,
+          localFilePath: null,
           useCache: false,
         ));
         await _player.setSpeed(speed);
@@ -183,6 +201,15 @@ class AyahAudioService extends AyahPlayback {
     // when opening a surah partway through) — Item 1.16. The remaining
     // ayahs load lazily as playback advances.
     final start = initialIndex.clamp(0, ayahs.isEmpty ? 0 : ayahs.length - 1);
+    if (!kIsWeb && localFilePaths == null) {
+      final found = await Future.wait([
+        for (final a in ayahs) _findLocal(reciter: reciter, surah: surah, ayah: a),
+      ]);
+      localFilePaths = {
+        for (var i = 0; i < ayahs.length; i++)
+          if (found[i] != null) ayahs[i]: found[i]!,
+      };
+    }
     try {
       await _player.setAudioSources(
         [
@@ -200,7 +227,8 @@ class AyahAudioService extends AyahPlayback {
       await _player.setSpeed(speed);
       await _player.play();
     } catch (e) {
-      if (!kIsWeb && localFilePaths == null) {
+      // Cache or local file failed: fall back to plain streams.
+      if (!kIsWeb) {
         await _player.setAudioSources(
           [
             for (final ayah in ayahs)
