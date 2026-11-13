@@ -26,3 +26,29 @@ Future<String?> findLocalAyahFile({
   }
   return null;
 }
+
+/// Deletes every `<SSS>*.mp3` for [surah] under each reciter's folder.
+Future<void> deleteLocalSurahFiles({
+  required int surah,
+  required Iterable<String> reciters,
+}) async {
+  final prefix = surah.toString().padLeft(3, '0');
+  try {
+    _docsPath ??= (await getApplicationDocumentsDirectory()).path;
+  } catch (_) {
+    return;
+  }
+  for (final reciter in reciters) {
+    final dir = Directory('$_docsPath/quran_audio/$reciter');
+    if (!await dir.exists()) continue;
+    await for (final f in dir.list()) {
+      final name = f.uri.pathSegments.last;
+      if (f is File && name.startsWith(prefix) && name.endsWith('.mp3') &&
+          name.length == 10) {
+        try {
+          await f.delete();
+        } catch (_) {}
+      }
+    }
+  }
+}
