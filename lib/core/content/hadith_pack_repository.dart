@@ -164,7 +164,13 @@ class HadithPackRepository {
       );
       _decodedCache.remove(collection);
     } catch (_) {
-      await _upsertStatus(collection, status: 'failed', progress: 0);
+      // A failed retry keeps a previously installed copy usable.
+      final hadCopy = (await _packRow(collection))?.data != null;
+      await _upsertStatus(
+        collection,
+        status: hadCopy ? 'downloaded' : 'failed',
+        progress: hadCopy ? 1 : 0,
+      );
       rethrow;
     }
   }
@@ -359,11 +365,11 @@ class HadithPackRepository {
             (old) => ContentPacksCompanion.custom(
               status: Constant(status),
               progress: Constant(progress),
-              data: data == null ? const Constant(null) : Constant(data),
-              sha256: sha256 == null ? const Constant(null) : Constant(sha256),
-              installedAt: installedAt == null
-                  ? const Constant(null)
-                  : Constant(installedAt),
+              // Status-only updates (downloading / failed) leave the
+              // installed copy alone — a failed re-download used to wipe it.
+              data: data == null ? null : Constant(data),
+              sha256: sha256 == null ? null : Constant(sha256),
+              installedAt: installedAt == null ? null : Constant(installedAt),
             ),
             target: [_db.contentPacks.type, _db.contentPacks.editionOrCollection],
           ),

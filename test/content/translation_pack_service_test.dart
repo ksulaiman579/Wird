@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -150,6 +151,52 @@ void main() {
 
     final row = await db.select(db.contentPacks).getSingle();
     expect(row.status, 'failed');
+  });
+
+  test('a failed re-download keeps the installed copy usable', () async {
+    await TranslationPackService(db, client: _FakeClient({
+      entry.link: http.Response(_fakeUpstreamBody(), 200),
+    })).downloadAndInstall(entry);
+
+    final failing = TranslationPackService(db, client: _FakeClient({
+      entry.link: http.Response(jsonEncode({'quran': <dynamic>[]}), 200),
+    }));
+    await expectLater(
+      () => failing.downloadAndInstall(entry),
+      throwsA(isA<TranslationPackValidationError>()),
+    );
+
+    final row = await db.select(db.contentPacks).getSingle();
+    expect(row.status, 'downloaded');
+    expect(row.data, isNotNull);
+    expect(
+      await failing.extraTranslationFor(editionId: entry.id, surah: 2, ayah: 1),
+      'fake 2:1',
+    );
+  });
+
+  test('a pack left mid-download is reset when the database reopens',
+      () async {
+    final dir = await Directory.systemTemp.createTemp('wird_db_');
+    final file = File('${dir.path}/t.sqlite');
+    addTearDown(() => dir.delete(recursive: true));
+
+    final first = AppDatabase(NativeDatabase(file));
+    await first.customStatement(
+      "INSERT INTO content_packs (type, language_or_collection, "
+      "edition_or_collection, status, progress, data) VALUES "
+      "('translation', 'fr', 'empty', 'downloading', 0.3, NULL), "
+      "('translation', 'fr', 'kept', 'downloading', 0.3, '{}')",
+    );
+    await first.close();
+
+    final second = AppDatabase(NativeDatabase(file));
+    final rows = {
+      for (final r in await second.select(second.contentPacks).get())
+        r.editionOrCollection: r.status,
+    };
+    await second.close();
+    expect(rows, {'empty': 'failed', 'kept': 'downloaded'});
   });
 
   test('removePack deletes the row', () async {

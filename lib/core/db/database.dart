@@ -67,6 +67,16 @@ class AppDatabase extends _$AppDatabase {
             await m.createTable(libraryDownloads);
           }
         },
+        beforeOpen: (details) async {
+          // A pack download killed mid-way (app closed) left its row in
+          // 'downloading' forever — a spinner with no retry. Restore it to
+          // what it really is on every open (M26.6).
+          await customStatement(
+            "UPDATE content_packs SET status = CASE WHEN data IS NOT NULL "
+            "THEN 'downloaded' ELSE 'failed' END, progress = CASE WHEN data "
+            "IS NOT NULL THEN 1.0 ELSE 0.0 END WHERE status = 'downloading'",
+          );
+        },
       );
 }
 
