@@ -5,6 +5,20 @@ import 'package:timezone/timezone.dart' as tz;
 
 import 'notification_plan.dart';
 
+/// Best-effort zone for an OS zone id the tz database doesn't know.
+/// Whole-hour offsets map to `Etc/GMT±N` (note the inverted sign); anything
+/// else falls back to UTC.
+tz.Location _fixedOffsetZone(Duration offset) {
+  if (offset.inMinutes % 60 == 0) {
+    final h = offset.inHours;
+    final name = h == 0 ? 'Etc/UTC' : 'Etc/GMT${h > 0 ? '-' : '+'}${h.abs()}';
+    try {
+      return tz.getLocation(name);
+    } catch (_) {}
+  }
+  return tz.UTC;
+}
+
 const dailyReminderChannelId = 'daily_reminder';
 const adhkarMorningChannelId = 'adhkar_morning';
 const adhkarEveningChannelId = 'adhkar_evening';
@@ -50,7 +64,13 @@ class NotificationService {
   Future<void> init() async {
     tzdata.initializeTimeZones();
     final timezone = await FlutterTimezone.getLocalTimezone();
-    tz.setLocalLocation(tz.getLocation(timezone.identifier));
+    try {
+      tz.setLocalLocation(tz.getLocation(timezone.identifier));
+    } catch (_) {
+      // Unknown zone id from the OS: fall back to a fixed-offset zone rather
+      // than throwing and leaving nothing scheduled at all.
+      tz.setLocalLocation(_fixedOffsetZone(DateTime.now().timeZoneOffset));
+    }
 
     const androidInit = AndroidInitializationSettings('@mipmap/ic_launcher');
     const iosInit = DarwinInitializationSettings();
@@ -61,6 +81,14 @@ class NotificationService {
         if (payload != null) onSelectPayload?.call(payload);
       },
     );
+
+    // A tap that cold-starts the app (incl. the full-screen adhan intent)
+    // doesn't go through onDidReceiveNotificationResponse — read it here.
+    final launch = await _plugin.getNotificationAppLaunchDetails();
+    final launchPayload = launch?.notificationResponse?.payload;
+    if ((launch?.didNotificationLaunchApp ?? false) && launchPayload != null) {
+      onSelectPayload?.call(launchPayload);
+    }
 
     final android = _plugin.resolvePlatformSpecificImplementation<
         AndroidFlutterLocalNotificationsPlugin>();
