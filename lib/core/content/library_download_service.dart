@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
 import '../db/database.dart';
+import '../platform/downloader_updates.dart';
 import 'models/library_book.dart';
 
 /// App-facing state of a book download.
@@ -47,7 +48,7 @@ class LibraryDownloadService {
     // service only ever opens URLs in a new tab, so don't touch it there
     // (constructing/listening can null-crash in the web plugin, Item A1).
     if (kIsWeb) return;
-    FileDownloader().updates.listen((u) {
+    downloaderUpdates.listen((u) {
       final taskId = u.task.taskId;
       if (!taskId.startsWith('library-')) return;
       final idStr = taskId.substring('library-'.length);

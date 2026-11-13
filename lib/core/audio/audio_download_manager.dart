@@ -5,6 +5,7 @@ import 'package:background_downloader/background_downloader.dart';
 import 'package:drift/drift.dart' show Value;
 
 import '../db/database.dart';
+import '../platform/downloader_updates.dart';
 import 'ayah_audio_urls.dart';
 
 /// Download operations the `/downloads` screen needs. Exists so widget
@@ -38,7 +39,7 @@ int? _surahFromGroup(String group) {
 /// directly.
 class AudioDownloadManager implements AudioDownloads {
   AudioDownloadManager(this._db) {
-    _sub = FileDownloader().updates.listen(_onUpdate);
+    _sub = downloaderUpdates.listen(_onUpdate);
   }
 
   final AppDatabase _db;
