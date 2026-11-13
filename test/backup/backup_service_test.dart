@@ -93,6 +93,21 @@ void main() {
             progress: const Value(1.0),
           ),
         );
+    await db.into(db.bookmarks).insert(
+          BookmarksCompanion.insert(
+            contentType: 'quran',
+            contentKey: 'q:2:255',
+            createdAt: DateTime(2026, 1, 4),
+          ),
+        );
+    await db.into(db.tasbihSessions).insert(
+          TasbihSessionsCompanion.insert(
+            presetLabel: '33-33-34',
+            targetCount: 100,
+            completedCount: 100,
+            completedAt: DateTime(2026, 1, 4),
+          ),
+        );
   });
 
   tearDown(() => db.close());
@@ -112,6 +127,8 @@ void main() {
     await db.delete(db.downloadState).go();
     await db.delete(db.userPlans).go();
     await db.delete(db.userProfiles).go();
+    await db.delete(db.bookmarks).go();
+    await db.delete(db.tasbihSessions).go();
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
 
@@ -119,10 +136,44 @@ void main() {
 
     final after = await _snapshot(db);
     expect(after, before);
+    expect(after['bookmarks'], hasLength(1));
+    expect(after['tasbihSessions'], hasLength(1));
 
     final restoredPrefs = await SharedPreferences.getInstance();
     expect(restoredPrefs.getString('theme_mode'), 'dark');
     expect(restoredPrefs.getString('ease_back_until'), '2026-01-05');
+  });
+
+  test('download state is device-specific and never restored', () async {
+    final json = await service.buildBackupJson();
+    expect(json.containsKey('downloadState'), isFalse);
+
+    // Even an older backup that carried it doesn't bring it back.
+    json['downloadState'] = (await db.select(db.downloadState).get())
+        .map((r) => r.toJson())
+        .toList();
+    await db.delete(db.downloadState).go();
+    await service.restoreFromJson(json);
+    expect(await db.select(db.downloadState).get(), isEmpty);
+  });
+
+  test('an older backup without bookmarks keeps the current ones', () async {
+    final json = await service.buildBackupJson()
+      ..remove('bookmarks')
+      ..remove('tasbihSessions');
+    await service.restoreFromJson(json);
+    expect(await db.select(db.bookmarks).get(), hasLength(1));
+    expect(await db.select(db.tasbihSessions).get(), hasLength(1));
+  });
+
+  test('a bad settings value is skipped, the rest still restore', () async {
+    final json = await service.buildBackupJson();
+    (json['settings'] as Map)['broken_list'] = [1, 2, 3];
+    await service.restoreFromJson(json);
+
+    final prefs = await SharedPreferences.getInstance();
+    expect(prefs.getString('theme_mode'), 'dark');
+    expect(prefs.containsKey('broken_list'), isFalse);
   });
 
   test('restoreFromJson rejects a newer schema version', () async {
@@ -146,6 +197,7 @@ Future<Map<String, dynamic>> _snapshot(AppDatabase db) async {
     'achievements': (await db.select(db.achievements).get()).map((r) => r.toJson()).toList(),
     'streakState': (await db.select(db.streakState).get()).map((r) => r.toJson()).toList(),
     'duaSelections': (await db.select(db.duaSelections).get()).map((r) => r.toJson()).toList(),
-    'downloadState': (await db.select(db.downloadState).get()).map((r) => r.toJson()).toList(),
+    'bookmarks': (await db.select(db.bookmarks).get()).map((r) => r.toJson()).toList(),
+    'tasbihSessions': (await db.select(db.tasbihSessions).get()).map((r) => r.toJson()).toList(),
   };
 }

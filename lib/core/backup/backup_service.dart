@@ -57,8 +57,13 @@ class BackupService {
           (await db.select(db.streakState).get()).map((r) => r.toJson()).toList(),
       'duaSelections':
           (await db.select(db.duaSelections).get()).map((r) => r.toJson()).toList(),
-      'downloadState':
-          (await db.select(db.downloadState).get()).map((r) => r.toJson()).toList(),
+      'bookmarks':
+          (await db.select(db.bookmarks).get()).map((r) => r.toJson()).toList(),
+      'tasbihSessions':
+          (await db.select(db.tasbihSessions).get()).map((r) => r.toJson()).toList(),
+      // Not exported: download_state / content_packs / library_downloads.
+      // They describe files on *this* device; restoring them on another
+      // phone claimed downloads that weren't there. Packs are also MBs each.
       'settings': settings,
     };
   }
@@ -82,6 +87,10 @@ class BackupService {
       );
     }
 
+    // Check the settings shape before touching anything, so a bad value
+    // can't leave preferences half wiped.
+    final settings = _settingsFrom(json['settings']);
+
     await db.transaction(() async {
       await db.delete(db.reviewLogs).go();
       await db.delete(db.srsItems).go();
@@ -89,9 +98,14 @@ class BackupService {
       await db.delete(db.achievements).go();
       await db.delete(db.streakState).go();
       await db.delete(db.duaSelections).go();
-      await db.delete(db.downloadState).go();
       await db.delete(db.userPlans).go();
       await db.delete(db.userProfiles).go();
+      // Added after the first backups were written: only replace them when
+      // the file actually has them, so an older backup doesn't erase them.
+      if (json.containsKey('bookmarks')) await db.delete(db.bookmarks).go();
+      if (json.containsKey('tasbihSessions')) {
+        await db.delete(db.tasbihSessions).go();
+      }
 
       for (final row in _list(json, 'userProfiles')) {
         await db.into(db.userProfiles).insert(
@@ -141,48 +155,74 @@ class BackupService {
               mode: InsertMode.insertOrReplace,
             );
       }
-      for (final row in _list(json, 'downloadState')) {
-        await db.into(db.downloadState).insert(
-              DownloadStateData.fromJson(row),
+      for (final row in _list(json, 'bookmarks')) {
+        await db.into(db.bookmarks).insert(
+              Bookmark.fromJson(row),
               mode: InsertMode.insertOrReplace,
             );
       }
+      for (final row in _list(json, 'tasbihSessions')) {
+        await db.into(db.tasbihSessions).insert(
+              TasbihSession.fromJson(row),
+              mode: InsertMode.insertOrReplace,
+            );
+      }
+      // Old backups carry 'downloadState' — deliberately ignored (see
+      // buildBackupJson).
     });
 
+    if (settings == null) return;
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
-    final settings = json['settings'];
-    if (settings is Map) {
-      for (final entry in settings.entries) {
-        final key = entry.key as String;
-        final value = entry.value;
-        if (value is bool) {
-          await prefs.setBool(key, value);
-        } else if (value is int) {
-          await prefs.setInt(key, value);
-        } else if (value is double) {
-          await prefs.setDouble(key, value);
-        } else if (value is String) {
-          await prefs.setString(key, value);
-        } else if (value is List) {
-          await prefs.setStringList(key, value.cast<String>());
-        }
+    for (final MapEntry(:key, :value) in settings.entries) {
+      switch (value) {
+        case bool v:
+          await prefs.setBool(key, v);
+        case int v:
+          await prefs.setInt(key, v);
+        case double v:
+          await prefs.setDouble(key, v);
+        case String v:
+          await prefs.setString(key, v);
+        case List<String> v:
+          await prefs.setStringList(key, v);
       }
     }
   }
 
+  /// Settings from a backup, with every value type-checked up front. Lists
+  /// must be all strings; anything else is skipped. Null if absent.
+  static Map<String, Object>? _settingsFrom(Object? raw) {
+    if (raw is! Map) return null;
+    final out = <String, Object>{};
+    for (final entry in raw.entries) {
+      final key = entry.key;
+      final value = entry.value;
+      if (key is! String) continue;
+      if (value is bool || value is int || value is double || value is String) {
+        out[key] = value as Object;
+      } else if (value is List && value.every((e) => e is String)) {
+        out[key] = List<String>.from(value);
+      }
+    }
+    return out;
+  }
+
   /// Builds the backup, then hands it to the system share sheet (native) —
   /// which on web falls back to a browser download, per share_plus.
-  Future<void> exportViaShare() async {
+  /// Returns false only when the user dismissed the sheet; platforms that
+  /// can't report the outcome count as shared.
+  Future<bool> exportViaShare() async {
     final json = await buildBackupJson();
     final bytes = utf8.encode(const JsonEncoder.withIndent('  ').convert(json));
     final fileName = await buildBackupFileName();
-    await SharePlus.instance.share(
+    final result = await SharePlus.instance.share(
       ShareParams(
         files: [XFile.fromData(bytes, name: fileName, mimeType: 'application/json')],
         fileNameOverrides: [fileName],
       ),
     );
+    return result.status != ShareResultStatus.dismissed;
   }
 
   /// Opens the file picker for a `.daily.json` backup and restores it.

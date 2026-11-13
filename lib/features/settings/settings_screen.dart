@@ -140,7 +140,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     setState(() => _resetting = true);
     try {
       final db = ref.read(appDatabaseProvider);
-      await BackupService(db).exportViaShare();
+      final backup = BackupService(db);
+      // Always keep an on-device copy first, then offer the share sheet.
+      // If the user dismisses the sheet, stop — never reset without the
+      // backup they were promised (M26.7).
+      await backup.writeLocalBackup();
+      final shared = await backup.exportViaShare();
+      if (!shared) return;
       await ResetService(db).reset(scope);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(

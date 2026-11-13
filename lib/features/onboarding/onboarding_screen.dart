@@ -18,6 +18,8 @@ import '../../core/db/database.dart';
 import '../../core/notifications/notification_prefs.dart';
 import '../../core/notifications/notification_providers.dart';
 import '../../core/prefs/app_language_provider.dart';
+import '../../core/theme/palette_provider.dart';
+import '../../core/theme/theme_mode_provider.dart';
 import '../../shared/glass/glass.dart';
 import '../../shared/widgets/location_section.dart';
 import '../downloads/download_providers.dart';
@@ -541,6 +543,19 @@ class _ProfileStepState extends ConsumerState<_ProfileStep> {
     try {
       final db = ref.read(appDatabaseProvider);
       final restored = await BackupService(db).importViaFilePicker();
+      if (restored) {
+        // Prefs were replaced underneath these — reload them, and re-arm
+        // notifications for the restored plan/settings (M26.7).
+        ref
+          ..invalidate(themeModeProvider)
+          ..invalidate(paletteProvider)
+          ..invalidate(appLanguageProvider)
+          ..invalidate(readerPrefsProvider)
+          ..invalidate(notificationPrefsProvider);
+        if (!kIsWeb) {
+          unawaited(rescheduleNotifications(ref).catchError((_) {}));
+        }
+      }
       if (restored && mounted) context.go('/');
     } catch (e) {
       if (mounted) {
