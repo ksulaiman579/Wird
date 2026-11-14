@@ -6,7 +6,8 @@ import 'package:go_router/go_router.dart';
 import 'package:just_audio/just_audio.dart' show PlayerState, ProcessingState;
 import 'package:wird/l10n/gen/app_localizations.dart';
 
-import '../../core/audio/ayah_audio_service.dart' show AyahPlayback, formatAudioError;
+import '../../core/audio/ayah_audio_service.dart'
+    show AyahPlayback, formatAudioError;
 import '../../core/audio/ayah_audio_urls.dart' show reciters;
 import '../../core/content/bookmark_service.dart';
 import '../../core/content/models/quran_models.dart';
@@ -45,11 +46,11 @@ final _extraTranslationProvider =
 /// only offers what the user has downloaded — not a hardcoded list.
 final installedTranslationEditionsProvider =
     FutureProvider<List<TranslationEditionEntry>>((ref) async {
-  final svc = ref.watch(translationPackServiceProvider);
-  final allowlist = await svc.loadAllowlist();
-  final installed = await svc.installedEditionIds();
-  return allowlist.editions.where((e) => installed.contains(e.id)).toList();
-});
+      final svc = ref.watch(translationPackServiceProvider);
+      final allowlist = await svc.loadAllowlist();
+      final installed = await svc.installedEditionIds();
+      return allowlist.editions.where((e) => installed.contains(e.id)).toList();
+    });
 
 /// Paged Quran reader (M20.2) — one ayah per page with an `n/total`
 /// indicator and round back/next arrows, per the reference design. Crossing
@@ -77,8 +78,11 @@ class _QuranReaderScreenState extends ConsumerState<QuranReaderScreen> {
   bool _loaded = false; // playlist for the current surah has been set
   int _audioIndex =
       0; // index the audio last reported, to break page↔audio echo
-  Duration _pos = Duration.zero;
-  Duration _dur = Duration.zero;
+  // Position/duration tick up to ~60x a second while audio plays. They live
+  // in notifiers so only the player bar rebuilds — a setState here rebuilt
+  // the whole reader (and in Mushaf mode the whole surah) every tick (M27.1).
+  final _pos = ValueNotifier<Duration>(Duration.zero);
+  final _dur = ValueNotifier<Duration>(Duration.zero);
   StreamSubscription<int?>? _indexSub;
   StreamSubscription<PlayerState>? _stateSub;
   StreamSubscription<Duration>? _posSub;
@@ -102,6 +106,8 @@ class _QuranReaderScreenState extends ConsumerState<QuranReaderScreen> {
     _stateSub?.cancel();
     _posSub?.cancel();
     _durSub?.cancel();
+    _pos.dispose();
+    _dur.dispose();
     _playback.stop();
     _nowPlaying.clear();
     _pageController?.dispose();
@@ -133,10 +139,10 @@ class _QuranReaderScreenState extends ConsumerState<QuranReaderScreen> {
       if (playing != _playing) setState(() => _playing = playing);
     });
     _posSub = playback.positionStream.listen((p) {
-      if (mounted) setState(() => _pos = p);
+      _pos.value = p;
     });
     _durSub = playback.durationStream.listen((d) {
-      if (mounted && d != null) setState(() => _dur = d);
+      if (d != null) _dur.value = d;
     });
   }
 
@@ -162,9 +168,9 @@ class _QuranReaderScreenState extends ConsumerState<QuranReaderScreen> {
       _publishNowPlaying();
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(formatAudioError(e))),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(formatAudioError(e))));
       }
     }
   }
@@ -292,7 +298,11 @@ class _QuranReaderScreenState extends ConsumerState<QuranReaderScreen> {
           contentPadding: EdgeInsets.zero,
           body: surahAsync.when(
             loading: () => const Center(child: CircularProgressIndicator()),
-            error: (e, st) => Center(child: Text(AppLocalizations.of(context).commonFailedToLoad('$e'))),
+            error: (e, st) => Center(
+              child: Text(
+                AppLocalizations.of(context).commonFailedToLoad('$e'),
+              ),
+            ),
             data: (surah) {
               final total = surah.ayahs.length;
               // -1 sentinel from a back-crossing resolves to the last ayah
@@ -363,75 +373,78 @@ class _QuranReaderScreenState extends ConsumerState<QuranReaderScreen> {
                             },
                           ),
                   ),
-                  AyahPlayerBar(
-                    playing: _playing,
-                    position: _pos,
-                    duration: _dur,
-                    onPlayPause: () => _togglePlay(total),
-                    onPrev: _ayah > 1
-                        ? () {
-                            if (prefs.mushafMode) {
-                              setState(() => _ayah = _ayah - 1);
-                              _recordLastRead();
-                            } else {
-                              controller.previousPage(
-                                duration: const Duration(milliseconds: 250),
-                                curve: Curves.easeOut,
-                              );
+                  ListenableBuilder(
+                    listenable: Listenable.merge([_pos, _dur]),
+                    builder: (context, _) => AyahPlayerBar(
+                      playing: _playing,
+                      position: _pos.value,
+                      duration: _dur.value,
+                      onPlayPause: () => _togglePlay(total),
+                      onPrev: _ayah > 1
+                          ? () {
+                              if (prefs.mushafMode) {
+                                setState(() => _ayah = _ayah - 1);
+                                _recordLastRead();
+                              } else {
+                                controller.previousPage(
+                                  duration: const Duration(milliseconds: 250),
+                                  curve: Curves.easeOut,
+                                );
+                              }
                             }
-                          }
-                        : null,
-                    onNext: _ayah < total
-                        ? () {
-                            if (prefs.mushafMode) {
-                              setState(() => _ayah = _ayah + 1);
-                              _recordLastRead();
-                            } else {
-                              controller.nextPage(
-                                duration: const Duration(milliseconds: 250),
-                                curve: Curves.easeOut,
-                              );
+                          : null,
+                      onNext: _ayah < total
+                          ? () {
+                              if (prefs.mushafMode) {
+                                setState(() => _ayah = _ayah + 1);
+                                _recordLastRead();
+                              } else {
+                                controller.nextPage(
+                                  duration: const Duration(milliseconds: 250),
+                                  curve: Curves.easeOut,
+                                );
+                              }
                             }
-                          }
-                        : null,
+                          : null,
+                    ),
                   ),
                   // Classic Mushaf keeps only the page + audio player; the
                   // round nav arrows are dropped there (Item 1.11).
                   if (!prefs.mushafMode)
                     _ReaderNavBar(
-                    onPrev: () {
-                      if (_ayah > 1) {
-                        if (prefs.mushafMode) {
-                          setState(() => _ayah = _ayah - 1);
-                          _recordLastRead();
-                        } else {
-                          controller.previousPage(
-                            duration: const Duration(milliseconds: 250),
-                            curve: Curves.easeOut,
-                          );
+                      onPrev: () {
+                        if (_ayah > 1) {
+                          if (prefs.mushafMode) {
+                            setState(() => _ayah = _ayah - 1);
+                            _recordLastRead();
+                          } else {
+                            controller.previousPage(
+                              duration: const Duration(milliseconds: 250),
+                              curve: Curves.easeOut,
+                            );
+                          }
+                        } else if (surahNumber > 1) {
+                          _goToSurah(surahNumber - 1, ayah: -1);
                         }
-                      } else if (surahNumber > 1) {
-                        _goToSurah(surahNumber - 1, ayah: -1);
-                      }
-                    },
-                    onNext: () {
-                      if (_ayah < total) {
-                        if (prefs.mushafMode) {
-                          setState(() => _ayah = _ayah + 1);
-                          _recordLastRead();
-                        } else {
-                          controller.nextPage(
-                            duration: const Duration(milliseconds: 250),
-                            curve: Curves.easeOut,
-                          );
+                      },
+                      onNext: () {
+                        if (_ayah < total) {
+                          if (prefs.mushafMode) {
+                            setState(() => _ayah = _ayah + 1);
+                            _recordLastRead();
+                          } else {
+                            controller.nextPage(
+                              duration: const Duration(milliseconds: 250),
+                              curve: Curves.easeOut,
+                            );
+                          }
+                        } else if (surahNumber < 114) {
+                          _goToSurah(surahNumber + 1);
                         }
-                      } else if (surahNumber < 114) {
-                        _goToSurah(surahNumber + 1);
-                      }
-                    },
-                    canGoPrev: _ayah > 1 || surahNumber > 1,
-                    canGoNext: _ayah < total || surahNumber < 114,
-                  ),
+                      },
+                      canGoPrev: _ayah > 1 || surahNumber > 1,
+                      canGoNext: _ayah < total || surahNumber < 114,
+                    ),
                 ],
               );
             },
@@ -466,9 +479,12 @@ class _QuranReaderScreenState extends ConsumerState<QuranReaderScreen> {
                     ),
                     const SizedBox(height: 12),
                     SwitchListTile(
-                      title: Text(AppLocalizations.of(context).readerMushafMode),
-                      subtitle:
-                          Text(AppLocalizations.of(context).readerMushafModeDesc),
+                      title: Text(
+                        AppLocalizations.of(context).readerMushafMode,
+                      ),
+                      subtitle: Text(
+                        AppLocalizations.of(context).readerMushafModeDesc,
+                      ),
                       value: currentPrefs.mushafMode,
                       onChanged: (v) {
                         notifier.updatePrefs((p) => p.copyWith(mushafMode: v));
@@ -476,23 +492,29 @@ class _QuranReaderScreenState extends ConsumerState<QuranReaderScreen> {
                     ),
                     SwitchListTile(
                       title: Text(AppLocalizations.of(context).readerTajweed),
-                      subtitle:
-                          Text(AppLocalizations.of(context).readerTajweedDesc),
+                      subtitle: Text(
+                        AppLocalizations.of(context).readerTajweedDesc,
+                      ),
                       value: currentPrefs.showTajweed,
                       onChanged: (v) {
                         notifier.updatePrefs((p) => p.copyWith(showTajweed: v));
                       },
                     ),
                     SwitchListTile(
-                      title: Text(AppLocalizations.of(context).readerTranslation),
+                      title: Text(
+                        AppLocalizations.of(context).readerTranslation,
+                      ),
                       value: currentPrefs.showTranslation,
                       onChanged: (v) {
-                        notifier.updatePrefs((p) => p.copyWith(showTranslation: v));
+                        notifier.updatePrefs(
+                          (p) => p.copyWith(showTranslation: v),
+                        );
                       },
                     ),
                     SwitchListTile(
-                      title:
-                          Text(AppLocalizations.of(context).readerTransliteration),
+                      title: Text(
+                        AppLocalizations.of(context).readerTransliteration,
+                      ),
                       value: currentPrefs.showTransliteration,
                       onChanged: (v) {
                         notifier.updatePrefs(
@@ -512,8 +534,10 @@ class _QuranReaderScreenState extends ConsumerState<QuranReaderScreen> {
                     Consumer(
                       builder: (context, ref, _) {
                         final prefs =
-                            ref.watch(readerPrefsProvider).value ?? currentPrefs;
-                        final editions = ref
+                            ref.watch(readerPrefsProvider).value ??
+                            currentPrefs;
+                        final editions =
+                            ref
                                 .watch(installedTranslationEditionsProvider)
                                 .value ??
                             const <TranslationEditionEntry>[];
@@ -522,7 +546,8 @@ class _QuranReaderScreenState extends ConsumerState<QuranReaderScreen> {
                           children: [
                             ChoiceChip(
                               label: const Text('English'),
-                              selected: !prefs.showExtraTranslation ||
+                              selected:
+                                  !prefs.showExtraTranslation ||
                                   prefs.extraEditionId == null,
                               onSelected: (_) => notifier.updatePrefs(
                                 (p) => p.copyWith(
@@ -535,7 +560,8 @@ class _QuranReaderScreenState extends ConsumerState<QuranReaderScreen> {
                             for (final e in editions)
                               ChoiceChip(
                                 label: Text(e.language),
-                                selected: prefs.showExtraTranslation &&
+                                selected:
+                                    prefs.showExtraTranslation &&
                                     prefs.extraEditionId == e.id,
                                 onSelected: (_) => notifier.updatePrefs(
                                   (p) => p.copyWith(
@@ -554,8 +580,9 @@ class _QuranReaderScreenState extends ConsumerState<QuranReaderScreen> {
                       alignment: Alignment.centerLeft,
                       child: TextButton.icon(
                         icon: const Icon(Icons.download_rounded, size: 16),
-                        label:
-                            Text(AppLocalizations.of(context).readerMoreTranslations),
+                        label: Text(
+                          AppLocalizations.of(context).readerMoreTranslations,
+                        ),
                         onPressed: () {
                           Navigator.of(context).pop();
                           context.push('/library');
@@ -610,7 +637,9 @@ class _QuranReaderScreenState extends ConsumerState<QuranReaderScreen> {
                         // Sample-play the current reciter (Al-Fatiha 1) so the
                         // choice can be heard before committing to a download.
                         IconButton(
-                          tooltip: AppLocalizations.of(context).readerPlaySample,
+                          tooltip: AppLocalizations.of(
+                            context,
+                          ).readerPlaySample,
                           icon: const Icon(Icons.play_circle_outline_rounded),
                           onPressed: () {
                             _ensureAudioSubscriptions();
@@ -622,8 +651,9 @@ class _QuranReaderScreenState extends ConsumerState<QuranReaderScreen> {
                     ),
                     SwitchListTile(
                       contentPadding: EdgeInsets.zero,
-                      title:
-                          Text(AppLocalizations.of(context).readerAutoPlaySwipe),
+                      title: Text(
+                        AppLocalizations.of(context).readerAutoPlaySwipe,
+                      ),
                       subtitle: Text(
                         AppLocalizations.of(context).readerAutoPlaySwipeDesc,
                       ),
@@ -740,9 +770,8 @@ class _AyahCard extends ConsumerWidget {
                 return _translationLine(
                   context,
                   extraAsync.maybeWhen(
-                    data: (text) => (text == null || text.isEmpty)
-                        ? translation
-                        : text,
+                    data: (text) =>
+                        (text == null || text.isEmpty) ? translation : text,
                     orElse: () => translation,
                   ),
                 );
@@ -948,4 +977,3 @@ class _MushafContinuousPage extends StatelessWidget {
     );
   }
 }
-
