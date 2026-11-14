@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:crypto/crypto.dart' show sha256;
 import 'package:drift/drift.dart';
+import 'package:flutter/foundation.dart' show compute;
 import 'package:flutter/services.dart' show AssetBundle, rootBundle;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
@@ -151,6 +152,7 @@ class TranslationPackService {
       });
       final digest = sha256.convert(utf8.encode(pack)).toString();
 
+      _decoded.remove(entry.id);
       await _upsertStatus(
         entry,
         status: 'downloaded',
@@ -172,6 +174,7 @@ class TranslationPackService {
   }
 
   Future<void> removePack(String editionId) async {
+    _decoded.remove(editionId);
     await (_db.delete(_db.contentPacks)
           ..where((t) =>
               t.type.equals('translation') &
@@ -188,17 +191,41 @@ class TranslationPackService {
     required int surah,
     required int ayah,
   }) async {
-    final row = await _packRow(editionId);
-    if (row == null || row.status != 'downloaded' || row.data == null) {
-      return null;
-    }
-
-    final decoded = jsonDecode(row.data!) as Map<String, dynamic>;
-    final surahList = decoded['surahs'][surah.toString()] as List<dynamic>?;
+    final surahs = await _decodedSurahs(editionId);
+    final surahList = surahs?[surah.toString()] as List<dynamic>?;
     if (surahList == null || ayah < 1 || ayah > surahList.length) return null;
 
     final entry = surahList[ayah - 1] as Map<String, dynamic>;
     return entry['translation'] as String?;
+  }
+
+  /// Decoded packs, keyed by edition. Each pack is ~1-2 MB of JSON; it used
+  /// to be read from the DB and decoded again for *every ayah* (M27.2).
+  /// Small cap — a reader only ever has one or two editions in use.
+  final _decoded = <String, Map<String, dynamic>>{};
+  final _decoding = <String, Future<Map<String, dynamic>?>>{};
+  static const _maxDecoded = 2;
+
+  Future<Map<String, dynamic>?> _decodedSurahs(String editionId) async {
+    final hit = _decoded[editionId];
+    if (hit != null) return hit;
+    return _decoding[editionId] ??= () async {
+      try {
+        final row = await _packRow(editionId);
+        if (row == null || row.status != 'downloaded' || row.data == null) {
+          return null;
+        }
+        final data = row.data!;
+        // Decode off the UI thread.
+        final surahs = await compute(_decodeSurahs, data);
+        if (_decoded.length >= _maxDecoded) {
+          _decoded.remove(_decoded.keys.first);
+        }
+        return _decoded[editionId] = surahs;
+      } finally {
+        _decoding.remove(editionId);
+      }
+    }();
   }
 
   Future<void> _upsertStatus(
@@ -297,3 +324,7 @@ class TranslationPackService {
 final translationPackServiceProvider = Provider<TranslationPackService>((ref) {
   return TranslationPackService(ref.watch(appDatabaseProvider));
 });
+
+Map<String, dynamic> _decodeSurahs(String data) =>
+    (jsonDecode(data) as Map<String, dynamic>)['surahs']
+        as Map<String, dynamic>;
