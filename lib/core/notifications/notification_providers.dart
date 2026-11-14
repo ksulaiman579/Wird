@@ -10,6 +10,7 @@ import 'notification_prefs.dart';
 import 'notification_service.dart';
 import 'prayer_method_prefs.dart';
 import 'prayer_times_service.dart';
+import '../calendar_math.dart';
 
 final notificationServiceProvider = Provider<NotificationService>((ref) {
   return NotificationService();
@@ -37,14 +38,7 @@ final prayerTimesPreviewProvider = FutureProvider<DailyPrayerTimes?>((ref) async
       );
 });
 
-DateTime _dateOnly(DateTime d) => DateTime(d.year, d.month, d.day);
 
-String _dayKeyFor(DateTime d) {
-  final dt = _dateOnly(d);
-  return '${dt.year.toString().padLeft(4, '0')}-'
-      '${dt.month.toString().padLeft(2, '0')}-'
-      '${dt.day.toString().padLeft(2, '0')}';
-}
 
 /// Recomputes the rolling notification window and reschedules it — call
 /// this at app launch and whenever notification prefs or the selected
@@ -65,7 +59,7 @@ Future<void> rescheduleNotifications(dynamic ref) async {
   final prayerService = ref.read(prayerTimesServiceProvider);
 
   final now = DateTime.now();
-  final today = _dateOnly(now);
+  final today = dateOnly(now);
 
   final fajrTimes = <DateTime>[];
   final asrTimes = <DateTime>[];
@@ -74,7 +68,7 @@ Future<void> rescheduleNotifications(dynamic ref) async {
   // set, in which case adhan reminders are simply not scheduled.
   final allPrayerTimes = <Map<Salah, DateTime>>[];
   for (var day = 0; day < rollingWindowDays; day++) {
-    final date = today.add(Duration(days: day));
+    final date = addCalendarDays(today, day);
     if (prefs.useManualTimes) {
       // Manual times (U9): user-entered minutes-since-midnight, no location
       // needed. Drives both adhkar (Fajr/Asr) and the full adhan set.
@@ -116,7 +110,7 @@ Future<void> rescheduleNotifications(dynamic ref) async {
     }
   }
 
-  final dayKey = _dayKeyFor(now);
+  final dayKey = dayKeyFor(now);
   final session = await (db.select(db.dailySessions)
         ..where((t) => t.day.equals(dayKey)))
       .getSingleOrNull();

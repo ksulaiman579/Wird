@@ -6,6 +6,7 @@ import '../../core/content/quran_repository.dart';
 import '../../core/db/database.dart';
 import '../../core/gamification/progress_stats.dart';
 import '../../core/gamification/streak_row.dart';
+import '../../core/calendar_math.dart';
 
 bool _isMemorized(String status) => status == 'review' || status == 'lapsed';
 
@@ -53,14 +54,7 @@ class ProgressStats {
   final DateTime? estimatedCompletionDate;
 }
 
-DateTime _dateOnly(DateTime d) => DateTime(d.year, d.month, d.day);
 
-String _dayKeyFor(DateTime d) {
-  final dt = _dateOnly(d);
-  return '${dt.year.toString().padLeft(4, '0')}-'
-      '${dt.month.toString().padLeft(2, '0')}-'
-      '${dt.day.toString().padLeft(2, '0')}';
-}
 
 final progressStatsProvider = FutureProvider<ProgressStats>((ref) async {
   final db = ref.watch(appDatabaseProvider);
@@ -133,7 +127,7 @@ final progressStatsProvider = FutureProvider<ProgressStats>((ref) async {
   final itemsRemaining = items.length - itemsIntroduced;
   final daysSincePlanStarted = plan == null
       ? 0
-      : _dateOnly(DateTime.now()).difference(_dateOnly(plan.createdAt)).inDays;
+      : dateOnly(DateTime.now()).difference(dateOnly(plan.createdAt)).inDays;
   final estimatedCompletionDate = estimateCompletionDate(
     now: DateTime.now(),
     itemsRemaining: itemsRemaining,
@@ -196,4 +190,4 @@ int _juzMemorizedCount(
 
 /// Exposed for the heatmap widget, which needs day keys for the visible
 /// window regardless of whether any activity happened that day.
-String dayKeyForDate(DateTime d) => _dayKeyFor(d);
+String dayKeyForDate(DateTime d) => dayKeyFor(d);

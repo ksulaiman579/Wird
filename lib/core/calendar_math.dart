@@ -34,3 +34,13 @@ int daysBetweenCalendarDates(DateTime a, DateTime b) {
 DateTime addCalendarDays(DateTime date, int days) {
   return DateTime(date.year, date.month, date.day + days);
 }
+
+/// [d] at local midnight (time of day dropped).
+DateTime dateOnly(DateTime d) => DateTime(d.year, d.month, d.day);
+
+/// `YYYY-MM-DD` key for [d]'s calendar day — the format `daily_sessions.day`
+/// and other per-day records use. One shared copy (M26.13; it was copied
+/// into seven files).
+String dayKeyFor(DateTime d) => '${d.year.toString().padLeft(4, '0')}-'
+    '${d.month.toString().padLeft(2, '0')}-'
+    '${d.day.toString().padLeft(2, '0')}';

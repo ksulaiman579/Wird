@@ -5,7 +5,6 @@ import 'ease_back.dart';
 
 const easeBackUntilPrefsKey = 'ease_back_until';
 
-DateTime _dateOnly(DateTime d) => DateTime(d.year, d.month, d.day);
 
 /// Checks whether ease-back should be active today: reuses an
 /// already-active 2-day window from a previous check, or persists a fresh
@@ -16,7 +15,7 @@ Future<bool> isEaseBackActiveToday({
   required DateTime now,
 }) async {
   final prefs = await SharedPreferences.getInstance();
-  final today = _dateOnly(now);
+  final today = dateOnly(now);
 
   final storedIso = prefs.getString(easeBackUntilPrefsKey);
   if (storedIso != null) {

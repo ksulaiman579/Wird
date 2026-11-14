@@ -4,6 +4,8 @@ import '../../core/chunking/portion_planner.dart';
 import '../../core/db/database.dart';
 import '../../core/gamification/ease_back.dart';
 import '../../core/gamification/ease_back_prefs.dart';
+import '../../core/calendar_math.dart';
+export '../../core/calendar_math.dart' show dayKeyFor;
 
 final userProfileStreamProvider = StreamProvider<UserProfile?>((ref) {
   final db = ref.watch(appDatabaseProvider);
@@ -70,8 +72,8 @@ final weeklyGoalProvider = Provider<AsyncValue<WeeklyGoalProgress>>((ref) {
   final plan = planAsync.value;
   if (plan == null) return const AsyncValue.data(WeeklyGoalProgress.empty);
 
-  final today = _dateOnly(DateTime.now());
-  final mostRecentMonday = today.subtract(Duration(days: (today.weekday - 1) % 7));
+  final today = dateOnly(DateTime.now());
+  final mostRecentMonday = addCalendarDays(today, -((today.weekday - 1) % 7));
 
   final sessions = sessionsAsync.value ?? const <DailySession>[];
   final completedThisWeek = sessions.where((s) {
@@ -120,14 +122,7 @@ class TodayBreakdown {
   );
 }
 
-DateTime _dateOnly(DateTime d) => DateTime(d.year, d.month, d.day);
 
-String dayKeyFor(DateTime d) {
-  final dt = _dateOnly(d);
-  return '${dt.year.toString().padLeft(4, '0')}-'
-      '${dt.month.toString().padLeft(2, '0')}-'
-      '${dt.day.toString().padLeft(2, '0')}';
-}
 
 final todayBreakdownProvider = Provider<AsyncValue<TodayBreakdown>>((ref) {
   final planAsync = ref.watch(userPlanStreamProvider);
@@ -149,7 +144,7 @@ final todayBreakdownProvider = Provider<AsyncValue<TodayBreakdown>>((ref) {
   final easeBackActive = easeBackAsync.value ?? false;
   if (plan == null) return const AsyncValue.data(TodayBreakdown.empty);
 
-  final today = _dateOnly(DateTime.now());
+  final today = dateOnly(DateTime.now());
 
   final dueRows = items.where(
     (i) => i.status != 'new' && i.dueDate != null && !i.dueDate!.isAfter(today),

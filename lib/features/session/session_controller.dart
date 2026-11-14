@@ -15,6 +15,7 @@ import '../../core/gamification/ease_back_prefs.dart';
 import '../../core/gamification/streak_service.dart' as streak;
 import '../../core/srs/sm2_scheduler.dart' as sm2;
 import '../achievements/achievement_providers.dart' show evaluateAndUnlockAchievements;
+import '../../core/calendar_math.dart';
 
 /// Whether a queue entry is today's new lesson (Sabaq) or a due
 /// revision (Sabqi/Manzil) — drives which UI flow (M3.2 vs M3.3) handles it.
@@ -86,14 +87,7 @@ class SessionState {
   }
 }
 
-DateTime _dateOnly(DateTime d) => DateTime(d.year, d.month, d.day);
 
-String _dayKeyFor(DateTime d) {
-  final dt = _dateOnly(d);
-  return '${dt.year.toString().padLeft(4, '0')}-'
-      '${dt.month.toString().padLeft(2, '0')}-'
-      '${dt.day.toString().padLeft(2, '0')}';
-}
 
 sm2.ItemStatus _statusFromDb(String status) => switch (status) {
       'new' => sm2.ItemStatus.newItem,
@@ -129,14 +123,14 @@ class SessionController extends AsyncNotifier<SessionState> {
   @override
   Future<SessionState> build() async {
     final db = ref.read(appDatabaseProvider);
-    _sessionDayKey = _dayKeyFor(DateTime.now());
+    _sessionDayKey = dayKeyFor(DateTime.now());
     _grading = false;
 
     final plan = await db.select(db.userPlans).getSingleOrNull();
     if (plan == null) return SessionState.empty;
 
     final allItems = await db.select(db.srsItems).get();
-    final today = _dateOnly(DateTime.now());
+    final today = dateOnly(DateTime.now());
 
     final dueRows = allItems
         .where((i) =>

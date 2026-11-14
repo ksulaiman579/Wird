@@ -78,12 +78,11 @@ class Sm2State {
   }
 }
 
-DateTime _dateOnly(DateTime d) => DateTime(d.year, d.month, d.day);
 
 /// Advances [current] by one grading event, returning the new state.
 /// [now] should be the moment of grading — only its calendar date is used.
 Sm2State schedule(Sm2State current, Grade grade, DateTime now) {
-  final today = _dateOnly(now);
+  final today = dateOnly(now);
 
   switch (current.status) {
     case ItemStatus.newItem:

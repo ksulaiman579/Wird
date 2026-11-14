@@ -7,6 +7,7 @@
 library;
 
 import '../adhkar/adhkar_window.dart' show AdhkarPeriod;
+import '../calendar_math.dart';
 
 const int rollingWindowDays = 7;
 
@@ -146,7 +147,7 @@ List<PlannedNotification> buildNotificationPlan({
   final today = DateTime(now.year, now.month, now.day);
 
   for (var day = 0; day < rollingWindowDays; day++) {
-    final date = today.add(Duration(days: day));
+    final date = addCalendarDays(today, day);
 
     if (dailyReminderEnabled) {
       final at = DateTime(

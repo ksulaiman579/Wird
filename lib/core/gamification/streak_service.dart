@@ -38,7 +38,6 @@ class StreakState {
 const int maxFreezeTokens = 2;
 const int freezeTokenEarnIntervalDays = 7;
 
-DateTime _dateOnly(DateTime d) => DateTime(d.year, d.month, d.day);
 
 /// Applies one day's portion-completion event to [current], returning the
 /// updated streak state.
@@ -55,9 +54,9 @@ DateTime _dateOnly(DateTime d) => DateTime(d.year, d.month, d.day);
 /// - A freeze token is earned every [freezeTokenEarnIntervalDays]-day
 ///   streak milestone, banked up to [maxFreezeTokens].
 StreakState applyCompletion(StreakState current, DateTime completedDay) {
-  final today = _dateOnly(completedDay);
+  final today = dateOnly(completedDay);
   final last =
-      current.lastCompletedDay == null ? null : _dateOnly(current.lastCompletedDay!);
+      current.lastCompletedDay == null ? null : dateOnly(current.lastCompletedDay!);
 
   if (last != null && today.isAtSameMomentAs(last)) {
     return current;
@@ -108,7 +107,7 @@ StreakState applyCompletion(StreakState current, DateTime completedDay) {
 int liveStreak(StreakState s, DateTime now) {
   final last = s.lastCompletedDay;
   if (last == null) return 0;
-  final gap = daysBetweenCalendarDates(_dateOnly(last), _dateOnly(now));
+  final gap = daysBetweenCalendarDates(dateOnly(last), dateOnly(now));
   if (gap <= 1) return s.currentStreak;
   if (gap == 2 && s.freezeTokens > 0) return s.currentStreak;
   return 0;

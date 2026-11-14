@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../shared/glass/glass.dart';
 import 'progress_providers.dart';
+import '../../core/calendar_math.dart';
 
 class ProgressScreen extends ConsumerWidget {
   const ProgressScreen({super.key});
@@ -224,9 +225,9 @@ class _HeatmapCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final today = DateTime.now();
-    final startOfWeek = today.subtract(Duration(days: today.weekday % 7));
+    final startOfWeek = addCalendarDays(today, -(today.weekday % 7));
     const weeks = 52;
-    final firstDay = startOfWeek.subtract(const Duration(days: 7 * (weeks - 1)));
+    final firstDay = addCalendarDays(startOfWeek, -7 * (weeks - 1));
 
     final maxCount = activityByDay.values.isEmpty
         ? 1
@@ -245,7 +246,7 @@ class _HeatmapCard extends StatelessWidget {
                 children: [
                   for (var day = 0; day < 7; day++)
                     _HeatmapCell(
-                      date: firstDay.add(Duration(days: week * 7 + day)),
+                      date: addCalendarDays(firstDay, week * 7 + day),
                       activityByDay: activityByDay,
                       maxCount: maxCount,
                       color: scheme.primary,

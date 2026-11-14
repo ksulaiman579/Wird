@@ -4,6 +4,7 @@ import '../../core/chunking/selection_ordering.dart';
 import '../../core/content/models/quran_models.dart';
 import '../../core/content/quran_repository.dart';
 import '../../core/db/database.dart';
+import '../../core/calendar_math.dart';
 
 /// The SM-2 review state used for a portion the user already knows: mirrors
 /// a freshly *graduated* item (7-day interval, `review`/Manzil status) rather
@@ -51,7 +52,7 @@ Future<int> markQuranMemorized(
   );
   if (groups.isEmpty) return 0;
 
-  final dueDate = now.add(const Duration(days: kMemorizedIntervalDays));
+  final dueDate = addCalendarDays(now, kMemorizedIntervalDays);
 
   await db.transaction(() async {
     // Append after the current plan so memorized portions never jump the
