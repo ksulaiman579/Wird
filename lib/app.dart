@@ -44,12 +44,11 @@ class _DailyAppState extends ConsumerState<DailyApp> {
   @override
   void initState() {
     super.initState();
-    if (!kIsWeb) {
-      // Fire-and-forget: notification setup must never block first frame.
-      unawaited(_initNotifications());
-    }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       FlutterNativeSplash.remove();
+      // After the first frame: the timezone database load inside init() is
+      // synchronous and used to run before anything was drawn (M27.6).
+      if (!kIsWeb) unawaited(_initNotifications());
       if (!kIsWeb) unawaited(_maybeMonthlyBackup());
     });
   }
