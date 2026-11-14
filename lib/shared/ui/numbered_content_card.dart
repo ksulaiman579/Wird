@@ -47,6 +47,8 @@ class NumberedContentCard extends StatelessWidget {
     final gold = theme.colorScheme.secondary;
 
     return GlassCard(
+      // No blur: one of these per list row (M27.4).
+      enableBlur: false,
       onTap: onTap,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

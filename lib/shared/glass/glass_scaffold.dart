@@ -62,7 +62,9 @@ class GlassScaffold extends StatelessWidget {
         ),
         child: CustomPaint(
           painter: isLight ? const ParchmentPainter() : null,
-          child: SafeArea(child: content),
+          // Own layer for the content, so scrolling/animating it doesn't
+          // re-record the ~460-dot parchment pattern behind it (M27.4).
+          child: RepaintBoundary(child: SafeArea(child: content)),
         ),
       ),
     );

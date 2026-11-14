@@ -34,6 +34,9 @@ class HubCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return GlassCard(
+      // No blur: these sit in grids/lists, and a backdrop blur per card
+      // is the most expensive thing on those screens (M27.4).
+      enableBlur: false,
       padding: const EdgeInsets.all(14),
       child: Stack(
         children: [
