@@ -125,7 +125,13 @@ class BackupService {
               mode: InsertMode.insertOrReplace,
             );
       }
+      // Older backups can hold logs for items that no longer exist; with
+      // foreign keys on those would fail the whole restore — skip them.
+      final restoredItemIds = {
+        for (final row in _list(json, 'srsItems')) row['id'],
+      };
       for (final row in _list(json, 'reviewLogs')) {
+        if (!restoredItemIds.contains(row['itemId'])) continue;
         await db.into(db.reviewLogs).insert(
               ReviewLog.fromJson(row),
               mode: InsertMode.insertOrReplace,

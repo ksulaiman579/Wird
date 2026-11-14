@@ -1,0 +1,32 @@
+name: CI
+
+# Runs analyze + tests on every push to main and every pull request, so a
+# broken build is caught before a release (the APK workflow only builds).
+on:
+  push:
+    branches: [main]
+  pull_request: {}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.4'
+          channel: 'stable'
+
+      - run: flutter pub get
+
+      # Errors fail the build; the few existing infos/warnings don't.
+      - run: flutter analyze --no-fatal-infos --no-fatal-warnings
+
+      - run: flutter test
+
+      # Date/streak/notification maths again under a timezone with DST, so
+      # day-boundary bugs show up (the default runner is UTC).
+      - run: flutter test test/core test/gamification test/notifications
+        env:
+          TZ: America/New_York

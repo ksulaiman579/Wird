@@ -68,6 +68,15 @@ class AppDatabase extends _$AppDatabase {
           }
         },
         beforeOpen: (details) async {
+          // Orphan review logs (left by plan edits during a session, before
+          // M26.5) would block nothing on their own, but clear them so the
+          // foreign-key check below starts from a clean table.
+          await customStatement(
+            'DELETE FROM review_logs WHERE item_id NOT IN (SELECT id FROM srs_items)',
+          );
+          // SQLite ships with foreign keys off; turn them on so review_logs
+          // can't point at deleted srs_items again (M26.14).
+          await customStatement('PRAGMA foreign_keys = ON');
           // A pack download killed mid-way (app closed) left its row in
           // 'downloading' forever — a spinner with no retry. Restore it to
           // what it really is on every open (M26.6).
