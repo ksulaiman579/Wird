@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:wird/core/notifications/notification_plan.dart' show Salah;
 import 'package:wird/core/notifications/prayer_times_service.dart';
 
 // Riyadh, roughly.
@@ -151,5 +152,16 @@ void main() {
 
       expect(result.source, PrayerTimeSource.offline);
     });
+  });
+
+  test('offline times follow the chosen method, not always MWL', () {
+    final date = DateTime(2026, 3, 10);
+    final mwl = calculateAllPrayersOffline(
+        date: date, latitude: 21.42, longitude: 39.83);
+    final uaq = calculateAllPrayersOffline(
+        date: date, latitude: 21.42, longitude: 39.83, method: 4);
+    // Umm al-Qura sets Isha a fixed 90 min after Maghrib; MWL uses an angle.
+    expect(uaq[Salah.isha], isNot(mwl[Salah.isha]));
+    expect(uaq[Salah.isha]!.difference(uaq[Salah.maghrib]!).inMinutes, 90);
   });
 }

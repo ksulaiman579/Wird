@@ -100,11 +100,19 @@ Future<void> rescheduleNotifications(dynamic ref) async {
       );
       fajrTimes.add(times.fajr);
       asrTimes.add(times.asr);
-      allPrayerTimes.add(calculateAllPrayersOffline(
-        date: date,
-        latitude: location.lat,
-        longitude: location.lng,
-      ));
+      // Same method as the shown times, and the shown Fajr/Asr themselves,
+      // so the adhan never fires at a different minute than the app shows.
+      allPrayerTimes.add({
+        ...calculateAllPrayersOffline(
+          date: date,
+          latitude: location.lat,
+          longitude: location.lng,
+          method: calculationMethodFor(location.countryCode,
+              override: methodOverride),
+        ),
+        Salah.fajr: times.fajr,
+        Salah.asr: times.asr,
+      });
     }
   }
 

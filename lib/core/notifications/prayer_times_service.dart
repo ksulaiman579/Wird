@@ -58,6 +58,21 @@ int calculationMethodFor(String? countryCode, {int? override}) =>
     countryCalculationMethods[countryCode?.toUpperCase()] ??
     defaultCalculationMethod;
 
+/// The offline (`adhan_dart`) parameters for an AlAdhan [method] id, so
+/// offline times use the same authority as the online ones (M26.9 — adhan
+/// was always Muslim World League while the shown times followed the
+/// country/user method).
+CalculationParameters offlineParamsFor(int method) => switch (method) {
+      1 => CalculationMethodParameters.karachi(),
+      2 => CalculationMethodParameters.northAmerica(),
+      4 => CalculationMethodParameters.ummAlQura(),
+      5 => CalculationMethodParameters.egyptian(),
+      8 => CalculationMethodParameters.gulfRegion(),
+      12 => CalculationMethodParameters.france(),
+      13 => CalculationMethodParameters.turkiye(),
+      _ => CalculationMethodParameters.muslimWorldLeague(),
+    };
+
 /// Pure offline calculation via `adhan_dart` — no network, no platform
 /// dependency, always available.
 DailyPrayerTimes calculateOffline({
@@ -65,8 +80,9 @@ DailyPrayerTimes calculateOffline({
   required double latitude,
   required double longitude,
   Madhab madhab = Madhab.shafi,
+  int method = defaultCalculationMethod,
 }) {
-  final params = CalculationMethodParameters.muslimWorldLeague();
+  final params = offlineParamsFor(method);
   params.madhab = madhab;
   final times = PrayerTimes(
     date: date,
@@ -89,8 +105,9 @@ Map<Salah, DateTime> calculateAllPrayersOffline({
   required double latitude,
   required double longitude,
   Madhab madhab = Madhab.shafi,
+  int method = defaultCalculationMethod,
 }) {
-  final params = CalculationMethodParameters.muslimWorldLeague();
+  final params = offlineParamsFor(method);
   params.madhab = madhab;
   final times = PrayerTimes(
     date: date,
@@ -240,7 +257,12 @@ class PrayerTimesService {
         // Fall through to the offline calculation below.
       }
     }
-    return calculateOffline(date: date, latitude: latitude, longitude: longitude);
+    return calculateOffline(
+      date: date,
+      latitude: latitude,
+      longitude: longitude,
+      method: calculationMethodFor(countryCode, override: methodOverride),
+    );
   }
 
   Future<Map<int, DailyPrayerTimes>?> _cachedMonth({
