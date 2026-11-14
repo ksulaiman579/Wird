@@ -98,10 +98,29 @@ class _QuranReaderScreenState extends ConsumerState<QuranReaderScreen> {
     super.initState();
     _playback = ref.read(sessionAudioServiceProvider);
     _nowPlaying = ref.read(nowPlayingMetaProvider.notifier);
+    _prefsNotifier = ref.read(readerPrefsProvider.notifier);
+  }
+
+  late ReaderPrefsNotifier _prefsNotifier;
+
+  /// Last-read is saved once page turns settle, not on every swipe — each
+  /// save rewrote prefs and rebuilt the reader, Today and Reading hub
+  /// (M27.5). A pending save is flushed when the reader closes.
+  Timer? _lastReadSave;
+  (int, int)? _pendingLastRead;
+
+  void _flushLastRead() {
+    _lastReadSave?.cancel();
+    final pending = _pendingLastRead;
+    _pendingLastRead = null;
+    if (pending != null) {
+      _prefsNotifier.setLastRead(surah: pending.$1, ayah: pending.$2);
+    }
   }
 
   @override
   void dispose() {
+    _flushLastRead();
     _indexSub?.cancel();
     _stateSub?.cancel();
     _posSub?.cancel();
@@ -235,9 +254,9 @@ class _QuranReaderScreenState extends ConsumerState<QuranReaderScreen> {
   }
 
   void _recordLastRead() {
-    ref
-        .read(readerPrefsProvider.notifier)
-        .setLastRead(surah: _surah!, ayah: _ayah);
+    _pendingLastRead = (_surah!, _ayah);
+    _lastReadSave?.cancel();
+    _lastReadSave = Timer(const Duration(milliseconds: 800), _flushLastRead);
     // Count today toward the normal reading streak (idempotent per day).
     ref.read(readingStreakProvider.notifier).recordReadToday();
   }
