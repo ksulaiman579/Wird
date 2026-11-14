@@ -177,7 +177,8 @@ class LibraryDownloadService {
     final client = http.Client();
     try {
       final request = http.Request('GET', Uri.parse(book.url));
-      final response = await client.send(request);
+      final response =
+          await client.send(request).timeout(const Duration(seconds: 30));
       if (response.statusCode != 200) return false;
 
       final file = File(targetPath);
@@ -187,7 +188,8 @@ class LibraryDownloadService {
       final totalBytes = response.contentLength ?? book.sizeBytes;
       var receivedBytes = 0;
 
-      await for (final chunk in response.stream) {
+      await for (final chunk
+          in response.stream.timeout(const Duration(seconds: 30))) {
         sink.add(chunk);
         receivedBytes += chunk.length;
         if (totalBytes > 0) {

@@ -60,7 +60,10 @@ final sessionItemContentProvider =
 });
 
 Future<SessionItemContent> _loadQuranContent(Ref ref, String contentKey) async {
-  final parsed = parseQuranContentKey(contentKey)!;
+  final parsed = parseQuranContentKey(contentKey);
+  if (parsed == null) {
+    throw StateError('Unreadable Quran item "$contentKey"');
+  }
   final surahNumber = parsed.surah;
   final startAyah = parsed.startAyah;
   final endAyah = parsed.endAyah;
@@ -128,7 +131,12 @@ Future<SessionItemContent> _loadDuaContent(Ref ref, String contentKey) async {
     }
   }
 
-  final found = dua!;
+  final found = dua;
+  if (found == null) {
+    // The dua was removed or renamed in the bundled data since it was added
+    // to the plan — fail this item with a clear message, not a null crash.
+    throw StateError('Dua "$contentKey" is no longer in the app data');
+  }
   return SessionItemContent(
     title: found.reference,
     arabicSegments: [found.arabic],

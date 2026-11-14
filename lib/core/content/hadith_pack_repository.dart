@@ -243,7 +243,9 @@ class HadithPackRepository {
     for (var i = 0; i < urls.length; i++) {
       final isLast = i == urls.length - 1;
       try {
-        final response = await _client.get(Uri.parse(urls[i]));
+        final response = await _client
+            .get(Uri.parse(urls[i]))
+            .timeout(const Duration(seconds: 60));
         if (response.statusCode != 200) {
           if (isLast) {
             throw HadithPackValidationError(

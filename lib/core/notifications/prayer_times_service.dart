@@ -193,7 +193,7 @@ Future<Map<int, DailyPrayerTimes>> fetchMonthFromAlAdhan({
     'month': '$month',
     'year': '$year',
   });
-  final response = await client.get(uri);
+  final response = await client.get(uri).timeout(const Duration(seconds: 15));
   if (response.statusCode != 200) {
     throw HttpException('AlAdhan API returned ${response.statusCode}');
   }

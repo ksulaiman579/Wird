@@ -121,10 +121,14 @@ class ReaderPrefsNotifier extends AsyncNotifier<ReaderPrefs> {
   Future<void> updatePrefs(
     ReaderPrefs Function(ReaderPrefs current) updater,
   ) async {
-    final next = updater(state.value ?? const ReaderPrefs());
+    // Wait for the saved prefs, then apply and publish the change *before*
+    // the write — so a second quick update (page swipe while a switch is
+    // toggled) builds on this one instead of overwriting it (M26.12).
+    final current = state.value ?? await future;
+    final next = updater(current);
+    state = AsyncData(next);
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(readerPrefsKey, jsonEncode(next.toJson()));
-    state = AsyncData(next);
   }
 
   Future<void> setLastRead({required int surah, required int ayah}) {

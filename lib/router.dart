@@ -146,6 +146,8 @@ final routerProvider = Provider<GoRouter>((ref) {
         routes: [
           GoRoute(
             path: 'book/:id',
+            redirect: (context, state) =>
+                _intParamOr(state, 'id', '/knowledge'),
             builder: (context, state) => BookReaderScreen(
               bookId: int.parse(state.pathParameters['id']!),
             ),
@@ -224,6 +226,8 @@ final routerProvider = Provider<GoRouter>((ref) {
                 routes: [
                   GoRoute(
                     path: ':surah',
+                    redirect: (context, state) =>
+                        _intParamOr(state, 'surah', '/reading', max: 114),
                     builder: (context, state) => SurahScreen(
                       surahNumber: int.parse(state.pathParameters['surah']!),
                     ),
@@ -241,6 +245,8 @@ final routerProvider = Provider<GoRouter>((ref) {
                     routes: [
                       GoRoute(
                         path: ':id',
+                        redirect: (context, state) =>
+                            _intParamOr(state, 'id', '/hadith/nawawi', max: 42),
                         builder: (context, state) => HadithDetailScreen(
                           hadithId: int.parse(state.pathParameters['id']!),
                         ),
@@ -313,3 +319,13 @@ final routerProvider = Provider<GoRouter>((ref) {
     ],
   );
 });
+
+/// Route-level guard for numeric path params: a mistyped or stale link
+/// (`/quran/abc`, `/quran/999`) used to throw inside the builder instead of
+/// showing anything useful (M26.12). Sends it to [fallback] instead.
+String? _intParamOr(GoRouterState state, String name, String fallback,
+    {int min = 1, int? max}) {
+  final v = int.tryParse(state.pathParameters[name] ?? '');
+  if (v == null || v < min || (max != null && v > max)) return fallback;
+  return null;
+}

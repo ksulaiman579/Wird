@@ -123,7 +123,9 @@ class TranslationPackService {
       for (var i = 0; i < candidates.length; i++) {
         final isLast = i == candidates.length - 1;
         try {
-          final r = await _client.get(Uri.parse(candidates[i]));
+          final r = await _client
+              .get(Uri.parse(candidates[i]))
+              .timeout(const Duration(seconds: 60));
           if (r.statusCode == 200) {
             response = r;
             break;
