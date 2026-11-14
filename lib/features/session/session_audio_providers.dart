@@ -14,6 +14,9 @@ import '../today/today_providers.dart' show userPlanStreamProvider;
 final sessionAudioServiceProvider = Provider<AyahPlayback>((ref) {
   final service = AyahAudioService();
   ref.onDispose(service.dispose);
+  // Configure the platform audio session for speech once — init() was
+  // never called, so ducking/interruptions used the defaults (M26.10).
+  service.init().catchError((_) {});
 
   ref.listen(userPlanStreamProvider, (previous, next) {
     final reciter = next.value?.reciter;

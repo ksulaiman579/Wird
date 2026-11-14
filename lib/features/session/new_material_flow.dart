@@ -14,7 +14,8 @@ import '../../core/theme/app_theme.dart';
 import '../../shared/glass/glass.dart';
 import '../../shared/widgets/word_cloak_text.dart';
 import '../../shared/widgets/ayah_numbered_row.dart';
-import '../../core/audio/ayah_audio_service.dart' show formatAudioError;
+import '../../core/audio/ayah_audio_service.dart'
+    show AyahPlayback, formatAudioError;
 import 'session_audio_providers.dart';
 import 'session_content_provider.dart';
 
@@ -50,8 +51,14 @@ class _NewMaterialFlowState extends ConsumerState<NewMaterialFlow> {
   String? _audioError;
   StreamSubscription<PlayerState>? _playerStateSub;
 
+  /// The player this screen started, so leaving the screen stops it —
+  /// playback used to carry on with no way to stop it (M26.10). `ref`
+  /// can't be used in dispose, so it's captured when playback starts.
+  AyahPlayback? _startedPlayback;
+
   @override
   void dispose() {
+    if (_playerStateSub != null) _startedPlayback?.stop().catchError((_) {});
     _playerStateSub?.cancel();
     super.dispose();
   }
@@ -65,6 +72,7 @@ class _NewMaterialFlowState extends ConsumerState<NewMaterialFlow> {
     if (quranRef == null) return;
 
     final playback = ref.read(sessionAudioServiceProvider);
+    _startedPlayback = playback;
 
     if (_isPlayingAudio) {
       await playback.stop();

@@ -6,7 +6,8 @@ import 'package:go_router/go_router.dart';
 import 'package:just_audio/just_audio.dart' show PlayerState, ProcessingState;
 import 'package:wird/l10n/gen/app_localizations.dart';
 
-import '../../core/audio/ayah_audio_service.dart' show formatAudioError;
+import '../../core/audio/ayah_audio_service.dart'
+    show AyahPlayback, formatAudioError;
 import '../../core/l10n/reading_locale.dart';
 import '../../shared/glass/glass.dart';
 import '../../shared/ui/verse_roundel.dart';
@@ -27,14 +28,21 @@ class _SurahScreenState extends ConsumerState<SurahScreen> {
   int? _playingAyah;
   StreamSubscription<PlayerState>? _playerStateSub;
 
+  /// The player this screen started, so leaving the screen stops it —
+  /// playback used to carry on with no way to stop it (M26.10). `ref`
+  /// can't be used in dispose, so it's captured when playback starts.
+  AyahPlayback? _startedPlayback;
+
   @override
   void dispose() {
+    if (_playerStateSub != null) _startedPlayback?.stop().catchError((_) {});
     _playerStateSub?.cancel();
     super.dispose();
   }
 
   Future<void> _togglePlay(int ayah) async {
     final playback = ref.read(sessionAudioServiceProvider);
+    _startedPlayback = playback;
 
     if (_playingAyah == ayah) {
       await playback.stop();

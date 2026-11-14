@@ -126,6 +126,10 @@ class AyahAudioService extends AyahPlayback {
 
   int _completedPlays = 0;
 
+  /// Bumped on every new load. A load that fails only because a newer one
+  /// interrupted it must not retry with its old (stale) ayah (M26.10).
+  int _loadGen = 0;
+
   // What's currently loaded, so a reciter switch can rebuild the same
   // ayahs from the new reciter's URLs at the current position (Item 1.14).
   int? _loadedSurah;
@@ -150,6 +154,7 @@ class AyahAudioService extends AyahPlayback {
     _completedPlays = 0;
     _loadedSurah = surah;
     _loadedAyahs = [ayah];
+    final gen = ++_loadGen;
     if (!kIsWeb) {
       localFilePath ??=
           await _findLocal(reciter: reciter, surah: surah, ayah: ayah);
@@ -165,6 +170,7 @@ class AyahAudioService extends AyahPlayback {
       await _player.setSpeed(speed);
       await _player.play();
     } catch (e) {
+      if (gen != _loadGen) return; // superseded by a newer load
       // Cache or local file failed: fall back to a plain stream.
       if (!kIsWeb) {
         await _player.setAudioSource(_sourceFor(
@@ -195,6 +201,7 @@ class AyahAudioService extends AyahPlayback {
     _completedPlays = 0;
     _loadedSurah = surah;
     _loadedAyahs = List.of(ayahs);
+    final gen = ++_loadGen;
     // Start the playlist directly at [initialIndex] so the player only
     // prepares/buffers the ayah the user actually wants first, instead of
     // loading ayah 1 and then seeking (which doubled the initial latency
@@ -227,6 +234,7 @@ class AyahAudioService extends AyahPlayback {
       await _player.setSpeed(speed);
       await _player.play();
     } catch (e) {
+      if (gen != _loadGen) return; // superseded by a newer load
       // Cache or local file failed: fall back to plain streams.
       if (!kIsWeb) {
         await _player.setAudioSources(
@@ -295,6 +303,9 @@ class AyahAudioService extends AyahPlayback {
     final wasPlaying = _player.playing;
     final index = _player.currentIndex ?? 0;
     final position = _player.position;
+    // Pause first so the new reciter doesn't start from the top before the
+    // seek lands.
+    await _player.pause();
     await playGroup(surah: surah, ayahs: ayahs, initialIndex: index);
     await _player.seek(position, index: index);
     if (!wasPlaying) await _player.pause();
