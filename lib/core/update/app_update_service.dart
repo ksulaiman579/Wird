@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart'
     show TargetPlatform, defaultTargetPlatform, kIsWeb;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,7 +21,10 @@ import 'package:path_provider/path_provider.dart';
 /// `update.json` like:
 ///   { "versionCode": 2, "versionName": "1.1.1",
 ///     "notes": "What's new…",
-///     "apkUrl": "https://github.com/ksulaiman579/Wird/releases/latest/download/wird.apk" }
+///     "apkUrl": "https://github.com/ksulaiman579/Wird/releases/latest/download/wird.apk",
+///     "sha256": "(hex sha256 of wird.apk)" }
+/// `sha256` is optional for old manifests, but when present the download is
+/// refused unless it matches.
 const _manifestUrl =
     'https://github.com/ksulaiman579/Wird/releases/latest/download/update.json';
 
@@ -30,12 +34,23 @@ class UpdateInfo {
     required this.versionCode,
     required this.notes,
     required this.apkUrl,
+    this.sha256,
   });
 
   final String versionName;
   final int versionCode;
   final String notes;
   final String apkUrl;
+
+  /// Expected hex sha256 of the APK, if the manifest gives one.
+  final String? sha256;
+}
+
+class UpdateDownloadException implements Exception {
+  UpdateDownloadException(this.message);
+  final String message;
+  @override
+  String toString() => message;
 }
 
 class AppUpdateService {
@@ -68,6 +83,7 @@ class AppUpdateService {
         versionCode: latest,
         notes: json['notes'] as String? ?? '',
         apkUrl: apkUrl,
+        sha256: (json['sha256'] as String?)?.toLowerCase(),
       );
     } catch (_) {
       return null;
@@ -80,24 +96,87 @@ class AppUpdateService {
   Future<void> downloadAndInstall(
     String apkUrl, {
     void Function(double progress)? onProgress,
+    String? expectedSha256,
   }) async {
     final dir = await getTemporaryDirectory();
     final file = File('${dir.path}/wird-update.apk');
-    final resp = await _client.send(http.Request('GET', Uri.parse(apkUrl)));
+    final resp = await _client
+        .send(http.Request('GET', Uri.parse(apkUrl)))
+        .timeout(const Duration(seconds: 30));
+    // An error page must never reach the installer as an "APK" (M26.11).
+    if (resp.statusCode != 200) {
+      throw UpdateDownloadException('Download failed (HTTP ${resp.statusCode})');
+    }
     final total = resp.contentLength ?? 0;
     var received = 0;
+    final digestSink = _DigestSink();
+    final hasher = sha256.startChunkedConversion(digestSink);
     final sink = file.openWrite();
-    await for (final chunk in resp.stream) {
-      sink.add(chunk);
-      received += chunk.length;
-      if (total > 0) onProgress?.call(received / total);
+    try {
+      // A stalled connection fails instead of hanging forever.
+      await for (final chunk
+          in resp.stream.timeout(const Duration(seconds: 30))) {
+        sink.add(chunk);
+        hasher.add(chunk);
+        received += chunk.length;
+        if (total > 0) onProgress?.call(received / total);
+      }
+    } finally {
+      await sink.close();
     }
-    await sink.close();
+    hasher.close();
+
+    final problem = verifyApkDownload(
+      received: received,
+      expectedLength: total,
+      firstBytes: await file.openRead(0, 2).first.catchError((_) => <int>[]),
+      actualSha256: digestSink.value.toString(),
+      expectedSha256: expectedSha256,
+    );
+    if (problem != null) {
+      try {
+        await file.delete();
+      } catch (_) {}
+      throw UpdateDownloadException(problem);
+    }
     await OpenFilex.open(
       file.path,
       type: 'application/vnd.android.package-archive',
     );
   }
+}
+
+/// Checks a finished APK download. Returns a reason it's unusable, or null.
+/// Pure so it can be unit-tested without a network.
+String? verifyApkDownload({
+  required int received,
+  required int expectedLength,
+  required List<int> firstBytes,
+  required String actualSha256,
+  String? expectedSha256,
+}) {
+  if (received == 0) return 'Download was empty';
+  if (expectedLength > 0 && received != expectedLength) {
+    return 'Download was incomplete';
+  }
+  // An APK is a zip file: it starts with "PK".
+  if (firstBytes.length < 2 || firstBytes[0] != 0x50 || firstBytes[1] != 0x4B) {
+    return 'Downloaded file is not an APK';
+  }
+  if (expectedSha256 != null &&
+      expectedSha256.isNotEmpty &&
+      actualSha256.toLowerCase() != expectedSha256.toLowerCase()) {
+    return 'Downloaded file failed its integrity check';
+  }
+  return null;
+}
+
+class _DigestSink implements Sink<Digest> {
+  late Digest value;
+  @override
+  void add(Digest data) => value = data;
+  @override
+  void close() {}
 }
 
 final appUpdateServiceProvider =

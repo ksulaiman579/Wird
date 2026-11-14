@@ -62,6 +62,16 @@ anything distributed). To ship a real release:
 5. **Attach to a GitHub Release:** tag the commit (`git tag v1.0.0 && git
    push --tags`), then create a release on GitHub and upload the APK as a
    release asset.
+6. **Update manifest:** upload `update.json` next to `wird.apk`, including
+   the APK's hash so the in-app updater refuses a corrupt or wrong file:
+   ```sh
+   sha256sum wird.apk   # paste the hex into "sha256"
+   ```
+   ```json
+   { "versionCode": 4, "versionName": "1.2.2", "notes": "...",
+     "apkUrl": "https://github.com/ksulaiman579/Wird/releases/latest/download/wird.apk",
+     "sha256": "..." }
+   ```
 
 Bump `pubspec.yaml`'s `version:` (both the `x.y.z` name and the `+N` build
 number) before each release — both `flutter build apk` and `flutter build

@@ -67,6 +67,7 @@ Future<void> promptAndInstallUpdate(
     await ref.read(appUpdateServiceProvider).downloadAndInstall(
           info.apkUrl,
           onProgress: (p) => progress.value = p,
+          expectedSha256: info.sha256,
         );
   } catch (_) {
     // swallow — the installer either launched or the download failed; either
