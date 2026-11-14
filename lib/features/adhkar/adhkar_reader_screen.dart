@@ -5,6 +5,7 @@ import 'package:wird/l10n/gen/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../core/adhkar/adhkar_window.dart';
 import '../../core/content/models/dua_models.dart';
 import '../../core/gamification/achievements.dart' show AchievementRule;
 import '../../core/i18n/bidi.dart';
@@ -16,11 +17,6 @@ import '../achievements/achievement_providers.dart';
 import 'adhkar_providers.dart';
 import '../../core/haptics.dart';
 
-String completedPrefsKey(String period, DateTime day) {
-  final dateStr =
-      '${day.year.toString().padLeft(4, '0')}-${day.month.toString().padLeft(2, '0')}-${day.day.toString().padLeft(2, '0')}';
-  return 'adhkar_completed_${period}_$dateStr';
-}
 
 class AdhkarReaderScreen extends ConsumerStatefulWidget {
   const AdhkarReaderScreen({super.key, required this.period});
@@ -45,16 +41,21 @@ class _AdhkarReaderScreenState extends ConsumerState<AdhkarReaderScreen> {
     _checkCompletedToday();
   }
 
+  String get _todayKey => adhkarCompletedKey(
+        widget.period,
+        adhkarDayFor(widget.period, DateTime.now()),
+      );
+
   Future<void> _checkCompletedToday() async {
     final prefs = await SharedPreferences.getInstance();
-    final key = completedPrefsKey(widget.period, DateTime.now());
-    setState(() => _alreadyCompletedToday = prefs.getBool(key) ?? false);
+    final done = prefs.getBool(_todayKey) ?? false;
+    if (mounted) setState(() => _alreadyCompletedToday = done);
   }
 
   Future<void> _markCompletedToday() async {
     final prefs = await SharedPreferences.getInstance();
-    final key = completedPrefsKey(widget.period, DateTime.now());
-    await prefs.setBool(key, true);
+    await prefs.setBool(_todayKey, true);
+    ref.invalidate(adhkarCompletedTodayProvider(widget.period));
     if (mounted) {
       setState(() => _alreadyCompletedToday = true);
     }
@@ -63,7 +64,9 @@ class _AdhkarReaderScreenState extends ConsumerState<AdhkarReaderScreen> {
 
   /// M14.4: the ongoing adhkar notification for this period doesn't
   /// auto-dismiss (that's the point — it's a "not done yet today"
-  /// marker), so completing it here needs to explicitly clear it.
+  /// marker), so completing it here needs to explicitly clear it. Clears
+  /// whatever is showing on the channel — the id of the one on screen
+  /// depends on which day the plan was built, so cancelling day 0 missed it.
   void _clearOngoingNotificationBestEffort() {
     if (kIsWeb) return;
     final channel = widget.period == 'morning'
@@ -71,7 +74,7 @@ class _AdhkarReaderScreenState extends ConsumerState<AdhkarReaderScreen> {
         : NotificationChannel.adhkarEvening;
     ref
         .read(notificationServiceProvider)
-        .cancel(notificationIdFor(channel, 0))
+        .cancelShown(channel)
         .catchError((_) {});
   }
 

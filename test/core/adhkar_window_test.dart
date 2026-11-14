@@ -49,4 +49,23 @@ void main() {
           adhkarPeriodFor(DateTime(2026, 3, 5, 5, 59)), AdhkarPeriod.evening);
     });
   });
+
+  group('adhkarDayFor', () {
+    test('evening adhkar after midnight belongs to the evening before', () {
+      expect(adhkarDayFor('evening', DateTime(2026, 3, 1, 0, 30)),
+          DateTime(2026, 2, 28));
+    });
+    test('evening adhkar in the evening belongs to that day', () {
+      expect(adhkarDayFor('evening', DateTime(2026, 3, 1, 20)),
+          DateTime(2026, 3, 1));
+    });
+    test('morning adhkar always belongs to the clock day', () {
+      expect(adhkarDayFor('morning', DateTime(2026, 3, 1, 5)),
+          DateTime(2026, 3, 1));
+    });
+    test('key format is stable for existing saved prefs', () {
+      expect(adhkarCompletedKey('morning', DateTime(2026, 1, 5)),
+          'adhkar_completed_morning_2026-01-05');
+    });
+  });
 }

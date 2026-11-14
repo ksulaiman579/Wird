@@ -3,14 +3,13 @@ import 'package:wird/l10n/gen/app_localizations.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/adhkar/adhkar_window.dart';
 import '../../core/content/dua_search.dart';
 import '../../core/notifications/notification_providers.dart';
 import '../../shared/glass/glass.dart';
 import '../../shared/ui/corner_flourishes.dart';
-import '../adhkar/adhkar_reader_screen.dart' show completedPrefsKey;
+import '../adhkar/adhkar_providers.dart' show adhkarCompletedTodayProvider;
 import 'dua_category_titles.dart';
 import 'dua_group_titles.dart';
 import 'dua_providers.dart';
@@ -22,12 +21,6 @@ import 'dua_theme_groups.dart';
 final _currentAdhkarPeriodProvider = FutureProvider<AdhkarPeriod>((ref) async {
   final times = await ref.watch(prayerTimesPreviewProvider.future);
   return adhkarPeriodFor(DateTime.now(), fajr: times?.fajr, asr: times?.asr);
-});
-
-final _adhkarCompletedTodayProvider =
-    FutureProvider.family<bool, String>((ref, period) async {
-  final prefs = await SharedPreferences.getInstance();
-  return prefs.getBool(completedPrefsKey(period, DateTime.now())) ?? false;
 });
 
 /// The Duas tab root (M20.4, time-awareness + search added in M14.2): a
@@ -272,7 +265,7 @@ class _CurrentAdhkarCard extends ConsumerWidget {
     final isMorning = period == AdhkarPeriod.morning;
     final periodKey = isMorning ? 'morning' : 'evening';
     final otherKey = isMorning ? 'evening' : 'morning';
-    final completedAsync = ref.watch(_adhkarCompletedTodayProvider(periodKey));
+    final completedAsync = ref.watch(adhkarCompletedTodayProvider(periodKey));
     final completed = completedAsync.value ?? false;
     final scheme = Theme.of(context).colorScheme;
 

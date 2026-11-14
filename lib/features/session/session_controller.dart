@@ -1,5 +1,11 @@
+import 'dart:async' show unawaited;
+
 import 'package:drift/drift.dart' show Value;
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../core/notifications/notification_providers.dart'
+    show rescheduleNotifications;
 
 import '../../core/chunking/portion_planner.dart';
 import '../../core/db/database.dart';
@@ -276,6 +282,11 @@ class SessionController extends AsyncNotifier<SessionState> {
         earlyBirdSession: now.hour < 5,
         nightOwlSession: now.hour >= 22,
       );
+      // Today is done: re-plan notifications so tonight's "streak at risk"
+      // reminder is dropped (it was only computed at schedule time).
+      if (!kIsWeb) {
+        unawaited(rescheduleNotifications(ref).catchError((_) {}));
+      }
     }
 
     state = AsyncValue.data(s.copyWith(

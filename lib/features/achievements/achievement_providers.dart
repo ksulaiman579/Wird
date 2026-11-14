@@ -7,7 +7,7 @@ import '../../core/content/models/quran_models.dart';
 import '../../core/content/quran_repository.dart';
 import '../../core/db/database.dart';
 import '../../core/gamification/achievements.dart';
-import '../adhkar/adhkar_reader_screen.dart' show completedPrefsKey;
+import '../../core/adhkar/adhkar_window.dart';
 
 final achievementsStreamProvider =
     StreamProvider<List<Achievement>>((ref) {
@@ -41,14 +41,16 @@ bool _juzFullyMemorized(
 /// two never drift out of sync.
 Future<int> _consecutiveAdhkarDays(String period) async {
   final prefs = await SharedPreferences.getInstance();
-  var day = DateTime.now();
-  if (!(prefs.getBool(completedPrefsKey(period, day)) ?? false)) {
-    day = day.subtract(const Duration(days: 1));
+  // Step back by calendar day, not 24h, so a DST change can't skip a day.
+  DateTime prev(DateTime d) => DateTime(d.year, d.month, d.day - 1);
+  var day = adhkarDayFor(period, DateTime.now());
+  if (!(prefs.getBool(adhkarCompletedKey(period, day)) ?? false)) {
+    day = prev(day);
   }
   var count = 0;
-  while (prefs.getBool(completedPrefsKey(period, day)) ?? false) {
+  while (prefs.getBool(adhkarCompletedKey(period, day)) ?? false) {
     count++;
-    day = day.subtract(const Duration(days: 1));
+    day = prev(day);
   }
   return count;
 }

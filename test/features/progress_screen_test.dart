@@ -33,6 +33,7 @@ void main() {
             id: const Value(1),
             currentStreak: const Value(3),
             longestStreak: const Value(8),
+            lastCompletedDay: Value(DateTime.now()),
           ),
         );
     await db.into(db.dailySessions).insert(

@@ -116,4 +116,36 @@ void main() {
     expect(state.currentStreak, 2,
         reason: 'consecutive calendar days must not be treated as a gap');
   });
+
+  group('liveStreak', () {
+    const s = StreakState(currentStreak: 9, freezeTokens: 0);
+    test('alive if last done today or yesterday', () {
+      final last = DateTime(2026, 1, 10);
+      final st = s.copyWith(lastCompletedDay: last);
+      expect(liveStreak(st, DateTime(2026, 1, 10, 22)), 9);
+      expect(liveStreak(st, DateTime(2026, 1, 11, 22)), 9);
+    });
+    test('broken after a missed day with no freeze token', () {
+      final st = s.copyWith(lastCompletedDay: DateTime(2026, 1, 10));
+      expect(liveStreak(st, DateTime(2026, 1, 12)), 0);
+    });
+    test('a freeze token keeps a one-day gap alive', () {
+      final st = s.copyWith(
+          lastCompletedDay: DateTime(2026, 1, 10), freezeTokens: 1);
+      expect(liveStreak(st, DateTime(2026, 1, 12)), 9);
+      expect(liveStreak(st, DateTime(2026, 1, 13)), 0);
+    });
+    test('never completed shows 0', () {
+      expect(liveStreak(StreakState.empty, DateTime(2026, 1, 1)), 0);
+    });
+  });
+
+  test('a clock set back does not reset the streak', () {
+    final st = StreakState(
+        currentStreak: 5, longestStreak: 5,
+        lastCompletedDay: DateTime(2026, 1, 10));
+    final result = applyCompletion(st, DateTime(2026, 1, 8));
+    expect(result.currentStreak, 5);
+    expect(result.lastCompletedDay, DateTime(2026, 1, 10));
+  });
 }

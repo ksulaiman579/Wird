@@ -32,7 +32,9 @@ class ReadingStreakNotifier extends AsyncNotifier<StreakState> {
   /// day (a repeat read the same day is a no-op), so it's safe to call on
   /// every page turn. Pass [now] in tests; defaults to the current date.
   Future<void> recordReadToday([DateTime? now]) async {
-    final current = state.value ?? StreakState.empty;
+    // Wait for the saved streak to load — falling back to empty here could
+    // overwrite a long saved streak with 1 (M26.8).
+    final current = await future;
     final updated = applyCompletion(current, now ?? DateTime.now());
     if (identical(updated, current)) return; // same-day repeat → nothing to save
     final prefs = await SharedPreferences.getInstance();

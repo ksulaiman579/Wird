@@ -5,6 +5,7 @@ import '../../core/content/models/quran_models.dart';
 import '../../core/content/quran_repository.dart';
 import '../../core/db/database.dart';
 import '../../core/gamification/progress_stats.dart';
+import '../../core/gamification/streak_row.dart';
 
 bool _isMemorized(String status) => status == 'review' || status == 'lapsed';
 
@@ -142,7 +143,7 @@ final progressStatsProvider = FutureProvider<ProgressStats>((ref) async {
 
   return ProgressStats(
     activityByDay: activityByDay,
-    currentStreak: streakRow?.currentStreak ?? 0,
+    currentStreak: liveStreakOf(streakRow),
     longestStreak: streakRow?.longestStreak ?? 0,
     daysConsistentTotal: daysConsistentTotal,
     ayahsMemorized: ayahsMemorized,

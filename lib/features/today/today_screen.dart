@@ -5,6 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/gamification/achievements.dart';
+import '../../core/gamification/streak_row.dart';
+import '../../core/gamification/streak_service.dart' show liveStreak;
 import '../../core/i18n/bidi.dart';
 import '../../shared/glass/glass.dart';
 import '../../shared/ui/ui.dart';
@@ -143,8 +145,7 @@ class _TodayHeroCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final streak =
-        ref.watch(streakStateStreamProvider).value?.currentStreak ?? 0;
+    final streak = liveStreakOf(ref.watch(streakStateStreamProvider).value);
     final goal =
         ref.watch(weeklyGoalProvider).value ?? WeeklyGoalProgress.empty;
 
@@ -549,8 +550,7 @@ class _StreakCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final streak =
-        ref.watch(streakStateStreamProvider).value?.currentStreak ?? 0;
+    final streak = liveStreakOf(ref.watch(streakStateStreamProvider).value);
     return GlassCard(
       enableBlur: false,
       child: Column(
@@ -591,7 +591,9 @@ class _ReadingStreakCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final streak = ref.watch(readingStreakProvider).value?.currentStreak ?? 0;
+    final reading = ref.watch(readingStreakProvider).value;
+    final streak =
+        reading == null ? 0 : liveStreak(reading, DateTime.now());
     return GlassCard(
       enableBlur: false,
       child: Column(

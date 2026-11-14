@@ -201,4 +201,15 @@ class NotificationService {
   /// Cancels one pending/shown notification by id — used to clear an
   /// adhkar notification once its period is completed or stale (M14.4).
   Future<void> cancel(int id) => _plugin.cancel(id: id);
+
+  /// Cancels every notification currently on screen for [channel].
+  Future<void> cancelShown(NotificationChannel channel) async {
+    final channelId = channelIdFor(channel);
+    final active = await _plugin.getActiveNotifications();
+    for (final n in active) {
+      if (n.channelId == channelId && n.id != null) {
+        await _plugin.cancel(id: n.id!);
+      }
+    }
+  }
 }

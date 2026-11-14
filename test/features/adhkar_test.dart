@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:wird/core/adhkar/adhkar_window.dart';
 import 'package:wird/core/content/dua_repository.dart';
 import 'package:wird/core/content/models/dua_models.dart';
 import 'package:wird/core/db/database.dart';
@@ -137,14 +138,14 @@ void main() {
       expect(find.text('All done! 🎉'), findsOneWidget);
 
       final prefs = await SharedPreferences.getInstance();
-      final key = completedPrefsKey('morning', DateTime.now());
+      final key = adhkarCompletedKey('morning', adhkarDayFor('morning', DateTime.now()));
       expect(prefs.getBool(key), isTrue);
     });
 
     testWidgets('shows the already-done view on a later visit today', (
       tester,
     ) async {
-      final key = completedPrefsKey('morning', DateTime.now());
+      final key = adhkarCompletedKey('morning', adhkarDayFor('morning', DateTime.now()));
       SharedPreferences.setMockInitialValues({key: true});
 
       await tester.pumpWidget(

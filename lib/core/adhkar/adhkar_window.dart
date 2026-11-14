@@ -28,3 +28,24 @@ AdhkarPeriod adhkarPeriodFor(
       !now.isBefore(morningStart) && now.isBefore(eveningStart);
   return inMorningWindow ? AdhkarPeriod.morning : AdhkarPeriod.evening;
 }
+
+/// The calendar day a completion of [period] at [now] belongs to. The
+/// evening window runs past midnight, so evening adhkar finished at 00:30
+/// belongs to the evening before — keying it by the clock date marked the
+/// *next* evening as already done (M26.8). Before noon counts as "past
+/// midnight" for this purpose.
+DateTime adhkarDayFor(String period, DateTime now) {
+  if (period == 'evening' && now.hour < 12) {
+    return DateTime(now.year, now.month, now.day - 1);
+  }
+  return DateTime(now.year, now.month, now.day);
+}
+
+/// SharedPreferences key marking [period]'s adhkar done on [day] (a day
+/// from [adhkarDayFor]).
+String adhkarCompletedKey(String period, DateTime day) {
+  final dateStr = '${day.year.toString().padLeft(4, '0')}-'
+      '${day.month.toString().padLeft(2, '0')}-'
+      '${day.day.toString().padLeft(2, '0')}';
+  return 'adhkar_completed_${period}_$dateStr';
+}

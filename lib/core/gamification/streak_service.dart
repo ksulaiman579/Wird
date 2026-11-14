@@ -63,6 +63,12 @@ StreakState applyCompletion(StreakState current, DateTime completedDay) {
     return current;
   }
 
+  // Clock set back, or travel west over the date line: the stored day is
+  // "in the future". Don't reset the streak or move the day backwards.
+  if (last != null && daysBetweenCalendarDates(last, today) < 0) {
+    return current;
+  }
+
   var freezeTokens = current.freezeTokens;
   int newStreak;
 
@@ -87,9 +93,23 @@ StreakState applyCompletion(StreakState current, DateTime completedDay) {
 
   return current.copyWith(
     currentStreak: newStreak,
+    lastCompletedDay: today,
     longestStreak:
         newStreak > current.longestStreak ? newStreak : current.longestStreak,
     freezeTokens: freezeTokens,
-    lastCompletedDay: today,
   );
+}
+
+/// The streak to *show* on [now]. The stored count only changes when a
+/// portion is completed, so after missed days it kept showing the old
+/// number (M26.8). Still alive if the last completion was today or
+/// yesterday, or the day before yesterday with a freeze token to cover the
+/// gap; otherwise it's broken and shows 0.
+int liveStreak(StreakState s, DateTime now) {
+  final last = s.lastCompletedDay;
+  if (last == null) return 0;
+  final gap = daysBetweenCalendarDates(_dateOnly(last), _dateOnly(now));
+  if (gap <= 1) return s.currentStreak;
+  if (gap == 2 && s.freezeTokens > 0) return s.currentStreak;
+  return 0;
 }

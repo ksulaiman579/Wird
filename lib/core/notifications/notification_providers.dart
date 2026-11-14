@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../adhkar/adhkar_window.dart';
 import '../db/database.dart';
+import '../gamification/streak_row.dart';
 import 'location_prefs.dart';
 import 'notification_plan.dart';
 import 'notification_prefs.dart';
@@ -124,7 +125,7 @@ Future<void> rescheduleNotifications(dynamic ref) async {
     adhkarEveningEnabled: prefs.adhkarEveningEnabled,
     streakAtRiskEnabled: prefs.streakAtRiskEnabled,
     todayPortionCompleted: session?.completed ?? false,
-    currentStreak: streakRow?.currentStreak ?? 0,
+    currentStreak: liveStreakOf(streakRow),
   );
 
   // Adhan reminders (5H): only when a location is set (real prayer times
