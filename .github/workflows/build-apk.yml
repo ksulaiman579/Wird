@@ -23,7 +23,7 @@ jobs:
 
       - run: flutter pub get
 
-      # Cloud backup is enabled only if these repo secrets are set
+      # Content-mirror URL is used only if these repo secrets are set
       # (Settings → Secrets and variables → Actions). The publishable key is
       # public/safe; if unset, the APK builds fully offline (cloud hidden).
       # Never add the Supabase SECRET key here.

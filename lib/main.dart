@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'app.dart';
 import 'core/cloud/cloud_config.dart';
@@ -37,22 +36,12 @@ void main() {
       return true;
     };
 
-    // Cloud backup is OPT-IN and OFF unless this build was compiled with the
-    // Supabase keys (--dart-define). When configured, initialise with
-    // auto-refresh DISABLED so the app never produces a background auth
-    // event — a user counts as monthly-active only in a month they
-    // deliberately sign in to back up or restore.
-    if (CloudConfig.isConfigured) {
-      await Supabase.initialize(
-        url: CloudConfig.supabaseUrl,
-        // Publishable (public) key — safe to ship; RLS gates all access.
-        publishableKey: CloudConfig.supabasePublishableKey,
-        authOptions: const FlutterAuthClientOptions(autoRefreshToken: false),
-      );
-    }
-
+    // The Supabase project is used only as a public, read-only mirror for
+    // content downloads, fetched over plain HTTP (see ContentSource). No
+    // client SDK is needed, so nothing is initialised before the first
+    // frame (M27.3).
     DebugLog.instance.add(
-      'Wird started — cloud backup ${CloudConfig.isConfigured ? "enabled" : "disabled"}',
+      'Wird started — content mirror ${CloudConfig.isConfigured ? "on" : "off"}',
     );
 
     runApp(const ProviderScope(child: DailyApp()));
