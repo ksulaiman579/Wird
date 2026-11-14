@@ -52,11 +52,16 @@ final prayerTimesPreviewProvider = FutureProvider<DailyPrayerTimes?>((ref) async
 Future<void> rescheduleNotifications(dynamic ref) async {
   if (kIsWeb) return;
 
-  final prefs = await ref.read(notificationPrefsProvider.future);
-  final location = await ref.read(locationProvider.future);
-  final methodOverride = await ref.read(prayerMethodOverrideProvider.future);
-  final db = ref.read(appDatabaseProvider);
-  final prayerService = ref.read(prayerTimesServiceProvider);
+  // Typed locals: `ref` is dynamic, so everything read from it was dynamic
+  // too — the drift `where` closure below then failed a runtime type check
+  // and every reschedule threw (silently), so nothing was ever scheduled.
+  final NotificationPrefs prefs =
+      await ref.read(notificationPrefsProvider.future);
+  final SelectedLocation? location = await ref.read(locationProvider.future);
+  final int? methodOverride =
+      await ref.read(prayerMethodOverrideProvider.future);
+  final AppDatabase db = ref.read(appDatabaseProvider);
+  final PrayerTimesService prayerService = ref.read(prayerTimesServiceProvider);
 
   final now = DateTime.now();
   final today = dateOnly(now);
@@ -149,7 +154,7 @@ Future<void> rescheduleNotifications(dynamic ref) async {
     ));
   }
 
-  final service = ref.read(notificationServiceProvider);
+  final NotificationService service = ref.read(notificationServiceProvider);
   await service.reschedule(plan);
 
   // M14.4: an ongoing adhkar notification from the window that just

@@ -82,7 +82,8 @@ class _DailyAppState extends ConsumerState<DailyApp> {
       // available" / announcement notification even when the app is closed
       // (Android only; no backend — it reads the same GitHub JSON).
       await registerBackgroundUpdateCheck();
-    } catch (_) {
+    } catch (e, st) {
+      debugPrint('Notification setup failed: $e $st');
       // Notification setup is best-effort: a missing plugin (e.g. no
       // device/emulator backing flutter_local_notifications) must never
       // crash app startup — this is a real possibility during `flutter

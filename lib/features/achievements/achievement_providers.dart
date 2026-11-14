@@ -72,7 +72,7 @@ Future<AchievementStats> computeAchievementStats(
   bool earlyBirdSession = false,
   bool nightOwlSession = false,
 }) async {
-  final db = ref.read(appDatabaseProvider);
+  final AppDatabase db = ref.read(appDatabaseProvider);
   final items = await db.select(db.srsItems).get();
   final streakRow = await db.select(db.streakState).getSingleOrNull();
   final meta = await ref.read(quranRepositoryProvider).loadMeta();
@@ -132,7 +132,7 @@ Future<List<AchievementRule>> evaluateAndUnlockAchievements(
   bool earlyBirdSession = false,
   bool nightOwlSession = false,
 }) async {
-  final db = ref.read(appDatabaseProvider);
+  final AppDatabase db = ref.read(appDatabaseProvider);
   final alreadyIds = (await db.select(db.achievements).get())
       .map((a) => a.achievementId)
       .toSet();
