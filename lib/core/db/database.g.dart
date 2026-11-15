@@ -5241,6 +5241,14 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $LibraryDownloadsTable libraryDownloads = $LibraryDownloadsTable(
     this,
   );
+  late final Index srsItemsStatusDue = Index(
+    'srs_items_status_due',
+    'CREATE INDEX srs_items_status_due ON srs_items (status, due_date)',
+  );
+  late final Index reviewLogsItem = Index(
+    'review_logs_item',
+    'CREATE INDEX review_logs_item ON review_logs (item_id)',
+  );
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -5259,6 +5267,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     bookmarks,
     tasbihSessions,
     libraryDownloads,
+    srsItemsStatusDue,
+    reviewLogsItem,
   ];
 }
 

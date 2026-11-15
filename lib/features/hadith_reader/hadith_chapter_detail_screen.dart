@@ -13,7 +13,7 @@ import '../../shared/ui/verse_roundel.dart';
 import 'hadith_reader_providers.dart';
 
 final _isBookmarkedProvider =
-    StreamProvider.family<bool, String>((ref, contentKey) {
+    StreamProvider.autoDispose.family<bool, String>((ref, contentKey) {
   return ref.watch(bookmarkServiceProvider).watchIsBookmarked(contentKey);
 });
 

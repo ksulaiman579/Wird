@@ -186,6 +186,6 @@ class _HadithDetailScreenState extends ConsumerState<HadithDetailScreen> {
   }
 }
 
-final _isBookmarkedProvider = StreamProvider.family<bool, String>((ref, key) {
+final _isBookmarkedProvider = StreamProvider.autoDispose.family<bool, String>((ref, key) {
   return ref.watch(bookmarkServiceProvider).watchIsBookmarked(key);
 });

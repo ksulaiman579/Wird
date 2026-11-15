@@ -31,7 +31,8 @@ import 'tajweed_formatter.dart';
 /// ayah card can independently await its own row without the whole
 /// screen re-fetching on scroll.
 final _extraTranslationProvider =
-    FutureProvider.family<String?, (String editionId, int surah, int ayah)>((
+    FutureProvider.autoDispose
+        .family<String?, (String editionId, int surah, int ayah)>((
       ref,
       key,
     ) {
@@ -823,7 +824,7 @@ Widget _translationLine(BuildContext context, String text) {
   );
 }
 
-final _isBookmarkedProvider = StreamProvider.family<bool, String>((
+final _isBookmarkedProvider = StreamProvider.autoDispose.family<bool, String>((
   ref,
   contentKey,
 ) {

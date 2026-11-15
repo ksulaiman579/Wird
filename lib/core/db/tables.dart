@@ -28,6 +28,8 @@ class UserPlans extends Table {
 
 /// One row per memorizable unit (ayah-group, hadith, or dua). Generated
 /// eagerly at onboarding, ordered by [orderIndex] per the chosen direction.
+// Today/session pick due items by status + due date (M27.7).
+@TableIndex(name: 'srs_items_status_due', columns: {#status, #dueDate})
 class SrsItems extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get contentType => text()(); // quran | hadith | dua
@@ -48,6 +50,8 @@ class SrsItems extends Table {
 }
 
 /// Per-review audit trail — stats, accuracy, and algorithm tuning.
+// Stats and deletes look logs up by item (M27.7).
+@TableIndex(name: 'review_logs_item', columns: {#itemId})
 class ReviewLogs extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get itemId => integer().references(SrsItems, #id)();
