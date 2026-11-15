@@ -3629,6 +3629,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Download failed. Check your connection and try again.'**
   String get hadithDownloadFailed;
+
+  /// Share sheet button: share the card as a picture.
+  ///
+  /// In en, this message translates to:
+  /// **'Share image'**
+  String get shareAsImage;
+
+  /// Share sheet button: share as plain text.
+  ///
+  /// In en, this message translates to:
+  /// **'Share text'**
+  String get shareAsText;
 }
 
 class _AppLocalizationsDelegate

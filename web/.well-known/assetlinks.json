@@ -1,0 +1,8 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "io.github.ksulaiman579.wird",
+    "sha256_cert_fingerprints": ["7E:14:B5:54:F1:DD:82:A4:04:D7:0B:D2:02:15:AB:D2:20:31:50:B0:6F:3D:F6:25:A6:6C:3F:FE:08:86:90:C3"]
+  }
+}]

@@ -2049,4 +2049,10 @@ class AppLocalizationsMl extends AppLocalizations {
   @override
   String get hadithDownloadFailed =>
       'ഡൗൺലോഡ് പരാജയപ്പെട്ടു. കണക്ഷൻ പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക.';
+
+  @override
+  String get shareAsImage => 'ചിത്രം പങ്കിടുക';
+
+  @override
+  String get shareAsText => 'വാചകം പങ്കിടുക';
 }

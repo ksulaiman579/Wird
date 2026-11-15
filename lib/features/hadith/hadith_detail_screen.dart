@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:wird/l10n/gen/app_localizations.dart';
 
+import '../../shared/share/share_card.dart';
 import '../../core/content/bookmark_service.dart';
 import '../../core/hadith/hadith_grade.dart';
 import '../../core/l10n/reading_locale.dart';
@@ -99,12 +99,14 @@ class _HadithDetailScreenState extends ConsumerState<HadithDetailScreen> {
                       setState(() => _scale = (_scale - 0.1).clamp(0.8, 1.8)),
                 ),
                 const Spacer(),
-                IconButton(
-                  tooltip: l.commonShare,
-                  icon: const Icon(Icons.share_outlined),
-                  onPressed: () => _share(
-                      '${hadith.arabic}\n\n${ownText ?? hadith.translation}',
-                      hadith.source),
+                ShareCardButton(
+                  passage: () => SharePassage(
+                    arabic: hadith.arabic,
+                    translation: showAids ? (ownText ?? hadith.translation) : '',
+                    reference:
+                        '${l.hadithNawawiTitle} ${widget.hadithId} · ${hadith.source}',
+                    route: '/hadith/nawawi/${widget.hadithId}',
+                  ),
                 ),
                 IconButton(
                   tooltip: l.commonBookmark,
@@ -186,12 +188,6 @@ class _HadithDetailScreenState extends ConsumerState<HadithDetailScreen> {
           ],
         ),
       ),
-    );
-  }
-
-  Future<void> _share(String translation, String source) async {
-    await SharePlus.instance.share(
-      ShareParams(text: '$translation\n\n— $source\n\nvia Wird'),
     );
   }
 }

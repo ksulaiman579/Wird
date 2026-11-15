@@ -2059,4 +2059,10 @@ class AppLocalizationsFil extends AppLocalizations {
   @override
   String get hadithDownloadFailed =>
       'Nabigo ang pag-download. Suriin ang koneksyon at subukang muli.';
+
+  @override
+  String get shareAsImage => 'Ibahagi ang larawan';
+
+  @override
+  String get shareAsText => 'Ibahagi ang teksto';
 }

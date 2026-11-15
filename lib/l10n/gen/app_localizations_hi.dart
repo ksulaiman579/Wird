@@ -2031,4 +2031,10 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get hadithDownloadFailed =>
       'डाउनलोड नहीं हुआ। कनेक्शन जाँचें और फिर कोशिश करें।';
+
+  @override
+  String get shareAsImage => 'तस्वीर शेयर करें';
+
+  @override
+  String get shareAsText => 'टेक्स्ट शेयर करें';
 }

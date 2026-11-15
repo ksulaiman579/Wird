@@ -2035,4 +2035,10 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get hadithDownloadFailed =>
       'ডাউনলোড ব্যর্থ হয়েছে। সংযোগ দেখে আবার চেষ্টা করুন।';
+
+  @override
+  String get shareAsImage => 'ছবি শেয়ার করুন';
+
+  @override
+  String get shareAsText => 'লেখা শেয়ার করুন';
 }

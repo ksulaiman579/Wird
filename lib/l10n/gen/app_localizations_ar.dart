@@ -2019,4 +2019,10 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get hadithDownloadFailed =>
       'فشل التنزيل. تحقّق من الاتصال وحاول مرة أخرى.';
+
+  @override
+  String get shareAsImage => 'مشاركة كصورة';
+
+  @override
+  String get shareAsText => 'مشاركة كنص';
 }

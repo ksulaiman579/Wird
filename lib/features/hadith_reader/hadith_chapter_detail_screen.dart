@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:wird/l10n/gen/app_localizations.dart';
 
+import '../../shared/share/share_card.dart';
 import '../../core/content/bookmark_service.dart';
 import '../../core/content/hadith_pack_repository.dart';
 import '../../core/hadith/hadith_grade.dart';
@@ -135,6 +135,7 @@ class _HadithChapterDetailScreenState
                           }
                           return _HadithEntryCard(
                               collection: widget.collection,
+                              chapterNumber: widget.chapterNumber,
                               language: lang,
                               entry: filtered[index - 1],
                               scale: _scale);
@@ -181,11 +182,13 @@ class _HadithEntryCard extends ConsumerStatefulWidget {
   const _HadithEntryCard({
     required this.collection,
     required this.entry,
+    required this.chapterNumber,
     required this.language,
     this.scale = 1.0,
   });
 
   final String collection;
+  final String chapterNumber;
   final String language;
   final HadithEntry entry;
   final double scale;
@@ -229,18 +232,17 @@ class _HadithEntryCardState extends ConsumerState<_HadithEntryCard> {
                 const SizedBox(width: 8),
                 GradeBadge(grade: grade),
                 const Spacer(),
-                IconButton(
-                  tooltip: AppLocalizations.of(context).commonShare,
-                  icon: const Icon(Icons.share_outlined),
-                  onPressed: () {
-                    final ref =
-                        '${hadithCollectionName(context, collection)} ${entry.numberLabel}';
-                    SharePlus.instance.share(
-                      ShareParams(
-                          text:
-                              '${entry.arabic}\n\n${entry.translationFor(widget.language)}\n\n— $ref\n\nvia Wird'),
-                    );
-                  },
+                ShareCardButton(
+                  passage: () => SharePassage(
+                    arabic: entry.arabic,
+                    translation: entry.translationFor(widget.language),
+                    translationRtl: _rtl.contains(widget.language) &&
+                        entry.translations.containsKey(widget.language),
+                    reference:
+                        '${hadithCollectionName(context, collection)} ${entry.numberLabel}',
+                    route:
+                        '/hadith/collections/$collection/${widget.chapterNumber}',
+                  ),
                 ),
                 IconButton(
                   tooltip: AppLocalizations.of(context).commonBookmark,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wird/l10n/gen/app_localizations.dart';
 
+import '../../shared/share/share_card.dart';
 import '../../core/content/models/dua_models.dart';
 import '../../core/l10n/reading_locale.dart';
 import '../../shared/glass/glass.dart';
@@ -35,6 +36,7 @@ class DuaCategoryScreen extends ConsumerWidget {
           itemCount: category.duas.length,
           itemBuilder: (context, index) => _DuaCard(
             dua: category.duas[index],
+            categoryId: categoryId,
             number: index + 1,
           ),
         ),
@@ -50,9 +52,14 @@ class DuaCategoryScreen extends ConsumerWidget {
 /// translation, then the reference. When the UI is Arabic those Latin aids are
 /// hidden ([showLatinReadingAids]).
 class _DuaCard extends StatefulWidget {
-  const _DuaCard({required this.dua, required this.number});
+  const _DuaCard({
+    required this.dua,
+    required this.number,
+    required this.categoryId,
+  });
 
   final Dua dua;
+  final String categoryId;
   final int number;
 
   @override
@@ -82,6 +89,14 @@ class _DuaCardState extends State<_DuaCard> {
                 const Spacer(),
                 if (dua.repetitions > 1)
                   Chip(label: Text('×${dua.repetitions}')),
+                ShareCardButton(
+                  passage: () => SharePassage(
+                    arabic: dua.arabic,
+                    translation: showAids ? dua.translation : '',
+                    reference: dua.reference,
+                    route: '/duas/${widget.categoryId}',
+                  ),
+                ),
                 Icon(
                   _expanded
                       ? Icons.keyboard_arrow_up_rounded

@@ -2034,4 +2034,10 @@ class AppLocalizationsUr extends AppLocalizations {
   @override
   String get hadithDownloadFailed =>
       'ڈاؤن لوڈ ناکام ہوا۔ کنکشن چیک کر کے دوبارہ کوشش کریں۔';
+
+  @override
+  String get shareAsImage => 'تصویر شیئر کریں';
+
+  @override
+  String get shareAsText => 'متن شیئر کریں';
 }

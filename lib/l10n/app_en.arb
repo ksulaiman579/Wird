@@ -2653,5 +2653,13 @@
   "hadithDownloadFailed": "Download failed. Check your connection and try again.",
   "@hadithDownloadFailed": {
     "description": "Snackbar when a hadith collection download fails."
+  },
+  "shareAsImage": "Share image",
+  "@shareAsImage": {
+    "description": "Share sheet button: share the card as a picture."
+  },
+  "shareAsText": "Share text",
+  "@shareAsText": {
+    "description": "Share sheet button: share as plain text."
   }
 }

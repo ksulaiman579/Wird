@@ -474,6 +474,8 @@
   "settingsTitle": "Mga Setting",
   "settingsUseManualTimes": "Manwal na itakda ang mga oras ng dasal",
   "settingsWebNotifNote": "Hindi maaaring mapagkakatiwalaan ng web app ang mga paalala habang hindi ito bukas  i-install ang Android app para sa pang-araw-araw at mga paalala sa adhkar.",
+  "shareAsImage": "Ibahagi ang larawan",
+  "shareAsText": "Ibahagi ang teksto",
   "storageBody": "Gumagamit na ang tab na ito ng {used} MB sa {quota} MB nito. Maaaring burahin ito ng browser kapag kulang ang espasyo — ituloy?",
   "storageBodyUnknown": "Itinatago ng browser tab na ito ang mga download sa sarili nitong storage, na maaaring burahin ng browser kapag kulang ang espasyo.",
   "storageTitle": "I-download ang ~{mb} MB?",

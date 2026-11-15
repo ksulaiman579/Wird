@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:just_audio/just_audio.dart' show PlayerState, ProcessingState;
 import 'package:wird/l10n/gen/app_localizations.dart';
 
+import '../../shared/share/share_card.dart';
 import '../../core/audio/ayah_audio_service.dart'
     show AyahPlayback, formatAudioError;
 import '../../core/audio/ayah_audio_urls.dart' show reciters;
@@ -734,6 +735,17 @@ class _AyahCard extends ConsumerWidget {
             children: [
               VerseRoundel(number: ayah),
               const Spacer(),
+              ShareCardButton(
+                passage: () => SharePassage(
+                  arabic: arabic,
+                  translation: showAids ? translation : '',
+                  translationRtl:
+                      RegExp('[؀-ۿ]').hasMatch(translation),
+                  reference:
+                      '${AppLocalizations.of(context).quranTitle} $surah:$ayah',
+                  route: '/read?surah=$surah&ayah=$ayah',
+                ),
+              ),
               IconButton(
                 icon: Icon(
                   isBookmarkedAsync.value == true
