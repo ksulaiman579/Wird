@@ -108,7 +108,7 @@ class KnowledgeLibraryScreen extends ConsumerWidget {
                   for (final d in available)
                     HubCard(
                       glyph: _glyphFor(d.slug),
-                      title: d.label,
+                      title: libraryDisciplineTitle(context, d.slug),
                       description: AppLocalizations.of(context)
                           .knowledgeBooksCount(counts[d.slug] ?? 0),
                       ctaLabel: AppLocalizations.of(context).commonBrowse,
@@ -122,4 +122,20 @@ class KnowledgeLibraryScreen extends ConsumerWidget {
       ),
     );
   }
+}
+
+/// Library topic name in the app's language.
+String libraryDisciplineTitle(BuildContext context, String slug) {
+  final l = AppLocalizations.of(context);
+  return switch (slug) {
+    'aqeedah' => l.libDiscAqeedah,
+    'tafsir' => l.libDiscTafsir,
+    'hadith' => l.libDiscHadith,
+    'fiqh' => l.libDiscFiqh,
+    'seerah' => l.libDiscSeerah,
+    'adab' => l.libDiscAdab,
+    'dawah' => l.libDiscDawah,
+    'arabic' => l.libDiscArabic,
+    _ => libraryDisciplineLabel(slug),
+  };
 }

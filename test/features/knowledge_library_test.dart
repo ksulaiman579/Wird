@@ -66,6 +66,6 @@ void main() {
 
     // Language chips are present and English is selected by default.
     expect(find.widgetWithText(ChoiceChip, 'English'), findsOneWidget);
-    expect(find.widgetWithText(ChoiceChip, 'Arabic'), findsOneWidget);
+    expect(find.widgetWithText(ChoiceChip, 'العربية'), findsOneWidget);
   });
 }

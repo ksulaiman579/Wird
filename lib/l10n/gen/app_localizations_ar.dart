@@ -2152,4 +2152,28 @@ class AppLocalizationsAr extends AppLocalizations {
   String khatmahDayN(int day) {
     return 'اليوم $day';
   }
+
+  @override
+  String get libDiscAqeedah => 'العقيدة';
+
+  @override
+  String get libDiscTafsir => 'التفسير';
+
+  @override
+  String get libDiscHadith => 'الحديث';
+
+  @override
+  String get libDiscFiqh => 'الفقه';
+
+  @override
+  String get libDiscSeerah => 'السيرة النبوية';
+
+  @override
+  String get libDiscAdab => 'الآداب والأخلاق';
+
+  @override
+  String get libDiscDawah => 'الدعوة';
+
+  @override
+  String get libDiscArabic => 'اللغة العربية';
 }

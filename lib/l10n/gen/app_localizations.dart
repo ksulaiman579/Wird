@@ -3851,6 +3851,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Day {day}'**
   String khatmahDayN(int day);
+
+  /// Library topic.
+  ///
+  /// In en, this message translates to:
+  /// **'Aqeedah (Creed)'**
+  String get libDiscAqeedah;
+
+  /// Library topic.
+  ///
+  /// In en, this message translates to:
+  /// **'Tafsir'**
+  String get libDiscTafsir;
+
+  /// Library topic.
+  ///
+  /// In en, this message translates to:
+  /// **'Hadith'**
+  String get libDiscHadith;
+
+  /// Library topic.
+  ///
+  /// In en, this message translates to:
+  /// **'Fiqh (Jurisprudence)'**
+  String get libDiscFiqh;
+
+  /// Library topic.
+  ///
+  /// In en, this message translates to:
+  /// **'Seerah (Biography)'**
+  String get libDiscSeerah;
+
+  /// Library topic.
+  ///
+  /// In en, this message translates to:
+  /// **'Manners & Ethics'**
+  String get libDiscAdab;
+
+  /// Library topic.
+  ///
+  /// In en, this message translates to:
+  /// **'Da\'wah'**
+  String get libDiscDawah;
+
+  /// Library topic.
+  ///
+  /// In en, this message translates to:
+  /// **'Arabic Language'**
+  String get libDiscArabic;
 }
 
 class _AppLocalizationsDelegate

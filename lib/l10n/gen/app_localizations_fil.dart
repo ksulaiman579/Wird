@@ -267,7 +267,7 @@ class AppLocalizationsFil extends AppLocalizations {
   String get commonBrowse => 'Mag-browse';
 
   @override
-  String get commonExplore => 'Explore';
+  String get commonExplore => 'Tuklasin';
 
   @override
   String get commonReview => 'Pagsubok';
@@ -690,7 +690,7 @@ class AppLocalizationsFil extends AppLocalizations {
   String get progressHadith => 'Hadith';
 
   @override
-  String get progressDuas => 'Duas';
+  String get progressDuas => 'Mga dua';
 
   @override
   String get progressReviewAccuracy => 'Katumpakan ng pagsusuri';
@@ -2193,4 +2193,28 @@ class AppLocalizationsFil extends AppLocalizations {
   String khatmahDayN(int day) {
     return 'Araw $day';
   }
+
+  @override
+  String get libDiscAqeedah => 'Aqeedah (Paniniwala)';
+
+  @override
+  String get libDiscTafsir => 'Tafsir';
+
+  @override
+  String get libDiscHadith => 'Hadith';
+
+  @override
+  String get libDiscFiqh => 'Fiqh (Batas)';
+
+  @override
+  String get libDiscSeerah => 'Seerah (Talambuhay)';
+
+  @override
+  String get libDiscAdab => 'Asal at Etika';
+
+  @override
+  String get libDiscDawah => 'Da\'wah';
+
+  @override
+  String get libDiscArabic => 'Wikang Arabe';
 }

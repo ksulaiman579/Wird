@@ -1,3 +1,4 @@
+import 'package:wird/l10n/gen/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 import '../glass/glass_card.dart';
@@ -99,7 +100,7 @@ class NumberedContentCard extends StatelessWidget {
                 IconButton(
                   onPressed: onBookmark,
                   icon: Icon(bookmarked ? Icons.bookmark : Icons.bookmark_border),
-                  tooltip: 'Bookmark',
+                  tooltip: AppLocalizations.of(context).commonBookmark,
                 ),
               if (onPlay != null)
                 IconButton.filled(

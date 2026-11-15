@@ -24,14 +24,14 @@ String libraryDisciplineLabel(String slug) => libraryDisciplines
     .firstWhere((d) => d.slug == slug, orElse: () => (slug: slug, label: slug))
     .label;
 
-/// The 7 catalogue languages, in display order.
+/// The 7 catalogue languages, in display order, each in its own script.
 const libraryLanguages = <({String code, String label})>[
   (code: 'en', label: 'English'),
-  (code: 'ar', label: 'Arabic'),
-  (code: 'ur', label: 'Urdu'),
-  (code: 'bn', label: 'Bangla'),
-  (code: 'hi', label: 'Hindi'),
-  (code: 'ml', label: 'Malayalam'),
+  (code: 'ar', label: 'العربية'),
+  (code: 'ur', label: 'اردو'),
+  (code: 'bn', label: 'বাংলা'),
+  (code: 'hi', label: 'हिन्दी'),
+  (code: 'ml', label: 'മലയാളം'),
   (code: 'tl', label: 'Tagalog'),
 ];
 

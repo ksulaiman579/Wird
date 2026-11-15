@@ -2869,5 +2869,37 @@
         "type": "int"
       }
     }
+  },
+  "libDiscAqeedah": "Aqeedah (Creed)",
+  "@libDiscAqeedah": {
+    "description": "Library topic."
+  },
+  "libDiscTafsir": "Tafsir",
+  "@libDiscTafsir": {
+    "description": "Library topic."
+  },
+  "libDiscHadith": "Hadith",
+  "@libDiscHadith": {
+    "description": "Library topic."
+  },
+  "libDiscFiqh": "Fiqh (Jurisprudence)",
+  "@libDiscFiqh": {
+    "description": "Library topic."
+  },
+  "libDiscSeerah": "Seerah (Biography)",
+  "@libDiscSeerah": {
+    "description": "Library topic."
+  },
+  "libDiscAdab": "Manners & Ethics",
+  "@libDiscAdab": {
+    "description": "Library topic."
+  },
+  "libDiscDawah": "Da'wah",
+  "@libDiscDawah": {
+    "description": "Library topic."
+  },
+  "libDiscArabic": "Arabic Language",
+  "@libDiscArabic": {
+    "description": "Library topic."
   }
 }

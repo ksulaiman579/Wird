@@ -9,7 +9,8 @@ import '../../core/content/library_download_service.dart';
 import '../../core/content/library_repository.dart';
 import '../../core/content/models/library_book.dart';
 import '../../shared/glass/glass.dart';
-import 'knowledge_library_screen.dart' show libraryLanguageProvider;
+import 'knowledge_library_screen.dart'
+    show libraryDisciplineTitle, libraryLanguageProvider;
 
 String _fmtSize(int bytes) {
   final mb = bytes / (1024 * 1024);
@@ -54,7 +55,7 @@ class _BookListScreenState extends ConsumerState<BookListScreen> {
 
     return GlassScaffold(
       appBar: GlassAppBar(
-        title: Text(libraryDisciplineLabel(widget.discipline)),
+        title: Text(libraryDisciplineTitle(context, widget.discipline)),
       ),
       contentPadding: EdgeInsets.zero,
       body: Column(

@@ -265,7 +265,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get commonBrowse => 'ब्राउज़ करें';
 
   @override
-  String get commonExplore => 'Explore';
+  String get commonExplore => 'खोजें';
 
   @override
   String get commonReview => 'समीक्षा';
@@ -675,10 +675,10 @@ class AppLocalizationsHi extends AppLocalizations {
   String get progressAyahs => 'आयतें';
 
   @override
-  String get progressHadith => 'Hadith';
+  String get progressHadith => 'हदीस';
 
   @override
-  String get progressDuas => 'Duas';
+  String get progressDuas => 'दुआएँ';
 
   @override
   String get progressReviewAccuracy => 'समीक्षा की सटीकता';
@@ -2164,4 +2164,28 @@ class AppLocalizationsHi extends AppLocalizations {
   String khatmahDayN(int day) {
     return 'दिन $day';
   }
+
+  @override
+  String get libDiscAqeedah => 'अक़ीदा';
+
+  @override
+  String get libDiscTafsir => 'तफ़सीर';
+
+  @override
+  String get libDiscHadith => 'हदीस';
+
+  @override
+  String get libDiscFiqh => 'फ़िक़्ह';
+
+  @override
+  String get libDiscSeerah => 'सीरत';
+
+  @override
+  String get libDiscAdab => 'आदाब और अख़लाक़';
+
+  @override
+  String get libDiscDawah => 'दावत';
+
+  @override
+  String get libDiscArabic => 'अरबी भाषा';
 }
