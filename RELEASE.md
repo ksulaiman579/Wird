@@ -56,8 +56,11 @@ anything distributed). To ship a real release:
    exists — don't add one speculatively.
 4. **Build:**
    ```sh
-   flutter build apk --release
-   # output: build/app/outputs/flutter-apk/app-release.apk
+   flutter build apk --release --split-per-abi
+   # outputs: build/app/outputs/flutter-apk/app-{arm64-v8a,armeabi-v7a,x86_64}-release.apk
+   # (~40 MB each instead of one ~100 MB APK). Optionally also build the
+   # single fat APK with `flutter build apk --release` as wird.apk for
+   # older app versions, which only read apkUrl.
    ```
 5. **Attach to a GitHub Release:** tag the commit (`git tag v1.0.0 && git
    push --tags`), then create a release on GitHub and upload the APK as a
@@ -70,8 +73,14 @@ anything distributed). To ship a real release:
    ```json
    { "versionCode": 4, "versionName": "1.2.2", "notes": "...",
      "apkUrl": "https://github.com/ksulaiman579/Wird/releases/latest/download/wird.apk",
-     "sha256": "..." }
+     "sha256": "...",
+     "apks": {
+       "arm64-v8a":   { "url": ".../wird-arm64-v8a.apk",   "sha256": "..." },
+       "armeabi-v7a": { "url": ".../wird-armeabi-v7a.apk", "sha256": "..." },
+       "x86_64":      { "url": ".../wird-x86_64.apk",      "sha256": "..." }
+     } }
    ```
+   The app downloads the APK for its own ABI and falls back to `apkUrl`.
 
 Bump `pubspec.yaml`'s `version:` (both the `x.y.z` name and the `+N` build
 number) before each release — both `flutter build apk` and `flutter build

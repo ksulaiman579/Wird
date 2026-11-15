@@ -76,14 +76,17 @@ class AppUpdateService {
       if (resp.statusCode != 200) return null;
       final json = jsonDecode(resp.body) as Map<String, dynamic>;
       final latest = (json['versionCode'] as num?)?.toInt();
-      final apkUrl = json['apkUrl'] as String?;
+      // Per-ABI APKs are ~40 MB instead of one ~100 MB fat APK (M27.8).
+      // Older manifests only have apkUrl; that still works.
+      final apkUrl = pickApkUrl(json, currentAbiKey());
+      final sha = pickApkSha256(json, currentAbiKey());
       if (latest == null || apkUrl == null || latest <= current) return null;
       return UpdateInfo(
         versionName: json['versionName'] as String? ?? '',
         versionCode: latest,
         notes: json['notes'] as String? ?? '',
         apkUrl: apkUrl,
-        sha256: (json['sha256'] as String?)?.toLowerCase(),
+        sha256: sha?.toLowerCase(),
       );
     } catch (_) {
       return null;
@@ -186,3 +189,37 @@ final appUpdateServiceProvider =
 /// `ref.refresh` it for a manual "check now".
 final updateCheckProvider =
     FutureProvider<UpdateInfo?>((ref) => ref.watch(appUpdateServiceProvider).checkForUpdate());
+
+/// update.json ABI key for this device ('arm64-v8a', 'armeabi-v7a',
+/// 'x86_64'), read from the Dart VM's platform string, or null.
+String? currentAbiKey() => abiKeyFromVersion(Platform.version);
+
+String? abiKeyFromVersion(String version) {
+  if (version.contains('android_arm64')) return 'arm64-v8a';
+  if (version.contains('android_arm')) return 'armeabi-v7a';
+  if (version.contains('android_x64')) return 'x86_64';
+  return null;
+}
+
+/// The APK for this device: `apks[abi].url` when the manifest lists per-ABI
+/// builds, else the single `apkUrl`.
+String? pickApkUrl(Map<String, dynamic> json, String? abiKey) {
+  final entry = _abiEntry(json, abiKey);
+  return (entry?['url'] as String?) ?? json['apkUrl'] as String?;
+}
+
+/// The hash matching [pickApkUrl]'s choice.
+String? pickApkSha256(Map<String, dynamic> json, String? abiKey) {
+  final entry = _abiEntry(json, abiKey);
+  if (entry != null) return entry['sha256'] as String?;
+  return json['sha256'] as String?;
+}
+
+Map<String, dynamic>? _abiEntry(Map<String, dynamic> json, String? key) {
+  final apks = json['apks'];
+  if (apks is! Map || key == null) return null;
+  final entry = apks[key];
+  return entry is Map<String, dynamic> && entry['url'] is String
+      ? entry
+      : null;
+}

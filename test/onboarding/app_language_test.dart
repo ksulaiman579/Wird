@@ -46,9 +46,12 @@ void main() {
     }
   });
 
-  testWidgets('AppLocalizations loads cleanly for every ARB locale without missing-key fallback errors',
+  testWidgets('AppLocalizations loads cleanly for every shipped locale without missing-key fallback errors',
       (WidgetTester tester) async {
-    for (final option in allAppLanguages) {
+    // Only shipped locales are compiled in (unshipped ARBs live in
+    // l10n_pending/).
+    for (final code in shipLocaleCodes) {
+      final option = (code: code);
       final locale = Locale(option.code);
       final localizations = await AppLocalizations.delegate.load(locale);
 
