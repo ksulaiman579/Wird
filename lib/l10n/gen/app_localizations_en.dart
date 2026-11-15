@@ -1009,7 +1009,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get obDisclaimerBody =>
-      'Wird is fully offline. Your progress lives on this device — you never need an account to use any part of the app.\n\nLater, you can optionally sign in with Al-Manhaj (one time) just to back up your progress to the cloud. That\'s the only thing an account does here.';
+      'Wird is fully offline. Your progress lives on this device — you never need an account to use any part of the app.';
 
   @override
   String get commonGotIt => 'Got it';

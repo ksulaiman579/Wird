@@ -1026,7 +1026,7 @@ class AppLocalizationsFil extends AppLocalizations {
 
   @override
   String get obDisclaimerBody =>
-      'Ang Wird ay ganap na offline. Ang iyong pag-unlad ay nabubuhay sa aparato na ito  hindi mo kailanman kailangan ng isang account upang gamitin ang anumang bahagi ng app. Mamaya, maaari kang opsyunal na mag-sign in sa Al-Manhaj (isang beses) upang i-backup lamang ang iyong pag-unlad sa ulap. Iyon lamang ang ginagawa ng isang account dito.';
+      'Ang Wird ay ganap na offline. Ang iyong pag-unlad ay nabubuhay sa aparato na ito  hindi mo kailanman kailangan ng isang account upang gamitin ang anumang bahagi ng app.';
 
   @override
   String get commonGotIt => 'Nalaman ko na';

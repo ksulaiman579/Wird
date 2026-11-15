@@ -1959,7 +1959,7 @@ abstract class AppLocalizations {
   /// Onboarding offline-disclaimer dialog body.
   ///
   /// In en, this message translates to:
-  /// **'Wird is fully offline. Your progress lives on this device — you never need an account to use any part of the app.\n\nLater, you can optionally sign in with Al-Manhaj (one time) just to back up your progress to the cloud. That\'s the only thing an account does here.'**
+  /// **'Wird is fully offline. Your progress lives on this device — you never need an account to use any part of the app.'**
   String get obDisclaimerBody;
 
   /// Generic acknowledge button.
