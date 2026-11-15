@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 
 import 'storage_estimate.dart';
+import 'package:wird/l10n/gen/app_localizations.dart';
 
 /// Before a multi-MB pack download on the PWA (M13.8): browsers can evict
 /// IndexedDB/OPFS storage under pressure, and mobile Safari in particular
@@ -27,24 +28,23 @@ Future<bool> confirmStorageBudget(
   final confirmed = await showDialog<bool>(
     context: context,
     builder: (context) => AlertDialog(
-      title: Text('Download ~${estimatedMb.toStringAsFixed(0)} MB?'),
+      title: Text(AppLocalizations.of(context).storageTitle(estimatedMb.toStringAsFixed(0))),
       content: Text(
         usageMb == null || quotaMb == null
-            ? 'This browser tab stores downloads in its own local storage, '
-                'which the browser can evict under storage pressure.'
-            : 'This browser tab is already using '
-                '${usageMb.toStringAsFixed(0)} MB of its '
-                '${quotaMb.toStringAsFixed(0)} MB storage quota. Browsers '
-                'can evict this storage under pressure — continue?',
+            ? AppLocalizations.of(context).storageBodyUnknown
+            : AppLocalizations.of(context).storageBody(
+                usageMb.toStringAsFixed(0),
+                quotaMb.toStringAsFixed(0),
+              ),
       ),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(false),
-          child: const Text('Cancel'),
+          child: Text(AppLocalizations.of(context).commonCancel),
         ),
         FilledButton(
           onPressed: () => Navigator.of(context).pop(true),
-          child: const Text('Download'),
+          child: Text(AppLocalizations.of(context).commonDownload),
         ),
       ],
     ),

@@ -1885,4 +1885,69 @@ class AppLocalizationsFil extends AppLocalizations {
 
   @override
   String get notifStreakBodyNone => 'Huwag kalimutan ang bahagi ngayong araw.';
+
+  @override
+  String get tasbihCustom => 'Sarili';
+
+  @override
+  String get tasbihRecent => 'Mga kamakailang session';
+
+  @override
+  String get tasbihNoSessions => 'Wala pang session';
+
+  @override
+  String get tasbihCustomTitle => 'Sariling dhikr at bilang';
+
+  @override
+  String get tasbihCustomName => 'Dhikr (hal. Salawat, SubhanAllah)';
+
+  @override
+  String get tasbihCustomTarget => 'Target na bilang';
+
+  @override
+  String get audioErrorOffline => 'Walang internet para sa audio.';
+
+  @override
+  String get audioErrorGeneric =>
+      'Hindi ma-play ang audio. Suriin ang koneksyon o pumili ng ibang qari.';
+
+  @override
+  String get notFoundTitle => 'Wala ang pahinang ito';
+
+  @override
+  String get notFoundBody => 'Maaaring luma o mali ang pagkakasulat ng link.';
+
+  @override
+  String get notFoundHome => 'Bumalik sa Home';
+
+  @override
+  String get backupMonthlySaved =>
+      'Na-save sa device na ito ang buwanang backup';
+
+  @override
+  String downloadsCount(int done, int total) {
+    return '$done sa $total surah ang na-download';
+  }
+
+  @override
+  String downloadsSize(String size) {
+    return 'Tinatayang laki: $size';
+  }
+
+  @override
+  String get progressJuz => 'Juz';
+
+  @override
+  String storageTitle(String mb) {
+    return 'I-download ang ~$mb MB?';
+  }
+
+  @override
+  String get storageBodyUnknown =>
+      'Itinatago ng browser tab na ito ang mga download sa sarili nitong storage, na maaaring burahin ng browser kapag kulang ang espasyo.';
+
+  @override
+  String storageBody(String used, String quota) {
+    return 'Gumagamit na ang tab na ito ng $used MB sa $quota MB nito. Maaaring burahin ito ng browser kapag kulang ang espasyo — ituloy?';
+  }
 }

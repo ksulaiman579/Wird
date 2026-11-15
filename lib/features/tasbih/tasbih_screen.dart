@@ -221,16 +221,16 @@ class _PresetPicker extends ConsumerWidget {
         GlassCard(
           enableBlur: false,
           onTap: () => _showCustomDialog(context, onCustom),
-          child: const Text('Custom'),
+          child: Text(AppLocalizations.of(context).tasbihCustom),
         ),
         const SizedBox(height: 24),
-        Text('Recent sessions', style: Theme.of(context).textTheme.titleMedium),
+        Text(AppLocalizations.of(context).tasbihRecent, style: Theme.of(context).textTheme.titleMedium),
         const SizedBox(height: 8),
         historyAsync.when(
           loading: () => const Center(child: CircularProgressIndicator()),
           error: (e, st) => Text(AppLocalizations.of(context).commonFailedToLoad('$e')),
           data: (sessions) => sessions.isEmpty
-              ? const Text('No sessions yet')
+              ? Text(AppLocalizations.of(context).tasbihNoSessions)
               : Column(
                   children: [
                     for (final session in sessions)
@@ -261,14 +261,14 @@ class _PresetPicker extends ConsumerWidget {
     showDialog<void>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Custom Dhikr & Target'),
+        title: Text(AppLocalizations.of(context).tasbihCustomTitle),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             TextField(
               controller: nameController,
-              decoration: const InputDecoration(
-                labelText: 'Dhikr (e.g. Salawat, SubhanAllah)',
+              decoration: InputDecoration(
+                labelText: AppLocalizations.of(context).tasbihCustomName,
               ),
               autofocus: true,
             ),
@@ -276,14 +276,14 @@ class _PresetPicker extends ConsumerWidget {
             TextField(
               controller: countController,
               keyboardType: TextInputType.number,
-              decoration: const InputDecoration(labelText: 'Target Count'),
+              decoration: InputDecoration(labelText: AppLocalizations.of(context).tasbihCustomTarget),
             ),
           ],
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Cancel'),
+            child: Text(AppLocalizations.of(context).commonCancel),
           ),
           FilledButton(
             onPressed: () {
@@ -293,7 +293,7 @@ class _PresetPicker extends ConsumerWidget {
                 onCustom(nameController.text, target);
               }
             },
-            child: const Text('Start'),
+            child: Text(AppLocalizations.of(context).commonStart),
           ),
         ],
       ),

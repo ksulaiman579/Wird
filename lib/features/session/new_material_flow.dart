@@ -103,7 +103,7 @@ class _NewMaterialFlowState extends ConsumerState<NewMaterialFlow> {
       if (!mounted) return;
       setState(() {
         _isPlayingAudio = false;
-        _audioError = formatAudioError(e);
+        _audioError = formatAudioError(e, AppLocalizations.of(context));
       });
     }
   }

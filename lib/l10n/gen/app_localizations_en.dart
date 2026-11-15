@@ -1860,4 +1860,68 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get notifStreakBodyNone => 'Don\'t forget today\'s portion.';
+
+  @override
+  String get tasbihCustom => 'Custom';
+
+  @override
+  String get tasbihRecent => 'Recent sessions';
+
+  @override
+  String get tasbihNoSessions => 'No sessions yet';
+
+  @override
+  String get tasbihCustomTitle => 'Custom dhikr & target';
+
+  @override
+  String get tasbihCustomName => 'Dhikr (e.g. Salawat, SubhanAllah)';
+
+  @override
+  String get tasbihCustomTarget => 'Target count';
+
+  @override
+  String get audioErrorOffline => 'No internet connection available for audio.';
+
+  @override
+  String get audioErrorGeneric =>
+      'Unable to play audio. Please check your connection or try another reciter.';
+
+  @override
+  String get notFoundTitle => 'This page doesn\'t exist';
+
+  @override
+  String get notFoundBody => 'The link may be old or mistyped.';
+
+  @override
+  String get notFoundHome => 'Go home';
+
+  @override
+  String get backupMonthlySaved => 'Monthly backup saved to this device';
+
+  @override
+  String downloadsCount(int done, int total) {
+    return '$done of $total surahs downloaded';
+  }
+
+  @override
+  String downloadsSize(String size) {
+    return 'Estimated size: $size';
+  }
+
+  @override
+  String get progressJuz => 'Juz';
+
+  @override
+  String storageTitle(String mb) {
+    return 'Download ~$mb MB?';
+  }
+
+  @override
+  String get storageBodyUnknown =>
+      'This browser tab keeps downloads in its own storage, which the browser can clear when space runs low.';
+
+  @override
+  String storageBody(String used, String quota) {
+    return 'This browser tab already uses $used MB of its $quota MB storage. Browsers can clear this storage when space runs low — continue?';
+  }
 }

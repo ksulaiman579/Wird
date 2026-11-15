@@ -61,7 +61,13 @@ class _DailyAppState extends ConsumerState<DailyApp> {
           .maybeRunMonthlyBackup();
       if (wrote) {
         _messengerKey.currentState?.showSnackBar(
-          const SnackBar(content: Text('Monthly backup saved to this device')),
+          SnackBar(
+            content: Text(
+              lookupAppLocalizations(
+                Locale(ref.read(appLanguageProvider).value ?? 'en'),
+              ).backupMonthlySaved,
+            ),
+          ),
         );
       }
     } catch (_) {

@@ -1862,4 +1862,68 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get notifStreakBodyNone => 'আজকের অংশ ভুলবেন না।';
+
+  @override
+  String get tasbihCustom => 'নিজস্ব';
+
+  @override
+  String get tasbihRecent => 'সাম্প্রতিক সেশন';
+
+  @override
+  String get tasbihNoSessions => 'এখনো কোনো সেশন নেই';
+
+  @override
+  String get tasbihCustomTitle => 'নিজস্ব জিকির ও লক্ষ্য';
+
+  @override
+  String get tasbihCustomName => 'জিকির (যেমন দরুদ, সুবহানাল্লাহ)';
+
+  @override
+  String get tasbihCustomTarget => 'লক্ষ্য সংখ্যা';
+
+  @override
+  String get audioErrorOffline => 'অডিওর জন্য ইন্টারনেট সংযোগ নেই।';
+
+  @override
+  String get audioErrorGeneric =>
+      'অডিও চালানো যায়নি। সংযোগ দেখুন বা অন্য কারি বেছে নিন।';
+
+  @override
+  String get notFoundTitle => 'এই পেজটি নেই';
+
+  @override
+  String get notFoundBody => 'লিংকটি পুরোনো বা ভুল লেখা হতে পারে।';
+
+  @override
+  String get notFoundHome => 'হোমে যান';
+
+  @override
+  String get backupMonthlySaved => 'মাসিক ব্যাকআপ এই ডিভাইসে সংরক্ষিত হয়েছে';
+
+  @override
+  String downloadsCount(int done, int total) {
+    return '$totalটির মধ্যে $doneটি সূরা ডাউনলোড হয়েছে';
+  }
+
+  @override
+  String downloadsSize(String size) {
+    return 'আনুমানিক আকার: $size';
+  }
+
+  @override
+  String get progressJuz => 'পারা';
+
+  @override
+  String storageTitle(String mb) {
+    return 'প্রায় $mb MB ডাউনলোড করবেন?';
+  }
+
+  @override
+  String get storageBodyUnknown =>
+      'এই ব্রাউজার ট্যাব ডাউনলোড নিজের জায়গায় রাখে, জায়গা কমে গেলে ব্রাউজার তা মুছে দিতে পারে।';
+
+  @override
+  String storageBody(String used, String quota) {
+    return 'এই ট্যাব $quota MB-এর মধ্যে $used MB ব্যবহার করছে। জায়গা কমে গেলে ব্রাউজার তা মুছে দিতে পারে — চালিয়ে যাবেন?';
+  }
 }

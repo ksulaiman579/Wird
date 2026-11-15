@@ -41,6 +41,7 @@ import 'features/settings/plan_edit_screen.dart';
 import 'features/settings/settings_screen.dart';
 import 'features/today/today_screen.dart';
 import 'shared/widgets/app_shell.dart';
+import 'package:wird/l10n/gen/app_localizations.dart';
 
 /// Router is Riverpod-provided (rather than a bare top-level constant) so
 /// its redirect logic can read the database: no local profile yet always
@@ -73,20 +74,20 @@ final routerProvider = Provider<GoRouter>((ref) {
               ),
               const SizedBox(height: 16),
               Text(
-                "This page doesn't exist",
+                AppLocalizations.of(context).notFoundTitle,
                 style: Theme.of(context).textTheme.headlineSmall,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 8),
-              const Text(
-                'The link may be old or mistyped.',
+              Text(
+                AppLocalizations.of(context).notFoundBody,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 24),
               FilledButton.icon(
                 onPressed: () => context.go('/'),
                 icon: const Icon(Icons.home_rounded),
-                label: const Text('Go home'),
+                label: Text(AppLocalizations.of(context).notFoundHome),
               ),
             ],
           ),

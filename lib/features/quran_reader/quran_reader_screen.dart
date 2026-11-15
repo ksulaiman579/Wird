@@ -190,7 +190,7 @@ class _QuranReaderScreenState extends ConsumerState<QuranReaderScreen> {
       if (mounted) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text(formatAudioError(e))));
+        ).showSnackBar(SnackBar(content: Text(formatAudioError(e, AppLocalizations.of(context)))));
       }
     }
   }

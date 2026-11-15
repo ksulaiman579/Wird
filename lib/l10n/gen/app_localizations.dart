@@ -3335,6 +3335,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Don\'t forget today\'s portion.'**
   String get notifStreakBodyNone;
+
+  /// Tasbih screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom'**
+  String get tasbihCustom;
+
+  /// Tasbih screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent sessions'**
+  String get tasbihRecent;
+
+  /// Tasbih screen.
+  ///
+  /// In en, this message translates to:
+  /// **'No sessions yet'**
+  String get tasbihNoSessions;
+
+  /// Tasbih screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom dhikr & target'**
+  String get tasbihCustomTitle;
+
+  /// Tasbih screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Dhikr (e.g. Salawat, SubhanAllah)'**
+  String get tasbihCustomName;
+
+  /// Tasbih screen.
+  ///
+  /// In en, this message translates to:
+  /// **'Target count'**
+  String get tasbihCustomTarget;
+
+  /// UI text.
+  ///
+  /// In en, this message translates to:
+  /// **'No internet connection available for audio.'**
+  String get audioErrorOffline;
+
+  /// UI text.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to play audio. Please check your connection or try another reciter.'**
+  String get audioErrorGeneric;
+
+  /// UI text.
+  ///
+  /// In en, this message translates to:
+  /// **'This page doesn\'t exist'**
+  String get notFoundTitle;
+
+  /// UI text.
+  ///
+  /// In en, this message translates to:
+  /// **'The link may be old or mistyped.'**
+  String get notFoundBody;
+
+  /// UI text.
+  ///
+  /// In en, this message translates to:
+  /// **'Go home'**
+  String get notFoundHome;
+
+  /// UI text.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly backup saved to this device'**
+  String get backupMonthlySaved;
+
+  /// UI text.
+  ///
+  /// In en, this message translates to:
+  /// **'{done} of {total} surahs downloaded'**
+  String downloadsCount(int done, int total);
+
+  /// UI text.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimated size: {size}'**
+  String downloadsSize(String size);
+
+  /// UI text.
+  ///
+  /// In en, this message translates to:
+  /// **'Juz'**
+  String get progressJuz;
+
+  /// UI text.
+  ///
+  /// In en, this message translates to:
+  /// **'Download ~{mb} MB?'**
+  String storageTitle(String mb);
+
+  /// UI text.
+  ///
+  /// In en, this message translates to:
+  /// **'This browser tab keeps downloads in its own storage, which the browser can clear when space runs low.'**
+  String get storageBodyUnknown;
+
+  /// UI text.
+  ///
+  /// In en, this message translates to:
+  /// **'This browser tab already uses {used} MB of its {quota} MB storage. Browsers can clear this storage when space runs low — continue?'**
+  String storageBody(String used, String quota);
 }
 
 class _AppLocalizationsDelegate

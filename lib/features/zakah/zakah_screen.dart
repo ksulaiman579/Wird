@@ -579,7 +579,7 @@ class _SummaryCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Summary', style: textTheme.headlineSmall),
+          Text(AppLocalizations.of(context).zakahSummary, style: textTheme.headlineSmall),
           const SizedBox(height: 12),
           if (rows.isEmpty)
             Text(AppLocalizations.of(context).zakahSelectCategories)

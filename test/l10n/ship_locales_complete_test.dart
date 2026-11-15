@@ -18,6 +18,7 @@ void main() {
   // Intentionally identical to English: brand/Islamic proper nouns,
   // transliterations, pure-placeholder strings, and Tagalog loanwords.
   const allowVerbatim = <String>{
+    'progressJuz', // "Juz" is the loanword in Filipino too
     'achievementProgress', 'alManhajTitle', 'appTitle', 'commonExplore',
     'commonJuzN', 'commonMinutesShort', 'commonSurahN', 'commonSurahWord',
     'durationHr', 'durationHrMin', 'durationMin', 'hadithCollectionNawawi',

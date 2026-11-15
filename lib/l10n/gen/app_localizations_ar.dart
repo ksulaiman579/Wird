@@ -1846,4 +1846,69 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get notifStreakBodyNone => 'لا تنسَ وِرد اليوم.';
+
+  @override
+  String get tasbihCustom => 'مخصص';
+
+  @override
+  String get tasbihRecent => 'الجلسات الأخيرة';
+
+  @override
+  String get tasbihNoSessions => 'لا توجد جلسات بعد';
+
+  @override
+  String get tasbihCustomTitle => 'ذكر مخصص وعدد';
+
+  @override
+  String get tasbihCustomName => 'الذكر (مثل الصلاة على النبي، سبحان الله)';
+
+  @override
+  String get tasbihCustomTarget => 'العدد المطلوب';
+
+  @override
+  String get audioErrorOffline => 'لا يوجد اتصال بالإنترنت لتشغيل الصوت.';
+
+  @override
+  String get audioErrorGeneric =>
+      'تعذّر تشغيل الصوت. تحقق من الاتصال أو جرّب قارئًا آخر.';
+
+  @override
+  String get notFoundTitle => 'هذه الصفحة غير موجودة';
+
+  @override
+  String get notFoundBody => 'قد يكون الرابط قديمًا أو مكتوبًا بشكل خاطئ.';
+
+  @override
+  String get notFoundHome => 'الرئيسية';
+
+  @override
+  String get backupMonthlySaved =>
+      'حُفظت النسخة الاحتياطية الشهرية على هذا الجهاز';
+
+  @override
+  String downloadsCount(int done, int total) {
+    return 'تم تنزيل $done من $total سورة';
+  }
+
+  @override
+  String downloadsSize(String size) {
+    return 'الحجم التقريبي: $size';
+  }
+
+  @override
+  String get progressJuz => 'الجزء';
+
+  @override
+  String storageTitle(String mb) {
+    return 'تنزيل نحو $mb ميغابايت؟';
+  }
+
+  @override
+  String get storageBodyUnknown =>
+      'يحفظ هذا التبويب التنزيلات في مساحته الخاصة، وقد يمسحها المتصفح عند امتلاء التخزين.';
+
+  @override
+  String storageBody(String used, String quota) {
+    return 'يستخدم هذا التبويب $used ميغابايت من أصل $quota. قد يمسح المتصفح هذه المساحة عند امتلاء التخزين — هل تريد المتابعة؟';
+  }
 }

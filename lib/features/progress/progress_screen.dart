@@ -126,7 +126,8 @@ class ProgressScreen extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Juz', style: Theme.of(context).textTheme.titleMedium),
+                    Text(AppLocalizations.of(context).progressJuz,
+                        style: Theme.of(context).textTheme.titleMedium),
                     for (final juz in stats.juzProgress)
                       _CoverageBar(coverage: juz),
                   ],

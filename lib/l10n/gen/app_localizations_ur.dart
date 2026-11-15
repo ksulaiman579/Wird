@@ -1861,4 +1861,68 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get notifStreakBodyNone => 'آج کا حصہ نہ بھولیں۔';
+
+  @override
+  String get tasbihCustom => 'اپنی مرضی کا';
+
+  @override
+  String get tasbihRecent => 'حالیہ نشستیں';
+
+  @override
+  String get tasbihNoSessions => 'ابھی کوئی نشست نہیں';
+
+  @override
+  String get tasbihCustomTitle => 'اپنا ذکر اور ہدف';
+
+  @override
+  String get tasbihCustomName => 'ذکر (مثلاً درود، سبحان اللہ)';
+
+  @override
+  String get tasbihCustomTarget => 'ہدف کی تعداد';
+
+  @override
+  String get audioErrorOffline => 'آڈیو کے لیے انٹرنیٹ کنکشن دستیاب نہیں۔';
+
+  @override
+  String get audioErrorGeneric =>
+      'آڈیو نہیں چل سکی۔ کنکشن چیک کریں یا کوئی اور قاری آزمائیں۔';
+
+  @override
+  String get notFoundTitle => 'یہ صفحہ موجود نہیں';
+
+  @override
+  String get notFoundBody => 'لنک پرانا یا غلط لکھا ہو سکتا ہے۔';
+
+  @override
+  String get notFoundHome => 'ہوم پر جائیں';
+
+  @override
+  String get backupMonthlySaved => 'ماہانہ بیک اپ اس آلے پر محفوظ ہو گیا';
+
+  @override
+  String downloadsCount(int done, int total) {
+    return '$total میں سے $done سورتیں ڈاؤن لوڈ ہو گئیں';
+  }
+
+  @override
+  String downloadsSize(String size) {
+    return 'اندازاً حجم: $size';
+  }
+
+  @override
+  String get progressJuz => 'پارہ';
+
+  @override
+  String storageTitle(String mb) {
+    return 'تقریباً $mb MB ڈاؤن لوڈ کریں؟';
+  }
+
+  @override
+  String get storageBodyUnknown =>
+      'یہ براؤزر ٹیب ڈاؤن لوڈز اپنی جگہ میں رکھتا ہے، جسے جگہ کم ہونے پر براؤزر صاف کر سکتا ہے۔';
+
+  @override
+  String storageBody(String used, String quota) {
+    return 'یہ ٹیب $quota MB میں سے $used MB استعمال کر رہا ہے۔ جگہ کم ہونے پر براؤزر اسے صاف کر سکتا ہے — جاری رکھیں؟';
+  }
 }

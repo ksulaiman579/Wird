@@ -66,7 +66,7 @@ class _SurahScreenState extends ConsumerState<SurahScreen> {
       if (!mounted) return;
       setState(() => _playingAyah = null);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(formatAudioError(e))),
+        SnackBar(content: Text(formatAudioError(e, AppLocalizations.of(context)))),
       );
     }
   }

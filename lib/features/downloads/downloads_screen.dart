@@ -161,9 +161,9 @@ class _SummaryCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text('$downloadedCount of $totalCount surahs downloaded'),
+            Text(AppLocalizations.of(context).downloadsCount(downloadedCount, totalCount)),
             const SizedBox(height: 8),
-            Text('Estimated size: ${_formatBytes(estimatedBytes)}',
+            Text(AppLocalizations.of(context).downloadsSize(_formatBytes(estimatedBytes)),
                 style: Theme.of(context).textTheme.bodySmall),
             const SizedBox(height: 12),
             SegmentedButton<String>(

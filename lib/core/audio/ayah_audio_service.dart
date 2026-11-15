@@ -4,6 +4,7 @@ import 'package:just_audio/just_audio.dart';
 
 import 'ayah_audio_urls.dart';
 import 'local_ayah_file.dart';
+import 'package:wird/l10n/gen/app_localizations.dart';
 
 /// Three-tier source selection for one ayah's audio, cheapest/most-offline
 /// first: a locally downloaded file (native only — M4.3), a streamed URL
@@ -12,16 +13,17 @@ import 'local_ayah_file.dart';
 /// everywhere, including web).
 /// Formats an audio playback error so network disconnection is clearly
 /// distinguished from audio source, reciter CDN, or decoder errors (Item 5.3).
-String formatAudioError(Object error) {
+bool isOfflineAudioError(Object error) {
   final msg = error.toString().toLowerCase();
-  if (msg.contains('socketexception') ||
+  return msg.contains('socketexception') ||
       msg.contains('failed host lookup') ||
       msg.contains('network is unreachable') ||
-      msg.contains('no address associated with hostname')) {
-    return 'No internet connection available for audio.';
-  }
-  return 'Unable to play audio. Please check your connection or try another reciter.';
+      msg.contains('no address associated with hostname');
 }
+
+/// The user-facing audio error in the app's language.
+String formatAudioError(Object error, AppLocalizations l) =>
+    isOfflineAudioError(error) ? l.audioErrorOffline : l.audioErrorGeneric;
 
 AudioSource _sourceFor({
   required String reciter,
