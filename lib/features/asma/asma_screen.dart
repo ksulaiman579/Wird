@@ -7,6 +7,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../shared/glass/glass.dart';
+import '../../core/search/arabic_normalizer.dart';
 
 /// One of the 99 Names of Allah (Asma ul-Husna). The Arabic, transliteration
 /// and short meaning are canonical; [explanation] is bundled commentary
@@ -56,10 +57,9 @@ class _AsmaScreenState extends ConsumerState<AsmaScreen> {
 
   bool _matches(AsmaName n, String q) {
     if (q.isEmpty) return true;
-    final lower = q.toLowerCase();
-    return n.transliteration.toLowerCase().contains(lower) ||
-        n.meaning.toLowerCase().contains(lower) ||
-        n.arabic.contains(q) ||
+    return searchMatches(n.transliteration, q) ||
+        searchMatches(n.meaning, q) ||
+        searchMatches(n.arabic, q) ||
         n.number.toString() == q;
   }
 

@@ -9,6 +9,7 @@ import '../../core/content/models/quran_models.dart';
 import '../../shared/glass/glass.dart';
 import 'mark_memorized_controller.dart';
 import 'quran_providers.dart';
+import '../../core/search/arabic_normalizer.dart';
 
 class QuranBrowserScreen extends ConsumerStatefulWidget {
   const QuranBrowserScreen({super.key});
@@ -150,9 +151,9 @@ class _QuranBrowserScreenState extends ConsumerState<QuranBrowserScreen> {
     final asNumber = int.tryParse(trimmed);
     return surahs.where((s) {
       if (asNumber != null) return s.number == asNumber;
-      return s.nameEnglish.toLowerCase().contains(trimmed) ||
-          s.nameTransliterated.toLowerCase().contains(trimmed) ||
-          s.nameArabic.contains(trimmed);
+      return searchMatches(s.nameEnglish, trimmed) ||
+          searchMatches(s.nameTransliterated, trimmed) ||
+          searchMatches(s.nameArabic, trimmed);
     }).toList();
   }
 }

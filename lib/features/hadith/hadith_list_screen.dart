@@ -8,6 +8,7 @@ import '../../core/content/bookmark_service.dart';
 import '../../shared/glass/glass.dart';
 import '../../shared/ui/ui.dart';
 import 'hadith_providers.dart';
+import '../../core/search/arabic_normalizer.dart';
 
 /// Which subset of the collection the list is showing.
 enum _HadithFilter { all, bookmarked }
@@ -52,8 +53,9 @@ class _HadithListScreenState extends ConsumerState<HadithListScreen> {
               return false;
             }
             if (q.isEmpty) return true;
-            return h.titleEnglish.toLowerCase().contains(q) ||
-                h.translation.toLowerCase().contains(q) ||
+            return searchMatches(h.titleEnglish, q) ||
+                searchMatches(h.translation, q) ||
+                searchMatches(h.arabic, q) ||
                 h.id.toString() == q;
           }).toList();
 

@@ -27,6 +27,7 @@ import '../quran_browser/quran_providers.dart';
 import '../quran_reader/reader_prefs.dart';
 import 'onboarding_controller.dart';
 import 'onboarding_state.dart';
+import '../../core/search/arabic_normalizer.dart';
 
 const _juzCount = 30;
 const _surahCount = 114;
@@ -1009,8 +1010,8 @@ class _SurahPickerDialogState extends ConsumerState<_SurahPickerDialog> {
                   final filtered = meta.surahs.where((s) {
                     if (_search.isEmpty) return true;
                     return s.number.toString().contains(_search) ||
-                        s.nameTransliterated.toLowerCase().contains(_search) ||
-                        s.nameArabic.contains(_search);
+                        searchMatches(s.nameTransliterated, _search) ||
+                        searchMatches(s.nameArabic, _search);
                   }).toList();
 
                   return ListView.builder(

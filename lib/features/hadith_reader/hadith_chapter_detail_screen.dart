@@ -11,6 +11,7 @@ import '../../shared/glass/glass.dart';
 import '../../shared/ui/font_size_chips.dart';
 import '../../shared/ui/verse_roundel.dart';
 import 'hadith_reader_providers.dart';
+import '../../core/search/arabic_normalizer.dart';
 
 final _isBookmarkedProvider =
     StreamProvider.autoDispose.family<bool, String>((ref, contentKey) {
@@ -69,7 +70,8 @@ class _HadithChapterDetailScreenState
               : entries
                   .where((e) =>
                       e.number.toString() == q ||
-                      e.translation.toLowerCase().contains(q))
+                      searchMatches(e.translation, q) ||
+                      searchMatches(e.arabic, q))
                   .toList();
           return Column(
             children: [
