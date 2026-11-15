@@ -1922,4 +1922,10 @@ class AppLocalizationsHi extends AppLocalizations {
   String storageBody(String used, String quota) {
     return 'यह टैब $quota MB में से $used MB इस्तेमाल कर रहा है। जगह कम होने पर ब्राउज़र इसे मिटा सकता है — जारी रखें?';
   }
+
+  @override
+  String get a11yHiddenWord => 'छिपा हुआ शब्द। दिखाने के लिए टैप करें।';
+
+  @override
+  String get a11yTasbihCounter => 'गिनने के लिए टैप करें';
 }

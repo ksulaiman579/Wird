@@ -1924,4 +1924,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String storageBody(String used, String quota) {
     return 'This browser tab already uses $used MB of its $quota MB storage. Browsers can clear this storage when space runs low — continue?';
   }
+
+  @override
+  String get a11yHiddenWord => 'Hidden word. Tap to reveal.';
+
+  @override
+  String get a11yTasbihCounter => 'Tap to count';
 }

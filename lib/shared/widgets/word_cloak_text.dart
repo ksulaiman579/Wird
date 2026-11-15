@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart' show setEquals;
 import 'package:flutter/material.dart';
+import 'package:wird/l10n/gen/app_localizations.dart';
 
 /// Splits [text] into words and masks any word whose index is not in
 /// [revealedIndices] behind a fixed-size box roughly matching its length —
@@ -44,8 +45,10 @@ class _WordCloakTextState extends State<WordCloakText> {
 
   @override
   Widget build(BuildContext context) {
-    final words =
-        widget.text.split(RegExp(r'\s+')).where((w) => w.isNotEmpty).toList();
+    final words = widget.text
+        .split(RegExp(r'\s+'))
+        .where((w) => w.isNotEmpty)
+        .toList();
     final effectiveStyle = widget.style ?? DefaultTextStyle.of(context).style;
     final fontSize = effectiveStyle.fontSize ?? 16;
 
@@ -57,27 +60,35 @@ class _WordCloakTextState extends State<WordCloakText> {
         children: [
           for (var i = 0; i < words.length; i++)
             () {
-              final revealed = widget.revealedIndices.contains(i) ||
+              final revealed =
+                  widget.revealedIndices.contains(i) ||
                   _locallyRevealed.contains(i);
               // Cross-fade between the cloak box and the word so tapping to
               // reveal (and re-cloaking on stage change) animates rather than
               // popping (Item 1.5).
               final child = revealed
                   ? Text(words[i], key: ValueKey('w$i'), style: effectiveStyle)
-                  : GestureDetector(
+                  : Semantics(
                       key: ValueKey('c$i'),
-                      onTap: widget.allowTapToReveal
-                          ? () => setState(() => _locallyRevealed.add(i))
-                          : null,
-                      child: Container(
-                        width: (words[i].length * fontSize * 0.6)
-                            .clamp(24.0, 200.0),
-                        height: fontSize * 1.3,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context)
-                              .colorScheme
-                              .surfaceContainerHighest,
-                          borderRadius: BorderRadius.circular(6),
+                      button: widget.allowTapToReveal,
+                      label: AppLocalizations.of(context).a11yHiddenWord,
+                      excludeSemantics: true,
+                      child: GestureDetector(
+                        onTap: widget.allowTapToReveal
+                            ? () => setState(() => _locallyRevealed.add(i))
+                            : null,
+                        child: Container(
+                          width: (words[i].length * fontSize * 0.6).clamp(
+                            24.0,
+                            200.0,
+                          ),
+                          height: fontSize * 1.3,
+                          decoration: BoxDecoration(
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.surfaceContainerHighest,
+                            borderRadius: BorderRadius.circular(6),
+                          ),
                         ),
                       ),
                     );

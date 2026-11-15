@@ -555,5 +555,7 @@
   "progressJuz": "Juz",
   "storageTitle": "I-download ang ~{mb} MB?",
   "storageBodyUnknown": "Itinatago ng browser tab na ito ang mga download sa sarili nitong storage, na maaaring burahin ng browser kapag kulang ang espasyo.",
-  "storageBody": "Gumagamit na ang tab na ito ng {used} MB sa {quota} MB nito. Maaaring burahin ito ng browser kapag kulang ang espasyo — ituloy?"
+  "storageBody": "Gumagamit na ang tab na ito ng {used} MB sa {quota} MB nito. Maaaring burahin ito ng browser kapag kulang ang espasyo — ituloy?",
+  "a11yHiddenWord": "Nakatagong salita. I-tap para makita.",
+  "a11yTasbihCounter": "I-tap para magbilang"
 }

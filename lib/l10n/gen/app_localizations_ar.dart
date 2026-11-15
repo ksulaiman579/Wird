@@ -1911,4 +1911,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String storageBody(String used, String quota) {
     return 'يستخدم هذا التبويب $used ميغابايت من أصل $quota. قد يمسح المتصفح هذه المساحة عند امتلاء التخزين — هل تريد المتابعة؟';
   }
+
+  @override
+  String get a11yHiddenWord => 'كلمة مخفية. انقر لإظهارها.';
+
+  @override
+  String get a11yTasbihCounter => 'انقر للعدّ';
 }

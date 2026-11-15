@@ -2418,5 +2418,9 @@
   "storageBodyUnknown": "This browser tab keeps downloads in its own storage, which the browser can clear when space runs low.",
   "@storageBodyUnknown": {"description": "UI text."},
   "storageBody": "This browser tab already uses {used} MB of its {quota} MB storage. Browsers can clear this storage when space runs low — continue?",
-  "@storageBody": {"description": "UI text.", "placeholders": {"used": {"type": "String"}, "quota": {"type": "String"}}}
+  "@storageBody": {"description": "UI text.", "placeholders": {"used": {"type": "String"}, "quota": {"type": "String"}}},
+  "a11yHiddenWord": "Hidden word. Tap to reveal.",
+  "@a11yHiddenWord": {"description": "Screen-reader label."},
+  "a11yTasbihCounter": "Tap to count",
+  "@a11yTasbihCounter": {"description": "Screen-reader label."}
 }

@@ -284,7 +284,8 @@ class GradeBadge extends StatelessWidget {
       HadithAuthenticity.hasan => (const Color(0xFF558B2F), Colors.white),
       HadithAuthenticity.daif => (const Color(0xFFC62828), Colors.white),
       HadithAuthenticity.mawdu => (const Color(0xFF8E0000), Colors.white),
-      HadithAuthenticity.ungraded => (const Color(0xFF9E7B00), Colors.white),
+      // Darker gold: white on #9E7B00 was ~4:1 at 12px (needs 4.5).
+      HadithAuthenticity.ungraded => (const Color(0xFF7A5F00), Colors.white),
     };
     final label = grade.rawGrade == null
         ? grade.authenticity.label

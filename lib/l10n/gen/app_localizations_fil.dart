@@ -1950,4 +1950,10 @@ class AppLocalizationsFil extends AppLocalizations {
   String storageBody(String used, String quota) {
     return 'Gumagamit na ang tab na ito ng $used MB sa $quota MB nito. Maaaring burahin ito ng browser kapag kulang ang espasyo — ituloy?';
   }
+
+  @override
+  String get a11yHiddenWord => 'Nakatagong salita. I-tap para makita.';
+
+  @override
+  String get a11yTasbihCounter => 'I-tap para magbilang';
 }

@@ -3443,6 +3443,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This browser tab already uses {used} MB of its {quota} MB storage. Browsers can clear this storage when space runs low — continue?'**
   String storageBody(String used, String quota);
+
+  /// Screen-reader label.
+  ///
+  /// In en, this message translates to:
+  /// **'Hidden word. Tap to reveal.'**
+  String get a11yHiddenWord;
+
+  /// Screen-reader label.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to count'**
+  String get a11yTasbihCounter;
 }
 
 class _AppLocalizationsDelegate

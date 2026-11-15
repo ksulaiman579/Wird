@@ -1940,4 +1940,10 @@ class AppLocalizationsMl extends AppLocalizations {
   String storageBody(String used, String quota) {
     return 'ഈ ടാബ് $quota MB-ൽ $used MB ഉപയോഗിക്കുന്നു. സ്ഥലം കുറയുമ്പോൾ ബ്രൗസർ ഇത് മായ്ച്ചേക്കാം — തുടരണോ?';
   }
+
+  @override
+  String get a11yHiddenWord => 'മറച്ച വാക്ക്. കാണാൻ ടാപ്പ് ചെയ്യുക.';
+
+  @override
+  String get a11yTasbihCounter => 'എണ്ണാൻ ടാപ്പ് ചെയ്യുക';
 }

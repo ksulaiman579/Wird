@@ -1926,4 +1926,10 @@ class AppLocalizationsBn extends AppLocalizations {
   String storageBody(String used, String quota) {
     return 'এই ট্যাব $quota MB-এর মধ্যে $used MB ব্যবহার করছে। জায়গা কমে গেলে ব্রাউজার তা মুছে দিতে পারে — চালিয়ে যাবেন?';
   }
+
+  @override
+  String get a11yHiddenWord => 'লুকানো শব্দ। দেখতে ট্যাপ করুন।';
+
+  @override
+  String get a11yTasbihCounter => 'গুনতে ট্যাপ করুন';
 }

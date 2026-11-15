@@ -204,7 +204,7 @@ class _TodayHeroCard extends ConsumerWidget {
                       children: [
                         const Icon(
                           Icons.local_fire_department_rounded,
-                          color: Color(0xFFE08A1E),
+                          color: Color(0xFFB8650A),
                           size: 20,
                         ),
                         const SizedBox(width: 4),
@@ -565,7 +565,7 @@ class _StreakCard extends ConsumerWidget {
             children: [
               const Icon(
                 Icons.local_fire_department_rounded,
-                color: Color(0xFFE08A1E),
+                color: Color(0xFFB8650A),
                 size: 28,
               ),
               const SizedBox(width: 6),

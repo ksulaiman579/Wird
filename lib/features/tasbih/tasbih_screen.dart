@@ -24,27 +24,33 @@ class _TasbihPreset {
   int get total => stages.fold(0, (sum, s) => sum + s.count);
 }
 
-const _classicPreset = _TasbihPreset(
-    '33 - 33 - 34 (SubhanAllah, Alhamdulillah, Allahu Akbar)', [
-  _TasbihStage('SubhanAllah', 33),
-  _TasbihStage('Alhamdulillah', 33),
-  _TasbihStage('Allahu Akbar', 34),
-]);
+const _classicPreset =
+    _TasbihPreset('33 - 33 - 34 (SubhanAllah, Alhamdulillah, Allahu Akbar)', [
+      _TasbihStage('SubhanAllah', 33),
+      _TasbihStage('Alhamdulillah', 33),
+      _TasbihStage('Allahu Akbar', 34),
+    ]);
 const _hundredPreset = _TasbihPreset('100', [_TasbihStage('Dhikr', 100)]);
 
-const _subhanAllah33 =
-    _TasbihPreset('SubhanAllah (33)', [_TasbihStage('SubhanAllah', 33)]);
-const _alhamdulillah33 =
-    _TasbihPreset('Alhamdulillah (33)', [_TasbihStage('Alhamdulillah', 33)]);
-const _allahuAkbar33 =
-    _TasbihPreset('Allahu Akbar (33)', [_TasbihStage('Allahu Akbar', 33)]);
-const _astaghfirullah100 =
-    _TasbihPreset('Astaghfirullah (100)', [_TasbihStage('Astaghfirullah', 100)]);
-const _tahleel100 = _TasbihPreset(
-    'La ilaha illallah (100)', [_TasbihStage('La ilaha illallah', 100)]);
+const _subhanAllah33 = _TasbihPreset('SubhanAllah (33)', [
+  _TasbihStage('SubhanAllah', 33),
+]);
+const _alhamdulillah33 = _TasbihPreset('Alhamdulillah (33)', [
+  _TasbihStage('Alhamdulillah', 33),
+]);
+const _allahuAkbar33 = _TasbihPreset('Allahu Akbar (33)', [
+  _TasbihStage('Allahu Akbar', 33),
+]);
+const _astaghfirullah100 = _TasbihPreset('Astaghfirullah (100)', [
+  _TasbihStage('Astaghfirullah', 100),
+]);
+const _tahleel100 = _TasbihPreset('La ilaha illallah (100)', [
+  _TasbihStage('La ilaha illallah', 100),
+]);
 const _subhanAllahiWaBihamdihi100 = _TasbihPreset(
-    'SubhanAllahi wa bihamdihi (100)',
-    [_TasbihStage('SubhanAllahi wa bihamdihi', 100)]);
+  'SubhanAllahi wa bihamdihi (100)',
+  [_TasbihStage('SubhanAllahi wa bihamdihi', 100)],
+);
 const _ninetyNinePreset = _TasbihPreset('99', [_TasbihStage('Dhikr', 99)]);
 
 /// Full-screen tap-anywhere Tasbih counter (M15.3, enhanced in Item 6.9).
@@ -79,7 +85,9 @@ class _TasbihScreenState extends ConsumerState<TasbihScreen> {
   }
 
   void _selectCustom(String dhikr, int target) {
-    final label = dhikr.trim().isEmpty ? 'Custom ($target)' : '$dhikr ($target)';
+    final label = dhikr.trim().isEmpty
+        ? 'Custom ($target)'
+        : '$dhikr ($target)';
     final stageLabel = dhikr.trim().isEmpty ? 'Dhikr' : dhikr.trim();
     _selectPreset(_TasbihPreset(label, [_TasbihStage(stageLabel, target)]));
   }
@@ -125,12 +133,11 @@ class _TasbihScreenState extends ConsumerState<TasbihScreen> {
   @override
   Widget build(BuildContext context) {
     return GlassScaffold(
-      appBar: GlassAppBar(title: Text(AppLocalizations.of(context).tasbihTitle)),
+      appBar: GlassAppBar(
+        title: Text(AppLocalizations.of(context).tasbihTitle),
+      ),
       body: _preset == null
-          ? _PresetPicker(
-              onSelect: _selectPreset,
-              onCustom: _selectCustom,
-            )
+          ? _PresetPicker(onSelect: _selectPreset, onCustom: _selectCustom)
           : _CounterView(
               preset: _preset!,
               stageIndex: _stageIndex,
@@ -156,14 +163,17 @@ class _PresetPicker extends ConsumerWidget {
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        Text(AppLocalizations.of(context).tasbihMultiStage,
-            style: Theme.of(context).textTheme.titleMedium),
+        Text(
+          AppLocalizations.of(context).tasbihMultiStage,
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
         const SizedBox(height: 8),
         GlassCard(
           enableBlur: false,
           onTap: () => onSelect(_classicPreset),
           child: const Text(
-              '33 - 33 - 34 (SubhanAllah, Alhamdulillah, Allahu Akbar)'),
+            '33 - 33 - 34 (SubhanAllah, Alhamdulillah, Allahu Akbar)',
+          ),
         ),
         const SizedBox(height: 8),
         GlassCard(
@@ -178,8 +188,10 @@ class _PresetPicker extends ConsumerWidget {
           child: const Text('99'),
         ),
         const SizedBox(height: 16),
-        Text(AppLocalizations.of(context).tasbihIndividualPresets,
-            style: Theme.of(context).textTheme.titleMedium),
+        Text(
+          AppLocalizations.of(context).tasbihIndividualPresets,
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
         const SizedBox(height: 8),
         GlassCard(
           enableBlur: false,
@@ -224,11 +236,15 @@ class _PresetPicker extends ConsumerWidget {
           child: Text(AppLocalizations.of(context).tasbihCustom),
         ),
         const SizedBox(height: 24),
-        Text(AppLocalizations.of(context).tasbihRecent, style: Theme.of(context).textTheme.titleMedium),
+        Text(
+          AppLocalizations.of(context).tasbihRecent,
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
         const SizedBox(height: 8),
         historyAsync.when(
           loading: () => const Center(child: CircularProgressIndicator()),
-          error: (e, st) => Text(AppLocalizations.of(context).commonFailedToLoad('$e')),
+          error: (e, st) =>
+              Text(AppLocalizations.of(context).commonFailedToLoad('$e')),
           data: (sessions) => sessions.isEmpty
               ? Text(AppLocalizations.of(context).tasbihNoSessions)
               : Column(
@@ -255,7 +271,9 @@ class _PresetPicker extends ConsumerWidget {
   }
 
   void _showCustomDialog(
-      BuildContext context, void Function(String dhikr, int target) onCustom) {
+    BuildContext context,
+    void Function(String dhikr, int target) onCustom,
+  ) {
     final nameController = TextEditingController();
     final countController = TextEditingController(text: '100');
     showDialog<void>(
@@ -276,7 +294,9 @@ class _PresetPicker extends ConsumerWidget {
             TextField(
               controller: countController,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: AppLocalizations.of(context).tasbihCustomTarget),
+              decoration: InputDecoration(
+                labelText: AppLocalizations.of(context).tasbihCustomTarget,
+              ),
             ),
           ],
         ),
@@ -323,41 +343,53 @@ class _CounterView extends StatelessWidget {
     final stage = preset.stages[stageIndex];
     final finished = totalCompleted >= preset.total;
 
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
+    // Screen readers: announce the dhikr and the count, and expose the
+    // whole area as one button (it was silent before).
+    return Semantics(
+      button: true,
+      enabled: !finished,
+      label:
+          '${stage.label}. ${AppLocalizations.of(context).a11yTasbihCounter}',
+      value: '$totalCompleted / ${preset.total}',
       onTap: finished ? null : onTap,
-      child: SizedBox.expand(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              stage.label,
-              style: Theme.of(context).textTheme.headlineSmall,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 16),
-            GlassProgressRing(
-              progress: stageCount / stage.count,
-              size: 200,
-              strokeWidth: 12,
-              center: Text(
-                '$stageCount / ${stage.count}',
-                style: Theme.of(context).textTheme.headlineMedium,
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: finished ? null : onTap,
+        child: SizedBox.expand(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                stage.label,
+                style: Theme.of(context).textTheme.headlineSmall,
+                textAlign: TextAlign.center,
               ),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              finished
-                  ? AppLocalizations.of(context)
-                      .tasbihComplete(totalCompleted, preset.total)
-                  : AppLocalizations.of(context).tasbihTapAnywhere,
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            const SizedBox(height: 24),
-            TextButton(
+              const SizedBox(height: 16),
+              GlassProgressRing(
+                progress: stageCount / stage.count,
+                size: 200,
+                strokeWidth: 12,
+                center: Text(
+                  '$stageCount / ${stage.count}',
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                finished
+                    ? AppLocalizations.of(
+                        context,
+                      ).tasbihComplete(totalCompleted, preset.total)
+                    : AppLocalizations.of(context).tasbihTapAnywhere,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 24),
+              TextButton(
                 onPressed: onReset,
-                child: Text(AppLocalizations.of(context).tasbihChooseAnother)),
-          ],
+                child: Text(AppLocalizations.of(context).tasbihChooseAnother),
+              ),
+            ],
+          ),
         ),
       ),
     );
