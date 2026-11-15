@@ -1824,4 +1824,40 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get searchNames => '99 Names';
+
+  @override
+  String notifAdhanTitle(String salah) {
+    return '$salah — time to pray';
+  }
+
+  @override
+  String notifAdhanBody(String salah) {
+    return 'It is time for $salah.';
+  }
+
+  @override
+  String get notifDailyTitle => 'Today\'s memorization';
+
+  @override
+  String get notifDailyBody =>
+      'Keep your streak going — open Wird for today\'s portion.';
+
+  @override
+  String get notifMorningBody =>
+      'A few minutes of remembrance to start the day.';
+
+  @override
+  String get notifEveningBody =>
+      'A few minutes of remembrance before the day ends.';
+
+  @override
+  String get notifStreakTitle => 'Streak at risk';
+
+  @override
+  String notifStreakBody(int days) {
+    return '2 hours left to keep your $days-day streak.';
+  }
+
+  @override
+  String get notifStreakBodyNone => 'Don\'t forget today\'s portion.';
 }

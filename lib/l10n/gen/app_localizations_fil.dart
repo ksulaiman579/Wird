@@ -1851,4 +1851,38 @@ class AppLocalizationsFil extends AppLocalizations {
 
   @override
   String get searchNames => '99 Pangalan';
+
+  @override
+  String notifAdhanTitle(String salah) {
+    return '$salah — oras na ng pagdarasal';
+  }
+
+  @override
+  String notifAdhanBody(String salah) {
+    return 'Oras na ng $salah.';
+  }
+
+  @override
+  String get notifDailyTitle => 'Pagsasaulo ngayong araw';
+
+  @override
+  String get notifDailyBody =>
+      'Ituloy ang iyong streak — buksan ang Wird para sa bahagi ngayong araw.';
+
+  @override
+  String get notifMorningBody => 'Ilang minutong dhikr para simulan ang araw.';
+
+  @override
+  String get notifEveningBody => 'Ilang minutong dhikr bago matapos ang araw.';
+
+  @override
+  String get notifStreakTitle => 'Nanganganib ang streak';
+
+  @override
+  String notifStreakBody(int days) {
+    return '2 oras na lang para mapanatili ang iyong $days-araw na streak.';
+  }
+
+  @override
+  String get notifStreakBodyNone => 'Huwag kalimutan ang bahagi ngayong araw.';
 }

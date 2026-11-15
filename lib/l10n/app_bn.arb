@@ -528,5 +528,14 @@
   "quranMarkJuzMemorized": "একটি জুজ মুখস্থ হিসেবে চিহ্নিত করুন",
   "searchNoResults": "কোনো ফলাফল নেই",
   "searchHintAll": "আয়াত, হাদিস ও দোয়া খুঁজুন…",
-  "searchNames": "আল্লাহর ৯৯ নাম"
+  "searchNames": "আল্লাহর ৯৯ নাম",
+  "notifAdhanTitle": "{salah} — নামাজের সময়",
+  "notifAdhanBody": "{salah}-এর সময় হয়েছে।",
+  "notifDailyTitle": "আজকের হিফজ",
+  "notifDailyBody": "ধারাবাহিকতা বজায় রাখুন — আজকের অংশের জন্য Wird খুলুন।",
+  "notifMorningBody": "দিনের শুরুতে কয়েক মিনিট জিকির।",
+  "notifEveningBody": "দিন শেষ হওয়ার আগে কয়েক মিনিট জিকির।",
+  "notifStreakTitle": "ধারাবাহিকতা ঝুঁকিতে",
+  "notifStreakBody": "আপনার {days} দিনের ধারাবাহিকতা রাখতে ২ ঘণ্টা বাকি।",
+  "notifStreakBodyNone": "আজকের অংশ ভুলবেন না।"
 }

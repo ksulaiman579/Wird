@@ -528,5 +528,14 @@
   "quranMarkJuzMemorized": "تحديد جزء كمحفوظ",
   "searchNoResults": "لا توجد نتائج",
   "searchHintAll": "ابحث في الآيات والأحاديث والأدعية…",
-  "searchNames": "الأسماء الحسنى"
+  "searchNames": "الأسماء الحسنى",
+  "notifAdhanTitle": "{salah} — حان وقت الصلاة",
+  "notifAdhanBody": "حان وقت صلاة {salah}.",
+  "notifDailyTitle": "حفظ اليوم",
+  "notifDailyBody": "حافظ على سلسلتك — افتح وِرد لوِرد اليوم.",
+  "notifMorningBody": "دقائق من الذكر لبداية يومك.",
+  "notifEveningBody": "دقائق من الذكر قبل نهاية يومك.",
+  "notifStreakTitle": "سلسلتك في خطر",
+  "notifStreakBody": "بقيت ساعتان للحفاظ على سلسلة {days} يومًا.",
+  "notifStreakBodyNone": "لا تنسَ وِرد اليوم."
 }

@@ -1823,4 +1823,38 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get searchNames => 'अल्लाह के 99 नाम';
+
+  @override
+  String notifAdhanTitle(String salah) {
+    return '$salah — नमाज़ का समय';
+  }
+
+  @override
+  String notifAdhanBody(String salah) {
+    return '$salah का समय हो गया है।';
+  }
+
+  @override
+  String get notifDailyTitle => 'आज का हिफ़्ज़';
+
+  @override
+  String get notifDailyBody =>
+      'अपनी लय बनाए रखें — आज के हिस्से के लिए Wird खोलें।';
+
+  @override
+  String get notifMorningBody => 'दिन की शुरुआत में कुछ मिनट ज़िक्र।';
+
+  @override
+  String get notifEveningBody => 'दिन ख़त्म होने से पहले कुछ मिनट ज़िक्र।';
+
+  @override
+  String get notifStreakTitle => 'आपकी लय ख़तरे में है';
+
+  @override
+  String notifStreakBody(int days) {
+    return 'अपनी $days दिन की लय बचाने के लिए 2 घंटे बचे हैं।';
+  }
+
+  @override
+  String get notifStreakBodyNone => 'आज का हिस्सा न भूलें।';
 }

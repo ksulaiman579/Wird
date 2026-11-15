@@ -528,5 +528,14 @@
   "quranMarkJuzMemorized": "एक जुज़ को याद किया हुआ चिह्नित करें",
   "searchNoResults": "कोई परिणाम नहीं",
   "searchHintAll": "आयतें, हदीस और दुआएँ खोजें…",
-  "searchNames": "अल्लाह के 99 नाम"
+  "searchNames": "अल्लाह के 99 नाम",
+  "notifAdhanTitle": "{salah} — नमाज़ का समय",
+  "notifAdhanBody": "{salah} का समय हो गया है।",
+  "notifDailyTitle": "आज का हिफ़्ज़",
+  "notifDailyBody": "अपनी लय बनाए रखें — आज के हिस्से के लिए Wird खोलें।",
+  "notifMorningBody": "दिन की शुरुआत में कुछ मिनट ज़िक्र।",
+  "notifEveningBody": "दिन ख़त्म होने से पहले कुछ मिनट ज़िक्र।",
+  "notifStreakTitle": "आपकी लय ख़तरे में है",
+  "notifStreakBody": "अपनी {days} दिन की लय बचाने के लिए 2 घंटे बचे हैं।",
+  "notifStreakBodyNone": "आज का हिस्सा न भूलें।"
 }

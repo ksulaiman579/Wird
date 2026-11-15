@@ -1840,4 +1840,39 @@ class AppLocalizationsMl extends AppLocalizations {
 
   @override
   String get searchNames => 'അല്ലാഹുവിന്റെ 99 നാമങ്ങൾ';
+
+  @override
+  String notifAdhanTitle(String salah) {
+    return '$salah — നമസ്കാര സമയം';
+  }
+
+  @override
+  String notifAdhanBody(String salah) {
+    return '$salah സമയമായി.';
+  }
+
+  @override
+  String get notifDailyTitle => 'ഇന്നത്തെ മനഃപാഠം';
+
+  @override
+  String get notifDailyBody =>
+      'തുടർച്ച നിലനിർത്തൂ — ഇന്നത്തെ ഭാഗത്തിനായി Wird തുറക്കൂ.';
+
+  @override
+  String get notifMorningBody => 'ദിവസം തുടങ്ങാൻ കുറച്ച് മിനിറ്റ് ദിക്ർ.';
+
+  @override
+  String get notifEveningBody =>
+      'ദിവസം അവസാനിക്കും മുമ്പ് കുറച്ച് മിനിറ്റ് ദിക്ർ.';
+
+  @override
+  String get notifStreakTitle => 'തുടർച്ച അപകടത്തിൽ';
+
+  @override
+  String notifStreakBody(int days) {
+    return 'നിങ്ങളുടെ $days ദിവസത്തെ തുടർച്ച നിലനിർത്താൻ 2 മണിക്കൂർ ബാക്കി.';
+  }
+
+  @override
+  String get notifStreakBodyNone => 'ഇന്നത്തെ ഭാഗം മറക്കരുത്.';
 }

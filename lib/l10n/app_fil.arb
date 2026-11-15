@@ -528,5 +528,14 @@
   "quranMarkJuzMemorized": "Markahan ang isang juz bilang naisaulo",
   "searchNoResults": "Walang resulta",
   "searchHintAll": "Maghanap ng ayah, hadith at dua…",
-  "searchNames": "99 Pangalan"
+  "searchNames": "99 Pangalan",
+  "notifAdhanTitle": "{salah} — oras na ng pagdarasal",
+  "notifAdhanBody": "Oras na ng {salah}.",
+  "notifDailyTitle": "Pagsasaulo ngayong araw",
+  "notifDailyBody": "Ituloy ang iyong streak — buksan ang Wird para sa bahagi ngayong araw.",
+  "notifMorningBody": "Ilang minutong dhikr para simulan ang araw.",
+  "notifEveningBody": "Ilang minutong dhikr bago matapos ang araw.",
+  "notifStreakTitle": "Nanganganib ang streak",
+  "notifStreakBody": "2 oras na lang para mapanatili ang iyong {days}-araw na streak.",
+  "notifStreakBodyNone": "Huwag kalimutan ang bahagi ngayong araw."
 }

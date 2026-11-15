@@ -1,3 +1,6 @@
+import 'dart:ui' show Locale;
+
+import 'package:wird/l10n/gen/app_localizations.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -11,6 +14,7 @@ import 'notification_service.dart';
 import 'prayer_method_prefs.dart';
 import 'prayer_times_service.dart';
 import '../calendar_math.dart';
+import '../prefs/app_language_provider.dart';
 
 final notificationServiceProvider = Provider<NotificationService>((ref) {
   return NotificationService();
@@ -24,12 +28,16 @@ final prayerTimesServiceProvider = Provider<PrayerTimesService>((ref) {
 /// selected — null if no location is set. Drives Settings' "source"
 /// indicator (M7.3): whether the last lookup used the online AlAdhan
 /// calendar or the offline `adhan_dart` fallback.
-final prayerTimesPreviewProvider = FutureProvider<DailyPrayerTimes?>((ref) async {
+final prayerTimesPreviewProvider = FutureProvider<DailyPrayerTimes?>((
+  ref,
+) async {
   final location = await ref.watch(locationProvider.future);
   if (location == null) return null;
 
   final methodOverride = await ref.watch(prayerMethodOverrideProvider.future);
-  return ref.read(prayerTimesServiceProvider).timesFor(
+  return ref
+      .read(prayerTimesServiceProvider)
+      .timesFor(
         date: DateTime.now(),
         latitude: location.lat,
         longitude: location.lng,
@@ -37,8 +45,6 @@ final prayerTimesPreviewProvider = FutureProvider<DailyPrayerTimes?>((ref) async
         methodOverride: methodOverride,
       );
 });
-
-
 
 /// Recomputes the rolling notification window and reschedules it — call
 /// this at app launch and whenever notification prefs or the selected
@@ -55,11 +61,13 @@ Future<void> rescheduleNotifications(dynamic ref) async {
   // Typed locals: `ref` is dynamic, so everything read from it was dynamic
   // too — the drift `where` closure below then failed a runtime type check
   // and every reschedule threw (silently), so nothing was ever scheduled.
-  final NotificationPrefs prefs =
-      await ref.read(notificationPrefsProvider.future);
+  final NotificationPrefs prefs = await ref.read(
+    notificationPrefsProvider.future,
+  );
   final SelectedLocation? location = await ref.read(locationProvider.future);
-  final int? methodOverride =
-      await ref.read(prayerMethodOverrideProvider.future);
+  final int? methodOverride = await ref.read(
+    prayerMethodOverrideProvider.future,
+  );
   final AppDatabase db = ref.read(appDatabaseProvider);
   final PrayerTimesService prayerService = ref.read(prayerTimesServiceProvider);
 
@@ -78,7 +86,12 @@ Future<void> rescheduleNotifications(dynamic ref) async {
       // Manual times (U9): user-entered minutes-since-midnight, no location
       // needed. Drives both adhkar (Fajr/Asr) and the full adhan set.
       DateTime at(int minutes) => DateTime(
-          date.year, date.month, date.day, minutes ~/ 60, minutes % 60);
+        date.year,
+        date.month,
+        date.day,
+        minutes ~/ 60,
+        minutes % 60,
+      );
       final manual = prefs.manualMinutesBySalah;
       fajrTimes.add(at(manual[Salah.fajr]!));
       asrTimes.add(at(manual[Salah.asr]!));
@@ -106,8 +119,10 @@ Future<void> rescheduleNotifications(dynamic ref) async {
           date: date,
           latitude: location.lat,
           longitude: location.lng,
-          method: calculationMethodFor(location.countryCode,
-              override: methodOverride),
+          method: calculationMethodFor(
+            location.countryCode,
+            override: methodOverride,
+          ),
         ),
         Salah.fajr: times.fajr,
         Salah.asr: times.asr,
@@ -116,12 +131,14 @@ Future<void> rescheduleNotifications(dynamic ref) async {
   }
 
   final dayKey = dayKeyFor(now);
-  final session = await (db.select(db.dailySessions)
-        ..where((t) => t.day.equals(dayKey)))
-      .getSingleOrNull();
+  final session = await (db.select(
+    db.dailySessions,
+  )..where((t) => t.day.equals(dayKey))).getSingleOrNull();
   final streakRow = await db.select(db.streakState).getSingleOrNull();
 
+  final texts = await _textsForAppLanguage(ref);
   final plan = buildNotificationPlan(
+    texts: texts,
     now: now,
     fajrTimes: fajrTimes,
     asrTimes: asrTimes,
@@ -140,18 +157,21 @@ Future<void> rescheduleNotifications(dynamic ref) async {
   // service's cancel-all + reschedule covers them too.
   if ((location != null || prefs.useManualTimes) &&
       allPrayerTimes.length == rollingWindowDays) {
-    plan.addAll(buildAdhanPlan(
-      now: now,
-      prayerTimes: allPrayerTimes,
-      toneEnabled: prefs.adhanTone != AdhanTone.none,
-      enabled: {
-        Salah.fajr: prefs.adhanFajr,
-        Salah.dhuhr: prefs.adhanDhuhr,
-        Salah.asr: prefs.adhanAsr,
-        Salah.maghrib: prefs.adhanMaghrib,
-        Salah.isha: prefs.adhanIsha,
-      },
-    ));
+    plan.addAll(
+      buildAdhanPlan(
+        texts: texts,
+        now: now,
+        prayerTimes: allPrayerTimes,
+        toneEnabled: prefs.adhanTone != AdhanTone.none,
+        enabled: {
+          Salah.fajr: prefs.adhanFajr,
+          Salah.dhuhr: prefs.adhanDhuhr,
+          Salah.asr: prefs.adhanAsr,
+          Salah.maghrib: prefs.adhanMaghrib,
+          Salah.isha: prefs.adhanIsha,
+        },
+      ),
+    );
   }
 
   final NotificationService service = ref.read(notificationServiceProvider);
@@ -163,7 +183,41 @@ Future<void> rescheduleNotifications(dynamic ref) async {
   // the transition when the app is opened (or notification prefs/location
   // change) after the boundary, since there's no background trigger for
   // the exact moment it happens.
-  final currentPeriod =
-      adhkarPeriodFor(now, fajr: fajrTimes.first, asr: asrTimes.first);
+  final currentPeriod = adhkarPeriodFor(
+    now,
+    fajr: fajrTimes.first,
+    asr: asrTimes.first,
+  );
   await service.cancel(staleAdhkarNotificationId(currentPeriod));
+}
+
+/// Notification texts in the app's language. Built from the saved
+/// language code, since this runs without a BuildContext (M30.1).
+Future<NotificationTexts> _textsForAppLanguage(dynamic ref) async {
+  try {
+    final String code = await ref.read(appLanguageProvider.future);
+    final l = lookupAppLocalizations(Locale(code));
+    return NotificationTexts(
+      salahName: (s) => switch (s) {
+        Salah.fajr => l.prayerFajr,
+        Salah.dhuhr => l.prayerDhuhr,
+        Salah.asr => l.prayerAsr,
+        Salah.maghrib => l.prayerMaghrib,
+        Salah.isha => l.prayerIsha,
+      },
+      adhanTitle: l.notifAdhanTitle,
+      adhanBody: l.notifAdhanBody,
+      dailyTitle: l.notifDailyTitle,
+      dailyBody: l.notifDailyBody,
+      morningTitle: l.exploreMorningAdhkarTitle,
+      morningBody: l.notifMorningBody,
+      eveningTitle: l.exploreEveningAdhkarTitle,
+      eveningBody: l.notifEveningBody,
+      streakTitle: l.notifStreakTitle,
+      streakBody: l.notifStreakBody,
+      streakBodyNone: l.notifStreakBodyNone,
+    );
+  } catch (_) {
+    return NotificationTexts.english;
+  }
 }

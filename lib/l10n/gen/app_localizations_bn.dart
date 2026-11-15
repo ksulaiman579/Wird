@@ -1828,4 +1828,38 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get searchNames => 'আল্লাহর ৯৯ নাম';
+
+  @override
+  String notifAdhanTitle(String salah) {
+    return '$salah — নামাজের সময়';
+  }
+
+  @override
+  String notifAdhanBody(String salah) {
+    return '$salah-এর সময় হয়েছে।';
+  }
+
+  @override
+  String get notifDailyTitle => 'আজকের হিফজ';
+
+  @override
+  String get notifDailyBody =>
+      'ধারাবাহিকতা বজায় রাখুন — আজকের অংশের জন্য Wird খুলুন।';
+
+  @override
+  String get notifMorningBody => 'দিনের শুরুতে কয়েক মিনিট জিকির।';
+
+  @override
+  String get notifEveningBody => 'দিন শেষ হওয়ার আগে কয়েক মিনিট জিকির।';
+
+  @override
+  String get notifStreakTitle => 'ধারাবাহিকতা ঝুঁকিতে';
+
+  @override
+  String notifStreakBody(int days) {
+    return 'আপনার $days দিনের ধারাবাহিকতা রাখতে ২ ঘণ্টা বাকি।';
+  }
+
+  @override
+  String get notifStreakBodyNone => 'আজকের অংশ ভুলবেন না।';
 }

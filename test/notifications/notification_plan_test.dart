@@ -157,4 +157,32 @@ void main() {
       );
     });
   });
+
+  test('notifications use the texts they are given (app language)', () {
+    final now = DateTime(2026, 6, 1, 9);
+    final texts = NotificationTexts(
+      salahName: (s) => 'S',
+      adhanTitle: (s) => 'AT $s',
+      adhanBody: (s) => 'AB $s',
+      dailyTitle: 'حفظ اليوم',
+      dailyBody: 'DB',
+      morningTitle: 'MT',
+      morningBody: 'MB',
+      eveningTitle: 'ET',
+      eveningBody: 'EB',
+      streakTitle: 'ST',
+      streakBody: (d) => 'SB $d',
+      streakBodyNone: 'SN',
+    );
+    final plan = buildNotificationPlan(
+      texts: texts,
+      now: now,
+      fajrTimes: _daily(now, 5, 10),
+      asrTimes: _daily(now, 15, 40),
+      dailyReminderHour: 20,
+      dailyReminderMinute: 0,
+    );
+    expect(plan.first.title, 'حفظ اليوم');
+    expect(plan.first.body, 'DB');
+  });
 }

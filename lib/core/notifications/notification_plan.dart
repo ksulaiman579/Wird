@@ -27,7 +27,13 @@ int staleAdhkarNotificationId(AdhkarPeriod current) {
   return notificationIdFor(staleChannel, 0);
 }
 
-enum NotificationChannel { dailyReminder, adhkarMorning, adhkarEvening, streakAtRisk, adhan }
+enum NotificationChannel {
+  dailyReminder,
+  adhkarMorning,
+  adhkarEvening,
+  streakAtRisk,
+  adhan,
+}
 
 /// The five daily obligatory prayers, in order. Pure (no adhan_dart
 /// import) so the planner stays unit-testable; the service maps its
@@ -40,12 +46,12 @@ enum Salah {
   isha;
 
   String get label => switch (this) {
-        Salah.fajr => 'Fajr',
-        Salah.dhuhr => 'Dhuhr',
-        Salah.asr => 'Asr',
-        Salah.maghrib => 'Maghrib',
-        Salah.isha => 'Isha',
-      };
+    Salah.fajr => 'Fajr',
+    Salah.dhuhr => 'Dhuhr',
+    Salah.asr => 'Asr',
+    Salah.maghrib => 'Maghrib',
+    Salah.isha => 'Isha',
+  };
 }
 
 /// Adhan notifications use a dedicated id block (500+) so they never
@@ -59,12 +65,63 @@ int adhanNotificationId(Salah salah, int dayOffset) =>
 /// five prayer times for that date. Only prayers whose per-salah toggle is
 /// enabled in [enabled] are scheduled, and only if [toneEnabled]. Entries
 /// already in the past relative to [now] are skipped.
+/// The user-facing text of scheduled notifications. Plan building stays
+/// pure Dart: the caller passes texts for the app's language (built from
+/// AppLocalizations in notification_providers.dart); [english] is the
+/// default used by tests (M30.1 — notifications were English-only).
+class NotificationTexts {
+  const NotificationTexts({
+    required this.salahName,
+    required this.adhanTitle,
+    required this.adhanBody,
+    required this.dailyTitle,
+    required this.dailyBody,
+    required this.morningTitle,
+    required this.morningBody,
+    required this.eveningTitle,
+    required this.eveningBody,
+    required this.streakTitle,
+    required this.streakBody,
+    required this.streakBodyNone,
+  });
+
+  final String Function(Salah) salahName;
+  final String Function(String salah) adhanTitle;
+  final String Function(String salah) adhanBody;
+  final String dailyTitle;
+  final String dailyBody;
+  final String morningTitle;
+  final String morningBody;
+  final String eveningTitle;
+  final String eveningBody;
+  final String streakTitle;
+  final String Function(int days) streakBody;
+  final String streakBodyNone;
+
+  static final english = NotificationTexts(
+    salahName: (s) => s.label,
+    adhanTitle: (s) => '$s — time to pray',
+    adhanBody: (s) => 'It is time for $s.',
+    dailyTitle: "Today's memorization",
+    dailyBody: "Keep your streak going — open Wird for today's portion.",
+    morningTitle: 'Morning adhkar',
+    morningBody: 'A few minutes of remembrance to start the day.',
+    eveningTitle: 'Evening adhkar',
+    eveningBody: 'A few minutes of remembrance before the day ends.',
+    streakTitle: 'Streak at risk',
+    streakBody: (d) => '2 hours left to keep your $d-day streak.',
+    streakBodyNone: "Don't forget today's portion.",
+  );
+}
+
 List<PlannedNotification> buildAdhanPlan({
+  NotificationTexts? texts,
   required DateTime now,
   required List<Map<Salah, DateTime>> prayerTimes,
   required Map<Salah, bool> enabled,
   bool toneEnabled = false,
 }) {
+  final t = texts ?? NotificationTexts.english;
   assert(prayerTimes.length == rollingWindowDays);
   if (!toneEnabled) return const [];
 
@@ -74,16 +131,18 @@ List<PlannedNotification> buildAdhanPlan({
       if (!(enabled[salah] ?? false)) continue;
       final at = prayerTimes[day][salah];
       if (at == null || !at.isAfter(now)) continue;
-      plan.add(PlannedNotification(
-        id: adhanNotificationId(salah, day),
-        channel: NotificationChannel.adhan,
-        scheduledAt: at,
-        title: '${salah.label} — time to pray',
-        body: 'It is time for ${salah.label}. حَيَّ عَلَى الصَّلَاة',
-        // Opens the in-app adhan player (tap-to-silence) rather than the
-        // home tab — the adhan is played in-app, not as a channel sound.
-        payload: '/adhan?salah=${salah.label}',
-      ));
+      plan.add(
+        PlannedNotification(
+          id: adhanNotificationId(salah, day),
+          channel: NotificationChannel.adhan,
+          scheduledAt: at,
+          title: t.adhanTitle(t.salahName(salah)),
+          body: '${t.adhanBody(t.salahName(salah))} حَيَّ عَلَى الصَّلَاة',
+          // Opens the in-app adhan player (tap-to-silence) rather than the
+          // home tab — the adhan is played in-app, not as a channel sound.
+          payload: '/adhan?salah=${salah.label}',
+        ),
+      );
     }
   }
   return plan;
@@ -128,6 +187,7 @@ int notificationIdFor(NotificationChannel channel, int dayOffset) =>
 /// Android channel) — 2 hours before the daily reminder time, shown only
 /// if [todayPortionCompleted] is false at schedule time.
 List<PlannedNotification> buildNotificationPlan({
+  NotificationTexts? texts,
   required DateTime now,
   required List<DateTime> fajrTimes,
   required List<DateTime> asrTimes,
@@ -140,6 +200,7 @@ List<PlannedNotification> buildNotificationPlan({
   bool todayPortionCompleted = false,
   int currentStreak = 0,
 }) {
+  final t = texts ?? NotificationTexts.english;
   assert(fajrTimes.length == rollingWindowDays);
   assert(asrTimes.length == rollingWindowDays);
 
@@ -151,64 +212,80 @@ List<PlannedNotification> buildNotificationPlan({
 
     if (dailyReminderEnabled) {
       final at = DateTime(
-        date.year, date.month, date.day, dailyReminderHour, dailyReminderMinute,
+        date.year,
+        date.month,
+        date.day,
+        dailyReminderHour,
+        dailyReminderMinute,
       );
       if (at.isAfter(now)) {
-        plan.add(PlannedNotification(
-          id: notificationIdFor(NotificationChannel.dailyReminder, day),
-          channel: NotificationChannel.dailyReminder,
-          scheduledAt: at,
-          title: "Today's memorization",
-          body: 'Keep your streak going — open Wird for today\'s portion.',
-          payload: '/',
-        ));
+        plan.add(
+          PlannedNotification(
+            id: notificationIdFor(NotificationChannel.dailyReminder, day),
+            channel: NotificationChannel.dailyReminder,
+            scheduledAt: at,
+            title: t.dailyTitle,
+            body: t.dailyBody,
+            payload: '/',
+          ),
+        );
       }
     }
 
     if (adhkarMorningEnabled) {
       final at = fajrTimes[day].add(const Duration(minutes: 30));
       if (at.isAfter(now)) {
-        plan.add(PlannedNotification(
-          id: notificationIdFor(NotificationChannel.adhkarMorning, day),
-          channel: NotificationChannel.adhkarMorning,
-          scheduledAt: at,
-          title: 'Morning adhkar',
-          body: 'A few minutes of remembrance to start the day.',
-          payload: '/adhkar/morning',
-        ));
+        plan.add(
+          PlannedNotification(
+            id: notificationIdFor(NotificationChannel.adhkarMorning, day),
+            channel: NotificationChannel.adhkarMorning,
+            scheduledAt: at,
+            title: t.morningTitle,
+            body: t.morningBody,
+            payload: '/adhkar/morning',
+          ),
+        );
       }
     }
 
     if (adhkarEveningEnabled) {
       final at = asrTimes[day].add(const Duration(minutes: 30));
       if (at.isAfter(now)) {
-        plan.add(PlannedNotification(
-          id: notificationIdFor(NotificationChannel.adhkarEvening, day),
-          channel: NotificationChannel.adhkarEvening,
-          scheduledAt: at,
-          title: 'Evening adhkar',
-          body: 'A few minutes of remembrance before the day ends.',
-          payload: '/adhkar/evening',
-        ));
+        plan.add(
+          PlannedNotification(
+            id: notificationIdFor(NotificationChannel.adhkarEvening, day),
+            channel: NotificationChannel.adhkarEvening,
+            scheduledAt: at,
+            title: t.eveningTitle,
+            body: t.eveningBody,
+            payload: '/adhkar/evening',
+          ),
+        );
       }
     }
   }
 
   if (streakAtRiskEnabled && dailyReminderEnabled && !todayPortionCompleted) {
     final at = DateTime(
-      today.year, today.month, today.day, dailyReminderHour, dailyReminderMinute,
+      today.year,
+      today.month,
+      today.day,
+      dailyReminderHour,
+      dailyReminderMinute,
     ).subtract(const Duration(hours: 2));
     if (at.isAfter(now)) {
-      plan.add(PlannedNotification(
-        id: notificationIdFor(NotificationChannel.streakAtRisk, 0),
-        channel: NotificationChannel.streakAtRisk,
-        scheduledAt: at,
-        title: 'Streak at risk',
-        body: currentStreak > 0
-            ? '2 hours left to keep your $currentStreak-day streak.'
-            : "Don't forget today's portion.",
-        payload: '/',
-      ));
+      plan.add(
+        PlannedNotification(
+          id: notificationIdFor(NotificationChannel.streakAtRisk, 0),
+          channel: NotificationChannel.streakAtRisk,
+          scheduledAt: at,
+          title: t.streakTitle,
+          body: currentStreak > 0
+              ? t.streakBody(currentStreak)
+              : t.streakBodyNone,
+          payload: '/',
+        ),
+      );
     }
   }
 

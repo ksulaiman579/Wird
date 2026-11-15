@@ -3281,6 +3281,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'99 Names'**
   String get searchNames;
+
+  /// Notification text (scheduled in the background).
+  ///
+  /// In en, this message translates to:
+  /// **'{salah} — time to pray'**
+  String notifAdhanTitle(String salah);
+
+  /// Notification text (scheduled in the background).
+  ///
+  /// In en, this message translates to:
+  /// **'It is time for {salah}.'**
+  String notifAdhanBody(String salah);
+
+  /// Notification text (scheduled in the background).
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s memorization'**
+  String get notifDailyTitle;
+
+  /// Notification text (scheduled in the background).
+  ///
+  /// In en, this message translates to:
+  /// **'Keep your streak going — open Wird for today\'s portion.'**
+  String get notifDailyBody;
+
+  /// Notification text (scheduled in the background).
+  ///
+  /// In en, this message translates to:
+  /// **'A few minutes of remembrance to start the day.'**
+  String get notifMorningBody;
+
+  /// Notification text (scheduled in the background).
+  ///
+  /// In en, this message translates to:
+  /// **'A few minutes of remembrance before the day ends.'**
+  String get notifEveningBody;
+
+  /// Notification text (scheduled in the background).
+  ///
+  /// In en, this message translates to:
+  /// **'Streak at risk'**
+  String get notifStreakTitle;
+
+  /// Notification text (scheduled in the background).
+  ///
+  /// In en, this message translates to:
+  /// **'2 hours left to keep your {days}-day streak.'**
+  String notifStreakBody(int days);
+
+  /// Notification text (scheduled in the background).
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t forget today\'s portion.'**
+  String get notifStreakBodyNone;
 }
 
 class _AppLocalizationsDelegate

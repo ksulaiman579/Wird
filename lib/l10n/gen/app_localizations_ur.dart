@@ -1827,4 +1827,38 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get searchNames => 'اسمائے حسنیٰ';
+
+  @override
+  String notifAdhanTitle(String salah) {
+    return '$salah — نماز کا وقت';
+  }
+
+  @override
+  String notifAdhanBody(String salah) {
+    return '$salah کا وقت ہو گیا ہے۔';
+  }
+
+  @override
+  String get notifDailyTitle => 'آج کا حفظ';
+
+  @override
+  String get notifDailyBody =>
+      'اپنا سلسلہ جاری رکھیں — آج کے حصے کے لیے وِرد کھولیں۔';
+
+  @override
+  String get notifMorningBody => 'دن کے آغاز میں چند منٹ ذکر۔';
+
+  @override
+  String get notifEveningBody => 'دن ختم ہونے سے پہلے چند منٹ ذکر۔';
+
+  @override
+  String get notifStreakTitle => 'سلسلہ خطرے میں ہے';
+
+  @override
+  String notifStreakBody(int days) {
+    return 'اپنا $days دن کا سلسلہ بچانے کے لیے 2 گھنٹے باقی ہیں۔';
+  }
+
+  @override
+  String get notifStreakBodyNone => 'آج کا حصہ نہ بھولیں۔';
 }

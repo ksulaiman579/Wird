@@ -528,5 +528,14 @@
   "quranMarkJuzMemorized": "ایک پارہ حفظ شدہ نشان زد کریں",
   "searchNoResults": "کوئی نتیجہ نہیں",
   "searchHintAll": "آیات، احادیث اور دعائیں تلاش کریں…",
-  "searchNames": "اسمائے حسنیٰ"
+  "searchNames": "اسمائے حسنیٰ",
+  "notifAdhanTitle": "{salah} — نماز کا وقت",
+  "notifAdhanBody": "{salah} کا وقت ہو گیا ہے۔",
+  "notifDailyTitle": "آج کا حفظ",
+  "notifDailyBody": "اپنا سلسلہ جاری رکھیں — آج کے حصے کے لیے وِرد کھولیں۔",
+  "notifMorningBody": "دن کے آغاز میں چند منٹ ذکر۔",
+  "notifEveningBody": "دن ختم ہونے سے پہلے چند منٹ ذکر۔",
+  "notifStreakTitle": "سلسلہ خطرے میں ہے",
+  "notifStreakBody": "اپنا {days} دن کا سلسلہ بچانے کے لیے 2 گھنٹے باقی ہیں۔",
+  "notifStreakBodyNone": "آج کا حصہ نہ بھولیں۔"
 }
