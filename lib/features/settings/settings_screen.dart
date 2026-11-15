@@ -6,6 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:just_audio/just_audio.dart';
 
+import '../../core/diagnostics/crash_reporting.dart';
+import '../../core/l10n/dates.dart';
 import '../../core/audio/ayah_audio_urls.dart' show reciters;
 import '../../core/backup/backup_service.dart';
 import '../../core/backup/reset_service.dart';
@@ -194,6 +196,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             ),
           ),
           const SizedBox(height: 16),
+          const _DateAndPrivacyCard(),
+          const SizedBox(height: 16),
           const _UpdateTile(),
           GlassCard(
             enableBlur: false,
@@ -321,9 +325,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       final text = last == null
                           ? AppLocalizations.of(context).settingsBackupsMonthly
                           : AppLocalizations.of(context).backupLastAuto(
-                              '${last.year.toString().padLeft(4, '0')}-'
-                              '${last.month.toString().padLeft(2, '0')}-'
-                              '${last.day.toString().padLeft(2, '0')}');
+                              formatDateLocalized(context, last));
                       return Padding(
                         padding: const EdgeInsets.only(top: 8),
                         child: Text(text,
@@ -817,6 +819,73 @@ class _NotificationsSection extends ConsumerWidget {
               },
             ),
       ],
+    );
+  }
+}
+
+/// Hijri date on Today (+ adjustment) and the opt-in crash reports.
+class _DateAndPrivacyCard extends ConsumerWidget {
+  const _DateAndPrivacyCard();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l = AppLocalizations.of(context);
+    final hijri = ref.watch(hijriPrefsProvider).value ?? const HijriPrefs();
+    final crash = ref.watch(crashReportsProvider).value ?? false;
+    final offsetLabel =
+        hijri.offset > 0 ? '+${hijri.offset}' : '${hijri.offset}';
+
+    return GlassCard(
+      enableBlur: false,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SwitchListTile(
+            contentPadding: EdgeInsets.zero,
+            title: Text(l.settingsHijriDate),
+            subtitle: Text(formatHijri(context, DateTime.now(),
+                offsetDays: hijri.offset)),
+            value: hijri.show,
+            onChanged: (v) =>
+                ref.read(hijriPrefsProvider.notifier).setShow(v),
+          ),
+          if (hijri.show)
+            Row(
+              children: [
+                Expanded(child: Text(l.settingsHijriAdjust(offsetLabel))),
+                IconButton(
+                  tooltip: '-1',
+                  icon: const Icon(Icons.remove_circle_outline),
+                  onPressed: hijri.offset <= -2
+                      ? null
+                      : () => ref
+                          .read(hijriPrefsProvider.notifier)
+                          .setOffset(hijri.offset - 1),
+                ),
+                IconButton(
+                  tooltip: '+1',
+                  icon: const Icon(Icons.add_circle_outline),
+                  onPressed: hijri.offset >= 2
+                      ? null
+                      : () => ref
+                          .read(hijriPrefsProvider.notifier)
+                          .setOffset(hijri.offset + 1),
+                ),
+              ],
+            ),
+          if (crashReportsAvailable) ...[
+            const Divider(),
+            SwitchListTile(
+              contentPadding: EdgeInsets.zero,
+              title: Text(l.settingsCrashReports),
+              subtitle: Text(l.settingsCrashReportsDesc),
+              value: crash,
+              onChanged: (v) =>
+                  ref.read(crashReportsProvider.notifier).set(v),
+            ),
+          ],
+        ],
+      ),
     );
   }
 }

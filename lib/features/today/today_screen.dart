@@ -5,6 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:drift/drift.dart' show Value;
 
+import '../khatmah/khatmah_screen.dart' show KhatmahTodayCard;
+import '../../core/l10n/dates.dart';
 import '../../core/db/database.dart';
 
 import '../../core/gamification/achievements.dart';
@@ -89,8 +91,10 @@ class TodayScreen extends ConsumerWidget {
                 ),
               ),
             ),
+            const _HijriLine(),
             const SizedBox(height: 16),
             const UpdateBanner(),
+            const KhatmahTodayCard(),
             breakdownAsync.when(
               loading: () => const Center(child: CircularProgressIndicator()),
               error: (e, st) => Text(AppLocalizations.of(context).commonFailedToLoad('$e')),
@@ -707,4 +711,21 @@ Future<void> _editName(BuildContext context, WidgetRef ref, String current) asyn
   await db.update(db.userProfiles).write(
         UserProfilesCompanion(name: Value(result.trim())),
       );
+}
+
+/// Today's Hijri date (can be turned off or shifted in Settings).
+class _HijriLine extends ConsumerWidget {
+  const _HijriLine();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final prefs = ref.watch(hijriPrefsProvider).value;
+    if (prefs == null || !prefs.show) return const SizedBox.shrink();
+    return Text(
+      formatHijri(context, DateTime.now(), offsetDays: prefs.offset),
+      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            color: Theme.of(context).colorScheme.secondary,
+          ),
+    );
+  }
 }

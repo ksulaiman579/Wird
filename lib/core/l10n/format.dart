@@ -15,10 +15,10 @@ library;
 /// FIRST STRONG ISOLATE (U+2068) — opens a directional isolate whose
 /// direction is taken from its first strong character. Written as an escape
 /// because the literal char is invisible (analyzer warns on it).
-const _fsi = '⁨';
+const _fsi = '\u2068';
 
 /// POP DIRECTIONAL ISOLATE (U+2069) — closes the most recent isolate.
-const _pdi = '⁩';
+const _pdi = '\u2069';
 
 /// Wrap [s] in a first-strong bidi isolate so its internal order is fixed
 /// regardless of the surrounding paragraph direction. Empty stays empty.

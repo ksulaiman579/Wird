@@ -54,6 +54,13 @@ class ExploreHubScreen extends StatelessWidget {
           HubCardGrid(
             children: [
               HubCard(
+                glyph: WirdGlyph.book,
+                title: l.khatmahTitle,
+                description: l.khatmahDesc,
+                ctaLabel: l.commonOpen,
+                onTap: () => context.push('/khatmah'),
+              ),
+              HubCard(
                 glyph: WirdGlyph.scroll,
                 title: l.hadithCollectionsTitle,
                 description: l.exploreHadithDesc,

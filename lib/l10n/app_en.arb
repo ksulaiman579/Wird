@@ -2661,5 +2661,213 @@
   "shareAsText": "Share text",
   "@shareAsText": {
     "description": "Share sheet button: share as plain text."
+  },
+  "hijriMonth1": "Muharram",
+  "@hijriMonth1": {
+    "description": "Hijri month 1."
+  },
+  "hijriMonth2": "Safar",
+  "@hijriMonth2": {
+    "description": "Hijri month 2."
+  },
+  "hijriMonth3": "Rabi al-Awwal",
+  "@hijriMonth3": {
+    "description": "Hijri month 3."
+  },
+  "hijriMonth4": "Rabi al-Akhir",
+  "@hijriMonth4": {
+    "description": "Hijri month 4."
+  },
+  "hijriMonth5": "Jumada al-Ula",
+  "@hijriMonth5": {
+    "description": "Hijri month 5."
+  },
+  "hijriMonth6": "Jumada al-Akhirah",
+  "@hijriMonth6": {
+    "description": "Hijri month 6."
+  },
+  "hijriMonth7": "Rajab",
+  "@hijriMonth7": {
+    "description": "Hijri month 7."
+  },
+  "hijriMonth8": "Sha'ban",
+  "@hijriMonth8": {
+    "description": "Hijri month 8."
+  },
+  "hijriMonth9": "Ramadan",
+  "@hijriMonth9": {
+    "description": "Hijri month 9."
+  },
+  "hijriMonth10": "Shawwal",
+  "@hijriMonth10": {
+    "description": "Hijri month 10."
+  },
+  "hijriMonth11": "Dhu al-Qadah",
+  "@hijriMonth11": {
+    "description": "Hijri month 11."
+  },
+  "hijriMonth12": "Dhu al-Hijjah",
+  "@hijriMonth12": {
+    "description": "Hijri month 12."
+  },
+  "hijriDate": "{day} {month} {year} AH",
+  "@hijriDate": {
+    "description": "Hijri date line on Today.",
+    "placeholders": {
+      "day": {
+        "type": "String"
+      },
+      "month": {
+        "type": "String"
+      },
+      "year": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsHijriDate": "Show the Hijri date",
+  "@settingsHijriDate": {
+    "description": "Settings switch."
+  },
+  "settingsHijriAdjust": "Hijri date adjustment: {days} days",
+  "@settingsHijriAdjust": {
+    "description": "Settings row to shift the Hijri date to match local moon sighting.",
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsCrashReports": "Send anonymous crash reports",
+  "@settingsCrashReports": {
+    "description": "Settings switch, off by default."
+  },
+  "settingsCrashReportsDesc": "Only the error and the app version — nothing about you or what you read. Off unless you turn it on.",
+  "@settingsCrashReportsDesc": {
+    "description": "Settings switch subtitle."
+  },
+  "khatmahTitle": "Khatmah plan",
+  "@khatmahTitle": {
+    "description": "Title of the whole-Quran reading plan."
+  },
+  "khatmahDesc": "Read the whole Quran by a date you choose, a portion a day.",
+  "@khatmahDesc": {
+    "description": "Khatmah card subtitle."
+  },
+  "khatmahDays": "{days} days",
+  "@khatmahDays": {
+    "description": "Plan length chip.",
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "khatmahFinishBy": "Finish by {date}",
+  "@khatmahFinishBy": {
+    "description": "Plan end date.",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "khatmahPickDate": "Pick a finish date",
+  "@khatmahPickDate": {
+    "description": "Button to choose an end date."
+  },
+  "khatmahStart": "Start plan",
+  "@khatmahStart": {
+    "description": "Button."
+  },
+  "khatmahDayOf": "Day {day} of {days}",
+  "@khatmahDayOf": {
+    "description": "Progress line.",
+    "placeholders": {
+      "day": {
+        "type": "int"
+      },
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "khatmahRange": "{from} to {to}",
+  "@khatmahRange": {
+    "description": "Today's reading range, e.g. 2:142 to 2:252.",
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "khatmahShare": "Share plan link",
+  "@khatmahShare": {
+    "description": "Button."
+  },
+  "khatmahShareText": "Join me in reading the whole Quran in {days} days, starting {date}:",
+  "@khatmahShareText": {
+    "description": "Text sent with the plan link.",
+    "placeholders": {
+      "days": {
+        "type": "int"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "khatmahJoinTitle": "Join this plan?",
+  "@khatmahJoinTitle": {
+    "description": "Dialog title when opening a shared plan link."
+  },
+  "khatmahJoinBody": "The whole Quran in {days} days, starting {date}.",
+  "@khatmahJoinBody": {
+    "description": "Dialog body.",
+    "placeholders": {
+      "days": {
+        "type": "int"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "khatmahJoin": "Join",
+  "@khatmahJoin": {
+    "description": "Button."
+  },
+  "khatmahStop": "Stop plan",
+  "@khatmahStop": {
+    "description": "Button."
+  },
+  "khatmahMarkDone": "Mark as read",
+  "@khatmahMarkDone": {
+    "description": "Button to tick off a day."
+  },
+  "khatmahStartsOn": "Starts on {date}",
+  "@khatmahStartsOn": {
+    "description": "Plan not started yet.",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "khatmahFinished": "Plan complete — may Allah accept it from you.",
+  "@khatmahFinished": {
+    "description": "Plan ended."
+  },
+  "khatmahDayN": "Day {day}",
+  "@khatmahDayN": {
+    "description": "Day label in the plan list.",
+    "placeholders": {
+      "day": {
+        "type": "int"
+      }
+    }
   }
 }

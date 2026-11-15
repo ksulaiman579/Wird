@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:wird/core/l10n/format.dart';
 
-const _fsi = '⁨';
-const _pdi = '⁩';
+const _fsi = '\u2068';
+const _pdi = '\u2069';
 
 void main() {
   group('bidiIsolate', () {

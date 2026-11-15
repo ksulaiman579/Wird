@@ -3,6 +3,7 @@ import 'package:wird/l10n/gen/app_localizations.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/l10n/dates.dart';
 import '../../shared/glass/glass.dart';
 import 'progress_providers.dart';
 import '../../core/calendar_math.dart';
@@ -85,9 +86,8 @@ class ProgressScreen extends ConsumerWidget {
                         AppLocalizations.of(context).progressEstimatedCompletion,
                     value: stats.estimatedCompletionDate == null
                         ? AppLocalizations.of(context).progressNoPaceData
-                        : '${stats.estimatedCompletionDate!.year}-'
-                            '${stats.estimatedCompletionDate!.month.toString().padLeft(2, '0')}-'
-                            '${stats.estimatedCompletionDate!.day.toString().padLeft(2, '0')}',
+                        : formatDateLocalized(
+                            context, stats.estimatedCompletionDate!),
                   ),
                 ],
               ),

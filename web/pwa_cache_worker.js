@@ -25,7 +25,7 @@
 // Bumping CACHE_NAME is now only needed when a CACHED DATA asset or icon must be
 // force-refreshed; code updates propagate on their own.
 // v5: M21 logo re-cut. v6: M22.8 palette. v7: M23 overhaul.
-const CACHE_NAME = 'wird-offline-v8'; // v8: network-first app shell (PWA update fix)
+const CACHE_NAME = 'wird-offline-v9'; // v9: local CanvasKit + cached Google fonts (offline start)
 
 // Requests that must always prefer the network so updates reach returning
 // clients: the HTML document and the Flutter bootstrap/code entrypoints.
@@ -84,7 +84,13 @@ self.addEventListener('fetch', (event) => {
   // Only cache same-origin GETs — everything this app needs is same-origin
   // (bundled assets, app shell); cross-origin requests (if any) pass
   // through untouched.
-  if (request.method !== 'GET' || new URL(request.url).origin !== self.location.origin) {
+  if (request.method !== 'GET') return;
+  const origin = new URL(request.url).origin;
+  // Flutter's fallback fonts come from Google's font servers; keep a copy
+  // so text still renders offline (cache-first, they never change).
+  const isFontCdn = origin === 'https://fonts.gstatic.com' ||
+      origin === 'https://www.gstatic.com';
+  if (origin !== self.location.origin && !isFontCdn) {
     return;
   }
 

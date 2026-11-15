@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'core/theme/script_fonts.dart';
 import 'core/backup/backup_service.dart';
 import 'core/db/database.dart';
 import 'core/notifications/notification_providers.dart';
@@ -111,10 +112,10 @@ class _DailyAppState extends ConsumerState<DailyApp> {
       locale: Locale(localeCode),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      theme: AppTheme.light(palette),
+      theme: withScriptFonts(AppTheme.light(palette), localeCode),
       darkTheme: themeMode == AppThemeMode.amoled
-          ? AppTheme.amoled(palette)
-          : AppTheme.dark(palette),
+          ? withScriptFonts(AppTheme.amoled(palette), localeCode)
+          : withScriptFonts(AppTheme.dark(palette), localeCode),
       themeMode: AppTheme.flutterThemeMode(themeMode),
       routerConfig: router,
       builder: (context, child) => _ResponsiveShell(child: child ?? const SizedBox()),

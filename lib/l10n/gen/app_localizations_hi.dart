@@ -2037,4 +2037,131 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get shareAsText => 'टेक्स्ट शेयर करें';
+
+  @override
+  String get hijriMonth1 => 'मुहर्रम';
+
+  @override
+  String get hijriMonth2 => 'सफ़र';
+
+  @override
+  String get hijriMonth3 => 'रबीउल अव्वल';
+
+  @override
+  String get hijriMonth4 => 'रबीउस्सानी';
+
+  @override
+  String get hijriMonth5 => 'जुमादल ऊला';
+
+  @override
+  String get hijriMonth6 => 'जुमादल आख़िरा';
+
+  @override
+  String get hijriMonth7 => 'रजब';
+
+  @override
+  String get hijriMonth8 => 'शाबान';
+
+  @override
+  String get hijriMonth9 => 'रमज़ान';
+
+  @override
+  String get hijriMonth10 => 'शव्वाल';
+
+  @override
+  String get hijriMonth11 => 'ज़ुलक़ादा';
+
+  @override
+  String get hijriMonth12 => 'ज़ुलहिज्जा';
+
+  @override
+  String hijriDate(String day, String month, String year) {
+    return '$day $month $year हि.';
+  }
+
+  @override
+  String get settingsHijriDate => 'हिजरी तारीख़ दिखाएँ';
+
+  @override
+  String settingsHijriAdjust(String days) {
+    return 'हिजरी तारीख़ में बदलाव: $days दिन';
+  }
+
+  @override
+  String get settingsCrashReports => 'गुमनाम क्रैश रिपोर्ट भेजें';
+
+  @override
+  String get settingsCrashReportsDesc =>
+      'सिर्फ़ गड़बड़ी और ऐप का वर्ज़न — आपके या आप क्या पढ़ते हैं इसके बारे में कुछ नहीं। जब तक आप चालू न करें, बंद रहेगा।';
+
+  @override
+  String get khatmahTitle => 'ख़त्म-ए-क़ुरआन योजना';
+
+  @override
+  String get khatmahDesc =>
+      'अपनी चुनी हुई तारीख़ तक पूरा क़ुरआन पढ़ें, रोज़ एक हिस्सा।';
+
+  @override
+  String khatmahDays(int days) {
+    return '$days दिन';
+  }
+
+  @override
+  String khatmahFinishBy(String date) {
+    return '$date तक पूरा';
+  }
+
+  @override
+  String get khatmahPickDate => 'पूरा करने की तारीख़ चुनें';
+
+  @override
+  String get khatmahStart => 'योजना शुरू करें';
+
+  @override
+  String khatmahDayOf(int day, int days) {
+    return 'दिन $day / $days';
+  }
+
+  @override
+  String khatmahRange(String from, String to) {
+    return '$from से $to तक';
+  }
+
+  @override
+  String get khatmahShare => 'योजना का लिंक शेयर करें';
+
+  @override
+  String khatmahShareText(int days, String date) {
+    return '$date से शुरू करके $days दिन में पूरा क़ुरआन पढ़ने में मेरे साथ जुड़ें:';
+  }
+
+  @override
+  String get khatmahJoinTitle => 'इस योजना से जुड़ें?';
+
+  @override
+  String khatmahJoinBody(int days, String date) {
+    return 'पूरा क़ुरआन $days दिन में, $date से शुरू।';
+  }
+
+  @override
+  String get khatmahJoin => 'जुड़ें';
+
+  @override
+  String get khatmahStop => 'योजना बंद करें';
+
+  @override
+  String get khatmahMarkDone => 'पढ़ लिया';
+
+  @override
+  String khatmahStartsOn(String date) {
+    return '$date को शुरू होगी';
+  }
+
+  @override
+  String get khatmahFinished => 'योजना पूरी — अल्लाह क़बूल फ़रमाए।';
+
+  @override
+  String khatmahDayN(int day) {
+    return 'दिन $day';
+  }
 }

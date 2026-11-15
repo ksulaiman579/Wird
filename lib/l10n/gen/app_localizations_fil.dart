@@ -2065,4 +2065,132 @@ class AppLocalizationsFil extends AppLocalizations {
 
   @override
   String get shareAsText => 'Ibahagi ang teksto';
+
+  @override
+  String get hijriMonth1 => 'Muharram';
+
+  @override
+  String get hijriMonth2 => 'Safar';
+
+  @override
+  String get hijriMonth3 => 'Rabi al-Awwal';
+
+  @override
+  String get hijriMonth4 => 'Rabi al-Akhir';
+
+  @override
+  String get hijriMonth5 => 'Jumada al-Ula';
+
+  @override
+  String get hijriMonth6 => 'Jumada al-Akhirah';
+
+  @override
+  String get hijriMonth7 => 'Rajab';
+
+  @override
+  String get hijriMonth8 => 'Sha\'ban';
+
+  @override
+  String get hijriMonth9 => 'Ramadan';
+
+  @override
+  String get hijriMonth10 => 'Shawwal';
+
+  @override
+  String get hijriMonth11 => 'Dhu al-Qadah';
+
+  @override
+  String get hijriMonth12 => 'Dhu al-Hijjah';
+
+  @override
+  String hijriDate(String day, String month, String year) {
+    return '$day $month $year AH';
+  }
+
+  @override
+  String get settingsHijriDate => 'Ipakita ang petsang Hijri';
+
+  @override
+  String settingsHijriAdjust(String days) {
+    return 'Pag-aayos ng petsang Hijri: $days araw';
+  }
+
+  @override
+  String get settingsCrashReports => 'Magpadala ng anonimong ulat ng crash';
+
+  @override
+  String get settingsCrashReportsDesc =>
+      'Ang error at bersyon lang ng app — walang tungkol sa iyo o sa binabasa mo. Naka-off maliban kung bubuksan mo.';
+
+  @override
+  String get khatmahTitle => 'Plano ng Khatmah';
+
+  @override
+  String get khatmahDesc =>
+      'Basahin ang buong Quran hanggang sa petsang pipiliin mo, isang bahagi bawat araw.';
+
+  @override
+  String khatmahDays(int days) {
+    return '$days araw';
+  }
+
+  @override
+  String khatmahFinishBy(String date) {
+    return 'Tapusin bago ang $date';
+  }
+
+  @override
+  String get khatmahPickDate => 'Pumili ng petsa ng pagtatapos';
+
+  @override
+  String get khatmahStart => 'Simulan ang plano';
+
+  @override
+  String khatmahDayOf(int day, int days) {
+    return 'Araw $day ng $days';
+  }
+
+  @override
+  String khatmahRange(String from, String to) {
+    return '$from hanggang $to';
+  }
+
+  @override
+  String get khatmahShare => 'Ibahagi ang link ng plano';
+
+  @override
+  String khatmahShareText(int days, String date) {
+    return 'Samahan mo akong basahin ang buong Quran sa loob ng $days araw, simula $date:';
+  }
+
+  @override
+  String get khatmahJoinTitle => 'Sumali sa planong ito?';
+
+  @override
+  String khatmahJoinBody(int days, String date) {
+    return 'Ang buong Quran sa $days araw, simula $date.';
+  }
+
+  @override
+  String get khatmahJoin => 'Sumali';
+
+  @override
+  String get khatmahStop => 'Itigil ang plano';
+
+  @override
+  String get khatmahMarkDone => 'Markahang nabasa';
+
+  @override
+  String khatmahStartsOn(String date) {
+    return 'Magsisimula sa $date';
+  }
+
+  @override
+  String get khatmahFinished =>
+      'Tapos na ang plano — tanggapin nawa ito ni Allah mula sa iyo.';
+
+  @override
+  String khatmahDayN(int day) {
+    return 'Araw $day';
+  }
 }

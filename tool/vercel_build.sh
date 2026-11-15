@@ -44,4 +44,6 @@ else
   echo "Cloud backup: disabled (no Supabase env vars)"
 fi
 
-flutter build web --release ${DEFINES[@]+"${DEFINES[@]}"}
+# --no-web-resources-cdn: serve CanvasKit from this site, so the PWA can
+# start offline (the service worker only caches same-origin files).
+flutter build web --release --no-web-resources-cdn ${DEFINES[@]+"${DEFINES[@]}"}

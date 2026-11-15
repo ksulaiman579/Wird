@@ -2025,4 +2025,131 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get shareAsText => 'مشاركة كنص';
+
+  @override
+  String get hijriMonth1 => 'محرم';
+
+  @override
+  String get hijriMonth2 => 'صفر';
+
+  @override
+  String get hijriMonth3 => 'ربيع الأول';
+
+  @override
+  String get hijriMonth4 => 'ربيع الآخر';
+
+  @override
+  String get hijriMonth5 => 'جمادى الأولى';
+
+  @override
+  String get hijriMonth6 => 'جمادى الآخرة';
+
+  @override
+  String get hijriMonth7 => 'رجب';
+
+  @override
+  String get hijriMonth8 => 'شعبان';
+
+  @override
+  String get hijriMonth9 => 'رمضان';
+
+  @override
+  String get hijriMonth10 => 'شوال';
+
+  @override
+  String get hijriMonth11 => 'ذو القعدة';
+
+  @override
+  String get hijriMonth12 => 'ذو الحجة';
+
+  @override
+  String hijriDate(String day, String month, String year) {
+    return '$day $month $year هـ';
+  }
+
+  @override
+  String get settingsHijriDate => 'إظهار التاريخ الهجري';
+
+  @override
+  String settingsHijriAdjust(String days) {
+    return 'تعديل التاريخ الهجري: $days يوم';
+  }
+
+  @override
+  String get settingsCrashReports => 'إرسال تقارير أعطال مجهولة';
+
+  @override
+  String get settingsCrashReportsDesc =>
+      'الخطأ ورقم الإصدار فقط — لا شيء عنك أو عمّا تقرأ. مغلق ما لم تفعّله.';
+
+  @override
+  String get khatmahTitle => 'خطة الختمة';
+
+  @override
+  String get khatmahDesc =>
+      'اقرأ القرآن كاملًا حتى تاريخ تختاره، وِردًا كل يوم.';
+
+  @override
+  String khatmahDays(int days) {
+    return '$days يوم';
+  }
+
+  @override
+  String khatmahFinishBy(String date) {
+    return 'الختم بحلول $date';
+  }
+
+  @override
+  String get khatmahPickDate => 'اختر تاريخ الختم';
+
+  @override
+  String get khatmahStart => 'ابدأ الخطة';
+
+  @override
+  String khatmahDayOf(int day, int days) {
+    return 'اليوم $day من $days';
+  }
+
+  @override
+  String khatmahRange(String from, String to) {
+    return 'من $from إلى $to';
+  }
+
+  @override
+  String get khatmahShare => 'مشاركة رابط الخطة';
+
+  @override
+  String khatmahShareText(int days, String date) {
+    return 'شاركني ختم القرآن في $days يومًا، بدءًا من $date:';
+  }
+
+  @override
+  String get khatmahJoinTitle => 'الانضمام إلى هذه الخطة؟';
+
+  @override
+  String khatmahJoinBody(int days, String date) {
+    return 'القرآن كاملًا في $days يومًا، بدءًا من $date.';
+  }
+
+  @override
+  String get khatmahJoin => 'انضمام';
+
+  @override
+  String get khatmahStop => 'إيقاف الخطة';
+
+  @override
+  String get khatmahMarkDone => 'تمّت القراءة';
+
+  @override
+  String khatmahStartsOn(String date) {
+    return 'تبدأ في $date';
+  }
+
+  @override
+  String get khatmahFinished => 'اكتملت الخطة — تقبّل الله منك.';
+
+  @override
+  String khatmahDayN(int day) {
+    return 'اليوم $day';
+  }
 }

@@ -23,6 +23,20 @@ void main() {
     'hadithNameBukhari', 'hadithNameMuslim', 'hadithNameAbudawud',
     'hadithNameTirmidhi', 'hadithNameIbnmajah', 'hadithNameMalik',
     'gradeSahih', 'gradeHasan', 'gradeDaif', 'gradeMawdu',
+    // Hijri month names are Arabic proper nouns, kept in Filipino.
+    'hijriMonth1',
+    'hijriMonth2',
+    'hijriMonth3',
+    'hijriMonth4',
+    'hijriMonth5',
+    'hijriMonth6',
+    'hijriMonth7',
+    'hijriMonth8',
+    'hijriMonth9',
+    'hijriMonth10',
+    'hijriMonth11',
+    'hijriMonth12',
+    'hijriDate',
     'achievementProgress', 'alManhajTitle', 'appTitle', 'commonExplore',
     'commonJuzN', 'commonMinutesShort', 'commonSurahN', 'commonSurahWord',
     'durationHr', 'durationHrMin', 'durationMin', 'hadithCollectionNawawi',
@@ -33,8 +47,9 @@ void main() {
     'zakahRikazDue', 'zakahShort',
   };
 
-  final en = jsonDecode(File('lib/l10n/app_en.arb').readAsStringSync())
-      as Map<String, dynamic>;
+  final en =
+      jsonDecode(File('lib/l10n/app_en.arb').readAsStringSync())
+          as Map<String, dynamic>;
   final enStr = <String, String>{
     for (final e in en.entries)
       if (!e.key.startsWith('@') && e.value is String) e.key: e.value as String,
@@ -42,16 +57,23 @@ void main() {
   final hasWords = RegExp(r'[A-Za-z]{3,}'); // skip pure-symbol/number strings
 
   for (final loc in shipLocales) {
-    test('$loc: every user-facing string is translated (or intentionally verbatim)', () {
-      final d = jsonDecode(File('lib/l10n/app_$loc.arb').readAsStringSync())
-          as Map<String, dynamic>;
-      final untranslated = <String>[];
-      enStr.forEach((k, v) {
-        if (allowVerbatim.contains(k)) return;
-        if (hasWords.hasMatch(v) && d[k] == v) untranslated.add(k);
-      });
-      expect(untranslated, isEmpty,
-          reason: '$loc still English for: $untranslated');
-    });
+    test(
+      '$loc: every user-facing string is translated (or intentionally verbatim)',
+      () {
+        final d =
+            jsonDecode(File('lib/l10n/app_$loc.arb').readAsStringSync())
+                as Map<String, dynamic>;
+        final untranslated = <String>[];
+        enStr.forEach((k, v) {
+          if (allowVerbatim.contains(k)) return;
+          if (hasWords.hasMatch(v) && d[k] == v) untranslated.add(k);
+        });
+        expect(
+          untranslated,
+          isEmpty,
+          reason: '$loc still English for: $untranslated',
+        );
+      },
+    );
   }
 }

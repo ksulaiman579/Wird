@@ -51,6 +51,7 @@
                 <data android:scheme="https" android:host="wird-alpha.vercel.app" android:pathPrefix="/read"/>
                 <data android:pathPrefix="/hadith"/>
                 <data android:pathPrefix="/duas"/>
+                <data android:pathPrefix="/khatmah"/>
             </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.

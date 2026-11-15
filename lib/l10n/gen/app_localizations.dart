@@ -3641,6 +3641,216 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Share text'**
   String get shareAsText;
+
+  /// Hijri month 1.
+  ///
+  /// In en, this message translates to:
+  /// **'Muharram'**
+  String get hijriMonth1;
+
+  /// Hijri month 2.
+  ///
+  /// In en, this message translates to:
+  /// **'Safar'**
+  String get hijriMonth2;
+
+  /// Hijri month 3.
+  ///
+  /// In en, this message translates to:
+  /// **'Rabi al-Awwal'**
+  String get hijriMonth3;
+
+  /// Hijri month 4.
+  ///
+  /// In en, this message translates to:
+  /// **'Rabi al-Akhir'**
+  String get hijriMonth4;
+
+  /// Hijri month 5.
+  ///
+  /// In en, this message translates to:
+  /// **'Jumada al-Ula'**
+  String get hijriMonth5;
+
+  /// Hijri month 6.
+  ///
+  /// In en, this message translates to:
+  /// **'Jumada al-Akhirah'**
+  String get hijriMonth6;
+
+  /// Hijri month 7.
+  ///
+  /// In en, this message translates to:
+  /// **'Rajab'**
+  String get hijriMonth7;
+
+  /// Hijri month 8.
+  ///
+  /// In en, this message translates to:
+  /// **'Sha\'ban'**
+  String get hijriMonth8;
+
+  /// Hijri month 9.
+  ///
+  /// In en, this message translates to:
+  /// **'Ramadan'**
+  String get hijriMonth9;
+
+  /// Hijri month 10.
+  ///
+  /// In en, this message translates to:
+  /// **'Shawwal'**
+  String get hijriMonth10;
+
+  /// Hijri month 11.
+  ///
+  /// In en, this message translates to:
+  /// **'Dhu al-Qadah'**
+  String get hijriMonth11;
+
+  /// Hijri month 12.
+  ///
+  /// In en, this message translates to:
+  /// **'Dhu al-Hijjah'**
+  String get hijriMonth12;
+
+  /// Hijri date line on Today.
+  ///
+  /// In en, this message translates to:
+  /// **'{day} {month} {year} AH'**
+  String hijriDate(String day, String month, String year);
+
+  /// Settings switch.
+  ///
+  /// In en, this message translates to:
+  /// **'Show the Hijri date'**
+  String get settingsHijriDate;
+
+  /// Settings row to shift the Hijri date to match local moon sighting.
+  ///
+  /// In en, this message translates to:
+  /// **'Hijri date adjustment: {days} days'**
+  String settingsHijriAdjust(String days);
+
+  /// Settings switch, off by default.
+  ///
+  /// In en, this message translates to:
+  /// **'Send anonymous crash reports'**
+  String get settingsCrashReports;
+
+  /// Settings switch subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Only the error and the app version — nothing about you or what you read. Off unless you turn it on.'**
+  String get settingsCrashReportsDesc;
+
+  /// Title of the whole-Quran reading plan.
+  ///
+  /// In en, this message translates to:
+  /// **'Khatmah plan'**
+  String get khatmahTitle;
+
+  /// Khatmah card subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Read the whole Quran by a date you choose, a portion a day.'**
+  String get khatmahDesc;
+
+  /// Plan length chip.
+  ///
+  /// In en, this message translates to:
+  /// **'{days} days'**
+  String khatmahDays(int days);
+
+  /// Plan end date.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish by {date}'**
+  String khatmahFinishBy(String date);
+
+  /// Button to choose an end date.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a finish date'**
+  String get khatmahPickDate;
+
+  /// Button.
+  ///
+  /// In en, this message translates to:
+  /// **'Start plan'**
+  String get khatmahStart;
+
+  /// Progress line.
+  ///
+  /// In en, this message translates to:
+  /// **'Day {day} of {days}'**
+  String khatmahDayOf(int day, int days);
+
+  /// Today's reading range, e.g. 2:142 to 2:252.
+  ///
+  /// In en, this message translates to:
+  /// **'{from} to {to}'**
+  String khatmahRange(String from, String to);
+
+  /// Button.
+  ///
+  /// In en, this message translates to:
+  /// **'Share plan link'**
+  String get khatmahShare;
+
+  /// Text sent with the plan link.
+  ///
+  /// In en, this message translates to:
+  /// **'Join me in reading the whole Quran in {days} days, starting {date}:'**
+  String khatmahShareText(int days, String date);
+
+  /// Dialog title when opening a shared plan link.
+  ///
+  /// In en, this message translates to:
+  /// **'Join this plan?'**
+  String get khatmahJoinTitle;
+
+  /// Dialog body.
+  ///
+  /// In en, this message translates to:
+  /// **'The whole Quran in {days} days, starting {date}.'**
+  String khatmahJoinBody(int days, String date);
+
+  /// Button.
+  ///
+  /// In en, this message translates to:
+  /// **'Join'**
+  String get khatmahJoin;
+
+  /// Button.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop plan'**
+  String get khatmahStop;
+
+  /// Button to tick off a day.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark as read'**
+  String get khatmahMarkDone;
+
+  /// Plan not started yet.
+  ///
+  /// In en, this message translates to:
+  /// **'Starts on {date}'**
+  String khatmahStartsOn(String date);
+
+  /// Plan ended.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan complete — may Allah accept it from you.'**
+  String get khatmahFinished;
+
+  /// Day label in the plan list.
+  ///
+  /// In en, this message translates to:
+  /// **'Day {day}'**
+  String khatmahDayN(int day);
 }
 
 class _AppLocalizationsDelegate

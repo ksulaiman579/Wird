@@ -5,6 +5,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'app.dart';
+import 'core/diagnostics/crash_reporting.dart';
 import 'core/cloud/cloud_config.dart';
 import 'core/diagnostics/debug_log.dart';
 
@@ -43,6 +44,8 @@ void main() {
     DebugLog.instance.add(
       'Wird started — content mirror ${CloudConfig.isConfigured ? "on" : "off"}',
     );
+
+    await initCrashReportsIfOptedIn();
 
     runApp(const ProviderScope(child: DailyApp()));
   }, (error, stack) {
