@@ -30,8 +30,8 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    // Step 0: Language -> Step 1: Welcome -> Step 2: Profile -> Step 3: Scope -> Step 4: QuranSelection
-    for (var i = 0; i < 4; i++) {
+    // Step 0: Language -> Step 1: what to memorise (incl. how much Quran)
+    for (var i = 0; i < 1; i++) {
       await tester.tap(find.widgetWithText(FilledButton, 'Next'));
       await tester.pumpAndSettle();
     }
@@ -40,12 +40,16 @@ void main() {
     expect(find.text('How much of the Quran?'), findsOneWidget);
 
     // Tap Specific juz (para)
+    await tester.ensureVisible(find.text('Specific juz (para)'));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Specific juz (para)'));
     await tester.pumpAndSettle();
 
     expect(find.text('Select juz (para)…'), findsOneWidget);
 
     // Tap button to open dialog
+    await tester.ensureVisible(find.text('Select juz (para)…'));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Select juz (para)…'));
     await tester.pumpAndSettle();
 
@@ -77,19 +81,23 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    // Step 0: Language -> Step 1: Welcome -> Step 2: Profile -> Step 3: Scope -> Step 4: QuranSelection
-    for (var i = 0; i < 4; i++) {
+    // Step 0: Language -> Step 1: what to memorise (incl. how much Quran)
+    for (var i = 0; i < 1; i++) {
       await tester.tap(find.widgetWithText(FilledButton, 'Next'));
       await tester.pumpAndSettle();
     }
 
     // Tap Specific surahs
+    await tester.ensureVisible(find.text('Specific surahs'));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Specific surahs'));
     await tester.pumpAndSettle();
 
     expect(find.text('Select surahs…'), findsOneWidget);
 
     // Tap button to open dialog
+    await tester.ensureVisible(find.text('Select surahs…'));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Select surahs…'));
     await tester.pumpAndSettle();
 

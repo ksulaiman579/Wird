@@ -30,8 +30,8 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    // Step 0: Language -> Step 1: Welcome -> Step 2: Profile -> Step 3: Scope -> Step 4: QuranSelection -> Step 5: DailyMinutes
-    for (var i = 0; i < 5; i++) {
+    // Step 0: Language -> Step 1: what to memorise -> Step 2: daily time
+    for (var i = 0; i < 2; i++) {
       await tester.tap(find.widgetWithText(FilledButton, 'Next'));
       await tester.pumpAndSettle();
     }
@@ -40,12 +40,16 @@ void main() {
     expect(find.text('10 min'), findsWidgets); // Default 10 min
 
     // Tap preset 60 min (1 hr)
+    await tester.ensureVisible(find.widgetWithText(ChoiceChip, '1 hr'));
+    await tester.pumpAndSettle();
     await tester.tap(find.widgetWithText(ChoiceChip, '1 hr'));
     await tester.pumpAndSettle();
 
     expect(find.text('1 hr'), findsWidgets);
 
     // Tap preset 120 min (2 hr)
+    await tester.ensureVisible(find.widgetWithText(ChoiceChip, '2 hr'));
+    await tester.pumpAndSettle();
     await tester.tap(find.widgetWithText(ChoiceChip, '2 hr'));
     await tester.pumpAndSettle();
 

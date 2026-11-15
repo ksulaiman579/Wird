@@ -69,8 +69,7 @@ void main() {
       ));
 
   testWidgets(
-      'full onboarding with a language + hadith collection selected '
-      'reaches the home route (M21.3 regression)', (tester) async {
+      'three-step onboarding reaches the home route (M21.3 regression)', (tester) async {
     // Tall viewport so the whole final step (search field, hadith pills,
     // Skip button) is on screen without fighting the nested scrollables.
     addTearDown(tester.view.reset);
@@ -112,42 +111,14 @@ void main() {
     // Step 0: Language selection before onboarding starts
     expect(find.text('Select language'), findsOneWidget);
 
-    // Steps 0-6: Language -> Welcome -> Profile -> Scope -> Quran selection (whole) ->
-    // Daily minutes -> Notifications, all on their defaults.
-    for (var step = 0; step < 7; step++) {
+    // Language -> What to memorise (whole Quran by default) -> Daily time.
+    for (var step = 0; step < 2; step++) {
       await tester.tap(find.widgetWithText(FilledButton, 'Next'));
       await _settle(tester);
     }
+    expect(find.text('How much time per day?'), findsOneWidget);
 
-    // Final step (native variant under flutter test — kIsWeb false):
-    // pick an additional language (via the M21.4 search field — the list
-    // is lazy, so filtering beats scrolling) and a hadith collection.
-    expect(find.text('Download for offline use'), findsOneWidget);
-
-    // Open translation modal
-    await tester.tap(find.textContaining('Select translation'));
-    await _settle(tester);
-    await tester.enterText(
-      find.widgetWithText(TextField, 'Search languages'),
-      'French',
-    );
-    await _settle(tester);
-    await tester.tap(find.widgetWithText(CheckboxListTile, 'French'));
-    await _settle(tester);
-    await tester.tap(find.text('Done'));
-    await _settle(tester);
-
-    // Open Hadith modal
-    await tester.tap(find.textContaining('Select Hadith collections'));
-    await _settle(tester);
-    await tester.ensureVisible(find.textContaining('Sahih al-Bukhari'));
-    await tester.tap(find.textContaining('Sahih al-Bukhari'));
-    await _settle(tester);
-    await tester.tap(find.text('Done'));
-    await _settle(tester);
-
-    // 'Skip for now' runs the same _finish() path the web 'Finish' does.
-    await tester.tap(find.widgetWithText(OutlinedButton, 'Skip for now'));
+    await tester.tap(find.widgetWithText(FilledButton, 'Finish'));
     for (var i = 0; i < 40; i++) {
       await tester.pump(const Duration(milliseconds: 250));
       if (find.text('HOME').evaluate().isNotEmpty) break;

@@ -87,7 +87,7 @@ class OnboardingController extends Notifier<OnboardingFormState> {
     await db.transaction(() async {
       await db.into(db.userProfiles).insert(
             UserProfilesCompanion.insert(
-              name: state.name.trim().isEmpty ? 'Friend' : state.name.trim(),
+              name: state.name.trim(),
               avatarEmoji: Value(state.avatarEmoji),
               createdAt: now,
             ),

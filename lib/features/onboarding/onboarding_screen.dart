@@ -7,13 +7,9 @@ import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wird/l10n/gen/app_localizations.dart';
 
-import '../hadith_reader/hadith_l10n.dart';
-import '../../core/audio/ayah_audio_urls.dart' show defaultReciter;
 import '../../core/backup/backup_service.dart';
-import '../../core/chunking/ayah_grouper.dart' show parseQuranContentKey;
 import '../../core/chunking/portion_planner.dart';
 import '../../core/content/hadith_pack_repository.dart';
-import '../../core/content/models/translation_pack_models.dart';
 import '../../core/content/translation_pack_service.dart';
 import '../../core/db/database.dart';
 import '../../core/notifications/notification_prefs.dart';
@@ -22,8 +18,6 @@ import '../../core/prefs/app_language_provider.dart';
 import '../../core/theme/palette_provider.dart';
 import '../../core/theme/theme_mode_provider.dart';
 import '../../shared/glass/glass.dart';
-import '../../shared/widgets/location_section.dart';
-import '../downloads/download_providers.dart';
 import '../quran_browser/quran_providers.dart';
 import '../quran_reader/reader_prefs.dart';
 import 'onboarding_controller.dart';
@@ -111,7 +105,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   int _pageIndex = 0;
   bool _completing = false;
 
-  static const _stepCount = 8;
+  static const _stepCount = 3;
 
   static const _disclaimerSeenKey = 'offline_disclaimer_seen';
 
@@ -199,19 +193,24 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   /// awaited — a slow/failed download must not delay finishing onboarding
   /// (the Library screen lets the user retry later either way, per M13.7).
   void _downloadSelectedLanguagePackBestEffort() {
-    final editionId = ref.read(readerPrefsProvider).value?.extraEditionId;
-    if (editionId == null) return;
+    final lang = ref.read(appLanguageProvider).value ?? 'en';
+    if (lang == 'en' || lang == 'ar') return;
+    const iso3 = {'hi': 'hin', 'ml': 'mal', 'ur': 'urd', 'bn': 'ben'};
 
     unawaited(() async {
       try {
-        final allowlist =
-            await ref.read(translationPackServiceProvider).loadAllowlist();
-        final matches = allowlist.editions.where((e) => e.id == editionId);
+        final service = ref.read(translationPackServiceProvider);
+        final allowlist = await service.loadAllowlist();
+        final matches = allowlist.editions.where(
+            (e) => e.languageCode == lang || e.languageCode == iso3[lang]);
         if (matches.isEmpty) return;
         final entry = matches.first;
-        await ref.read(translationPackServiceProvider).downloadAndInstall(entry);
+        await ref
+            .read(readerPrefsProvider.notifier)
+            .updatePrefs((p) => p.copyWith(extraEditionId: entry.id));
+        await service.downloadAndInstall(entry);
       } catch (_) {
-        // Best-effort — see above.
+        // Best-effort — the Library screen offers it again.
       }
     }());
   }
@@ -224,55 +223,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     final repo = ref.read(hadithPackRepositoryProvider);
     for (final collection in selected) {
       unawaited(repo.downloadAndInstall(collection).catchError((_) {}));
-    }
-  }
-
-  /// Completes onboarding, then enqueues every Quran surah the freshly
-  /// generated plan touches for offline download (native only — this step
-  /// shows a simplified "not available on web" version there instead).
-  Future<void> _finishAndDownload() async {
-    setState(() => _completing = true);
-    try {
-      await ref.read(onboardingControllerProvider.notifier).complete();
-
-      final db = ref.read(appDatabaseProvider);
-      final items = await db.select(db.srsItems).get();
-      final surahs = items
-          .where((i) => i.contentType == 'quran')
-          .map((i) => parseQuranContentKey(i.contentKey)?.surah)
-          .whereType<int>()
-          .toSet();
-
-      if (surahs.isNotEmpty) {
-        final meta = await ref.read(quranMetaProvider.future);
-        final manager = ref.read(audioDownloadManagerProvider);
-        for (final surahNumber in surahs) {
-          final ayahCount = meta.surahs
-              .firstWhere((s) => s.number == surahNumber)
-              .ayahCount;
-          await manager.enqueueSurah(
-            surah: surahNumber,
-            ayahs: [for (var a = 1; a <= ayahCount; a++) a],
-            reciter: defaultReciter,
-            wifiOnly: true,
-          );
-        }
-      }
-
-      await _rescheduleNotificationsBestEffort();
-      _downloadSelectedLanguagePackBestEffort();
-      _downloadSelectedHadithCollectionsBestEffort();
-      if (mounted) context.go('/');
-    } catch (e) {
-      // Same surfacing as _finish — see the M21.3 note there.
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(AppLocalizations.of(context).obFinishError('$e'))),
-        );
-      }
-      rethrow;
-    } finally {
-      if (mounted) setState(() => _completing = false);
     }
   }
 
@@ -319,21 +269,17 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
             Expanded(
               child: PageView(
                 controller: _pageController,
-                physics: const ClampingScrollPhysics(),
+                // Steps only change through Next/Back: a swipe used to skip a
+                // step without its checks.
+                physics: const NeverScrollableScrollPhysics(),
                 onPageChanged: (i) => setState(() => _pageIndex = i),
                 children: [
                   _LanguageStep(onNext: () => _goTo(1)),
-                  _WelcomeStep(onNext: () => _goTo(2)),
-                  _ProfileStep(state: state, onNext: () => _goTo(3)),
-                  _ScopeStep(state: state, onNext: () => _goTo(4)),
-                  _QuranSelectionStep(state: state, onNext: () => _goTo(5)),
-                  _DailyMinutesStep(state: state, onNext: () => _goTo(6)),
-                  _NotificationsStep(onNext: () => _goTo(7)),
-                  _DownloadOfferStep(
-                    wantsHadith: state.wantsHadith,
-                    completing: _completing,
-                    onSkip: _finish,
-                    onDownloadAndFinish: _finishAndDownload,
+                  _WhatStep(state: state, onNext: () => _goTo(2)),
+                  _DailyStep(
+                    state: state,
+                    busy: _completing,
+                    onFinish: _finish,
                   ),
                 ],
               ),
@@ -495,49 +441,24 @@ class _LanguageStep extends ConsumerWidget {
             ),
           );
         }),
+        const SizedBox(height: 8),
+        const _RestoreBackupButton(),
       ],
     );
   }
 }
 
-class _WelcomeStep extends StatelessWidget {
-  const _WelcomeStep({required this.onNext});
-
-  final VoidCallback onNext;
-
-  @override
-  Widget build(BuildContext context) {
-    return _StepScaffold(
-      title: AppLocalizations.of(context).obWelcomeTitle,
-      onNext: onNext,
-      children: [
-        const Center(
-          child: Image(
-            image: AssetImage('assets/icon/logo_display.png'),
-            width: 160,
-            height: 160,
-          ),
-        ),
-        const SizedBox(height: 16),
-        Text(AppLocalizations.of(context).obWelcomeBody),
-      ],
-    );
-  }
-}
-
-class _ProfileStep extends ConsumerStatefulWidget {
-  const _ProfileStep({required this.state, required this.onNext});
-
-  final OnboardingFormState state;
-  final VoidCallback onNext;
+/// "Restore from backup" — kept on the first step so a returning user can
+/// skip setup entirely.
+class _RestoreBackupButton extends ConsumerStatefulWidget {
+  const _RestoreBackupButton();
 
   @override
-  ConsumerState<_ProfileStep> createState() => _ProfileStepState();
+  ConsumerState<_RestoreBackupButton> createState() =>
+      _RestoreBackupButtonState();
 }
 
-class _ProfileStepState extends ConsumerState<_ProfileStep> {
-  static const _emojiChoices = ['🕌', '📖', '🌙', '⭐', '🌿', '🕊️'];
-
+class _RestoreBackupButtonState extends ConsumerState<_RestoreBackupButton> {
   bool _restoring = false;
 
   Future<void> _restoreFromBackup() async {
@@ -562,7 +483,9 @@ class _ProfileStepState extends ConsumerState<_ProfileStep> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(AppLocalizations.of(context).obRestoreFailed('$e'))),
+          SnackBar(
+              content:
+                  Text(AppLocalizations.of(context).obRestoreFailed('$e'))),
         );
       }
     } finally {
@@ -572,48 +495,25 @@ class _ProfileStepState extends ConsumerState<_ProfileStep> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = ref.read(onboardingControllerProvider.notifier);
-
-    return _StepScaffold(
-      title: AppLocalizations.of(context).obNameTitle,
-      onNext: widget.onNext,
-      children: [
-        TextField(
-          decoration: InputDecoration(
-              labelText: AppLocalizations.of(context).obName),
-          onChanged: (value) => controller.updateProfile(name: value),
-        ),
-        const SizedBox(height: 16),
-        Text(AppLocalizations.of(context).obPickIcon),
-        const SizedBox(height: 8),
-        Wrap(
-          spacing: 8,
-          children: _emojiChoices.map((emoji) {
-            return ChoiceChip(
-              label: Text(emoji, style: const TextStyle(fontSize: 20)),
-              selected: widget.state.avatarEmoji == emoji,
-              onSelected: (_) => controller.updateProfile(avatarEmoji: emoji),
-            );
-          }).toList(),
-        ),
-        const SizedBox(height: 24),
-        OutlinedButton(
-          onPressed: _restoring ? null : _restoreFromBackup,
-          child: _restoring
-              ? const SizedBox(
-                  width: 16,
-                  height: 16,
-                  child: CircularProgressIndicator(strokeWidth: 2),
-                )
-              : Text(AppLocalizations.of(context).obRestoreBackup),
-        ),
-      ],
+    return Center(
+      child: TextButton.icon(
+        onPressed: _restoring ? null : _restoreFromBackup,
+        icon: _restoring
+            ? const SizedBox(
+                width: 16,
+                height: 16,
+                child: CircularProgressIndicator(strokeWidth: 2),
+              )
+            : const Icon(Icons.restore_rounded),
+        label: Text(AppLocalizations.of(context).obRestoreBackup),
+      ),
     );
   }
 }
 
-class _ScopeStep extends ConsumerWidget {
-  const _ScopeStep({required this.state, required this.onNext});
+/// Step 2: what to memorise, and (for the Quran) how much — one page.
+class _WhatStep extends ConsumerWidget {
+  const _WhatStep({required this.state, required this.onNext});
 
   final OnboardingFormState state;
   final VoidCallback onNext;
@@ -621,26 +521,27 @@ class _ScopeStep extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.read(onboardingControllerProvider.notifier);
+    final l = AppLocalizations.of(context);
 
     return _StepScaffold(
-      title: AppLocalizations.of(context).obScopeTitle,
+      title: l.obScopeTitle,
       onNext: onNext,
-      nextEnabled: state.hasValidScope,
+      nextEnabled: state.hasValidScope &&
+          (!state.wantsQuran || state.hasValidQuranSelection),
       children: [
         CheckboxListTile(
-          title: Text(AppLocalizations.of(context).quranTitle),
+          title: Text(l.quranTitle),
           value: state.wantsQuran,
           onChanged: (v) => controller.updateScope(wantsQuran: v),
         ),
         CheckboxListTile(
-          title: Text(AppLocalizations.of(context).obScopeHadith),
+          title: Text(l.obScopeHadith),
           value: state.wantsHadith,
           onChanged: (v) => controller.updateScope(wantsHadith: v),
         ),
-        const Divider(),
         CheckboxListTile(
-          title: Text(AppLocalizations.of(context).obScopeAlsoDuas),
-          subtitle: Text(AppLocalizations.of(context).obScopeAlsoDuasDesc),
+          title: Text(l.obScopeAlsoDuas),
+          subtitle: Text(l.obScopeAlsoDuasDesc),
           value: state.wantsDuas,
           onChanged: (v) => controller.updateScope(wantsDuas: v),
         ),
@@ -648,95 +549,60 @@ class _ScopeStep extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.only(top: 8),
             child: Text(
-              AppLocalizations.of(context).obScopeChooseOne,
-              style: const TextStyle(color: Colors.red),
+              l.obScopeChooseOne,
+              style: TextStyle(color: Theme.of(context).colorScheme.error),
             ),
           ),
-      ],
-    );
-  }
-}
-
-class _QuranSelectionStep extends ConsumerWidget {
-  const _QuranSelectionStep({required this.state, required this.onNext});
-
-  final OnboardingFormState state;
-  final VoidCallback onNext;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    if (!state.wantsQuran) {
-      return _StepScaffold(
-        title: AppLocalizations.of(context).obQuranSelTitle,
-        onNext: onNext,
-        children: [Text(AppLocalizations.of(context).obQuranSkip)],
-      );
-    }
-
-    final controller = ref.read(onboardingControllerProvider.notifier);
-    final l = AppLocalizations.of(context);
-
-    return _StepScaffold(
-      title: l.obQuranHowMuch,
-      onNext: onNext,
-      nextEnabled: state.hasValidQuranSelection,
-      children: [
-        RadioGroup<String>(
-          groupValue: state.quranSelectionType,
-          onChanged: (v) => controller.updateQuranSelection(selectionType: v),
-          child: Column(
-            children: [
-              RadioListTile<String>(
-                title: Text(l.planWholeQuran),
-                value: 'whole',
-              ),
-              RadioListTile<String>(
-                title: Text(l.planSpecificJuz),
-                value: 'juz',
-              ),
-              RadioListTile<String>(
-                title: Text(l.planSpecificSurahs),
-                value: 'surahs',
-              ),
-            ],
+        if (state.wantsQuran) ...[
+          const Divider(height: 24),
+          Text(l.obQuranHowMuch,
+              style: Theme.of(context).textTheme.titleMedium),
+          RadioGroup<String>(
+            groupValue: state.quranSelectionType,
+            onChanged: (v) =>
+                controller.updateQuranSelection(selectionType: v),
+            child: Column(
+              children: [
+                RadioListTile<String>(
+                    title: Text(l.planWholeQuran), value: 'whole'),
+                RadioListTile<String>(
+                    title: Text(l.planSpecificJuz), value: 'juz'),
+                RadioListTile<String>(
+                    title: Text(l.planSpecificSurahs), value: 'surahs'),
+              ],
+            ),
           ),
-        ),
-        if (state.quranSelectionType == 'juz')
-          _JuzPickerTrigger(
-            selected: state.selectedJuz,
-            onChanged: (ids) => controller.updateQuranSelection(selectedJuz: ids),
+          if (state.quranSelectionType == 'juz')
+            _JuzPickerTrigger(
+              selected: state.selectedJuz,
+              onChanged: (ids) =>
+                  controller.updateQuranSelection(selectedJuz: ids),
+            ),
+          if (state.quranSelectionType == 'surahs')
+            _SurahPickerTrigger(
+              selected: state.selectedSurahs,
+              onChanged: (ids) =>
+                  controller.updateQuranSelection(selectedSurahs: ids),
+            ),
+          const SizedBox(height: 12),
+          if (state.quranSelectionType != 'surahs')
+            Text(
+              l.obReversedNote,
+              style: const TextStyle(fontStyle: FontStyle.italic),
+            ),
+          RadioGroup<String>(
+            groupValue: state.direction,
+            onChanged: (v) => controller.updateQuranSelection(direction: v),
+            child: Column(
+              children: [
+                RadioListTile<String>(
+                    title: Text(l.planNormalOrder), value: 'normal'),
+                RadioListTile<String>(
+                    title: Text(l.planReversedOrder), value: 'reversed'),
+              ],
+            ),
           ),
-        if (state.quranSelectionType == 'surahs')
-          _SurahPickerTrigger(
-            selected: state.selectedSurahs,
-            onChanged: (ids) =>
-                controller.updateQuranSelection(selectedSurahs: ids),
-          ),
-        // Reversed order applies to surahs too (U2) — the explanatory note is
-        // juz/whole-specific, so show it only there, but offer the toggle for
-        // every multi-item selection.
-        const SizedBox(height: 16),
-        if (state.quranSelectionType != 'surahs')
-          Text(
-            l.obReversedNote,
-            style: const TextStyle(fontStyle: FontStyle.italic),
-          ),
-        RadioGroup<String>(
-          groupValue: state.direction,
-          onChanged: (v) => controller.updateQuranSelection(direction: v),
-          child: Column(
-            children: [
-              RadioListTile<String>(
-                title: Text(l.planNormalOrder),
-                value: 'normal',
-              ),
-              RadioListTile<String>(
-                title: Text(l.planReversedOrder),
-                value: 'reversed',
-              ),
-            ],
-          ),
-        ),
+        ],
       ],
     );
   }
@@ -1064,17 +930,24 @@ class _SurahPickerDialogState extends ConsumerState<_SurahPickerDialog> {
   }
 }
 
-class _DailyMinutesStep extends ConsumerStatefulWidget {
-  const _DailyMinutesStep({required this.state, required this.onNext});
+/// Step 3: daily time and the daily reminder, then Finish. Other reminders,
+/// the adhan, location and downloads live in Settings / the Library.
+class _DailyStep extends ConsumerStatefulWidget {
+  const _DailyStep({
+    required this.state,
+    required this.busy,
+    required this.onFinish,
+  });
 
   final OnboardingFormState state;
-  final VoidCallback onNext;
+  final bool busy;
+  final VoidCallback onFinish;
 
   @override
-  ConsumerState<_DailyMinutesStep> createState() => _DailyMinutesStepState();
+  ConsumerState<_DailyStep> createState() => _DailyStepState();
 }
 
-class _DailyMinutesStepState extends ConsumerState<_DailyMinutesStep> {
+class _DailyStepState extends ConsumerState<_DailyStep> {
   int? _estimatedDays;
 
   @override
@@ -1083,14 +956,29 @@ class _DailyMinutesStepState extends ConsumerState<_DailyMinutesStep> {
     _loadEstimate();
   }
 
+  @override
+  void didUpdateWidget(covariant _DailyStep old) {
+    super.didUpdateWidget(old);
+    // The selection can change on step 2 after this page was built.
+    if (old.state.quranSelectionType != widget.state.quranSelectionType ||
+        old.state.selectedJuz != widget.state.selectedJuz ||
+        old.state.selectedSurahs != widget.state.selectedSurahs ||
+        old.state.wantsQuran != widget.state.wantsQuran) {
+      _loadEstimate();
+    }
+  }
+
   Future<void> _loadEstimate() async {
-    if (!widget.state.wantsQuran) return;
+    if (!widget.state.wantsQuran) {
+      if (_estimatedDays != null) setState(() => _estimatedDays = null);
+      return;
+    }
     final controller = ref.read(onboardingControllerProvider.notifier);
     final totalWords = await controller.quranWordCountForSelection();
     if (mounted) {
       setState(() {
-        _estimatedDays =
-            estimateDaysToComplete(totalWords, widget.state.dailyMinutes);
+        _estimatedDays = estimateDaysToComplete(
+            totalWords, ref.read(onboardingControllerProvider).dailyMinutes);
       });
     }
   }
@@ -1099,10 +987,14 @@ class _DailyMinutesStepState extends ConsumerState<_DailyMinutesStep> {
   Widget build(BuildContext context) {
     final controller = ref.read(onboardingControllerProvider.notifier);
     final l = AppLocalizations.of(context);
+    final prefs =
+        ref.watch(notificationPrefsProvider).value ?? const NotificationPrefs();
 
     return _StepScaffold(
       title: l.obTimeTitle,
-      onNext: widget.onNext,
+      onNext: widget.onFinish,
+      nextLabel: l.commonFinish,
+      busy: widget.busy,
       children: [
         Center(
           child: Text(
@@ -1147,502 +1039,47 @@ class _DailyMinutesStepState extends ConsumerState<_DailyMinutesStep> {
             style: Theme.of(context).textTheme.bodyMedium,
           ),
         ],
-      ],
-    );
-  }
-}
-
-class _NotificationsStep extends ConsumerWidget {
-  const _NotificationsStep({required this.onNext});
-
-  final VoidCallback onNext;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final prefsAsync = ref.watch(notificationPrefsProvider);
-    final prefs = prefsAsync.value ?? const NotificationPrefs();
-
-    return _StepScaffold(
-      title: AppLocalizations.of(context).obConsistentTitle,
-      onNext: onNext,
-      children: [
-        if (kIsWeb)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: Text(
-              AppLocalizations.of(context).obNotifWeb,
-              style: const TextStyle(fontStyle: FontStyle.italic),
-            ),
-          )
-        else ...[
+        if (!kIsWeb) ...[
+          const Divider(height: 24),
           SwitchListTile(
-            title: Text(AppLocalizations.of(context).settingsDailyReminder),
-            subtitle: Text(TimeOfDay(
-              hour: prefs.dailyReminderHour,
-              minute: prefs.dailyReminderMinute,
-            ).format(context)),
+            contentPadding: EdgeInsets.zero,
+            title: Text(l.settingsDailyReminder),
             value: prefs.dailyReminderEnabled,
             onChanged: (v) => ref
                 .read(notificationPrefsProvider.notifier)
                 .updatePrefs((p) => p.copyWith(dailyReminderEnabled: v)),
           ),
-          ListTile(
-            title: Text(AppLocalizations.of(context).settingsReminderTime),
-            trailing: const Icon(Icons.access_time_rounded),
-            onTap: () async {
-              final picked = await showTimePicker(
-                context: context,
-                initialTime: TimeOfDay(
+          if (prefs.dailyReminderEnabled)
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              title: Text(l.settingsReminderTime),
+              trailing: Text(
+                TimeOfDay(
                   hour: prefs.dailyReminderHour,
                   minute: prefs.dailyReminderMinute,
-                ),
-              );
-              if (picked != null) {
-                await ref.read(notificationPrefsProvider.notifier).updatePrefs(
-                      (p) => p.copyWith(
-                        dailyReminderHour: picked.hour,
-                        dailyReminderMinute: picked.minute,
-                      ),
-                    );
-              }
-            },
-          ),
-          SwitchListTile(
-            title: Text(AppLocalizations.of(context).settingsMorningReminder),
-            subtitle: Text(AppLocalizations.of(context).obMorningReminderDesc),
-            value: prefs.adhkarMorningEnabled,
-            onChanged: (v) => ref
-                .read(notificationPrefsProvider.notifier)
-                .updatePrefs((p) => p.copyWith(adhkarMorningEnabled: v)),
-          ),
-          SwitchListTile(
-            title: Text(AppLocalizations.of(context).settingsEveningReminder),
-            subtitle: Text(AppLocalizations.of(context).obEveningReminderDesc),
-            value: prefs.adhkarEveningEnabled,
-            onChanged: (v) => ref
-                .read(notificationPrefsProvider.notifier)
-                .updatePrefs((p) => p.copyWith(adhkarEveningEnabled: v)),
-          ),
-          SwitchListTile(
-            title: Text(AppLocalizations.of(context).settingsStreakReminder),
-            subtitle: Text(AppLocalizations.of(context).settingsStreakReminderDesc),
-            value: prefs.streakAtRiskEnabled,
-            onChanged: (v) => ref
-                .read(notificationPrefsProvider.notifier)
-                .updatePrefs((p) => p.copyWith(streakAtRiskEnabled: v)),
-          ),
-          // Surface the adhan feature (5H/6A) at onboarding for
-          // discoverability; per-salah tuning + tone preview stay in
-          // Settings (Item 1.24). Toggling on enables the adhan for all
-          // five prayers, off silences it.
-          SwitchListTile(
-            title: Text(AppLocalizations.of(context).obPrayerAdhan),
-            subtitle: Text(AppLocalizations.of(context).obPrayerAdhanDesc),
-            value: prefs.adhanTone == AdhanTone.adhan,
-            onChanged: (v) => ref
-                .read(notificationPrefsProvider.notifier)
-                .updatePrefs((p) => p.copyWith(
-                      adhanTone: v ? AdhanTone.adhan : AdhanTone.none,
-                      adhanFajr: v,
-                      adhanDhuhr: v,
-                      adhanAsr: v,
-                      adhanMaghrib: v,
-                      adhanIsha: v,
-                    )),
-          ),
-        ],
-        const Padding(
-          padding: EdgeInsets.only(top: 16),
-          child: LocationSection(),
-        ),
-      ],
-    );
-  }
-}
-
-/// Native only — `background_downloader` has no web support, so the web
-/// build shows a simplified message with just a Continue button instead of
-/// the real download offer.
-class _DownloadOfferStep extends StatelessWidget {
-  const _DownloadOfferStep({
-    required this.wantsHadith,
-    required this.completing,
-    required this.onSkip,
-    required this.onDownloadAndFinish,
-  });
-
-  final bool wantsHadith;
-  final bool completing;
-  final VoidCallback onSkip;
-  final VoidCallback onDownloadAndFinish;
-
-  @override
-  Widget build(BuildContext context) {
-    if (kIsWeb) {
-      return _StepScaffold(
-        title: AppLocalizations.of(context).obAllSet,
-        nextLabel: AppLocalizations.of(context).commonFinish,
-        busy: completing,
-        onNext: onSkip,
-        children: [
-          Text(AppLocalizations.of(context).obWebAudioNote),
-          const SizedBox(height: 16),
-          const _LanguagePackPicker(),
-          if (wantsHadith) ...[
-            const SizedBox(height: 16),
-            const _HadithCollectionPicker(),
-          ],
-        ],
-      );
-    }
-
-    return Padding(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(AppLocalizations.of(context).obDownloadTitle,
-              style: Theme.of(context).textTheme.headlineSmall),
-          const SizedBox(height: 16),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(AppLocalizations.of(context).obDownloadDesc),
-                  const SizedBox(height: 16),
-                  const _LanguagePackPicker(),
-                  if (wantsHadith) ...[
-                    const SizedBox(height: 16),
-                    const _HadithCollectionPicker(),
-                  ],
-                ],
+                ).format(context),
+                style: Theme.of(context).textTheme.titleMedium,
               ),
-            ),
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: FilledButton(
-              onPressed: completing ? null : onDownloadAndFinish,
-              child: completing
-                  ? const SizedBox(
-                      width: 20,
-                      height: 20,
-                      child: CircularProgressIndicator(strokeWidth: 2),
-                    )
-                  : Text(AppLocalizations.of(context).obDownloadNow),
-            ),
-          ),
-          const SizedBox(height: 8),
-          SizedBox(
-            width: double.infinity,
-            child: OutlinedButton(
-              onPressed: completing ? null : onSkip,
-              child: Text(AppLocalizations.of(context).obSkipForNow),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-/// Lets the user pick ONE additional Quran translation language from the
-/// vetted allowlist (M12.1, expanded to ~46 languages in M21.4) to
-/// download in the background — entirely optional, skippable, and
-/// resumable later from the Library screen (M13.7), so this never blocks
-/// finishing onboarding. Rendered as a searchable, scrollable list
-/// (chips stopped scaling past ~10 languages); "None" stays pinned on top.
-class _LanguagePackPicker extends ConsumerWidget {
-  const _LanguagePackPicker();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final allowlistAsync = ref.watch(_editionsAllowlistProvider);
-    final selectedId = ref.watch(readerPrefsProvider).value?.extraEditionId;
-
-    return allowlistAsync.when(
-      loading: () => const SizedBox.shrink(),
-      error: (e, st) => const SizedBox.shrink(),
-      data: (allowlist) {
-        String selectedLabel = AppLocalizations.of(context).commonNone;
-        if (selectedId != null) {
-          final found = allowlist.editions
-              .where((e) => e.id == selectedId)
-              .firstOrNull;
-          if (found != null) {
-            selectedLabel = found.language;
-          }
-        }
-
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              AppLocalizations.of(context).obAddlTranslation,
-              style: Theme.of(context).textTheme.titleSmall,
-            ),
-            const SizedBox(height: 4),
-            Text(AppLocalizations.of(context).obAddlTranslationDesc),
-            const SizedBox(height: 8),
-            OutlinedButton.icon(
-              onPressed: () {
-                showDialog(
+              onTap: () async {
+                final picked = await showTimePicker(
                   context: context,
-                  builder: (context) => _TranslationPickerDialog(
-                    allowlist: allowlist,
-                    initialSelectedId: selectedId,
+                  initialTime: TimeOfDay(
+                    hour: prefs.dailyReminderHour,
+                    minute: prefs.dailyReminderMinute,
                   ),
                 );
+                if (picked != null) {
+                  await ref
+                      .read(notificationPrefsProvider.notifier)
+                      .updatePrefs((p) => p.copyWith(
+                            dailyReminderHour: picked.hour,
+                            dailyReminderMinute: picked.minute,
+                          ));
+                }
               },
-              icon: const Icon(Icons.translate),
-              label: Text(AppLocalizations.of(context).obSelectTranslation(selectedLabel)),
             ),
-          ],
-        );
-      },
-    );
-  }
-}
-
-class _TranslationPickerDialog extends ConsumerStatefulWidget {
-  const _TranslationPickerDialog({
-    required this.allowlist,
-    required this.initialSelectedId,
-  });
-
-  final TranslationAllowlist allowlist;
-  final String? initialSelectedId;
-
-  @override
-  ConsumerState<_TranslationPickerDialog> createState() =>
-      _TranslationPickerDialogState();
-}
-
-class _TranslationPickerDialogState
-    extends ConsumerState<_TranslationPickerDialog> {
-  String _query = '';
-
-  @override
-  Widget build(BuildContext context) {
-    final selectedId = ref.watch(readerPrefsProvider).value?.extraEditionId;
-    final notifier = ref.read(readerPrefsProvider.notifier);
-
-    final editions = widget.allowlist.editions
-        .where((e) =>
-            _query.isEmpty ||
-            e.language.toLowerCase().contains(_query) ||
-            e.author.toLowerCase().contains(_query))
-        .toList()
-      ..sort((a, b) => a.language.compareTo(b.language));
-
-    return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(maxHeight: 520, maxWidth: 400),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Text(
-                      AppLocalizations.of(context).obSelectTranslationTitle,
-                      style: Theme.of(context).textTheme.titleLarge,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: AppLocalizations.of(context).librarySearchLanguages,
-                  prefixIcon: const Icon(Icons.search_rounded),
-                  isDense: true,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                onChanged: (v) =>
-                    setState(() => _query = v.trim().toLowerCase()),
-              ),
-            ),
-            const Divider(height: 1),
-            Expanded(
-              child: ListView.builder(
-                itemCount: editions.length + 1,
-                itemBuilder: (context, index) {
-                  if (index == 0) {
-                    return CheckboxListTile(
-                      dense: true,
-                      controlAffinity: ListTileControlAffinity.leading,
-                      title: Text(AppLocalizations.of(context).commonNone),
-                      value: selectedId == null,
-                      onChanged: (_) => notifier.updatePrefs(
-                          (p) => p.copyWith(clearExtraEdition: true)),
-                    );
-                  }
-                  final edition = editions[index - 1];
-                  return CheckboxListTile(
-                    dense: true,
-                    controlAffinity: ListTileControlAffinity.leading,
-                    title: Text(edition.language),
-                    subtitle: Text(
-                      edition.author,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    value: selectedId == edition.id,
-                    onChanged: (_) => notifier.updatePrefs(
-                      (p) => p.copyWith(extraEditionId: edition.id),
-                    ),
-                  );
-                },
-              ),
-            ),
-            const Divider(height: 1),
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: Align(
-                alignment: AlignmentDirectional.centerEnd,
-                child: FilledButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: Text(AppLocalizations.of(context).commonDone),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-final _editionsAllowlistProvider =
-    FutureProvider<TranslationAllowlist>((ref) {
-  return ref.watch(translationPackServiceProvider).loadAllowlist();
-});
-
-/// Lets the user pick any number of the six downloadable Hadith
-/// collections (M13.6) — shown with an approximate size, only when the
-/// scope step (M13.4's earlier screen) selected Hadith. Entirely optional
-/// and skippable; unselected collections stay reachable later from the
-/// Hadith tab's shelf (M20.3) or the Library screen (M13.7).
-class _HadithCollectionPicker extends ConsumerWidget {
-  const _HadithCollectionPicker();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final selected = ref.watch(selectedHadithCollectionsProvider);
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          AppLocalizations.of(context).obHadithCollections,
-          style: Theme.of(context).textTheme.titleSmall,
-        ),
-        const SizedBox(height: 4),
-        Text(AppLocalizations.of(context).obHadithCollectionsDesc),
-        const SizedBox(height: 8),
-        OutlinedButton.icon(
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) => const _HadithCollectionPickerDialog(),
-            );
-          },
-          icon: const Icon(Icons.library_books),
-          label: Text(AppLocalizations.of(context).obSelectHadith(selected.length)),
-        ),
-        if (selected.isNotEmpty) ...[
-          const SizedBox(height: 8),
-          Wrap(
-            spacing: 6,
-            runSpacing: 6,
-            children: selected.map((key) {
-              return InputChip(
-                label: Text(hadithCollectionName(context, key)),
-                onDeleted: () => ref
-                    .read(selectedHadithCollectionsProvider.notifier)
-                    .toggle(key),
-              );
-            }).toList(),
-          ),
         ],
       ],
-    );
-  }
-}
-
-class _HadithCollectionPickerDialog extends ConsumerWidget {
-  const _HadithCollectionPickerDialog();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final selected = ref.watch(selectedHadithCollectionsProvider);
-    final notifier = ref.read(selectedHadithCollectionsProvider.notifier);
-    final entries = hadithCollections.entries.toList();
-
-    return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(maxHeight: 520, maxWidth: 400),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Text(
-                      AppLocalizations.of(context).obSelectHadithTitle,
-                      style: Theme.of(context).textTheme.titleLarge,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const Divider(height: 1),
-            Expanded(
-              child: ListView.builder(
-                itemCount: entries.length,
-                itemBuilder: (context, index) {
-                  final entry = entries[index];
-                  final isChecked = selected.contains(entry.key);
-                  final sizeMb =
-                      hadithCollectionSizeMb[entry.key]!.toStringAsFixed(0);
-
-                  return CheckboxListTile(
-                    value: isChecked,
-                    title: Text(hadithCollectionName(context, entry.key)),
-                    subtitle: Text('~$sizeMb MB'),
-                    onChanged: (_) => notifier.toggle(entry.key),
-                  );
-                },
-              ),
-            ),
-            const Divider(height: 1),
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: Align(
-                alignment: AlignmentDirectional.centerEnd,
-                child: FilledButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: Text(AppLocalizations.of(context).commonDone),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

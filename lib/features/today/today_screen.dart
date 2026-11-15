@@ -3,6 +3,9 @@ import 'package:wird/l10n/gen/app_localizations.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:drift/drift.dart' show Value;
+
+import '../../core/db/database.dart';
 
 import '../../core/gamification/achievements.dart';
 import '../../core/gamification/streak_row.dart';
@@ -41,7 +44,9 @@ class TodayScreen extends ConsumerWidget {
     final readerPrefs = ref.watch(readerPrefsProvider).value;
     final hasReadBefore = readerPrefs?.hasReadBefore ?? false;
 
-    final name = profileAsync.value?.name ?? '';
+    // 'Friend' was the old English placeholder for "no name given".
+    final rawName = profileAsync.value?.name ?? '';
+    final name = rawName == 'Friend' ? '' : rawName;
 
     return GlassScaffold(
       appBar: const WirdHomeHeader(),
@@ -57,11 +62,32 @@ class TodayScreen extends ConsumerWidget {
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: 4),
-            Text(
-              name.isEmpty
-                  ? AppLocalizations.of(context).todayGreeting
-                  : AppLocalizations.of(context).todayGreetingNamed(name),
-              style: Theme.of(context).textTheme.bodyMedium,
+            // Tap to set or change the name (no longer asked at setup).
+            InkWell(
+              borderRadius: BorderRadius.circular(8),
+              onTap: () => _editName(context, ref, name),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        name.isEmpty
+                            ? AppLocalizations.of(context).todayGreeting
+                            : AppLocalizations.of(context)
+                                .todayGreetingNamed(name),
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    ),
+                    const SizedBox(width: 6),
+                    Icon(Icons.edit_outlined,
+                        size: 14,
+                        semanticLabel: AppLocalizations.of(context).obName,
+                        color: Theme.of(context).colorScheme.outline),
+                  ],
+                ),
+              ),
             ),
             const SizedBox(height: 16),
             const UpdateBanner(),
@@ -647,4 +673,38 @@ class _AlManhajTeaserCard extends StatelessWidget {
       ),
     );
   }
+}
+
+/// Small dialog to set the name shown in the Today greeting.
+Future<void> _editName(BuildContext context, WidgetRef ref, String current) async {
+  final controller = TextEditingController(text: current);
+  final l = AppLocalizations.of(context);
+  final result = await showDialog<String>(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text(l.obName),
+      content: TextField(
+        controller: controller,
+        autofocus: true,
+        textCapitalization: TextCapitalization.words,
+        onSubmitted: (v) => Navigator.of(context).pop(v),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text(l.commonCancel),
+        ),
+        FilledButton(
+          onPressed: () => Navigator.of(context).pop(controller.text),
+          child: Text(l.commonSave),
+        ),
+      ],
+    ),
+  );
+  controller.dispose();
+  if (result == null) return;
+  final db = ref.read(appDatabaseProvider);
+  await db.update(db.userProfiles).write(
+        UserProfilesCompanion(name: Value(result.trim())),
+      );
 }
