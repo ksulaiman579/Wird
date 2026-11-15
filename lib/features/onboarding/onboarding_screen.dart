@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wird/l10n/gen/app_localizations.dart';
 
+import '../hadith_reader/hadith_l10n.dart';
 import '../../core/audio/ayah_audio_urls.dart' show defaultReciter;
 import '../../core/backup/backup_service.dart';
 import '../../core/chunking/ayah_grouper.dart' show parseQuranContentKey;
@@ -1566,7 +1567,7 @@ class _HadithCollectionPicker extends ConsumerWidget {
             runSpacing: 6,
             children: selected.map((key) {
               return InputChip(
-                label: Text(hadithCollections[key] ?? key),
+                label: Text(hadithCollectionName(context, key)),
                 onDeleted: () => ref
                     .read(selectedHadithCollectionsProvider.notifier)
                     .toggle(key),
@@ -1621,7 +1622,7 @@ class _HadithCollectionPickerDialog extends ConsumerWidget {
 
                   return CheckboxListTile(
                     value: isChecked,
-                    title: Text(entry.value),
+                    title: Text(hadithCollectionName(context, entry.key)),
                     subtitle: Text('~$sizeMb MB'),
                     onChanged: (_) => notifier.toggle(entry.key),
                   );

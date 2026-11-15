@@ -1928,4 +1928,107 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get a11yTasbihCounter => 'गिनने के लिए टैप करें';
+
+  @override
+  String get hadithNameBukhari => 'सहीह अल-बुख़ारी';
+
+  @override
+  String get hadithNameMuslim => 'सहीह मुस्लिम';
+
+  @override
+  String get hadithNameAbudawud => 'सुनन अबू दाऊद';
+
+  @override
+  String get hadithNameTirmidhi => 'जामे तिर्मिज़ी';
+
+  @override
+  String get hadithNameNasai => 'सुनन नसाई';
+
+  @override
+  String get hadithNameIbnmajah => 'सुनन इब्ने माजह';
+
+  @override
+  String get hadithNameMalik => 'मुवत्ता इमाम मालिक';
+
+  @override
+  String get hadithDescBukhari =>
+      'क़ुरआन के बाद सबसे सही किताब, जिसे इमाम मुहम्मद अल-बुख़ारी ने संकलित किया।';
+
+  @override
+  String get hadithDescMuslim =>
+      'हदीस का दूसरा सबसे सही संग्रह, जिसे इमाम मुस्लिम बिन हज्जाज ने संकलित किया।';
+
+  @override
+  String get hadithDescAbudawud =>
+      'मुख्य रूप से अहकाम (फ़िक़्ह) की हदीसें, जिसे अबू दाऊद सिजिस्तानी ने संकलित किया।';
+
+  @override
+  String get hadithDescTirmidhi =>
+      'हर हदीस का दर्जा (सहीह, हसन, ज़ईफ़) बताने के लिए जाना जाता है, जिसे इमाम तिर्मिज़ी ने संकलित किया।';
+
+  @override
+  String get hadithDescNasai =>
+      'सहीह होने की सख़्त शर्तों के लिए जाना जाता है, जिसे इमाम नसाई ने संकलित किया।';
+
+  @override
+  String get hadithDescIbnmajah =>
+      'छह बड़ी किताबों में छठी, जिसे इब्ने माजह क़ज़वीनी ने संकलित किया।';
+
+  @override
+  String get hadithDescMalik =>
+      'हदीस और अहकाम के सबसे पुराने संग्रहों में से एक, इमाम मालिक बिन अनस का।';
+
+  @override
+  String get gradeSahih => 'सहीह';
+
+  @override
+  String get gradeHasan => 'हसन';
+
+  @override
+  String get gradeDaif => 'ज़ईफ़';
+
+  @override
+  String get gradeMawdu => 'मौज़ू';
+
+  @override
+  String get gradeUngraded => 'दर्जा नहीं दिया';
+
+  @override
+  String get gradeCautionDaif =>
+      'ज़ईफ़ रिवायत — अहकाम या अक़ीदे में इस पर भरोसा न करें।';
+
+  @override
+  String get gradeCautionMawdu =>
+      'इसे गढ़ी हुई बताया गया है — इसे नबी ﷺ से न जोड़ें।';
+
+  @override
+  String get gradeCautionUngraded =>
+      'स्रोत में दर्जा नहीं दिया गया — अमल से पहले जाँच लें।';
+
+  @override
+  String get hadithOtherNarrations => 'अन्य रिवायतें';
+
+  @override
+  String hadithNarratedBy(String name) {
+    return 'रावी: $name';
+  }
+
+  @override
+  String get hadithUnderstand => 'समझें';
+
+  @override
+  String get commonBookmark => 'बुकमार्क';
+
+  @override
+  String hadithGetLanguageText(String language) {
+    return '$language पाठ पाएँ';
+  }
+
+  @override
+  String get hadithEnglishOnlyNote =>
+      'हदीस का अनुवाद अभी अंग्रेज़ी में है — इस भाषा में अभी कोई जाँचा हुआ अनुवाद नहीं है।';
+
+  @override
+  String get hadithDownloadFailed =>
+      'डाउनलोड नहीं हुआ। कनेक्शन जाँचें और फिर कोशिश करें।';
 }

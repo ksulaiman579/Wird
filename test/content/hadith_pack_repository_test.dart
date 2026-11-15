@@ -170,4 +170,56 @@ void main() {
     final rows = await db.select(db.contentPacks).get();
     expect(rows, isEmpty);
   });
+
+  test('adds the app language text when the source has it (Urdu)', () async {
+    const urduUrl =
+        'https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions/urd-bukhari.min.json';
+    final client = _FakeClient({
+      arabicUrl: http.Response(_fakeEditionBody('AR'), 200),
+      englishUrl: http.Response(_fakeEditionBody('EN'), 200),
+      urduUrl: http.Response(_fakeEditionBody('UR'), 200),
+    });
+    final repo =
+        HadithPackRepository(db, client: client, currentLanguage: () => 'ur');
+    await repo.downloadAndInstall('bukhari');
+    final hadith = await repo.hadithInChapter('bukhari', '1');
+    expect(hadith.first.translationFor('ur'), 'UR 1');
+    expect(hadith.first.translationFor('hi'), 'EN 1');
+    expect(await repo.packLanguages('bukhari'), ['en', 'ur']);
+  });
+
+  test('a missing Urdu file still installs the English pack', () async {
+    final client = _FakeClient({
+      arabicUrl: http.Response(_fakeEditionBody('AR'), 200),
+      englishUrl: http.Response(_fakeEditionBody('EN'), 200),
+    });
+    final repo =
+        HadithPackRepository(db, client: client, currentLanguage: () => 'ur');
+    await repo.downloadAndInstall('bukhari');
+    expect(await repo.packLanguages('bukhari'), ['en']);
+  });
+
+  test('empty source entries are dropped', () async {
+    String body(String p) {
+      final m = jsonDecode(_fakeEditionBody(p)) as Map<String, dynamic>;
+      (m['hadiths'] as List)[1]['text'] = '  ';
+      return jsonEncode(m);
+    }
+
+    final client = _FakeClient({
+      arabicUrl: http.Response(body('AR'), 200),
+      englishUrl: http.Response(body('EN'), 200),
+    });
+    final repo = HadithPackRepository(db, client: client);
+    await repo.downloadAndInstall('bukhari');
+    final chapters = await repo.chaptersFor('bukhari');
+    expect(chapters.first.count, 1);
+  });
+
+  test('numberLabel keeps sub-numbers like 402.2', () {
+    HadithEntry e(num n) => HadithEntry(
+        number: n, arabic: '', translation: '', grades: const [], sharh: null);
+    expect(e(402).numberLabel, '402');
+    expect(e(402.2).numberLabel, '402.2');
+  });
 }

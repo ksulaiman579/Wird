@@ -1956,4 +1956,107 @@ class AppLocalizationsFil extends AppLocalizations {
 
   @override
   String get a11yTasbihCounter => 'I-tap para magbilang';
+
+  @override
+  String get hadithNameBukhari => 'Sahih al-Bukhari';
+
+  @override
+  String get hadithNameMuslim => 'Sahih Muslim';
+
+  @override
+  String get hadithNameAbudawud => 'Sunan Abu Dawud';
+
+  @override
+  String get hadithNameTirmidhi => 'Jami at-Tirmidhi';
+
+  @override
+  String get hadithNameNasai => 'Sunan an-Nasa\'i';
+
+  @override
+  String get hadithNameIbnmajah => 'Sunan Ibn Majah';
+
+  @override
+  String get hadithNameMalik => 'Muwatta Malik';
+
+  @override
+  String get hadithDescBukhari =>
+      'Ang pinakatunay na aklat kasunod ng Quran, tinipon ni Imam Muhammad al-Bukhari.';
+
+  @override
+  String get hadithDescMuslim =>
+      'Ang ikalawang pinakatunay na koleksyon ng Hadith, tinipon ni Imam Muslim ibn al-Hajjaj.';
+
+  @override
+  String get hadithDescAbudawud =>
+      'Nakatuon sa mga hadith tungkol sa mga patakaran (fiqh), tinipon ni Abu Dawud as-Sijistani.';
+
+  @override
+  String get hadithDescTirmidhi =>
+      'Kilala sa pagbanggit ng grado ng bawat hadith (sahih, hasan, da\'if), tinipon ni Imam at-Tirmidhi.';
+
+  @override
+  String get hadithDescNasai =>
+      'Kilala sa mahigpit na kondisyon sa pagiging tunay, tinipon ni Imam an-Nasa\'i.';
+
+  @override
+  String get hadithDescIbnmajah =>
+      'Ang ikaanim sa anim na pangunahing aklat, tinipon ni Ibn Majah al-Qazwini.';
+
+  @override
+  String get hadithDescMalik =>
+      'Isa sa pinakaunang koleksyon ng hadith at mga patakaran, ni Imam Malik ibn Anas.';
+
+  @override
+  String get gradeSahih => 'Sahih';
+
+  @override
+  String get gradeHasan => 'Hasan';
+
+  @override
+  String get gradeDaif => 'Da\'if';
+
+  @override
+  String get gradeMawdu => 'Mawdu\'';
+
+  @override
+  String get gradeUngraded => 'Walang grado';
+
+  @override
+  String get gradeCautionDaif =>
+      'Mahinang salaysay — huwag itong gawing batayan sa mga patakaran o paniniwala.';
+
+  @override
+  String get gradeCautionMawdu =>
+      'Itinuring na gawa-gawa — hindi ito dapat iugnay sa Propeta ﷺ.';
+
+  @override
+  String get gradeCautionUngraded =>
+      'Walang grado sa pinagmulan — suriin muna bago ito sundin.';
+
+  @override
+  String get hadithOtherNarrations => 'Iba pang salaysay';
+
+  @override
+  String hadithNarratedBy(String name) {
+    return 'Isinalaysay ni $name';
+  }
+
+  @override
+  String get hadithUnderstand => 'Unawain';
+
+  @override
+  String get commonBookmark => 'I-bookmark';
+
+  @override
+  String hadithGetLanguageText(String language) {
+    return 'Kunin ang tekstong $language';
+  }
+
+  @override
+  String get hadithEnglishOnlyNote =>
+      'Nasa Ingles muna ang salin ng hadith — wala pang nasuring salin sa wikang ito.';
+
+  @override
+  String get hadithDownloadFailed =>
+      'Nabigo ang pag-download. Suriin ang koneksyon at subukang muli.';
 }

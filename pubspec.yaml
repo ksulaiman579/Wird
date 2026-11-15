@@ -133,6 +133,8 @@ flutter:
   assets:
     - assets/data/quran/
     - assets/data/hadith_nawawi.json
+    - assets/data/hadith_nawawi_tr.json
+    - assets/data/hadith_nawawi_titles.json
     - assets/data/hisnul_muslim.json
     - assets/data/dua_title_l10n.json
     - assets/data/adhkar_morning_evening.json

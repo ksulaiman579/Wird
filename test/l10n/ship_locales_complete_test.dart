@@ -19,6 +19,10 @@ void main() {
   // transliterations, pure-placeholder strings, and Tagalog loanwords.
   const allowVerbatim = <String>{
     'progressJuz', // "Juz" is the loanword in Filipino too
+    // Book titles and hadith grade terms are kept as-is in Filipino.
+    'hadithNameBukhari', 'hadithNameMuslim', 'hadithNameAbudawud',
+    'hadithNameTirmidhi', 'hadithNameIbnmajah', 'hadithNameMalik',
+    'gradeSahih', 'gradeHasan', 'gradeDaif', 'gradeMawdu',
     'achievementProgress', 'alManhajTitle', 'appTitle', 'commonExplore',
     'commonJuzN', 'commonMinutesShort', 'commonSurahN', 'commonSurahWord',
     'durationHr', 'durationHrMin', 'durationMin', 'hadithCollectionNawawi',

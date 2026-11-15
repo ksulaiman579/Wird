@@ -1932,4 +1932,107 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get a11yTasbihCounter => 'গুনতে ট্যাপ করুন';
+
+  @override
+  String get hadithNameBukhari => 'সহীহ আল-বুখারী';
+
+  @override
+  String get hadithNameMuslim => 'সহীহ মুসলিম';
+
+  @override
+  String get hadithNameAbudawud => 'সুনানে আবু দাউদ';
+
+  @override
+  String get hadithNameTirmidhi => 'জামে আত-তিরমিযী';
+
+  @override
+  String get hadithNameNasai => 'সুনানে নাসাঈ';
+
+  @override
+  String get hadithNameIbnmajah => 'সুনানে ইবনে মাজাহ';
+
+  @override
+  String get hadithNameMalik => 'মুয়াত্তা মালিক';
+
+  @override
+  String get hadithDescBukhari =>
+      'কুরআনের পর সবচেয়ে বিশুদ্ধ গ্রন্থ, সংকলন করেছেন ইমাম মুহাম্মাদ আল-বুখারী।';
+
+  @override
+  String get hadithDescMuslim =>
+      'হাদীসের দ্বিতীয় সর্বাধিক বিশুদ্ধ সংকলন, সংকলন করেছেন ইমাম মুসলিম ইবনুল হাজ্জাজ।';
+
+  @override
+  String get hadithDescAbudawud =>
+      'মূলত আহকাম (ফিকহ) বিষয়ক হাদীস, সংকলন করেছেন আবু দাউদ আস-সিজিস্তানী।';
+
+  @override
+  String get hadithDescTirmidhi =>
+      'প্রতিটি হাদীসের মান (সহীহ, হাসান, যঈফ) উল্লেখের জন্য পরিচিত, সংকলন করেছেন ইমাম তিরমিযী।';
+
+  @override
+  String get hadithDescNasai =>
+      'বিশুদ্ধতার কঠোর শর্তের জন্য পরিচিত, সংকলন করেছেন ইমাম নাসাঈ।';
+
+  @override
+  String get hadithDescIbnmajah =>
+      'ছয়টি প্রধান গ্রন্থের ষষ্ঠটি, সংকলন করেছেন ইবনে মাজাহ আল-কাযভীনী।';
+
+  @override
+  String get hadithDescMalik =>
+      'হাদীস ও আহকামের প্রাচীনতম সংকলনগুলোর একটি, ইমাম মালিক ইবনে আনাস রচিত।';
+
+  @override
+  String get gradeSahih => 'সহীহ';
+
+  @override
+  String get gradeHasan => 'হাসান';
+
+  @override
+  String get gradeDaif => 'যঈফ';
+
+  @override
+  String get gradeMawdu => 'মাওযূ';
+
+  @override
+  String get gradeUngraded => 'মান উল্লেখ নেই';
+
+  @override
+  String get gradeCautionDaif =>
+      'দুর্বল বর্ণনা — বিধান বা আকীদার ক্ষেত্রে এর উপর নির্ভর করবেন না।';
+
+  @override
+  String get gradeCautionMawdu =>
+      'জাল বলে চিহ্নিত — এটি নবী ﷺ-এর দিকে সম্পৃক্ত করা যাবে না।';
+
+  @override
+  String get gradeCautionUngraded =>
+      'উৎসে মান উল্লেখ নেই — আমল করার আগে যাচাই করুন।';
+
+  @override
+  String get hadithOtherNarrations => 'অন্যান্য বর্ণনা';
+
+  @override
+  String hadithNarratedBy(String name) {
+    return 'বর্ণনাকারী: $name';
+  }
+
+  @override
+  String get hadithUnderstand => 'বুঝুন';
+
+  @override
+  String get commonBookmark => 'বুকমার্ক';
+
+  @override
+  String hadithGetLanguageText(String language) {
+    return '$language পাঠ নিন';
+  }
+
+  @override
+  String get hadithEnglishOnlyNote =>
+      'হাদীসের অনুবাদ আপাতত ইংরেজিতে — এই ভাষায় এখনো যাচাইকৃত অনুবাদ নেই।';
+
+  @override
+  String get hadithDownloadFailed =>
+      'ডাউনলোড ব্যর্থ হয়েছে। সংযোগ দেখে আবার চেষ্টা করুন।';
 }

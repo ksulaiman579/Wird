@@ -20,3 +20,8 @@ final hadithChapterEntriesProvider = FutureProvider.family<List<HadithEntry>,
       .watch(hadithPackRepositoryProvider)
       .hadithInChapter(collection, chapterNumber);
 });
+
+final hadithPackLanguagesProvider =
+    FutureProvider.family<List<String>, String>((ref, collection) {
+  return ref.watch(hadithPackRepositoryProvider).packLanguages(collection);
+});

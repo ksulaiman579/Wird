@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import '../../core/content/bookmark_service.dart';
 import '../../shared/glass/glass.dart';
 import '../../shared/ui/ui.dart';
+import '../../core/prefs/app_language_provider.dart';
 import 'hadith_providers.dart';
 import '../../core/search/arabic_normalizer.dart';
 
@@ -35,6 +36,9 @@ class _HadithListScreenState extends ConsumerState<HadithListScreen> {
   Widget build(BuildContext context) {
     final hadithsAsync = ref.watch(hadithListProvider);
     final bookmarksAsync = ref.watch(_hadithBookmarksProvider);
+    final lang = ref.watch(appLanguageProvider).value ?? 'en';
+    final titles = ref.watch(nawawiTitlesProvider).value ?? const {};
+    final trs = ref.watch(nawawiTranslationsProvider).value ?? const {};
     final bookmarkedKeys = {
       for (final b in bookmarksAsync.value ?? const []) b.contentKey,
     };
@@ -53,7 +57,9 @@ class _HadithListScreenState extends ConsumerState<HadithListScreen> {
               return false;
             }
             if (q.isEmpty) return true;
-            return searchMatches(h.titleEnglish, q) ||
+            return searchMatches(titles['${h.id}']?[lang] ?? '', q) ||
+                searchMatches(trs['${h.id}']?[lang] ?? '', q) ||
+                searchMatches(h.titleEnglish, q) ||
                 searchMatches(h.translation, q) ||
                 searchMatches(h.arabic, q) ||
                 h.id.toString() == q;
@@ -105,8 +111,8 @@ class _HadithListScreenState extends ConsumerState<HadithListScreen> {
                             padding: const EdgeInsets.only(bottom: 12),
                             child: NumberedContentCard(
                               number: h.id,
-                              title: h.titleEnglish,
-                              teaser: h.translation,
+                              title: titles['${h.id}']?[lang] ?? h.titleEnglish,
+                              teaser: trs['${h.id}']?[lang] ?? h.translation,
                               arabic: h.arabic,
                               citations: {h.source: null},
                               bookmarked: bookmarkedKeys.contains(key),

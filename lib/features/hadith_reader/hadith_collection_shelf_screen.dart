@@ -8,6 +8,8 @@ import '../../core/content/hadith_pack_repository.dart';
 import '../../core/platform/storage_warning.dart';
 import '../../shared/glass/glass.dart';
 import '../onboarding/onboarding_screen.dart' show hadithCollectionSizeMb;
+import '../../core/prefs/app_language_provider.dart';
+import 'hadith_l10n.dart';
 import 'hadith_reader_providers.dart';
 
 /// The Hadith tab root (M20.3, enhanced in Item 6.6 & 6.7): one unified shelf
@@ -33,7 +35,11 @@ class _HadithCollectionShelfScreenState
       if (q.isEmpty) return true;
       final desc = hadithCollectionDescriptions[entry.key] ?? '';
       return entry.value.toLowerCase().contains(q) ||
-          desc.toLowerCase().contains(q);
+          desc.toLowerCase().contains(q) ||
+          hadithCollectionName(context, entry.key).toLowerCase().contains(q) ||
+          hadithCollectionDescription(context, entry.key)
+              .toLowerCase()
+              .contains(q);
     }).toList();
 
     return GlassScaffold(
@@ -55,7 +61,10 @@ class _HadithCollectionShelfScreenState
           const SizedBox(height: 16),
           if (q.isEmpty ||
               '40 hadith of an-nawawi'.contains(q) ||
-              'nawawi'.contains(q))
+              AppLocalizations.of(context)
+                  .hadithNawawiTitle
+                  .toLowerCase()
+                  .contains(q))
             Padding(
               padding: const EdgeInsets.only(bottom: 12),
               child: GlassCard(
@@ -74,10 +83,14 @@ class _HadithCollectionShelfScreenState
                             children: [
                               Row(
                                 children: [
-                                  Text(
-                                    '40 Hadith of an-Nawawi',
-                                    style:
-                                        Theme.of(context).textTheme.titleMedium,
+                                  Flexible(
+                                    child: Text(
+                                      AppLocalizations.of(context)
+                                          .hadithNawawiTitle,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium,
+                                    ),
                                   ),
                                   const SizedBox(width: 8),
                                   _CountPillBadge(
@@ -106,7 +119,7 @@ class _HadithCollectionShelfScreenState
               padding: const EdgeInsets.only(bottom: 12),
               child: _CollectionRow(
                 collection: entry.key,
-                name: entry.value,
+                name: hadithCollectionName(context, entry.key),
               ),
             ),
         ],
@@ -152,6 +165,21 @@ class _CollectionRow extends ConsumerStatefulWidget {
 class _CollectionRowState extends ConsumerState<_CollectionRow> {
   bool _expanded = false;
 
+  Future<void> _download(BuildContext context) async {
+    final messenger = ScaffoldMessenger.of(context);
+    final failed = AppLocalizations.of(context).hadithDownloadFailed;
+    try {
+      await ref
+          .read(hadithPackRepositoryProvider)
+          .downloadAndInstall(widget.collection);
+      ref.invalidate(hadithPackLanguagesProvider(widget.collection));
+      ref.invalidate(hadithChaptersProvider(widget.collection));
+      ref.invalidate(hadithChapterEntriesProvider);
+    } catch (_) {
+      messenger.showSnackBar(SnackBar(content: Text(failed)));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final packAsync =
@@ -160,7 +188,13 @@ class _CollectionRowState extends ConsumerState<_CollectionRow> {
     final progress = packAsync.value?.progress ?? 0;
     final count = hadithCollectionCounts[widget.collection];
     final description =
-        hadithCollectionDescriptions[widget.collection] ?? '';
+        hadithCollectionDescription(context, widget.collection);
+    final lang = ref.watch(appLanguageProvider).value ?? 'en';
+    final langs = status == 'downloaded' &&
+            hadithExtraLanguages.containsKey(lang)
+        ? ref.watch(hadithPackLanguagesProvider(widget.collection)).value
+        : null;
+    final missingLanguage = langs != null && !langs.contains(lang);
 
     return GlassCard(
       enableBlur: false,
@@ -238,16 +272,25 @@ class _CollectionRowState extends ConsumerState<_CollectionRow> {
                         estimatedMb:
                             hadithCollectionSizeMb[widget.collection] ?? 10,
                       );
-                      if (ok && context.mounted) {
-                        await ref
-                            .read(hadithPackRepositoryProvider)
-                            .downloadAndInstall(widget.collection);
-                      }
+                      if (ok && context.mounted) await _download(context);
                     },
                   ),
               },
             ],
           ),
+          if (missingLanguage)
+            Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: TextButton.icon(
+                icon: const Icon(Icons.translate_rounded, size: 18),
+                label: Text(AppLocalizations.of(context).hadithGetLanguageText(
+                  supportedAppLanguages
+                      .firstWhere((o) => o.code == lang)
+                      .nativeName,
+                )),
+                onPressed: () => _download(context),
+              ),
+            ),
           if (_expanded && description.isNotEmpty) ...[
             const SizedBox(height: 10),
             Container(

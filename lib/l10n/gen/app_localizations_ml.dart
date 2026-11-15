@@ -1946,4 +1946,107 @@ class AppLocalizationsMl extends AppLocalizations {
 
   @override
   String get a11yTasbihCounter => 'എണ്ണാൻ ടാപ്പ് ചെയ്യുക';
+
+  @override
+  String get hadithNameBukhari => 'സ്വഹീഹുൽ ബുഖാരി';
+
+  @override
+  String get hadithNameMuslim => 'സ്വഹീഹ് മുസ്‌ലിം';
+
+  @override
+  String get hadithNameAbudawud => 'സുനൻ അബൂദാവൂദ്';
+
+  @override
+  String get hadithNameTirmidhi => 'ജാമിഉത്തിർമിദി';
+
+  @override
+  String get hadithNameNasai => 'സുനൻ നസാഈ';
+
+  @override
+  String get hadithNameIbnmajah => 'സുനൻ ഇബ്നുമാജ';
+
+  @override
+  String get hadithNameMalik => 'മുവത്വ മാലിക്';
+
+  @override
+  String get hadithDescBukhari =>
+      'ഖുർആൻ കഴിഞ്ഞാൽ ഏറ്റവും സ്വഹീഹായ ഗ്രന്ഥം; ഇമാം മുഹമ്മദ് അൽ-ബുഖാരി സമാഹരിച്ചത്.';
+
+  @override
+  String get hadithDescMuslim =>
+      'ഏറ്റവും സ്വഹീഹായ രണ്ടാമത്തെ ഹദീസ് സമാഹാരം; ഇമാം മുസ്‌ലിം ബിൻ ഹജ്ജാജ് സമാഹരിച്ചത്.';
+
+  @override
+  String get hadithDescAbudawud =>
+      'പ്രധാനമായും വിധികളുമായി (ഫിഖ്ഹ്) ബന്ധപ്പെട്ട ഹദീസുകൾ; അബൂദാവൂദ് അസ്സിജിസ്താനി സമാഹരിച്ചത്.';
+
+  @override
+  String get hadithDescTirmidhi =>
+      'ഓരോ ഹദീസിന്റെയും പദവി (സ്വഹീഹ്, ഹസൻ, ദഈഫ്) വ്യക്തമാക്കുന്നതിൽ പ്രസിദ്ധം; ഇമാം തിർമിദി സമാഹരിച്ചത്.';
+
+  @override
+  String get hadithDescNasai =>
+      'സ്വഹീഹാകാനുള്ള കർശന നിബന്ധനകൾക്ക് പ്രസിദ്ധം; ഇമാം നസാഈ സമാഹരിച്ചത്.';
+
+  @override
+  String get hadithDescIbnmajah =>
+      'ആറ് പ്രധാന ഗ്രന്ഥങ്ങളിൽ ആറാമത്തേത്; ഇബ്നുമാജ അൽ-ഖസ്‌വീനി സമാഹരിച്ചത്.';
+
+  @override
+  String get hadithDescMalik =>
+      'ഹദീസുകളുടെയും വിധികളുടെയും ഏറ്റവും പഴയ സമാഹാരങ്ങളിലൊന്ന്; ഇമാം മാലിക് ബിൻ അനസിന്റേത്.';
+
+  @override
+  String get gradeSahih => 'സ്വഹീഹ്';
+
+  @override
+  String get gradeHasan => 'ഹസൻ';
+
+  @override
+  String get gradeDaif => 'ദഈഫ്';
+
+  @override
+  String get gradeMawdu => 'മൗദൂഅ്';
+
+  @override
+  String get gradeUngraded => 'പദവി നൽകിയിട്ടില്ല';
+
+  @override
+  String get gradeCautionDaif =>
+      'ദുർബലമായ റിപ്പോർട്ട് — വിധികൾക്കോ വിശ്വാസത്തിനോ ഇതിനെ ആശ്രയിക്കരുത്.';
+
+  @override
+  String get gradeCautionMawdu =>
+      'കെട്ടിച്ചമച്ചതെന്ന് വിധിക്കപ്പെട്ടത് — ഇത് നബി ﷺ യിലേക്ക് ചേർക്കരുത്.';
+
+  @override
+  String get gradeCautionUngraded =>
+      'ഉറവിടത്തിൽ പദവി നൽകിയിട്ടില്ല — പ്രവർത്തിക്കുന്നതിന് മുമ്പ് പരിശോധിക്കുക.';
+
+  @override
+  String get hadithOtherNarrations => 'മറ്റ് റിപ്പോർട്ടുകൾ';
+
+  @override
+  String hadithNarratedBy(String name) {
+    return 'നിവേദനം: $name';
+  }
+
+  @override
+  String get hadithUnderstand => 'മനസ്സിലാക്കാം';
+
+  @override
+  String get commonBookmark => 'ബുക്ക്‌മാർക്ക്';
+
+  @override
+  String hadithGetLanguageText(String language) {
+    return '$language പാഠം നേടുക';
+  }
+
+  @override
+  String get hadithEnglishOnlyNote =>
+      'ഹദീസ് വിവർത്തനം ഇപ്പോൾ ഇംഗ്ലീഷിലാണ് — ഈ ഭാഷയിൽ പരിശോധിച്ച വിവർത്തനം ഇതുവരെ ലഭ്യമല്ല.';
+
+  @override
+  String get hadithDownloadFailed =>
+      'ഡൗൺലോഡ് പരാജയപ്പെട്ടു. കണക്ഷൻ പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക.';
 }

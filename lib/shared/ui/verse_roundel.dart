@@ -12,11 +12,15 @@ class VerseRoundel extends StatelessWidget {
     required this.number,
     this.size = 34,
     this.color,
+    this.label,
   });
 
   final int number;
   final double size;
   final Color? color;
+
+  /// Text to show instead of [number] (e.g. "402.2").
+  final String? label;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +39,7 @@ class VerseRoundel extends StatelessWidget {
             child: FittedBox(
               fit: BoxFit.scaleDown,
               child: Text(
-                '$number',
+                label ?? '$number',
                 textAlign: TextAlign.center,
                 // height 1.0 removes the font's default line-leading so the
                 // digit sits truly centred inside the star (Item 1.4).

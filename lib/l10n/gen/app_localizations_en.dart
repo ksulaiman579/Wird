@@ -1930,4 +1930,107 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get a11yTasbihCounter => 'Tap to count';
+
+  @override
+  String get hadithNameBukhari => 'Sahih al-Bukhari';
+
+  @override
+  String get hadithNameMuslim => 'Sahih Muslim';
+
+  @override
+  String get hadithNameAbudawud => 'Sunan Abu Dawud';
+
+  @override
+  String get hadithNameTirmidhi => 'Jami at-Tirmidhi';
+
+  @override
+  String get hadithNameNasai => 'Sunan an-Nasai';
+
+  @override
+  String get hadithNameIbnmajah => 'Sunan Ibn Majah';
+
+  @override
+  String get hadithNameMalik => 'Muwatta Malik';
+
+  @override
+  String get hadithDescBukhari =>
+      'The most authentic book after the Quran, compiled by Imam Muhammad al-Bukhari.';
+
+  @override
+  String get hadithDescMuslim =>
+      'The second most authentic Hadith collection, compiled by Imam Muslim ibn al-Hajjaj.';
+
+  @override
+  String get hadithDescAbudawud =>
+      'Focuses mainly on hadith about rulings (fiqh), compiled by Abu Dawud as-Sijistani.';
+
+  @override
+  String get hadithDescTirmidhi =>
+      'Known for stating the grade of each hadith (sahih, hasan, da\'if), compiled by Imam at-Tirmidhi.';
+
+  @override
+  String get hadithDescNasai =>
+      'Known for strict conditions on authenticity, compiled by Imam an-Nasa\'i.';
+
+  @override
+  String get hadithDescIbnmajah =>
+      'The sixth of the six major books, compiled by Ibn Majah al-Qazwini.';
+
+  @override
+  String get hadithDescMalik =>
+      'One of the earliest collections of hadith and rulings, by Imam Malik ibn Anas.';
+
+  @override
+  String get gradeSahih => 'Sahih';
+
+  @override
+  String get gradeHasan => 'Hasan';
+
+  @override
+  String get gradeDaif => 'Da\'if';
+
+  @override
+  String get gradeMawdu => 'Mawdu\'';
+
+  @override
+  String get gradeUngraded => 'Ungraded';
+
+  @override
+  String get gradeCautionDaif =>
+      'Weak narration — do not rely on it for rulings or creed.';
+
+  @override
+  String get gradeCautionMawdu =>
+      'Reported as fabricated — not to be attributed to the Prophet ﷺ.';
+
+  @override
+  String get gradeCautionUngraded =>
+      'No grade given in the source — check before acting on it.';
+
+  @override
+  String get hadithOtherNarrations => 'Other narrations';
+
+  @override
+  String hadithNarratedBy(String name) {
+    return 'Narrated by $name';
+  }
+
+  @override
+  String get hadithUnderstand => 'Understand';
+
+  @override
+  String get commonBookmark => 'Bookmark';
+
+  @override
+  String hadithGetLanguageText(String language) {
+    return 'Get the $language text';
+  }
+
+  @override
+  String get hadithEnglishOnlyNote =>
+      'Hadith translations are in English for now — there is no vetted translation in this language yet.';
+
+  @override
+  String get hadithDownloadFailed =>
+      'Download failed. Check your connection and try again.';
 }

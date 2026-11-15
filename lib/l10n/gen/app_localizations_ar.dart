@@ -1917,4 +1917,106 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get a11yTasbihCounter => 'انقر للعدّ';
+
+  @override
+  String get hadithNameBukhari => 'صحيح البخاري';
+
+  @override
+  String get hadithNameMuslim => 'صحيح مسلم';
+
+  @override
+  String get hadithNameAbudawud => 'سنن أبي داود';
+
+  @override
+  String get hadithNameTirmidhi => 'جامع الترمذي';
+
+  @override
+  String get hadithNameNasai => 'سنن النسائي';
+
+  @override
+  String get hadithNameIbnmajah => 'سنن ابن ماجه';
+
+  @override
+  String get hadithNameMalik => 'موطأ مالك';
+
+  @override
+  String get hadithDescBukhari =>
+      'أصح كتاب بعد القرآن، جمعه الإمام محمد بن إسماعيل البخاري.';
+
+  @override
+  String get hadithDescMuslim =>
+      'ثاني أصح كتب الحديث، جمعه الإمام مسلم بن الحجاج.';
+
+  @override
+  String get hadithDescAbudawud =>
+      'يُعنى أساسًا بأحاديث الأحكام، جمعه أبو داود السجستاني.';
+
+  @override
+  String get hadithDescTirmidhi =>
+      'يُعرف ببيان درجة كل حديث (صحيح، حسن، ضعيف)، جمعه الإمام الترمذي.';
+
+  @override
+  String get hadithDescNasai =>
+      'يُعرف بشروطه الصارمة في الصحة، جمعه الإمام النسائي.';
+
+  @override
+  String get hadithDescIbnmajah => 'سادس الكتب الستة، جمعه ابن ماجه القزويني.';
+
+  @override
+  String get hadithDescMalik =>
+      'من أقدم مصنفات الحديث والأحكام، للإمام مالك بن أنس.';
+
+  @override
+  String get gradeSahih => 'صحيح';
+
+  @override
+  String get gradeHasan => 'حسن';
+
+  @override
+  String get gradeDaif => 'ضعيف';
+
+  @override
+  String get gradeMawdu => 'موضوع';
+
+  @override
+  String get gradeUngraded => 'بلا حكم';
+
+  @override
+  String get gradeCautionDaif =>
+      'رواية ضعيفة — لا يُعتمد عليها في الأحكام ولا العقيدة.';
+
+  @override
+  String get gradeCautionMawdu =>
+      'حُكم عليه بالوضع — لا تجوز نسبته إلى النبي ﷺ.';
+
+  @override
+  String get gradeCautionUngraded =>
+      'لا يذكر المصدر حكمًا — تحقّق قبل العمل به.';
+
+  @override
+  String get hadithOtherNarrations => 'روايات أخرى';
+
+  @override
+  String hadithNarratedBy(String name) {
+    return 'رواه $name';
+  }
+
+  @override
+  String get hadithUnderstand => 'الفهم';
+
+  @override
+  String get commonBookmark => 'حفظ في المفضلة';
+
+  @override
+  String hadithGetLanguageText(String language) {
+    return 'تنزيل نص $language';
+  }
+
+  @override
+  String get hadithEnglishOnlyNote =>
+      'ترجمة الأحاديث بالإنجليزية حاليًا — لا توجد بعد ترجمة موثوقة بهذه اللغة.';
+
+  @override
+  String get hadithDownloadFailed =>
+      'فشل التنزيل. تحقّق من الاتصال وحاول مرة أخرى.';
 }

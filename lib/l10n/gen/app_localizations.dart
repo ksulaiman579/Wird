@@ -3455,6 +3455,180 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tap to count'**
   String get a11yTasbihCounter;
+
+  /// Collection name.
+  ///
+  /// In en, this message translates to:
+  /// **'Sahih al-Bukhari'**
+  String get hadithNameBukhari;
+
+  /// Collection name.
+  ///
+  /// In en, this message translates to:
+  /// **'Sahih Muslim'**
+  String get hadithNameMuslim;
+
+  /// Collection name.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunan Abu Dawud'**
+  String get hadithNameAbudawud;
+
+  /// Collection name.
+  ///
+  /// In en, this message translates to:
+  /// **'Jami at-Tirmidhi'**
+  String get hadithNameTirmidhi;
+
+  /// Collection name.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunan an-Nasai'**
+  String get hadithNameNasai;
+
+  /// Collection name.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunan Ibn Majah'**
+  String get hadithNameIbnmajah;
+
+  /// Collection name.
+  ///
+  /// In en, this message translates to:
+  /// **'Muwatta Malik'**
+  String get hadithNameMalik;
+
+  /// Collection description.
+  ///
+  /// In en, this message translates to:
+  /// **'The most authentic book after the Quran, compiled by Imam Muhammad al-Bukhari.'**
+  String get hadithDescBukhari;
+
+  /// Collection description.
+  ///
+  /// In en, this message translates to:
+  /// **'The second most authentic Hadith collection, compiled by Imam Muslim ibn al-Hajjaj.'**
+  String get hadithDescMuslim;
+
+  /// Collection description.
+  ///
+  /// In en, this message translates to:
+  /// **'Focuses mainly on hadith about rulings (fiqh), compiled by Abu Dawud as-Sijistani.'**
+  String get hadithDescAbudawud;
+
+  /// Collection description.
+  ///
+  /// In en, this message translates to:
+  /// **'Known for stating the grade of each hadith (sahih, hasan, da\'if), compiled by Imam at-Tirmidhi.'**
+  String get hadithDescTirmidhi;
+
+  /// Collection description.
+  ///
+  /// In en, this message translates to:
+  /// **'Known for strict conditions on authenticity, compiled by Imam an-Nasa\'i.'**
+  String get hadithDescNasai;
+
+  /// Collection description.
+  ///
+  /// In en, this message translates to:
+  /// **'The sixth of the six major books, compiled by Ibn Majah al-Qazwini.'**
+  String get hadithDescIbnmajah;
+
+  /// Collection description.
+  ///
+  /// In en, this message translates to:
+  /// **'One of the earliest collections of hadith and rulings, by Imam Malik ibn Anas.'**
+  String get hadithDescMalik;
+
+  /// Hadith grade badge.
+  ///
+  /// In en, this message translates to:
+  /// **'Sahih'**
+  String get gradeSahih;
+
+  /// Hadith grade badge.
+  ///
+  /// In en, this message translates to:
+  /// **'Hasan'**
+  String get gradeHasan;
+
+  /// Hadith grade badge (weak).
+  ///
+  /// In en, this message translates to:
+  /// **'Da\'if'**
+  String get gradeDaif;
+
+  /// Hadith grade badge (fabricated).
+  ///
+  /// In en, this message translates to:
+  /// **'Mawdu\''**
+  String get gradeMawdu;
+
+  /// Hadith grade badge when the source gives no grade.
+  ///
+  /// In en, this message translates to:
+  /// **'Ungraded'**
+  String get gradeUngraded;
+
+  /// Caution under a weak hadith.
+  ///
+  /// In en, this message translates to:
+  /// **'Weak narration — do not rely on it for rulings or creed.'**
+  String get gradeCautionDaif;
+
+  /// Caution under a fabricated hadith.
+  ///
+  /// In en, this message translates to:
+  /// **'Reported as fabricated — not to be attributed to the Prophet ﷺ.'**
+  String get gradeCautionMawdu;
+
+  /// Caution under a hadith with no grade.
+  ///
+  /// In en, this message translates to:
+  /// **'No grade given in the source — check before acting on it.'**
+  String get gradeCautionUngraded;
+
+  /// Chapter for hadith the source leaves outside any book.
+  ///
+  /// In en, this message translates to:
+  /// **'Other narrations'**
+  String get hadithOtherNarrations;
+
+  /// Narrator line.
+  ///
+  /// In en, this message translates to:
+  /// **'Narrated by {name}'**
+  String hadithNarratedBy(String name);
+
+  /// Heading over the hadith explanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Understand'**
+  String get hadithUnderstand;
+
+  /// Bookmark button tooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Bookmark'**
+  String get commonBookmark;
+
+  /// Button to re-download a collection with the app language's translation.
+  ///
+  /// In en, this message translates to:
+  /// **'Get the {language} text'**
+  String hadithGetLanguageText(String language);
+
+  /// Note when no translation exists in the app language.
+  ///
+  /// In en, this message translates to:
+  /// **'Hadith translations are in English for now — there is no vetted translation in this language yet.'**
+  String get hadithEnglishOnlyNote;
+
+  /// Snackbar when a hadith collection download fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Download failed. Check your connection and try again.'**
+  String get hadithDownloadFailed;
 }
 
 class _AppLocalizationsDelegate

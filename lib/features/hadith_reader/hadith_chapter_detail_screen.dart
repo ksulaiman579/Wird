@@ -10,6 +10,8 @@ import '../../core/l10n/reading_locale.dart';
 import '../../shared/glass/glass.dart';
 import '../../shared/ui/font_size_chips.dart';
 import '../../shared/ui/verse_roundel.dart';
+import '../../core/prefs/app_language_provider.dart';
+import 'hadith_l10n.dart';
 import 'hadith_reader_providers.dart';
 import '../../core/search/arabic_normalizer.dart';
 
@@ -48,7 +50,8 @@ class _HadithChapterDetailScreenState
     final entriesAsync = ref.watch(
       hadithChapterEntriesProvider((widget.collection, widget.chapterNumber)),
     );
-    final title = hadithCollections[widget.collection] ?? widget.collection;
+    final title = hadithCollectionName(context, widget.collection);
+    final lang = ref.watch(appLanguageProvider).value ?? 'en';
     final q = _query.trim().toLowerCase();
 
     return GlassScaffold(
@@ -69,7 +72,8 @@ class _HadithChapterDetailScreenState
               ? entries
               : entries
                   .where((e) =>
-                      e.number.toString() == q ||
+                      e.numberLabel == q ||
+                      searchMatches(e.translationFor(lang), q) ||
                       searchMatches(e.translation, q) ||
                       searchMatches(e.arabic, q))
                   .toList();
@@ -110,12 +114,28 @@ class _HadithChapterDetailScreenState
                         itemCount: filtered.length + 1,
                         itemBuilder: (context, index) {
                           if (index == 0) {
-                            return _CollectionNote(
-                                note: _collectionNote(
-                                    context, widget.collection));
+                            // No vetted hadith translation in this language
+                            // (Hindi, Malayalam, Filipino — or Urdu/Bengali
+                            // packs downloaded before that text existed).
+                            final englishOnly = lang != 'en' &&
+                                lang != 'ar' &&
+                                !entries.any(
+                                    (e) => e.translations.containsKey(lang));
+                            return Column(
+                              children: [
+                                _CollectionNote(
+                                    note: _collectionNote(
+                                        context, widget.collection)),
+                                if (englishOnly)
+                                  _CollectionNote(
+                                      note: AppLocalizations.of(context)
+                                          .hadithEnglishOnlyNote),
+                              ],
+                            );
                           }
                           return _HadithEntryCard(
                               collection: widget.collection,
+                              language: lang,
                               entry: filtered[index - 1],
                               scale: _scale);
                         },
@@ -155,14 +175,18 @@ String _collectionNote(BuildContext context, String collection) {
 /// tap to the full text + grade caution. This mirrors the Nawawi reader's
 /// "tap to read" feel and keeps long collections (Bukhari chapters) from
 /// rendering as one enormous scroll (user request).
+const _rtl = {'ar', 'ur'};
+
 class _HadithEntryCard extends ConsumerStatefulWidget {
   const _HadithEntryCard({
     required this.collection,
     required this.entry,
+    required this.language,
     this.scale = 1.0,
   });
 
   final String collection;
+  final String language;
   final HadithEntry entry;
   final double scale;
 
@@ -198,23 +222,28 @@ class _HadithEntryCardState extends ConsumerState<_HadithEntryCard> {
                 // Verse-roundel star for the hadith number — the same
                 // ornamental signature the Nawawi cards use, so every
                 // collection reads consistently (D10).
-                VerseRoundel(number: entry.number.toInt(), size: 34),
+                VerseRoundel(
+                    number: entry.number.toInt(),
+                    label: entry.numberLabel,
+                    size: 34),
                 const SizedBox(width: 8),
                 GradeBadge(grade: grade),
                 const Spacer(),
                 IconButton(
-                  tooltip: 'Share',
+                  tooltip: AppLocalizations.of(context).commonShare,
                   icon: const Icon(Icons.share_outlined),
                   onPressed: () {
                     final ref =
-                        '${hadithCollections[collection] ?? collection} ${entry.number}';
+                        '${hadithCollectionName(context, collection)} ${entry.numberLabel}';
                     SharePlus.instance.share(
                       ShareParams(
-                          text: '${entry.translation}\n\n— $ref\n\nvia Wird'),
+                          text:
+                              '${entry.arabic}\n\n${entry.translationFor(widget.language)}\n\n— $ref\n\nvia Wird'),
                     );
                   },
                 ),
                 IconButton(
+                  tooltip: AppLocalizations.of(context).commonBookmark,
                   icon: Icon(
                     isBookmarkedAsync.value == true
                         ? Icons.bookmark_rounded
@@ -250,7 +279,10 @@ class _HadithEntryCardState extends ConsumerState<_HadithEntryCard> {
             if (showLatinReadingAids(Localizations.localeOf(context))) ...[
               const SizedBox(height: 8),
               Text(
-                entry.translation,
+                entry.translationFor(widget.language),
+                textDirection: _rtl.contains(widget.language)
+                    ? TextDirection.rtl
+                    : TextDirection.ltr,
                 maxLines: _expanded ? null : 2,
                 overflow:
                     _expanded ? TextOverflow.clip : TextOverflow.ellipsis,
@@ -287,9 +319,9 @@ class GradeBadge extends StatelessWidget {
       // Darker gold: white on #9E7B00 was ~4:1 at 12px (needs 4.5).
       HadithAuthenticity.ungraded => (const Color(0xFF7A5F00), Colors.white),
     };
-    final label = grade.rawGrade == null
-        ? grade.authenticity.label
-        : '${grade.authenticity.label} · ${grade.rawGrade}';
+    final name = gradeLabel(context, grade.authenticity);
+    final label =
+        grade.rawGrade == null ? name : '$name · ${grade.rawGrade}';
     return Tooltip(
       message: grade.grader == null ? label : '$label (${grade.grader})',
       child: Container(
@@ -299,7 +331,7 @@ class GradeBadge extends StatelessWidget {
           borderRadius: BorderRadius.circular(999),
         ),
         child: Text(
-          grade.authenticity.label,
+          name,
           style: TextStyle(color: fg, fontSize: 12, fontWeight: FontWeight.w600),
         ),
       ),
@@ -323,7 +355,7 @@ class _GradeCaution extends StatelessWidget {
           const SizedBox(width: 6),
           Expanded(
             child: Text(
-              grade.authenticity.caution,
+              gradeCaution(context, grade.authenticity),
               style: Theme.of(context)
                   .textTheme
                   .bodySmall

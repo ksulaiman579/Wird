@@ -9,19 +9,20 @@ import '../../core/l10n/reading_locale.dart';
 import '../../shared/glass/glass.dart';
 import '../../shared/ui/ui.dart';
 import '../hadith_reader/hadith_chapter_detail_screen.dart' show GradeBadge;
+import '../../core/prefs/app_language_provider.dart';
 import 'hadith_providers.dart';
 
 /// The narrator field sometimes already contains a full narration formula
 /// ("It is narrated on the authority of …"); prefixing "Narrated by" then
 /// doubles it (Item A3). Pure + unit-tested.
-String narratorLine(String narrator) {
+String narratorLine(String narrator, {String Function(String)? narratedBy}) {
   final t = narrator.trim();
   final lower = t.toLowerCase();
   const formulas = ['it is narrated', 'narrated', 'it was narrated', 'on the authority'];
   for (final f in formulas) {
     if (lower.startsWith(f)) return t;
   }
-  return 'Narrated by $t';
+  return narratedBy?.call(t) ?? 'Narrated by $t';
 }
 
 /// A single Nawawi hadith (M23.6, render iwrqvp): a two-tone title
@@ -49,6 +50,12 @@ class _HadithDetailScreenState extends ConsumerState<HadithDetailScreen> {
     final theme = Theme.of(context);
     // Arabic UI: the English narrator line + translation are redundant.
     final showAids = showLatinReadingAids(Localizations.localeOf(context));
+    final lang = ref.watch(appLanguageProvider).value ?? 'en';
+    final l = AppLocalizations.of(context);
+    final titles = ref.watch(nawawiTitlesProvider).value ?? const {};
+    final trs = ref.watch(nawawiTranslationsProvider).value ?? const {};
+    // Bengali text from the source already includes the narrator line.
+    final ownText = trs['${widget.hadithId}']?[lang];
 
     return GlassScaffold(
       appBar: GlassAppBar(
@@ -73,7 +80,8 @@ class _HadithDetailScreenState extends ConsumerState<HadithDetailScreen> {
         error: (error, stack) => Center(child: Text(AppLocalizations.of(context).commonFailedToLoad('$error'))),
         data: (hadith) => ListView(
           children: [
-            Text(hadith.titleEnglish, style: theme.textTheme.headlineSmall),
+            Text(titles['${widget.hadithId}']?[lang] ?? hadith.titleEnglish,
+                style: theme.textTheme.headlineSmall),
             const SizedBox(height: 8),
             // Authenticity badge (Item A4) — same vetting model as the
             // hadith collections reader (M23.11), derived from the source.
@@ -92,12 +100,14 @@ class _HadithDetailScreenState extends ConsumerState<HadithDetailScreen> {
                 ),
                 const Spacer(),
                 IconButton(
-                  tooltip: 'Share',
+                  tooltip: l.commonShare,
                   icon: const Icon(Icons.share_outlined),
-                  onPressed: () => _share(hadith.translation, hadith.source),
+                  onPressed: () => _share(
+                      '${hadith.arabic}\n\n${ownText ?? hadith.translation}',
+                      hadith.source),
                 ),
                 IconButton(
-                  tooltip: 'Bookmark',
+                  tooltip: l.commonBookmark,
                   icon: Icon(
                     isBookmarked
                         ? Icons.bookmark_rounded
@@ -109,10 +119,10 @@ class _HadithDetailScreenState extends ConsumerState<HadithDetailScreen> {
                 ),
               ],
             ),
-            if (showAids) ...[
+            if (showAids && ownText == null) ...[
               const SizedBox(height: 8),
               Text(
-                narratorLine(hadith.narrator),
+                narratorLine(hadith.narrator, narratedBy: l.hadithNarratedBy),
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: theme.colorScheme.secondary,
                   fontWeight: FontWeight.w600,
@@ -143,7 +153,7 @@ class _HadithDetailScreenState extends ConsumerState<HadithDetailScreen> {
                   if (showAids) ...[
                     const SizedBox(height: 20),
                     Text(
-                      hadith.translation,
+                      ownText ?? hadith.translation,
                       style: theme.textTheme.bodyLarge?.copyWith(
                         fontSize:
                             (theme.textTheme.bodyLarge?.fontSize ?? 16) * _scale,
@@ -163,7 +173,7 @@ class _HadithDetailScreenState extends ConsumerState<HadithDetailScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Understand',
+                    l.hadithUnderstand,
                     style: theme.textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),

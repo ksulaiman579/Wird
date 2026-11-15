@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wird/l10n/gen/app_localizations.dart';
 
-import '../../core/content/hadith_pack_repository.dart';
 import '../../shared/glass/glass.dart';
+import 'hadith_l10n.dart';
 import 'hadith_reader_providers.dart';
 
 class HadithChapterListScreen extends ConsumerWidget {
@@ -15,7 +15,7 @@ class HadithChapterListScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final chaptersAsync = ref.watch(hadithChaptersProvider(collection));
-    final title = hadithCollections[collection] ?? collection;
+    final title = hadithCollectionName(context, collection);
 
     return GlassScaffold(
       appBar: GlassAppBar(title: Text(title)),
@@ -38,7 +38,7 @@ class HadithChapterListScreen extends ConsumerWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        chapter.title,
+                        hadithChapterTitle(context, chapter),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),

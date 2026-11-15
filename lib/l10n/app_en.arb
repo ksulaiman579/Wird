@@ -2362,65 +2362,296 @@
   "searchNoResults": "No results",
   "searchHintAll": "Search ayahs, hadith, duas…",
   "searchNames": "99 Names",
-  "@searchNoResults": {"description": "Shown when a search finds nothing."},
-  "@searchHintAll": {"description": "Hint in the global search box."},
-  "@searchNames": {"description": "Filter chip / section label for the 99 Names of Allah in search."},
+  "@searchNoResults": {
+    "description": "Shown when a search finds nothing."
+  },
+  "@searchHintAll": {
+    "description": "Hint in the global search box."
+  },
+  "@searchNames": {
+    "description": "Filter chip / section label for the 99 Names of Allah in search."
+  },
   "notifAdhanTitle": "{salah} — time to pray",
-  "@notifAdhanTitle": {"description": "Notification text (scheduled in the background).", "placeholders": {"salah": {"type": "String"}}},
+  "@notifAdhanTitle": {
+    "description": "Notification text (scheduled in the background).",
+    "placeholders": {
+      "salah": {
+        "type": "String"
+      }
+    }
+  },
   "notifAdhanBody": "It is time for {salah}.",
-  "@notifAdhanBody": {"description": "Notification text (scheduled in the background).", "placeholders": {"salah": {"type": "String"}}},
+  "@notifAdhanBody": {
+    "description": "Notification text (scheduled in the background).",
+    "placeholders": {
+      "salah": {
+        "type": "String"
+      }
+    }
+  },
   "notifDailyTitle": "Today's memorization",
-  "@notifDailyTitle": {"description": "Notification text (scheduled in the background)."},
+  "@notifDailyTitle": {
+    "description": "Notification text (scheduled in the background)."
+  },
   "notifDailyBody": "Keep your streak going — open Wird for today's portion.",
-  "@notifDailyBody": {"description": "Notification text (scheduled in the background)."},
+  "@notifDailyBody": {
+    "description": "Notification text (scheduled in the background)."
+  },
   "notifMorningBody": "A few minutes of remembrance to start the day.",
-  "@notifMorningBody": {"description": "Notification text (scheduled in the background)."},
+  "@notifMorningBody": {
+    "description": "Notification text (scheduled in the background)."
+  },
   "notifEveningBody": "A few minutes of remembrance before the day ends.",
-  "@notifEveningBody": {"description": "Notification text (scheduled in the background)."},
+  "@notifEveningBody": {
+    "description": "Notification text (scheduled in the background)."
+  },
   "notifStreakTitle": "Streak at risk",
-  "@notifStreakTitle": {"description": "Notification text (scheduled in the background)."},
+  "@notifStreakTitle": {
+    "description": "Notification text (scheduled in the background)."
+  },
   "notifStreakBody": "2 hours left to keep your {days}-day streak.",
-  "@notifStreakBody": {"description": "Notification text (scheduled in the background).", "placeholders": {"days": {"type": "int"}}},
+  "@notifStreakBody": {
+    "description": "Notification text (scheduled in the background).",
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
   "notifStreakBodyNone": "Don't forget today's portion.",
-  "@notifStreakBodyNone": {"description": "Notification text (scheduled in the background)."},
+  "@notifStreakBodyNone": {
+    "description": "Notification text (scheduled in the background)."
+  },
   "tasbihCustom": "Custom",
-  "@tasbihCustom": {"description": "Tasbih screen."},
+  "@tasbihCustom": {
+    "description": "Tasbih screen."
+  },
   "tasbihRecent": "Recent sessions",
-  "@tasbihRecent": {"description": "Tasbih screen."},
+  "@tasbihRecent": {
+    "description": "Tasbih screen."
+  },
   "tasbihNoSessions": "No sessions yet",
-  "@tasbihNoSessions": {"description": "Tasbih screen."},
+  "@tasbihNoSessions": {
+    "description": "Tasbih screen."
+  },
   "tasbihCustomTitle": "Custom dhikr & target",
-  "@tasbihCustomTitle": {"description": "Tasbih screen."},
+  "@tasbihCustomTitle": {
+    "description": "Tasbih screen."
+  },
   "tasbihCustomName": "Dhikr (e.g. Salawat, SubhanAllah)",
-  "@tasbihCustomName": {"description": "Tasbih screen."},
+  "@tasbihCustomName": {
+    "description": "Tasbih screen."
+  },
   "tasbihCustomTarget": "Target count",
-  "@tasbihCustomTarget": {"description": "Tasbih screen."},
+  "@tasbihCustomTarget": {
+    "description": "Tasbih screen."
+  },
   "audioErrorOffline": "No internet connection available for audio.",
-  "@audioErrorOffline": {"description": "UI text."},
+  "@audioErrorOffline": {
+    "description": "UI text."
+  },
   "audioErrorGeneric": "Unable to play audio. Please check your connection or try another reciter.",
-  "@audioErrorGeneric": {"description": "UI text."},
+  "@audioErrorGeneric": {
+    "description": "UI text."
+  },
   "notFoundTitle": "This page doesn't exist",
-  "@notFoundTitle": {"description": "UI text."},
+  "@notFoundTitle": {
+    "description": "UI text."
+  },
   "notFoundBody": "The link may be old or mistyped.",
-  "@notFoundBody": {"description": "UI text."},
+  "@notFoundBody": {
+    "description": "UI text."
+  },
   "notFoundHome": "Go home",
-  "@notFoundHome": {"description": "UI text."},
+  "@notFoundHome": {
+    "description": "UI text."
+  },
   "backupMonthlySaved": "Monthly backup saved to this device",
-  "@backupMonthlySaved": {"description": "UI text."},
+  "@backupMonthlySaved": {
+    "description": "UI text."
+  },
   "downloadsCount": "{done} of {total} surahs downloaded",
-  "@downloadsCount": {"description": "UI text.", "placeholders": {"done": {"type": "int"}, "total": {"type": "int"}}},
+  "@downloadsCount": {
+    "description": "UI text.",
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "downloadsSize": "Estimated size: {size}",
-  "@downloadsSize": {"description": "UI text.", "placeholders": {"size": {"type": "String"}}},
+  "@downloadsSize": {
+    "description": "UI text.",
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
   "progressJuz": "Juz",
-  "@progressJuz": {"description": "UI text."},
+  "@progressJuz": {
+    "description": "UI text."
+  },
   "storageTitle": "Download ~{mb} MB?",
-  "@storageTitle": {"description": "UI text.", "placeholders": {"mb": {"type": "String"}}},
+  "@storageTitle": {
+    "description": "UI text.",
+    "placeholders": {
+      "mb": {
+        "type": "String"
+      }
+    }
+  },
   "storageBodyUnknown": "This browser tab keeps downloads in its own storage, which the browser can clear when space runs low.",
-  "@storageBodyUnknown": {"description": "UI text."},
+  "@storageBodyUnknown": {
+    "description": "UI text."
+  },
   "storageBody": "This browser tab already uses {used} MB of its {quota} MB storage. Browsers can clear this storage when space runs low — continue?",
-  "@storageBody": {"description": "UI text.", "placeholders": {"used": {"type": "String"}, "quota": {"type": "String"}}},
+  "@storageBody": {
+    "description": "UI text.",
+    "placeholders": {
+      "used": {
+        "type": "String"
+      },
+      "quota": {
+        "type": "String"
+      }
+    }
+  },
   "a11yHiddenWord": "Hidden word. Tap to reveal.",
-  "@a11yHiddenWord": {"description": "Screen-reader label."},
+  "@a11yHiddenWord": {
+    "description": "Screen-reader label."
+  },
   "a11yTasbihCounter": "Tap to count",
-  "@a11yTasbihCounter": {"description": "Screen-reader label."}
+  "@a11yTasbihCounter": {
+    "description": "Screen-reader label."
+  },
+  "hadithNameBukhari": "Sahih al-Bukhari",
+  "@hadithNameBukhari": {
+    "description": "Collection name."
+  },
+  "hadithNameMuslim": "Sahih Muslim",
+  "@hadithNameMuslim": {
+    "description": "Collection name."
+  },
+  "hadithNameAbudawud": "Sunan Abu Dawud",
+  "@hadithNameAbudawud": {
+    "description": "Collection name."
+  },
+  "hadithNameTirmidhi": "Jami at-Tirmidhi",
+  "@hadithNameTirmidhi": {
+    "description": "Collection name."
+  },
+  "hadithNameNasai": "Sunan an-Nasai",
+  "@hadithNameNasai": {
+    "description": "Collection name."
+  },
+  "hadithNameIbnmajah": "Sunan Ibn Majah",
+  "@hadithNameIbnmajah": {
+    "description": "Collection name."
+  },
+  "hadithNameMalik": "Muwatta Malik",
+  "@hadithNameMalik": {
+    "description": "Collection name."
+  },
+  "hadithDescBukhari": "The most authentic book after the Quran, compiled by Imam Muhammad al-Bukhari.",
+  "@hadithDescBukhari": {
+    "description": "Collection description."
+  },
+  "hadithDescMuslim": "The second most authentic Hadith collection, compiled by Imam Muslim ibn al-Hajjaj.",
+  "@hadithDescMuslim": {
+    "description": "Collection description."
+  },
+  "hadithDescAbudawud": "Focuses mainly on hadith about rulings (fiqh), compiled by Abu Dawud as-Sijistani.",
+  "@hadithDescAbudawud": {
+    "description": "Collection description."
+  },
+  "hadithDescTirmidhi": "Known for stating the grade of each hadith (sahih, hasan, da'if), compiled by Imam at-Tirmidhi.",
+  "@hadithDescTirmidhi": {
+    "description": "Collection description."
+  },
+  "hadithDescNasai": "Known for strict conditions on authenticity, compiled by Imam an-Nasa'i.",
+  "@hadithDescNasai": {
+    "description": "Collection description."
+  },
+  "hadithDescIbnmajah": "The sixth of the six major books, compiled by Ibn Majah al-Qazwini.",
+  "@hadithDescIbnmajah": {
+    "description": "Collection description."
+  },
+  "hadithDescMalik": "One of the earliest collections of hadith and rulings, by Imam Malik ibn Anas.",
+  "@hadithDescMalik": {
+    "description": "Collection description."
+  },
+  "gradeSahih": "Sahih",
+  "@gradeSahih": {
+    "description": "Hadith grade badge."
+  },
+  "gradeHasan": "Hasan",
+  "@gradeHasan": {
+    "description": "Hadith grade badge."
+  },
+  "gradeDaif": "Da'if",
+  "@gradeDaif": {
+    "description": "Hadith grade badge (weak)."
+  },
+  "gradeMawdu": "Mawdu'",
+  "@gradeMawdu": {
+    "description": "Hadith grade badge (fabricated)."
+  },
+  "gradeUngraded": "Ungraded",
+  "@gradeUngraded": {
+    "description": "Hadith grade badge when the source gives no grade."
+  },
+  "gradeCautionDaif": "Weak narration — do not rely on it for rulings or creed.",
+  "@gradeCautionDaif": {
+    "description": "Caution under a weak hadith."
+  },
+  "gradeCautionMawdu": "Reported as fabricated — not to be attributed to the Prophet ﷺ.",
+  "@gradeCautionMawdu": {
+    "description": "Caution under a fabricated hadith."
+  },
+  "gradeCautionUngraded": "No grade given in the source — check before acting on it.",
+  "@gradeCautionUngraded": {
+    "description": "Caution under a hadith with no grade."
+  },
+  "hadithOtherNarrations": "Other narrations",
+  "@hadithOtherNarrations": {
+    "description": "Chapter for hadith the source leaves outside any book."
+  },
+  "hadithNarratedBy": "Narrated by {name}",
+  "@hadithNarratedBy": {
+    "description": "Narrator line.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "hadithUnderstand": "Understand",
+  "@hadithUnderstand": {
+    "description": "Heading over the hadith explanation."
+  },
+  "commonBookmark": "Bookmark",
+  "@commonBookmark": {
+    "description": "Bookmark button tooltip."
+  },
+  "hadithGetLanguageText": "Get the {language} text",
+  "@hadithGetLanguageText": {
+    "description": "Button to re-download a collection with the app language's translation.",
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "hadithEnglishOnlyNote": "Hadith translations are in English for now — there is no vetted translation in this language yet.",
+  "@hadithEnglishOnlyNote": {
+    "description": "Note when no translation exists in the app language."
+  },
+  "hadithDownloadFailed": "Download failed. Check your connection and try again.",
+  "@hadithDownloadFailed": {
+    "description": "Snackbar when a hadith collection download fails."
+  }
 }

@@ -4,6 +4,7 @@ import 'package:wird/l10n/gen/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../hadith_reader/hadith_l10n.dart';
 import '../../core/content/hadith_pack_repository.dart';
 import '../../core/content/models/translation_pack_models.dart';
 import '../../core/content/translation_pack_service.dart';
@@ -137,7 +138,9 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
           for (final entry in hadithCollections.entries)
             Padding(
               padding: const EdgeInsets.only(bottom: 8),
-              child: _HadithPackRow(collection: entry.key, name: entry.value),
+              child: _HadithPackRow(
+                  collection: entry.key,
+                  name: hadithCollectionName(context, entry.key)),
             ),
         ],
       ),
@@ -282,10 +285,16 @@ class _HadithPackRow extends ConsumerWidget {
                     context,
                     estimatedMb: sizeMb ?? 10,
                   );
-                  if (ok) {
+                  if (!ok || !context.mounted) return;
+                  final messenger = ScaffoldMessenger.of(context);
+                  final failed =
+                      AppLocalizations.of(context).hadithDownloadFailed;
+                  try {
                     await ref
                         .read(hadithPackRepositoryProvider)
                         .downloadAndInstall(collection);
+                  } catch (_) {
+                    messenger.showSnackBar(SnackBar(content: Text(failed)));
                   }
                 },
               ),

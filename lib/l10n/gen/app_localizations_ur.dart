@@ -1931,4 +1931,107 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get a11yTasbihCounter => 'گننے کے لیے ٹیپ کریں';
+
+  @override
+  String get hadithNameBukhari => 'صحیح بخاری';
+
+  @override
+  String get hadithNameMuslim => 'صحیح مسلم';
+
+  @override
+  String get hadithNameAbudawud => 'سنن ابو داود';
+
+  @override
+  String get hadithNameTirmidhi => 'جامع ترمذی';
+
+  @override
+  String get hadithNameNasai => 'سنن نسائی';
+
+  @override
+  String get hadithNameIbnmajah => 'سنن ابن ماجہ';
+
+  @override
+  String get hadithNameMalik => 'مؤطا امام مالک';
+
+  @override
+  String get hadithDescBukhari =>
+      'قرآن کے بعد سب سے صحیح کتاب، جسے امام محمد بن اسماعیل بخاری نے جمع کیا۔';
+
+  @override
+  String get hadithDescMuslim =>
+      'حدیث کا دوسرا سب سے صحیح مجموعہ، جسے امام مسلم بن حجاج نے جمع کیا۔';
+
+  @override
+  String get hadithDescAbudawud =>
+      'زیادہ تر احکام (فقہ) کی احادیث پر مشتمل، جسے ابو داود سجستانی نے جمع کیا۔';
+
+  @override
+  String get hadithDescTirmidhi =>
+      'ہر حدیث کا درجہ (صحیح، حسن، ضعیف) بیان کرنے کے لیے مشہور، جسے امام ترمذی نے جمع کیا۔';
+
+  @override
+  String get hadithDescNasai =>
+      'صحت کی سخت شرائط کے لیے مشہور، جسے امام نسائی نے جمع کیا۔';
+
+  @override
+  String get hadithDescIbnmajah =>
+      'صحاح ستہ کی چھٹی کتاب، جسے ابن ماجہ قزوینی نے جمع کیا۔';
+
+  @override
+  String get hadithDescMalik =>
+      'حدیث اور احکام کے قدیم ترین مجموعوں میں سے ایک، امام مالک بن انس کی تصنیف۔';
+
+  @override
+  String get gradeSahih => 'صحیح';
+
+  @override
+  String get gradeHasan => 'حسن';
+
+  @override
+  String get gradeDaif => 'ضعیف';
+
+  @override
+  String get gradeMawdu => 'موضوع';
+
+  @override
+  String get gradeUngraded => 'درجہ درج نہیں';
+
+  @override
+  String get gradeCautionDaif =>
+      'ضعیف روایت — احکام یا عقیدے میں اس پر اعتماد نہ کریں۔';
+
+  @override
+  String get gradeCautionMawdu =>
+      'اسے من گھڑت قرار دیا گیا ہے — اسے نبی ﷺ کی طرف منسوب نہ کریں۔';
+
+  @override
+  String get gradeCautionUngraded =>
+      'ماخذ میں درجہ درج نہیں — عمل سے پہلے تحقیق کر لیں۔';
+
+  @override
+  String get hadithOtherNarrations => 'دیگر روایات';
+
+  @override
+  String hadithNarratedBy(String name) {
+    return 'راوی: $name';
+  }
+
+  @override
+  String get hadithUnderstand => 'سمجھیں';
+
+  @override
+  String get commonBookmark => 'بُک مارک';
+
+  @override
+  String hadithGetLanguageText(String language) {
+    return '$language متن حاصل کریں';
+  }
+
+  @override
+  String get hadithEnglishOnlyNote =>
+      'احادیث کا ترجمہ فی الحال انگریزی میں ہے — اس زبان میں ابھی کوئی مستند ترجمہ دستیاب نہیں۔';
+
+  @override
+  String get hadithDownloadFailed =>
+      'ڈاؤن لوڈ ناکام ہوا۔ کنکشن چیک کر کے دوبارہ کوشش کریں۔';
 }
