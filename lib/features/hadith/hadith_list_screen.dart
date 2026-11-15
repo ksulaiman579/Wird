@@ -77,7 +77,7 @@ class _HadithListScreenState extends ConsumerState<HadithListScreen> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
                 child: Align(
-                  alignment: Alignment.centerLeft,
+                  alignment: AlignmentDirectional.centerStart,
                   child: FilterChipRow<_HadithFilter>(
                     options: const [
                       _HadithFilter.all,

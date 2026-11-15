@@ -311,7 +311,7 @@ class _CurrentAdhkarCard extends ConsumerWidget {
         ),
         const SizedBox(height: 4),
         Align(
-          alignment: Alignment.centerRight,
+          alignment: AlignmentDirectional.centerEnd,
           child: TextButton(
             onPressed: () => context.push('/adhkar/$otherKey'),
             child: Text(

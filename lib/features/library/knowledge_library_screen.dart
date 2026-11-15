@@ -72,7 +72,7 @@ class KnowledgeLibraryScreen extends ConsumerWidget {
               children: [
                 for (final l in libraryLanguages)
                   Padding(
-                    padding: const EdgeInsets.only(right: 8),
+                    padding: const EdgeInsetsDirectional.only(end: 8),
                     child: ChoiceChip(
                       label: Text(l.label),
                       selected: l.code == lang,

@@ -597,7 +597,7 @@ class _QuranReaderScreenState extends ConsumerState<QuranReaderScreen> {
                     ),
                     const SizedBox(height: 4),
                     Align(
-                      alignment: Alignment.centerLeft,
+                      alignment: AlignmentDirectional.centerStart,
                       child: TextButton.icon(
                         icon: const Icon(Icons.download_rounded, size: 16),
                         label: Text(
@@ -761,6 +761,8 @@ class _AyahCard extends ConsumerWidget {
             const SizedBox(height: 12),
             Text(
               transliteration,
+              // Latin script: keep it left-to-right in Arabic/Urdu UIs.
+              textDirection: TextDirection.ltr,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 fontStyle: FontStyle.italic,
                 color: Theme.of(
@@ -806,8 +808,16 @@ class _AyahCard extends ConsumerWidget {
 
 /// The labelled "Translation: …" line shared by the default and
 /// selected-edition translation display (Item 1.12).
+final _rtlScript = RegExp('[\u0590-\u08FF]');
+
 Widget _translationLine(BuildContext context, String text) {
+  // Direction follows the translation's own script: an English line stays
+  // left-to-right in an Arabic/Urdu UI, an Urdu edition reads right-to-left
+  // in an English UI (M30.3).
+  final firstLetter = RegExp(r'\p{L}', unicode: true).firstMatch(text);
+  final rtl = firstLetter != null && _rtlScript.hasMatch(firstLetter[0]!);
   return RichText(
+    textDirection: rtl ? TextDirection.rtl : TextDirection.ltr,
     text: TextSpan(
       style: Theme.of(context).textTheme.bodyLarge,
       children: [

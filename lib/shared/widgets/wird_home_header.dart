@@ -42,7 +42,7 @@ class WirdHomeHeader extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ),
               Align(
-                alignment: Alignment.centerLeft,
+                alignment: AlignmentDirectional.centerStart,
                 child: IconButton(
                   icon: CircleAvatar(
                     radius: 16,
@@ -54,7 +54,7 @@ class WirdHomeHeader extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ),
               Align(
-                alignment: Alignment.centerRight,
+                alignment: AlignmentDirectional.centerEnd,
                 child: IconButton(
                   icon: Icon(Icons.notifications_outlined, color: gold),
                   tooltip: AppLocalizations.of(context).headerRemindersTooltip,

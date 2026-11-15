@@ -201,7 +201,7 @@ class _BadgeTile extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Stack(
-              alignment: Alignment.bottomRight,
+              alignment: AlignmentDirectional.bottomEnd,
               children: [
                 Opacity(
                   opacity: isUnlocked ? 1.0 : 0.35,

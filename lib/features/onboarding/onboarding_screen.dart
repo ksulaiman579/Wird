@@ -1508,7 +1508,7 @@ class _TranslationPickerDialogState
             Padding(
               padding: const EdgeInsets.all(8),
               child: Align(
-                alignment: Alignment.centerRight,
+                alignment: AlignmentDirectional.centerEnd,
                 child: FilledButton(
                   onPressed: () => Navigator.of(context).pop(),
                   child: Text(AppLocalizations.of(context).commonDone),
@@ -1632,7 +1632,7 @@ class _HadithCollectionPickerDialog extends ConsumerWidget {
             Padding(
               padding: const EdgeInsets.all(8),
               child: Align(
-                alignment: Alignment.centerRight,
+                alignment: AlignmentDirectional.centerEnd,
                 child: FilledButton(
                   onPressed: () => Navigator.of(context).pop(),
                   child: Text(AppLocalizations.of(context).commonDone),

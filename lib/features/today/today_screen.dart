@@ -119,7 +119,7 @@ class _SectionLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 4, bottom: 8),
+      padding: const EdgeInsetsDirectional.only(start: 4, bottom: 8),
       child: Text(
         // Sentence case as written (Item D2) — the previous ALL-CAPS wide
         // tracking read un-iOS and looked wrong under RTL. Kept gold as the

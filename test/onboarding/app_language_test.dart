@@ -63,4 +63,11 @@ void main() {
       expect(localizations.progressStepOf(1, 10), isNotEmpty);
     }
   });
+
+  test('first run picks the phone language when shipped', () {
+    expect(deviceLanguageOrEnglish(['ur', 'en']), 'ur');
+    expect(deviceLanguageOrEnglish(['de', 'bn']), 'bn');
+    expect(deviceLanguageOrEnglish(['tl']), 'fil');
+    expect(deviceLanguageOrEnglish(['de', 'fr']), 'en');
+  });
 }

@@ -163,7 +163,7 @@ class _AsmaCard extends StatelessWidget {
             ),
             children: [
               Align(
-                alignment: Alignment.centerLeft,
+                alignment: AlignmentDirectional.centerStart,
                 child: Text(
                   name.explanation,
                   style: theme.textTheme.bodyMedium?.copyWith(height: 1.5),

@@ -729,7 +729,7 @@ class _NotificationsSection extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 0, 16, 4),
             child: Align(
-              alignment: Alignment.centerLeft,
+              alignment: AlignmentDirectional.centerStart,
               child: OutlinedButton.icon(
                 icon: const Icon(Icons.play_circle_outline_rounded),
                 label: Text(AppLocalizations.of(context).settingsPreviewAdhan),

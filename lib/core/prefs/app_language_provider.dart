@@ -1,3 +1,5 @@
+import 'dart:ui' show PlatformDispatcher;
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -110,7 +112,10 @@ class AppLanguageNotifier extends AsyncNotifier<String> {
         supportedAppLanguages.any((lang) => lang.code == stored)) {
       return stored;
     }
-    return 'en';
+    // First run: use the phone's language if it's one we ship (M30.2).
+    return deviceLanguageOrEnglish(
+      PlatformDispatcher.instance.locales.map((l) => l.languageCode),
+    );
   }
 
   Future<void> setLanguage(String code) async {
@@ -124,3 +129,13 @@ final appLanguageProvider =
     AsyncNotifierProvider<AppLanguageNotifier, String>(
   AppLanguageNotifier.new,
 );
+
+/// The first of [deviceCodes] (most preferred first) that the app ships,
+/// else English. Tagalog ('tl') maps to Filipino.
+String deviceLanguageOrEnglish(Iterable<String> deviceCodes) {
+  for (final raw in deviceCodes) {
+    final code = raw == 'tl' ? 'fil' : raw;
+    if (shipLocaleCodes.contains(code)) return code;
+  }
+  return 'en';
+}
