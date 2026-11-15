@@ -54,6 +54,18 @@
                 <data android:pathPrefix="/khatmah"/>
             </intent-filter>
         </activity>
+        <!-- Home-screen widget (today's portion + streak), data written by
+             lib/core/platform/home_widget_sync.dart. -->
+        <receiver
+            android:name=".WirdWidgetProvider"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/wird_widget_info" />
+        </receiver>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data

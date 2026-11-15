@@ -26,6 +26,7 @@ void main() {
     final priorFlutterOnError = FlutterError.onError;
     FlutterError.onError = (details) {
       DebugLog.instance.recordFlutterError(details);
+      reportCrash(details.exception, details.stack);
       if (priorFlutterOnError != null) {
         priorFlutterOnError(details);
       } else {
@@ -34,6 +35,7 @@ void main() {
     };
     WidgetsBinding.instance.platformDispatcher.onError = (error, stack) {
       DebugLog.instance.recordError(error, stack);
+      reportCrash(error, stack);
       return true;
     };
 
@@ -50,5 +52,6 @@ void main() {
     runApp(const ProviderScope(child: DailyApp()));
   }, (error, stack) {
     DebugLog.instance.recordError(error, stack);
+    reportCrash(error, stack);
   });
 }

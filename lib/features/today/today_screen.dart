@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:drift/drift.dart' show Value;
 
+import '../../core/platform/home_widget_sync.dart';
 import '../khatmah/khatmah_screen.dart' show KhatmahTodayCard;
 import '../../core/l10n/dates.dart';
 import '../../core/db/database.dart';
@@ -190,6 +191,18 @@ class _TodayHeroCard extends ConsumerWidget {
     final done = (row?.newItemsDone ?? 0) + (row?.reviewsDone ?? 0);
     final ratio = planned == 0 ? 1.0 : (done / planned).clamp(0.0, 1.0);
     final allDone = breakdown.totalCount == 0;
+
+    // Keep the home-screen widget in step with this card (Android only).
+    final l = AppLocalizations.of(context);
+    WidgetsBinding.instance.addPostFrameCallback((_) => HomeWidgetSync.update(
+          title: allDone ? l.todayGoalDone : l.todayGoalProgress(done, planned),
+          detail: l.todayBreakdown(
+            breakdown.sabaqCount,
+            breakdown.sabqiCount + breakdown.manzilCount,
+            breakdown.estimatedMinutes,
+          ),
+          streak: streak > 0 ? '🔥 $streak' : '',
+        ));
 
     return GlassCard(
       enableBlur: false,
