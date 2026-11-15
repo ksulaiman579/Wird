@@ -525,5 +525,8 @@
   "adhanCallTitle": "Oras na magdasal",
   "adhanCallFor": "Oras na para sa {salah}",
   "adhanTapToSilence": "I-tap kahit saan para patahimikin",
-  "quranMarkJuzMemorized": "Markahan ang isang juz bilang naisaulo"
+  "quranMarkJuzMemorized": "Markahan ang isang juz bilang naisaulo",
+  "searchNoResults": "Walang resulta",
+  "searchHintAll": "Maghanap ng ayah, hadith at dua…",
+  "searchNames": "99 Pangalan"
 }

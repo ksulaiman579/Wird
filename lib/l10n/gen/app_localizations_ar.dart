@@ -1804,4 +1804,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get quranMarkJuzMemorized => 'تحديد جزء كمحفوظ';
+
+  @override
+  String get searchNoResults => 'لا توجد نتائج';
+
+  @override
+  String get searchHintAll => 'ابحث في الآيات والأحاديث والأدعية…';
+
+  @override
+  String get searchNames => 'الأسماء الحسنى';
 }

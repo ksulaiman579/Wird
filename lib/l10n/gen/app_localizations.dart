@@ -3263,6 +3263,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Mark a juz as memorized'**
   String get quranMarkJuzMemorized;
+
+  /// Shown when a search finds nothing.
+  ///
+  /// In en, this message translates to:
+  /// **'No results'**
+  String get searchNoResults;
+
+  /// Hint in the global search box.
+  ///
+  /// In en, this message translates to:
+  /// **'Search ayahs, hadith, duas…'**
+  String get searchHintAll;
+
+  /// Filter chip / section label for the 99 Names of Allah in search.
+  ///
+  /// In en, this message translates to:
+  /// **'99 Names'**
+  String get searchNames;
 }
 
 class _AppLocalizationsDelegate

@@ -1,18 +1,20 @@
-import 'package:flutter/material.dart';
-import 'package:wird/l10n/gen/app_localizations.dart';
+import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wird/l10n/gen/app_localizations.dart';
 
+import '../../core/search/search_index.dart';
+import '../../core/search/search_index_builder.dart';
+import '../../core/theme/app_theme.dart' show quranTextStyle;
 import '../../shared/glass/glass.dart';
-import '../../shared/ui/ui.dart';
-import '../dua/dua_providers.dart';
-import '../quran_browser/quran_providers.dart';
 
-/// Lightweight global search across content already held in memory — surah
-/// names/numbers and Hisnul-Muslim dua-category titles (M23.4). Hadith
-/// full-text search is a heavier, index-backed feature deferred to a later
-/// task; this covers the two catalogues that are cheap to scan in-process.
+/// Search across the bundled content (M28.3): ayah Arabic, translation and
+/// transliteration, surah names, the Nawawi hadith, Hisnul Muslim duas and
+/// the 99 Names. Arabic is matched without diacritics and with common
+/// spelling variants folded (see arabic_normalizer.dart); "2:255" jumps to
+/// that ayah. Shows sourced text only — nothing is generated.
 class GlobalSearchScreen extends ConsumerStatefulWidget {
   const GlobalSearchScreen({super.key, this.initialQuery = ''});
 
@@ -22,25 +24,47 @@ class GlobalSearchScreen extends ConsumerStatefulWidget {
   ConsumerState<GlobalSearchScreen> createState() => _GlobalSearchScreenState();
 }
 
+enum _Filter { all, quran, hadith, duas, names }
+
+extension on _Filter {
+  Set<SearchKind>? get kinds => switch (this) {
+        _Filter.all => null,
+        _Filter.quran => {SearchKind.surah, SearchKind.ayah},
+        _Filter.hadith => {SearchKind.hadith},
+        _Filter.duas => {SearchKind.dua},
+        _Filter.names => {SearchKind.name},
+      };
+}
+
 class _GlobalSearchScreenState extends ConsumerState<GlobalSearchScreen> {
-  late final TextEditingController _controller = TextEditingController(
-    text: widget.initialQuery,
-  );
-  late String _query = widget.initialQuery.trim().toLowerCase();
+  late final TextEditingController _controller =
+      TextEditingController(text: widget.initialQuery);
+  late String _query = widget.initialQuery.trim();
+  _Filter _filter = _Filter.all;
+  Timer? _debounce;
 
   @override
   void dispose() {
+    _debounce?.cancel();
     _controller.dispose();
     super.dispose();
   }
 
+  void _onChanged(String v) {
+    _debounce?.cancel();
+    // Wait for a short pause in typing instead of searching every keystroke.
+    _debounce = Timer(const Duration(milliseconds: 250), () {
+      if (mounted) setState(() => _query = v.trim());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final metaAsync = ref.watch(quranMetaProvider);
-    final duasAsync = ref.watch(duaCategoriesProvider);
+    final l = AppLocalizations.of(context);
+    final indexAsync = ref.watch(searchIndexProvider);
 
     return GlassScaffold(
-      appBar: GlassAppBar(title: Text(AppLocalizations.of(context).searchTitle)),
+      appBar: GlassAppBar(title: Text(l.searchTitle)),
       contentPadding: EdgeInsets.zero,
       body: Column(
         children: [
@@ -49,104 +73,131 @@ class _GlobalSearchScreenState extends ConsumerState<GlobalSearchScreen> {
             child: TextField(
               controller: _controller,
               autofocus: widget.initialQuery.isEmpty,
+              textInputAction: TextInputAction.search,
               decoration: InputDecoration(
                 prefixIcon: const Icon(Icons.search_rounded),
-                hintText: AppLocalizations.of(context).searchHint,
+                hintText: l.searchHintAll,
                 border: const OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(16)),
                 ),
               ),
-              onChanged: (v) => setState(() => _query = v.trim().toLowerCase()),
+              onChanged: _onChanged,
+              onSubmitted: (v) => setState(() => _query = v.trim()),
+            ),
+          ),
+          SizedBox(
+            height: 44,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsetsDirectional.only(start: 16, end: 8),
+              children: [
+                for (final f in _Filter.values)
+                  Padding(
+                    padding: const EdgeInsetsDirectional.only(end: 8),
+                    child: ChoiceChip(
+                      label: Text(switch (f) {
+                        _Filter.all => l.commonAll,
+                        _Filter.quran => l.navQuran,
+                        _Filter.hadith => l.navHadith,
+                        _Filter.duas => l.navDuas,
+                        _Filter.names => l.searchNames,
+                      }),
+                      selected: _filter == f,
+                      onSelected: (_) => setState(() => _filter = f),
+                    ),
+                  ),
+              ],
             ),
           ),
           Expanded(
             child: _query.isEmpty
-                ? Center(child: Text(AppLocalizations.of(context).searchTypePrompt))
-                : ListView(
-                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-                    children: [
-                      ..._surahResults(metaAsync),
-                      ..._duaResults(duasAsync),
-                    ],
+                ? Center(child: Text(l.searchTypePrompt))
+                : indexAsync.when(
+                    loading: () =>
+                        const Center(child: CircularProgressIndicator()),
+                    error: (e, _) => Center(child: Text(l.searchNoResults)),
+                    data: (index) {
+                      final hits = index.search(_query, kinds: _filter.kinds);
+                      if (hits.isEmpty) {
+                        return Center(child: Text(l.searchNoResults));
+                      }
+                      return ListView.builder(
+                        padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+                        itemCount: hits.length,
+                        itemBuilder: (context, i) =>
+                            _ResultCard(doc: hits[i].doc),
+                      );
+                    },
                   ),
           ),
         ],
       ),
     );
   }
-
-  List<Widget> _surahResults(AsyncValue<dynamic> metaAsync) {
-    final meta = metaAsync.value;
-    if (meta == null) return const [];
-    final matches = meta.surahs.where((s) {
-      return s.nameTransliterated.toLowerCase().contains(_query) ||
-          s.nameEnglish.toLowerCase().contains(_query) ||
-          s.number.toString() == _query;
-    }).toList();
-    if (matches.isEmpty) return const [];
-    return [
-      _ResultHeader(AppLocalizations.of(context).searchSurahs),
-      for (final s in matches)
-        GlassCard(
-          enableBlur: false,
-          onTap: () => context.push('/quran/${s.number}'),
-          margin: const EdgeInsets.only(bottom: 8),
-          child: Row(
-            children: [
-              CircleAvatar(radius: 16, child: Text('${s.number}')),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Text('${s.nameTransliterated} · ${s.nameEnglish}'),
-              ),
-              const Icon(Icons.chevron_right_rounded),
-            ],
-          ),
-        ),
-    ];
-  }
-
-  List<Widget> _duaResults(AsyncValue<dynamic> duasAsync) {
-    final hisnul = duasAsync.value;
-    if (hisnul == null) return const [];
-    final matches = hisnul.categories.where((c) {
-      return c.titleEnglish.toLowerCase().contains(_query);
-    }).toList();
-    if (matches.isEmpty) return const [];
-    return [
-      _ResultHeader(AppLocalizations.of(context).duasTitle),
-      for (final c in matches)
-        GlassCard(
-          enableBlur: false,
-          onTap: () => context.push('/duas/${c.id}'),
-          margin: const EdgeInsets.only(bottom: 8),
-          child: Row(
-            children: [
-              const WirdIcon(WirdGlyph.palms, size: 24),
-              const SizedBox(width: 12),
-              Expanded(child: Text(c.titleEnglish)),
-              const Icon(Icons.chevron_right_rounded),
-            ],
-          ),
-        ),
-    ];
-  }
 }
 
-class _ResultHeader extends StatelessWidget {
-  const _ResultHeader(this.label);
-  final String label;
+class _ResultCard extends StatelessWidget {
+  const _ResultCard({required this.doc});
+
+  final SearchDoc doc;
+
+  IconData get _icon => switch (doc.kind) {
+        SearchKind.surah => Icons.menu_book_rounded,
+        SearchKind.ayah => Icons.format_quote_rounded,
+        SearchKind.hadith => Icons.auto_stories_rounded,
+        SearchKind.dua => Icons.volunteer_activism_rounded,
+        SearchKind.name => Icons.star_rounded,
+      };
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 4, bottom: 8),
-      child: Text(
-        label.toUpperCase(),
-        style: Theme.of(context).textTheme.labelMedium?.copyWith(
-          color: Theme.of(context).colorScheme.secondary,
-          fontWeight: FontWeight.w700,
-          letterSpacing: 1.0,
-        ),
+    final theme = Theme.of(context);
+    return GlassCard(
+      enableBlur: false,
+      onTap: () => context.push(doc.route),
+      margin: const EdgeInsets.only(bottom: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            children: [
+              Icon(_icon, size: 18, color: theme.colorScheme.secondary),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  doc.title,
+                  style: theme.textTheme.labelLarge,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+          if (doc.arabic.isNotEmpty) ...[
+            const SizedBox(height: 6),
+            Text(
+              doc.arabic,
+              textDirection: TextDirection.rtl,
+              textAlign: TextAlign.right,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: quranTextStyle.copyWith(
+                fontSize: 20,
+                color: theme.colorScheme.onSurface,
+              ),
+            ),
+          ],
+          if (doc.text.isNotEmpty) ...[
+            const SizedBox(height: 4),
+            Text(
+              doc.text,
+              textDirection: TextDirection.ltr,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: theme.textTheme.bodySmall,
+            ),
+          ],
+        ],
       ),
     );
   }

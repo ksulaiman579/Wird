@@ -525,5 +525,8 @@
   "adhanCallTitle": "حان وقت الصلاة",
   "adhanCallFor": "حان وقت {salah}",
   "adhanTapToSilence": "انقر في أي مكان للإسكات",
-  "quranMarkJuzMemorized": "تحديد جزء كمحفوظ"
+  "quranMarkJuzMemorized": "تحديد جزء كمحفوظ",
+  "searchNoResults": "لا توجد نتائج",
+  "searchHintAll": "ابحث في الآيات والأحاديث والأدعية…",
+  "searchNames": "الأسماء الحسنى"
 }

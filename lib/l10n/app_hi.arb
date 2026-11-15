@@ -525,5 +525,8 @@
   "adhanCallTitle": "नमाज़ का समय",
   "adhanCallFor": "{salah} का समय",
   "adhanTapToSilence": "चुप करने के लिए कहीं भी टैप करें",
-  "quranMarkJuzMemorized": "एक जुज़ को याद किया हुआ चिह्नित करें"
+  "quranMarkJuzMemorized": "एक जुज़ को याद किया हुआ चिह्नित करें",
+  "searchNoResults": "कोई परिणाम नहीं",
+  "searchHintAll": "आयतें, हदीस और दुआएँ खोजें…",
+  "searchNames": "अल्लाह के 99 नाम"
 }

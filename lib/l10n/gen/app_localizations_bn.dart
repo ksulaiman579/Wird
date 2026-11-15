@@ -1819,4 +1819,13 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get quranMarkJuzMemorized => 'একটি জুজ মুখস্থ হিসেবে চিহ্নিত করুন';
+
+  @override
+  String get searchNoResults => 'কোনো ফলাফল নেই';
+
+  @override
+  String get searchHintAll => 'আয়াত, হাদিস ও দোয়া খুঁজুন…';
+
+  @override
+  String get searchNames => 'আল্লাহর ৯৯ নাম';
 }

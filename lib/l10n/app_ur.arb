@@ -525,5 +525,8 @@
   "adhanCallTitle": "نماز کا وقت",
   "adhanCallFor": "{salah} کا وقت",
   "adhanTapToSilence": "خاموش کرنے کے لیے کہیں بھی ٹیپ کریں",
-  "quranMarkJuzMemorized": "ایک پارہ حفظ شدہ نشان زد کریں"
+  "quranMarkJuzMemorized": "ایک پارہ حفظ شدہ نشان زد کریں",
+  "searchNoResults": "کوئی نتیجہ نہیں",
+  "searchHintAll": "آیات، احادیث اور دعائیں تلاش کریں…",
+  "searchNames": "اسمائے حسنیٰ"
 }

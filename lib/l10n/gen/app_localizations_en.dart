@@ -1815,4 +1815,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get quranMarkJuzMemorized => 'Mark a juz as memorized';
+
+  @override
+  String get searchNoResults => 'No results';
+
+  @override
+  String get searchHintAll => 'Search ayahs, hadith, duas…';
+
+  @override
+  String get searchNames => '99 Names';
 }

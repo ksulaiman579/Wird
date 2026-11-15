@@ -1818,4 +1818,13 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get quranMarkJuzMemorized => 'ایک پارہ حفظ شدہ نشان زد کریں';
+
+  @override
+  String get searchNoResults => 'کوئی نتیجہ نہیں';
+
+  @override
+  String get searchHintAll => 'آیات، احادیث اور دعائیں تلاش کریں…';
+
+  @override
+  String get searchNames => 'اسمائے حسنیٰ';
 }

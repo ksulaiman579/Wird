@@ -1842,4 +1842,13 @@ class AppLocalizationsFil extends AppLocalizations {
 
   @override
   String get quranMarkJuzMemorized => 'Markahan ang isang juz bilang naisaulo';
+
+  @override
+  String get searchNoResults => 'Walang resulta';
+
+  @override
+  String get searchHintAll => 'Maghanap ng ayah, hadith at dua…';
+
+  @override
+  String get searchNames => '99 Pangalan';
 }

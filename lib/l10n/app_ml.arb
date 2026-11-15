@@ -525,5 +525,8 @@
   "adhanCallTitle": "നമസ്കാര സമയം",
   "adhanCallFor": "{salah} സമയം",
   "adhanTapToSilence": "നിശ്ശബ്ദമാക്കാൻ എവിടെയും ടാപ്പ് ചെയ്യുക",
-  "quranMarkJuzMemorized": "ഒരു ജുസ്അ് മനഃപാഠമായി അടയാളപ്പെടുത്തുക"
+  "quranMarkJuzMemorized": "ഒരു ജുസ്അ് മനഃപാഠമായി അടയാളപ്പെടുത്തുക",
+  "searchNoResults": "ഫലങ്ങളൊന്നുമില്ല",
+  "searchHintAll": "ആയത്തുകൾ, ഹദീസുകൾ, ദുആകൾ തിരയുക…",
+  "searchNames": "അല്ലാഹുവിന്റെ 99 നാമങ്ങൾ"
 }

@@ -1831,4 +1831,13 @@ class AppLocalizationsMl extends AppLocalizations {
 
   @override
   String get quranMarkJuzMemorized => 'ഒരു ജുസ്അ് മനഃപാഠമായി അടയാളപ്പെടുത്തുക';
+
+  @override
+  String get searchNoResults => 'ഫലങ്ങളൊന്നുമില്ല';
+
+  @override
+  String get searchHintAll => 'ആയത്തുകൾ, ഹദീസുകൾ, ദുആകൾ തിരയുക…';
+
+  @override
+  String get searchNames => 'അല്ലാഹുവിന്റെ 99 നാമങ്ങൾ';
 }

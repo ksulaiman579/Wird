@@ -2358,5 +2358,11 @@
   "quranMarkJuzMemorized": "Mark a juz as memorized",
   "@quranMarkJuzMemorized": {
     "description": "App-bar action opening a picker to mark whole juz as already memorized."
-  }
+  },
+  "searchNoResults": "No results",
+  "searchHintAll": "Search ayahs, hadith, duas…",
+  "searchNames": "99 Names",
+  "@searchNoResults": {"description": "Shown when a search finds nothing."},
+  "@searchHintAll": {"description": "Hint in the global search box."},
+  "@searchNames": {"description": "Filter chip / section label for the 99 Names of Allah in search."}
 }
