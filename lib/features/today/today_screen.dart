@@ -612,9 +612,16 @@ class _StreakCard extends ConsumerWidget {
                 size: 28,
               ),
               const SizedBox(width: 6),
-              Text(
-                AppLocalizations.of(context).todayStreakDays(streak),
-                style: Theme.of(context).textTheme.titleLarge,
+              // Shrinks rather than cuts off long words (e.g. Malayalam).
+              Flexible(
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: AlignmentDirectional.centerStart,
+                  child: Text(
+                    AppLocalizations.of(context).todayStreakDays(streak),
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                ),
               ),
             ],
           ),
@@ -655,9 +662,16 @@ class _ReadingStreakCard extends ConsumerWidget {
                 size: 28,
               ),
               const SizedBox(width: 6),
-              Text(
-                AppLocalizations.of(context).todayStreakDays(streak),
-                style: Theme.of(context).textTheme.titleLarge,
+              // Shrinks rather than cuts off long words (e.g. Malayalam).
+              Flexible(
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: AlignmentDirectional.centerStart,
+                  child: Text(
+                    AppLocalizations.of(context).todayStreakDays(streak),
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                ),
               ),
             ],
           ),

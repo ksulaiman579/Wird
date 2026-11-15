@@ -125,6 +125,10 @@ class _HadithDetailScreenState extends ConsumerState<HadithDetailScreen> {
               const SizedBox(height: 8),
               Text(
                 narratorLine(hadith.narrator, narratedBy: l.hadithNarratedBy),
+                // English text: keep it left-to-right in Urdu/Arabic UIs.
+                textDirection: lang == 'ar' || lang == 'ur'
+                    ? TextDirection.ltr
+                    : null,
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: theme.colorScheme.secondary,
                   fontWeight: FontWeight.w600,
@@ -156,6 +160,10 @@ class _HadithDetailScreenState extends ConsumerState<HadithDetailScreen> {
                     const SizedBox(height: 20),
                     Text(
                       ownText ?? hadith.translation,
+                      textDirection: ownText == null &&
+                              (lang == 'ar' || lang == 'ur')
+                          ? TextDirection.ltr
+                          : null,
                       style: theme.textTheme.bodyLarge?.copyWith(
                         fontSize:
                             (theme.textTheme.bodyLarge?.fontSize ?? 16) * _scale,
