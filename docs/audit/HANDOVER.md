@@ -46,6 +46,12 @@ Source of truth: `03-bug-register.csv` and `02-coverage-matrix.csv`. Rule: log o
   - Khatmah passes.
   - Repeat search link (WQA-033).
 
+- 2026-11-16 s8:
+  - Settings switches persist.
+  - Zakah passes.
+  - Speed is fine (08-performance.md).
+  - Accessibility scan (WQA-034, WQA-035).
+
 ## Notes
 - If the emulator goes black (all apps), kill qemu, delete *.lock in ~/.android/avd/Medium_Phone.avd, then cold boot with -no-snapshot-load.
 - If the emulator system share sheet hangs ("IntentResolver isn't responding"), run `adb shell am force-stop com.android.intentresolver`.

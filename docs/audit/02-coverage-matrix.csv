@@ -17,13 +17,13 @@ Global search,Search,/search,Failed,Arabic with/without marks + ta-marbuta pass;
 Explore hub,Explore,/explore,Not Started,,
 Asma ul-Husna,Tools,/asma,Failed,WQA-029,2026-11-16
 Qibla,Tools,/qibla,In Progress,Opens; needs location,2026-11-16
-Zakah calculator,Tools,/zakah,In Progress,"Opens, Urdu; calc not run",2026-11-16
-Tasbih,Tools,/tasbih,Failed,WQA-029,2026-11-16
+Zakah calculator,Tools,/zakah,Passed,"Nisab 85g gold / 595g silver, 2.5%; covered by zakah_calculator_test + zakah_screen_test",2026-11-16
+Tasbih,Tools,/tasbih,Failed,Counter covered by tasbih_screen_test; English preset names WQA-029,2026-11-16
 Al-Manhaj,Tools,/almanhaj,Not Started,,
 Adhan + prayer notifications,Notifications,/adhan,Failed,WQA-024,2026-11-16
 Reminders,Notifications,—,Failed,WQA-024 (up to 1h late),2026-11-16
 Progress + achievements,Progress,/progress /achievements,Failed,WQA-029,2026-11-16
-Settings (all switches),Settings,/settings,Failed,WQA-028; switches not each toggled yet,2026-11-16
+Settings (all switches),Settings,/settings,Failed,All 6 switches toggle + persist after restart; reminder off cancels alarms; WQA-028 links ignored on Settings,2026-11-16
 Plan edit,Settings,/settings/edit-plan,Not Started,,
 About / Data sources / Logs,Settings,/settings/about ...,Not Started,,
 Backup + restore,Settings,—,Passed,"Covered by test/backup/backup_service_test.dart (round trip, schema, bad values); not tried by hand",2026-11-16
@@ -41,3 +41,6 @@ iOS / Safari / Firefox,Platforms,—,Blocked,Not available on this machine,2026-
 Quran text + structure,Quran,—,Passed,evidence/quran_audit.json: 114/6236/30; text = Tanzil simple except 3 known Uthmani spellings (2:245 7:69 72:16),2026-11-16
 Hadith reader controls (search by number; bookmark; text size),Hadith,—,In Progress,"Search by number OK; bookmark + A+ tapped, bookmark list not checked yet; Urdu glyph WQA-016",2026-11-16
 Offline use (airplane mode),Core,—,Passed,Downloaded Muslim reads offline; failed download shows localised retry (s23/s24),2026-11-16
+Speed (Android),Performance,—,Passed,"Cold start 2.3-2.8 s (emulator), 140 MB memory, arm64 APK 42 MB",2026-11-16
+Speed (web),Performance,—,Passed,"First load 5.3 MB, ~1.5 s, 16 requests, 2 hosts",2026-11-16
+Accessibility,A11y,—,Failed,WQA-034/035,2026-11-16
