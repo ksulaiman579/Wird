@@ -1,20 +1,41 @@
 # Wird audit: master report
 
-**Status:** in progress (session 1, 2026-11-16). **Readiness:** not assessed yet. That needs the device passes done first.
+**Status:** in progress (2 sessions, 2026-11-16). **Readiness:** not assessed yet.
 
 ## So far
 
-- Code health:
-  - analyze: 0 errors, 12 minor notes.
-  - tests: 671 pass.
-  - packages: one beta package in the release; 25 packages are behind.
-- Hadith data: counts check out for all 7 books. Real issues found:
-  - A dead "Get Urdu text" button on Sahih Muslim.
-  - Blank English or Arabic lines on 15 hadith.
-  - Possible wrong-chapter placement where the source's chapter ranges overlap.
-  - Urdu silently falls back to English for many Nasai, Bukhari and Malik hadith.
-- Bugs logged: 6 (WQA-001 to 006). None fixed. Fixes wait for Waleed.
+**Code health:** 0 analyze errors, 671 tests pass. One beta package is in the release and 25 packages are behind.
+
+**Quran:** structure and text check out against an independent edition, ayah by ayah.
+
+**Hadith:**
+- Counts are right in all 7 books.
+- 211 of 230 sampled hadith have the same text at the same number as sunnah.com.
+- Problems:
+  - Arabic commas show as ring marks in every hadith (WQA-009).
+  - Sahih Muslim numbers aren't the ones people quote (WQA-013).
+  - 15 hadith have a blank English or Arabic line.
+  - Urdu falls back to English with no note.
+  - Possible wrong-chapter placement where chapter ranges overlap.
+
+**Knowledge Library:**
+- 4 dead download links (WQA-008).
+- Almost every book lists "IslamHouse" as the author, so different scholars' works of the same name can't be told apart (WQA-007).
+
+**First run:**
+- Urdu wording is wrong in places (WQA-010).
+- 3 popups appear before the user picks a language (WQA-012).
+
+**Bugs:** 13 logged, none fixed. Fixes wait for Waleed.
 
 ## Coverage
 
-39 features tracked. Passed: 3. Failed: 1. In progress: 2. Blocked: 2. Not started: 31.
+40 features tracked:
+
+| Status | Count |
+|---|---|
+| Passed | 4 |
+| Failed | 5 |
+| In progress | 2 |
+| Blocked | 2 |
+| Not started | 27 |

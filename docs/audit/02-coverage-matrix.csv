@@ -1,16 +1,16 @@
 Feature,Module,Route,Status,Evidence,Date
 Today / daily session,Core,/ /session,Not Started,,
-Onboarding (3 steps),Core,/onboarding,Not Started,,
+Onboarding (3 steps),Core,/onboarding,Failed,Emulator Urdu run; WQA-010/012,2026-11-16
 Quran browser + reader + audio,Quran,/quran /quran/:surah /read,Not Started,,
 Reading hub,Quran,/reading,Not Started,,
 Khatmah plan + share link,Quran,/khatmah,Not Started,,
-Hadith shelf + downloads,Hadith,/hadith,In Progress,code review (WQA-001),2026-11-16
-Hadith collections content (7 books),Hadith,/hadith/collections/*,In Progress,evidence/hadith_audit.md,2026-11-16
-Hadith sample vs sunnah.com,Hadith,—,Not Started,,
+Hadith shelf + downloads,Hadith,/hadith,In Progress,Emulator: Muslim download + Urdu text OK; WQA-001/011,2026-11-16
+Hadith collections content (7 books),Hadith,/hadith/collections/*,Failed,"evidence/hadith_audit.md; WQA-002..005,009",2026-11-16
+Hadith sample vs sunnah.com,Hadith,—,In Progress,evidence/hadith_sample.md: 211/230 text match; Muslim numbering WQA-013; Malik blocked; grades not compared,2026-11-16
 Nawawi 40 list + detail,Hadith,/hadith/nawawi,Not Started,,
 Duas + groups,Duas,/duas,Not Started,,
 Adhkar morning/evening,Duas,/adhkar/:period,Not Started,,
-Knowledge Library (IslamHouse),Library,/knowledge,Not Started,,
+Knowledge Library (IslamHouse),Library,/knowledge,Failed,evidence/library_links.json; WQA-007/008,2026-11-16
 Book/EPUB/PDF readers,Library,/knowledge/book/:id,Not Started,,
 Downloads + Library screen,Downloads,/downloads /library,Not Started,,
 Global search,Search,/search,Not Started,,
@@ -38,3 +38,4 @@ Static analysis,Code,—,Passed,evidence/analyze_2026-11-16.txt (0 errors; 12 in
 Unit/widget tests,Code,—,Passed,671 passing (2026-11-16),2026-11-16
 Dependencies,Code,—,Failed,WQA-006,2026-11-16
 iOS / Safari / Firefox,Platforms,—,Blocked,Not available on this machine,2026-11-16
+Quran text + structure,Quran,—,Passed,evidence/quran_audit.json: 114/6236/30; text = Tanzil simple except 3 known Uthmani spellings (2:245 7:69 72:16),2026-11-16
