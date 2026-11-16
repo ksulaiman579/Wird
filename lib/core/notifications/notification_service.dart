@@ -145,21 +145,23 @@ class NotificationService {
   /// Cancels everything pending and schedules [plan] fresh — simpler than
   /// diffing against what's already scheduled, per the plan's chosen
   /// "cancel-all + reschedule on every launch/settings change" strategy.
-  /// Uses `inexactAllowWhileIdle` (no exact-alarm permission needed) since
-  /// these are ±minutes reminders, not time-critical alarms.
+  /// Reminders use `inexactAllowWhileIdle` (±minutes is fine). The adhan
+  /// uses an exact alarm when Android allows it — inexact let it fire up to
+  /// an hour late (audit WQA-024); without the permission it falls back.
   Future<void> reschedule(List<PlannedNotification> plan) async {
     await _plugin.cancelAll();
+    final android = _plugin.resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin>();
+    var exactAllowed = false;
+    try {
+      exactAllowed = await android?.canScheduleExactNotifications() ?? false;
+    } catch (_) {}
     for (final notification in plan) {
       final channelId = channelIdFor(notification.channel);
       final isAdhkar = notification.channel == NotificationChannel.adhkarMorning ||
           notification.channel == NotificationChannel.adhkarEvening;
       final isAdhan = notification.channel == NotificationChannel.adhan;
-      await _plugin.zonedSchedule(
-        id: notification.id,
-        title: notification.title,
-        body: notification.body,
-        scheduledDate: tz.TZDateTime.from(notification.scheduledAt, tz.local),
-        notificationDetails: NotificationDetails(
+      final details = NotificationDetails(
           android: AndroidNotificationDetails(
             channelId,
             channelId,
@@ -191,10 +193,27 @@ class NotificationService {
           iOS: DarwinNotificationDetails(
             sound: isAdhan ? 'adhan.ogg' : null,
           ),
-        ),
-        androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
-        payload: notification.payload,
       );
+      Future<void> schedule(AndroidScheduleMode mode) => _plugin.zonedSchedule(
+            id: notification.id,
+            title: notification.title,
+            body: notification.body,
+            scheduledDate:
+                tz.TZDateTime.from(notification.scheduledAt, tz.local),
+            notificationDetails: details,
+            androidScheduleMode: mode,
+            payload: notification.payload,
+          );
+      final mode = scheduleModeFor(notification.channel,
+          exactAllowed: exactAllowed);
+      try {
+        await schedule(mode);
+      } catch (_) {
+        // Exact alarm refused (permission revoked mid-run): fall back so
+        // the adhan still comes, if late, rather than not at all.
+        if (mode == AndroidScheduleMode.inexactAllowWhileIdle) rethrow;
+        await schedule(AndroidScheduleMode.inexactAllowWhileIdle);
+      }
     }
   }
 
@@ -213,3 +232,13 @@ class NotificationService {
     }
   }
 }
+
+/// Exact for the adhan when Android allows exact alarms; inexact for the
+/// rest (and for the adhan when it doesn't). Pure so it can be unit-tested.
+AndroidScheduleMode scheduleModeFor(
+  NotificationChannel channel, {
+  required bool exactAllowed,
+}) =>
+    channel == NotificationChannel.adhan && exactAllowed
+        ? AndroidScheduleMode.exactAllowWhileIdle
+        : AndroidScheduleMode.inexactAllowWhileIdle;

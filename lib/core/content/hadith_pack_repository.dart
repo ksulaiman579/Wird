@@ -222,6 +222,21 @@ class HadithPackRepository {
     }
   }
 
+  /// Re-downloads installed packs that were grouped the old way (they put
+  /// whole books under the wrong heading). Best-effort and quiet: a failed
+  /// retry keeps the old copy, and it runs again next launch.
+  Future<void> refreshOutdatedPacks() async {
+    for (final collection in _regroupCollections) {
+      try {
+        final row = await _packRow(collection);
+        final data = row?.data;
+        if (row?.status != 'downloaded' || data == null) continue;
+        if (data.contains('"grouping":$hadithGroupingVersion')) continue;
+        await downloadAndInstall(collection);
+      } catch (_) {}
+    }
+  }
+
   Future<void> removePack(String collection) async {
     await (_db.delete(_db.contentPacks)
           ..where((t) =>
@@ -410,9 +425,18 @@ String buildHadithPackJson(Map<String, Object> args) {
     'collection': collection,
     'name': args['name'],
     'langs': ['en', ...extra.keys],
+    'grouping': hadithGroupingVersion,
     'chapters': chapters,
   });
 }
+
+/// Bumped when the way hadith are filed into books changes, so installed
+/// packs built the old way get rebuilt (2 = narrowest range, WQA-004).
+const hadithGroupingVersion = 2;
+
+/// Collections whose upstream ranges overlap, so packs built before
+/// grouping version 2 have hadith under the wrong book.
+const _regroupCollections = {'tirmidhi', 'ibnmajah'};
 
 Map<String, dynamic> validateAndGroupHadith(
   Map<String, dynamic> arabic,
@@ -453,12 +477,24 @@ Map<String, dynamic> validateAndGroupHadith(
     sectionRanges.add((first, last, entry.key));
   }
 
+  // Some upstream ranges overlap: a book's end bound runs past later books
+  // (Tirmidhi's Al-Qadar ends at 2298 though Al-Fitan starts at 2158).
+  // Taking the first match filed 1,137 hadith under the wrong book and
+  // emptied whole books; the narrowest matching range is the real book
+  // (matches sunnah.com in every sampled case — audit WQA-004).
   String? sectionFor(num hadithNumber) {
     final base = hadithNumber.toInt();
+    String? best;
+    int? bestWidth;
     for (final (first, last, sectionNum) in sectionRanges) {
-      if (base >= first && base <= last) return sectionNum;
+      if (base < first || base > last) continue;
+      final width = last - first;
+      if (bestWidth == null || width < bestWidth) {
+        best = sectionNum;
+        bestWidth = width;
+      }
     }
-    return null;
+    return best;
   }
 
   final chapters = <String, Map<String, dynamic>>{};

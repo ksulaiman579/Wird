@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'core/theme/script_fonts.dart';
 import 'core/backup/backup_service.dart';
+import 'core/content/hadith_pack_repository.dart';
 import 'core/db/database.dart';
 import 'core/notifications/notification_providers.dart';
 import 'core/update/background_update_check.dart';
@@ -51,6 +52,8 @@ class _DailyAppState extends ConsumerState<DailyApp> {
       // synchronous and used to run before anything was drawn (M27.6).
       if (!kIsWeb) unawaited(_initNotifications());
       if (!kIsWeb) unawaited(_maybeMonthlyBackup());
+      unawaited(
+          ref.read(hadithPackRepositoryProvider).refreshOutdatedPacks());
     });
   }
 

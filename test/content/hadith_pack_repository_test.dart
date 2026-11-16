@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:drift/drift.dart' show Value;
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
@@ -214,6 +215,43 @@ void main() {
     await repo.downloadAndInstall('bukhari');
     final chapters = await repo.chaptersFor('bukhari');
     expect(chapters.first.count, 1);
+  });
+
+  test('overlapping source ranges file each hadith under the narrowest book',
+      () {
+    // Like Tirmidhi: book 1's end bound runs past book 2 (audit WQA-004).
+    Map<String, dynamic> body(String p) {
+      final m = jsonDecode(_fakeEditionBody(p)) as Map<String, dynamic>;
+      final details = (m['metadata'] as Map)['section_details'] as Map;
+      (details['1'] as Map)['hadithnumber_last'] = 5;
+      return m;
+    }
+
+    final chapters = validateAndGroupHadith(body('AR'), body('EN'), 'bukhari');
+    List<num> numbers(String key) => [
+          for (final h in (chapters[key]!['hadith'] as List)) h['number'] as num
+        ];
+    expect(numbers('1'), [1, 2]);
+    expect(numbers('2'), [3, 4, 5]);
+  });
+
+  test('refreshOutdatedPacks rebuilds an old-grouping Tirmidhi pack', () async {
+    const ara = 'https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions/ara-tirmidhi.min.json';
+    const eng = 'https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions/eng-tirmidhi.min.json';
+    final client = _FakeClient({
+      ara: http.Response(_fakeEditionBody('AR'), 200),
+      eng: http.Response(_fakeEditionBody('EN'), 200),
+    });
+    final repo = HadithPackRepository(db, client: client);
+    await repo.downloadAndInstall('tirmidhi');
+    // Simulate a pack built before grouping version 2.
+    final row = await (db.select(db.contentPacks)).getSingle();
+    final old = row.data!.replaceAll('"grouping":$hadithGroupingVersion,', '');
+    await db.update(db.contentPacks).write(ContentPacksCompanion(data: Value(old)));
+
+    await repo.refreshOutdatedPacks();
+    final after = await (db.select(db.contentPacks)).getSingle();
+    expect(after.data, contains('"grouping":$hadithGroupingVersion'));
   });
 
   test('numberLabel keeps sub-numbers like 402.2', () {

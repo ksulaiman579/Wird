@@ -12,6 +12,12 @@
          so the call can be silenced with one tap instead of playing as an
          un-stoppable notification channel sound. -->
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+    <!-- Exact alarms so the adhan comes at the prayer minute, not up to an
+         hour late (audit WQA-024). USE_EXACT_ALARM is auto-granted on
+         Android 13+ for alarm-type apps; SCHEDULE_EXACT_ALARM covers 12. -->
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"
+        android:maxSdkVersion="32" />
     <!-- Background update/announcement check (android_alarm_manager_plus):
          WAKE_LOCK to run the periodic alarm, RECEIVE_BOOT_COMPLETED to
          re-arm it after a reboot. -->
