@@ -2192,4 +2192,14 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get libDiscArabic => 'আরবি ভাষা';
+
+  @override
+  String hadithGradedBy(Object name) {
+    return '$name-এর মান নির্ধারণ';
+  }
+
+  @override
+  String hadithOtherGrades(Object list) {
+    return 'অন্যান্য আলেম: $list';
+  }
 }

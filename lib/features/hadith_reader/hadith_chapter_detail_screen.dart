@@ -6,6 +6,7 @@ import '../../shared/share/share_card.dart';
 import '../../core/content/bookmark_service.dart';
 import '../../core/content/hadith_pack_repository.dart';
 import '../../core/hadith/hadith_grade.dart';
+import '../../core/l10n/format.dart';
 import '../../core/l10n/reading_locale.dart';
 import '../../shared/glass/glass.dart';
 import '../../shared/ui/font_size_chips.dart';
@@ -297,6 +298,7 @@ class _HadithEntryCardState extends ConsumerState<_HadithEntryCard> {
               ),
             ],
             if (_expanded) _GradeCaution(grade: grade),
+            if (_expanded) _GraderLines(grade: grade),
           ],
         ),
       ),
@@ -336,6 +338,38 @@ class GradeBadge extends StatelessWidget {
           name,
           style: TextStyle(color: fg, fontSize: 12, fontWeight: FontWeight.w600),
         ),
+      ),
+    );
+  }
+}
+
+/// Which scholar the badge follows, and anyone who graded it differently
+/// (audit WQA-014) — so a disagreement is shown, never hidden.
+class _GraderLines extends StatelessWidget {
+  const _GraderLines({required this.grade});
+  final HadithGrade grade;
+
+  @override
+  Widget build(BuildContext context) {
+    final grader = grade.grader;
+    if (grader == null) return const SizedBox.shrink();
+    final l = AppLocalizations.of(context);
+    final style = Theme.of(context).textTheme.bodySmall;
+    // Scholar names and their verdicts are Latin; keep each item LTR
+    // inside RTL sentences.
+    final others = [
+      for (final o in grade.others)
+        bidiIsolate('${o.grader}: ${gradeLabel(context, o.authenticity)}'),
+    ].join(' · ');
+    return Padding(
+      padding: const EdgeInsets.only(top: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(l.hadithGradedBy(bidiIsolate(grader)), style: style),
+          if (others.isNotEmpty)
+            Text(l.hadithOtherGrades(others), style: style),
+        ],
       ),
     );
   }

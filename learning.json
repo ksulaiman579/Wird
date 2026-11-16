@@ -26,6 +26,11 @@
       "date": "2026-11-15",
       "by": "Waleed",
       "decision": "Crash reports opt-in anonymous; donation link optional later; no cloud backup."
+    },
+    {
+      "date": "2026-11-16",
+      "by": "Waleed",
+      "decision": "Hadith grade badge: Al-Albani first, Zubair Ali Zai fallback, show other scholars when they differ."
     }
   ],
   "log": [
@@ -36,6 +41,10 @@
     {
       "date": "2026-11-16",
       "entry": "Full audit done (8 rounds): 37 issues in docs/audit/03-bug-register.csv. Readiness = internal testing. P0: WQA-004 hadith misfiled (1,137 Tirmidhi/Ibn Majah), WQA-024 adhan up to 1h late, WQA-014 grade source (Waleed decides). Vercel domain re-added + Supabase restored by Waleed."
+    },
+    {
+      "date": "2026-11-16",
+      "entry": "Fixed WQA-004 (hadith books), WQA-024 (exact adhan), WQA-014/015 (grader order, Shadh). 681 tests. Not yet released (public = 1.2.1)."
     }
   ]
 }

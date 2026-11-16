@@ -67,7 +67,12 @@ HadithAuthenticity classifyGradeString(String raw) {
       g.contains('موضوع')) {
     return HadithAuthenticity.mawdu;
   }
-  if (g.contains('munkar') || g.contains('batil') || g.contains('باطل')) {
+  if (g.contains('munkar') ||
+      g.contains('batil') ||
+      g.contains('باطل') ||
+      g.contains('shadh') ||
+      g.contains('shaadh') ||
+      g.contains('شاذ')) {
     return HadithAuthenticity.daif;
   }
   if (g.contains("da'if") ||
@@ -91,7 +96,8 @@ HadithAuthenticity classifyGradeString(String raw) {
 /// The verdict shown for a hadith: its category plus the grader's own words
 /// (for transparency) where available.
 class HadithGrade {
-  const HadithGrade(this.authenticity, {this.rawGrade, this.grader});
+  const HadithGrade(this.authenticity,
+      {this.rawGrade, this.grader, this.others = const []});
 
   final HadithAuthenticity authenticity;
 
@@ -100,6 +106,10 @@ class HadithGrade {
 
   /// The grader's name (e.g. "al-Albani"), if the source names one.
   final String? grader;
+
+  /// Other scholars whose verdict differs from the badge (empty when all
+  /// agree or only one scholar graded it).
+  final List<OtherGrade> others;
 }
 
 /// Resolves the authenticity verdict for a hadith from its `grades` list
@@ -109,26 +119,63 @@ class HadithGrade {
 /// Takes the first grader's verdict as the representative grade (the source
 /// lists the primary verifier first). Falls back to the collection's agreed
 /// status for the two Ṣaḥīḥs, else "ungraded" — never guessed.
+/// Graders in the order the badge prefers them (Waleed, 2026-11-16 —
+/// audit WQA-014): Al-Albani first, then Zubair Ali Zai (the Darussalam
+/// grading sunnah.com shows), then whoever else the source lists. Before
+/// this the badge took whichever grader the source happened to list first,
+/// so the same badge could mean different scholars on neighbouring hadith.
+const hadithGraderPreference = ['Al-Albani', 'Zubair Ali Zai'];
+
+/// One scholar's verdict that differs from the badge, for the small
+/// "other scholars" line.
+class OtherGrade {
+  const OtherGrade(this.grader, this.rawGrade, this.authenticity);
+  final String grader;
+  final String rawGrade;
+  final HadithAuthenticity authenticity;
+}
+
 HadithGrade resolveHadithGrade(List<dynamic> grades, String collection) {
+  final named = <(String?, String)>[];
   for (final entry in grades) {
     if (entry is Map) {
       final gradeText = (entry['grade'] as String?)?.trim() ?? '';
-      if (gradeText.isNotEmpty) {
-        return HadithGrade(
-          classifyGradeString(gradeText),
-          rawGrade: gradeText,
-          grader: (entry['name'] as String?)?.trim(),
-        );
+      if (gradeText.isNotEmpty && gradeText != '-') {
+        named.add(((entry['name'] as String?)?.trim(), gradeText));
       }
     } else if (entry is String && entry.trim().isNotEmpty) {
-      return HadithGrade(classifyGradeString(entry),
-          rawGrade: entry.trim());
+      named.add((null, entry.trim()));
     }
   }
-  if (_sahihCollections.contains(collection)) {
-    return const HadithGrade(HadithAuthenticity.sahih);
+  if (named.isEmpty) {
+    if (_sahihCollections.contains(collection)) {
+      return const HadithGrade(HadithAuthenticity.sahih);
+    }
+    return const HadithGrade(HadithAuthenticity.ungraded);
   }
-  return const HadithGrade(HadithAuthenticity.ungraded);
+  int rank((String?, String) g) {
+    final i = hadithGraderPreference.indexOf(g.$1 ?? '');
+    return i < 0 ? hadithGraderPreference.length : i;
+  }
+
+  // Stable: equal ranks keep the source order.
+  final ordered = [...named.indexed]
+    ..sort((a, b) {
+      final r = rank(a.$2).compareTo(rank(b.$2));
+      return r != 0 ? r : a.$1.compareTo(b.$1);
+    });
+  final (grader, raw) = ordered.first.$2;
+  final main = classifyGradeString(raw);
+  return HadithGrade(
+    main,
+    rawGrade: raw,
+    grader: grader,
+    others: [
+      for (final (_, (name, text)) in ordered.skip(1))
+        if (name != null && classifyGradeString(text) != main)
+          OtherGrade(name, text, classifyGradeString(text)),
+    ],
+  );
 }
 
 /// Grade for a Nawawi-forty hadith, derived from its stated source line

@@ -2217,4 +2217,14 @@ class AppLocalizationsFil extends AppLocalizations {
 
   @override
   String get libDiscArabic => 'Wikang Arabe';
+
+  @override
+  String hadithGradedBy(Object name) {
+    return 'Grado ayon kay $name';
+  }
+
+  @override
+  String hadithOtherGrades(Object list) {
+    return 'Ibang iskolar: $list';
+  }
 }

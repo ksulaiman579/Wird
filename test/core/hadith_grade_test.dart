@@ -74,6 +74,51 @@ void main() {
     });
   });
 
+  group('grader preference (WQA-014/015)', () {
+    Map<String, String> g(String name, String grade) =>
+        {'name': name, 'grade': grade};
+
+    test('Al-Albani wins even when listed last', () {
+      final r = resolveHadithGrade([
+        g('Abu Ghuddah', 'Daif'),
+        g('Zubair Ali Zai', 'Sahih'),
+        g('Al-Albani', 'Sahih'),
+      ], 'nasai');
+      expect(r.grader, 'Al-Albani');
+      expect(r.authenticity, HadithAuthenticity.sahih);
+      expect([for (final o in r.others) o.grader], ['Abu Ghuddah']);
+    });
+
+    test('Zubair Ali Zai is the fallback when Albani is absent', () {
+      final r = resolveHadithGrade([
+        g('Ahmad Muhammad Shakir', 'Sahih'),
+        g('Zubair Ali Zai', 'Hasan'),
+      ], 'tirmidhi');
+      expect(r.grader, 'Zubair Ali Zai');
+      expect(r.authenticity, HadithAuthenticity.hasan);
+      expect(r.others.single.grader, 'Ahmad Muhammad Shakir');
+    });
+
+    test('agreeing scholars are not listed as others', () {
+      final r = resolveHadithGrade(
+          [g('Al-Albani', 'Sahih'), g('Zubair Ali Zai', 'Hasan Sahih')],
+          'abudawud');
+      expect(r.others, isEmpty);
+    });
+
+    test("a '-' placeholder is not a grade", () {
+      final r = resolveHadithGrade(
+          [g('Abu Ghuddah', '-'), g('Al-Albani', 'Hasan')], 'nasai');
+      expect(r.grader, 'Al-Albani');
+      expect(r.others, isEmpty);
+    });
+
+    test('Shadh counts as weak', () {
+      expect(classifyGradeString('Shadh'), HadithAuthenticity.daif);
+      expect(classifyGradeString('شاذ'), HadithAuthenticity.daif);
+    });
+  });
+
   group('authenticity info', () {
     test('sahih/hasan are not cautionary; others are', () {
       expect(HadithAuthenticity.sahih.isCautionary, false);

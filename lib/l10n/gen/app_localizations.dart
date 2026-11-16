@@ -3899,6 +3899,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Arabic Language'**
   String get libDiscArabic;
+
+  /// Under an expanded hadith: which scholar's grade the badge shows. name = scholar's name.
+  ///
+  /// In en, this message translates to:
+  /// **'Graded by {name}'**
+  String hadithGradedBy(Object name);
+
+  /// Under an expanded hadith: other scholars whose grade differs, e.g. 'Zubair Ali Zai: Hasan'.
+  ///
+  /// In en, this message translates to:
+  /// **'Other scholars: {list}'**
+  String hadithOtherGrades(Object list);
 }
 
 class _AppLocalizationsDelegate

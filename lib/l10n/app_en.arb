@@ -2901,5 +2901,19 @@
   "libDiscArabic": "Arabic Language",
   "@libDiscArabic": {
     "description": "Library topic."
+  },
+  "hadithGradedBy": "Graded by {name}",
+  "@hadithGradedBy": {
+    "description": "Under an expanded hadith: which scholar's grade the badge shows. name = scholar's name.",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  "hadithOtherGrades": "Other scholars: {list}",
+  "@hadithOtherGrades": {
+    "description": "Under an expanded hadith: other scholars whose grade differs, e.g. 'Zubair Ali Zai: Hasan'.",
+    "placeholders": {
+      "list": {}
+    }
   }
 }

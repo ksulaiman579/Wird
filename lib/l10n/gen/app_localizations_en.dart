@@ -2190,4 +2190,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get libDiscArabic => 'Arabic Language';
+
+  @override
+  String hadithGradedBy(Object name) {
+    return 'Graded by $name';
+  }
+
+  @override
+  String hadithOtherGrades(Object list) {
+    return 'Other scholars: $list';
+  }
 }

@@ -2188,4 +2188,14 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get libDiscArabic => 'अरबी भाषा';
+
+  @override
+  String hadithGradedBy(Object name) {
+    return '$name द्वारा दर्जा';
+  }
+
+  @override
+  String hadithOtherGrades(Object list) {
+    return 'अन्य विद्वान: $list';
+  }
 }
