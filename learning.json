@@ -7,14 +7,35 @@
   ],
   "traps": [
     "Walk script for 7-locale screen check: %TEMP%/claude/wirdtool/walk.py",
-    "TASKS.md and tool/l10n_batches are gitignored"
+    "TASKS.md and tool/l10n_batches are gitignored",
+    "sunnah.com blocks scripts (403): read it with in-page fetch from a browser tab",
+    "Emulator: if all apps go black, kill qemu, delete *.lock in the AVD folder, cold boot"
   ],
   "decisions": [
-    {"date": "2026-11-16", "by": "Waleed", "decision": "Audit is log-only; fix after he approves the list."},
-    {"date": "2026-11-16", "by": "Waleed", "decision": "Hadith audit: full script check + ~30 per book against sunnah.com."},
-    {"date": "2026-11-15", "by": "Waleed", "decision": "Crash reports opt-in anonymous; donation link optional later; no cloud backup."}
+    {
+      "date": "2026-11-16",
+      "by": "Waleed",
+      "decision": "Audit is log-only; fix after he approves the list."
+    },
+    {
+      "date": "2026-11-16",
+      "by": "Waleed",
+      "decision": "Hadith audit: full script check + ~30 per book against sunnah.com."
+    },
+    {
+      "date": "2026-11-15",
+      "by": "Waleed",
+      "decision": "Crash reports opt-in anonymous; donation link optional later; no cloud backup."
+    }
   ],
   "log": [
-    {"date": "2026-11-16", "entry": "Created learning.json. Started full audit per master QA brief."}
+    {
+      "date": "2026-11-16",
+      "entry": "Created learning.json. Started full audit per master QA brief."
+    },
+    {
+      "date": "2026-11-16",
+      "entry": "Full audit done (8 rounds): 37 issues in docs/audit/03-bug-register.csv. Readiness = internal testing. P0: WQA-004 hadith misfiled (1,137 Tirmidhi/Ibn Majah), WQA-024 adhan up to 1h late, WQA-014 grade source (Waleed decides). Vercel domain re-added + Supabase restored by Waleed."
+    }
   ]
 }

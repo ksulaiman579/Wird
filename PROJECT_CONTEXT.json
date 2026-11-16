@@ -4,7 +4,10 @@
   "updated": "2026-11-16",
   "architecture": {
     "stack": "Flutter 3.44.4, Riverpod 3, Drift (SQLite), go_router",
-    "targets": ["Android APK (per-ABI, self-update via update.json)", "PWA on Vercel: https://wird-alpha.vercel.app"],
+    "targets": [
+      "Android APK (per-ABI, self-update via update.json)",
+      "PWA on Vercel: https://wird-alpha.vercel.app"
+    ],
     "backend": "None. Offline-first, no accounts, no server DB. Content packs fetched as static files.",
     "routes_file": "lib/router.dart",
     "layers": "lib/core (logic, never imports features) / lib/features (screens) / lib/shared (UI kit)",
@@ -32,6 +35,7 @@
     "just_audio_background allows one player app-wide; Wird has several"
   ],
   "open_gaps": [
+    "Audit P0: WQA-004, WQA-024, WQA-014 (see docs/audit/00-master-report.md)",
     "Background/lock-screen audio needs redesign",
     "Meaning search + read-along need model trial and Waleed's recordings",
     "Sentry DSN not yet provided",
@@ -44,10 +48,27 @@
     "rule": "Log only; fixes need Waleed's approval; religious text is never altered"
   },
   "learnings": [
-    {"date": "2026-11-16", "note": "Upstream hadith-api has empty entries (203 Muslim, 86 Nasai) and decimal numbers like 402.2; drop empties, show decimal label."}
+    {
+      "date": "2026-11-16",
+      "note": "Upstream hadith-api has empty entries (203 Muslim, 86 Nasai) and decimal numbers like 402.2; drop empties, show decimal label."
+    },
+    {
+      "date": "2026-11-16",
+      "note": "Vercel project production domain became wird-ebon.vercel.app; wird-alpha.vercel.app had to be re-added under Domains. Supabase free project pauses when idle - app falls back to jsDelivr."
+    }
   ],
   "changelog": [
-    {"date": "2026-11-16", "note": "Overnight build: hadith fix+l10n, 3-step onboarding, share cards, app links, fonts, Hijri, Sentry opt-in, khatmah, widget, offline PWA, 7-locale walk. 671 tests."},
-    {"date": "2026-11-16", "note": "Created this file; full QA audit started in docs/audit/."}
+    {
+      "date": "2026-11-16",
+      "note": "Overnight build: hadith fix+l10n, 3-step onboarding, share cards, app links, fonts, Hijri, Sentry opt-in, khatmah, widget, offline PWA, 7-locale walk. 671 tests."
+    },
+    {
+      "date": "2026-11-16",
+      "note": "Created this file; full QA audit started in docs/audit/."
+    },
+    {
+      "date": "2026-11-16",
+      "note": "Full audit done (8 rounds): 37 issues in docs/audit/03-bug-register.csv. Readiness = internal testing. P0: WQA-004 hadith misfiled (1,137 Tirmidhi/Ibn Majah), WQA-024 adhan up to 1h late, WQA-014 grade source (Waleed decides). Vercel domain re-added + Supabase restored by Waleed."
+    }
   ]
 }
