@@ -28,7 +28,9 @@
 
 **Biggest so far:** 700 Tirmidhi and 437 Ibn Majah hadith sit under the wrong book, and whole books (Faith, Knowledge, Supplication...) are missing from the chapter list (WQA-004). The grade badge picks a scholar by source order, so weak/sound can flip against Darussalam (WQA-014).
 
-**Bugs:** 17 logged, none fixed. Fixes wait for Waleed.
+**Also:** no screen lists bookmarks (WQA-018). Search ignores downloaded Urdu and hadith (WQA-019). The live update file has no checksum (WQA-022). The public release is still 1.2.1.
+
+**Bugs:** 23 logged, none fixed. Fixes wait for Waleed.
 
 ## Coverage
 
