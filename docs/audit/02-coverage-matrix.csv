@@ -28,11 +28,11 @@ Plan edit,Settings,/settings/edit-plan,Not Started,,
 About / Data sources / Logs,Settings,/settings/about ...,Not Started,,
 Backup + restore,Settings,—,Passed,"Covered by test/backup/backup_service_test.dart (round trip, schema, bad values); not tried by hand",2026-11-16
 Language switch (7 locales),i18n,—,Passed (labels only),2026-11-16 walk ~35 routes x 7,2026-11-16
-Share cards + app links,Sharing,—,Failed,Card + sheet OK; links point to a dead site and app links unverified (WQA-027),2026-11-16
+Share cards + app links,Sharing,—,Passed,Card + sheet OK; app links verified; system link opens app (after WQA-027 fix),2026-11-16
 Home widget,Android,—,Not Started,,
 Self-update (APK),Android,—,Not Started,,
 Announcements / What's new,Core,—,Not Started,,
-PWA offline start,Web,—,Blocked,WQA-027: public site down,2026-11-16
+PWA offline start,Web,—,Not Started,Site back up; offline start not yet tested,2026-11-16
 Crash reports opt-in,Privacy,—,Blocked,No Sentry DSN yet,2026-11-16
 Static analysis,Code,—,Passed,evidence/analyze_2026-11-16.txt (0 errors; 12 info),2026-11-16
 Unit/widget tests,Code,—,Passed,671 passing (2026-11-16),2026-11-16
