@@ -52,6 +52,15 @@ Source of truth: `03-bug-register.csv` and `02-coverage-matrix.csv`. Rule: log o
   - Speed is fine (08-performance.md).
   - Accessibility scan (WQA-034, WQA-035).
 
+- 2026-11-16 s9:
+  - Dua and adhkar check (WQA-036, WQA-037).
+  - Widget blocked.
+  - FINAL REPORT written (00-master-report.md). Readiness: internal testing.
+
+## Next
+1. Waleed: approve fixes (P0: WQA-004, WQA-024; decide WQA-014).
+2. Still open: Not Started rows in the coverage matrix; offline test in real Chrome (WQA-032); widget placed by hand.
+
 ## Notes
 - If the emulator goes black (all apps), kill qemu, delete *.lock in ~/.android/avd/Medium_Phone.avd, then cold boot with -no-snapshot-load.
 - If the emulator system share sheet hangs ("IntentResolver isn't responding"), run `adb shell am force-stop com.android.intentresolver`.

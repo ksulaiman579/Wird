@@ -8,8 +8,8 @@ Hadith shelf + downloads,Hadith,/hadith,Passed,"Emulator: download Muslim, open,
 Hadith collections content (7 books),Hadith,/hadith/collections/*,Failed,"evidence/hadith_audit.md; WQA-002..005,009",2026-11-16
 Hadith sample vs sunnah.com,Hadith,—,Failed,evidence/hadith_sample.md: text OK; Malik 29/30; grades WQA-014/015; chapters WQA-004,2026-11-16
 Nawawi 40 list + detail,Hadith,/hadith/nawawi,Not Started,,
-Duas + groups,Duas,/duas,Not Started,,
-Adhkar morning/evening,Duas,/adhkar/:period,Not Started,,
+Duas + groups,Duas,/duas,Failed,"264 duas, no empty Arabic/English; WQA-036",2026-11-16
+Adhkar morning/evening,Duas,/adhkar/:period,Passed,"Separate morning (24) and evening (21) lists, evening wording correct",2026-11-16
 Knowledge Library (IslamHouse),Library,/knowledge,Failed,WQA-007/008/017,2026-11-16
 Book/EPUB/PDF readers,Library,/knowledge/book/:id,In Progress,Urdu PDF downloaded + opened OK (s16); EPUB and other langs not yet,2026-11-16
 Downloads + Library screen,Downloads,/downloads /library,Not Started,,
@@ -29,7 +29,7 @@ About / Data sources / Logs,Settings,/settings/about ...,Not Started,,
 Backup + restore,Settings,—,Passed,"Covered by test/backup/backup_service_test.dart (round trip, schema, bad values); not tried by hand",2026-11-16
 Language switch (7 locales),i18n,—,Passed (labels only),2026-11-16 walk ~35 routes x 7,2026-11-16
 Share cards + app links,Sharing,—,Passed,Card + sheet OK; app links verified; system link opens app (after WQA-027 fix),2026-11-16
-Home widget,Android,—,Not Started,,
+Home widget,Android,—,Blocked,Placing a widget needs manual launcher steps; code + layout present,2026-11-16
 Self-update (APK),Android,—,Not Started,,
 Announcements / What's new,Core,—,Not Started,,
 PWA offline start,Web,—,In Progress,"Site loads 5.3 MB/1.5 s, SW active; WQA-032",2026-11-16
