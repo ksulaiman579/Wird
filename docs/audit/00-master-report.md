@@ -30,9 +30,11 @@
 
 **Also:** no screen lists bookmarks (WQA-018). Search ignores downloaded Urdu and hadith (WQA-019). The live update file has no checksum (WQA-022). The public release is still 1.2.1.
 
+**Web app is down (Critical):** wird-alpha.vercel.app returns 404, so web users, share links and Android app links are all broken (WQA-027). Builds still succeed; the public address is no longer attached.
+
 **Prayer times:** the adhan and all reminders are scheduled as "inexact", so Android may fire them up to an hour late (WQA-024).
 
-**Bugs:** 26 logged, none fixed. Fixes wait for Waleed.
+**Bugs:** 30 logged, none fixed. Fixes wait for Waleed.
 
 ## Coverage
 

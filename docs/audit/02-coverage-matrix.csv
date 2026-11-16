@@ -3,7 +3,7 @@ Today / daily session,Core,/ /session,Not Started,,
 Onboarding (3 steps),Core,/onboarding,Failed,Emulator Urdu run; WQA-010/012,2026-11-16
 Quran browser + reader + audio,Quran,/quran /quran/:surah /read,In Progress,Reader opens; WQA-025/026; audio not tested,2026-11-16
 Reading hub,Quran,/reading,Not Started,,
-Khatmah plan + share link,Quran,/khatmah,Not Started,,
+Khatmah plan + share link,Quran,/khatmah,In Progress,Screen opens and is fully Urdu; plan not run,2026-11-16
 Hadith shelf + downloads,Hadith,/hadith,Passed,"Emulator: download Muslim, open, Urdu text loads",2026-11-16
 Hadith collections content (7 books),Hadith,/hadith/collections/*,Failed,"evidence/hadith_audit.md; WQA-002..005,009",2026-11-16
 Hadith sample vs sunnah.com,Hadith,—,Failed,evidence/hadith_sample.md: text OK; Malik 29/30; grades WQA-014/015; chapters WQA-004,2026-11-16
@@ -15,24 +15,24 @@ Book/EPUB/PDF readers,Library,/knowledge/book/:id,In Progress,Urdu PDF downloade
 Downloads + Library screen,Downloads,/downloads /library,Not Started,,
 Global search,Search,/search,Failed,WQA-019,2026-11-16
 Explore hub,Explore,/explore,Not Started,,
-Asma ul-Husna,Tools,/asma,Not Started,,
-Qibla,Tools,/qibla,Not Started,,
-Zakah calculator,Tools,/zakah,Not Started,,
-Tasbih,Tools,/tasbih,Not Started,,
+Asma ul-Husna,Tools,/asma,Failed,WQA-029,2026-11-16
+Qibla,Tools,/qibla,In Progress,Opens; needs location,2026-11-16
+Zakah calculator,Tools,/zakah,In Progress,"Opens, Urdu; calc not run",2026-11-16
+Tasbih,Tools,/tasbih,Failed,WQA-029,2026-11-16
 Al-Manhaj,Tools,/almanhaj,Not Started,,
 Adhan + prayer notifications,Notifications,/adhan,Failed,WQA-024,2026-11-16
 Reminders,Notifications,—,Failed,WQA-024 (up to 1h late),2026-11-16
-Progress + achievements,Progress,/progress /achievements,Not Started,,
-Settings (all switches),Settings,/settings,Not Started,,
+Progress + achievements,Progress,/progress /achievements,Failed,WQA-029,2026-11-16
+Settings (all switches),Settings,/settings,Failed,WQA-028; switches not each toggled yet,2026-11-16
 Plan edit,Settings,/settings/edit-plan,Not Started,,
 About / Data sources / Logs,Settings,/settings/about ...,Not Started,,
 Backup + restore,Settings,—,Passed,"Covered by test/backup/backup_service_test.dart (round trip, schema, bad values); not tried by hand",2026-11-16
 Language switch (7 locales),i18n,—,Passed (labels only),2026-11-16 walk ~35 routes x 7,2026-11-16
-Share cards + app links,Sharing,—,Passed,Ayah share card + share-as-image opens system sheet (s20/s21); link opening not tested,2026-11-16
+Share cards + app links,Sharing,—,Failed,Card + sheet OK; links point to a dead site and app links unverified (WQA-027),2026-11-16
 Home widget,Android,—,Not Started,,
 Self-update (APK),Android,—,Not Started,,
 Announcements / What's new,Core,—,Not Started,,
-PWA offline start,Web,—,Not Started,,2026-11-16
+PWA offline start,Web,—,Blocked,WQA-027: public site down,2026-11-16
 Crash reports opt-in,Privacy,—,Blocked,No Sentry DSN yet,2026-11-16
 Static analysis,Code,—,Passed,evidence/analyze_2026-11-16.txt (0 errors; 12 info),2026-11-16
 Unit/widget tests,Code,—,Passed,671 passing (2026-11-16),2026-11-16
