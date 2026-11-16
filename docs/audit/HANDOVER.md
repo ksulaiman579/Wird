@@ -5,7 +5,7 @@ Source of truth: `03-bug-register.csv` and `02-coverage-matrix.csv`. Rule: log o
 ## Done
 - 2026-11-16 s1: workspace, inventory, baseline (analyze 0 errors, 671 tests), hadith script check of 7 books.
 - 2026-11-16 s2:
-  - sunnah.com sample: 230 read, 211 same text. Muslim uses different numbering. Malik blocked by link style.
+  - sunnah.com sample: 230 read; 159+1 of 162 comparable match. Muslim uses different numbering. Malik blocked by link style.
   - Quran check passed.
   - Library: all 2,041 links checked (4 dead, authors missing).
   - Emulator: fresh install, Urdu onboarding, Muslim download and reader.

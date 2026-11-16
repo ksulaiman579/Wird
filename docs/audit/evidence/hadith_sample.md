@@ -22,4 +22,4 @@ This is a numbering difference, not a text error. Users who look up a cited numb
 
 **Grades.** Not compared. sunnah.com's grade field didn't come through the page reader. Still to do.
 
-**Verdict.** No confirmed text errors in 211 compared hadith. The Muslim numbering and the Malik check still need follow-up.
+**Verdict.** No confirmed text errors: 159 exact + 1 near of 162 comparable; 2 unverified. The Muslim numbering and the Malik check still need follow-up.

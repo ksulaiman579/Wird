@@ -10,7 +10,7 @@
 
 **Hadith:**
 - Counts are right in all 7 books.
-- 211 of 230 sampled hadith have the same text at the same number as sunnah.com.
+- 159 of 162 sampled hadith (Bukhari, Abu Dawud, Nasai, Tirmidhi, Ibn Majah) have the same text at the same number as sunnah.com, 1 near-match, 2 unverified. Muslim (38) uses other numbering; Malik (30) not yet compared.
 - Problems:
   - Arabic commas show as ring marks in every hadith (WQA-009).
   - Sahih Muslim numbers aren't the ones people quote (WQA-013).

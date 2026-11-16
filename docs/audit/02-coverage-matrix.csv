@@ -6,7 +6,7 @@ Reading hub,Quran,/reading,Not Started,,
 Khatmah plan + share link,Quran,/khatmah,Not Started,,
 Hadith shelf + downloads,Hadith,/hadith,In Progress,Emulator: Muslim download + Urdu text OK; WQA-001/011,2026-11-16
 Hadith collections content (7 books),Hadith,/hadith/collections/*,Failed,"evidence/hadith_audit.md; WQA-002..005,009",2026-11-16
-Hadith sample vs sunnah.com,Hadith,—,In Progress,evidence/hadith_sample.md: 211/230 text match; Muslim numbering WQA-013; Malik blocked; grades not compared,2026-11-16
+Hadith sample vs sunnah.com,Hadith,—,In Progress,evidence/hadith_sample.md: 159+1 of 162 comparable match; Muslim numbering WQA-013; Malik blocked; grades not compared,2026-11-16
 Nawawi 40 list + detail,Hadith,/hadith/nawawi,Not Started,,
 Duas + groups,Duas,/duas,Not Started,,
 Adhkar morning/evening,Duas,/adhkar/:period,Not Started,,
