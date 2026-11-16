@@ -1,0 +1,524 @@
+[
+ {
+  "book": "bukhari",
+  "declared": 7580,
+  "raw_ara": 7589,
+  "raw_eng": 7589,
+  "dup_numbers_ara": [],
+  "dup_numbers_eng": [],
+  "only_in_ara": [],
+  "only_in_eng": [],
+  "kept": 7580,
+  "kept_matches_declared": true,
+  "empty_both": 9,
+  "empty_arabic_only": {
+   "count": 0,
+   "sample": []
+  },
+  "empty_english_only": {
+   "count": 0,
+   "sample": []
+  },
+  "integer_gaps": {
+   "count": 9,
+   "sample": [
+    5710,
+    5711,
+    5712,
+    5774,
+    5775,
+    6074,
+    6075,
+    6174,
+    6175
+   ]
+  },
+  "decimal_numbers": 26,
+  "repeated_english_texts": 302,
+  "no_grade": 7580,
+  "uncategorized": 6,
+  "sections_declared": 98,
+  "sections_with_hadith": 97,
+  "sections_empty_title": 0,
+  "overlapping_section_ranges": 0,
+  "urd": {
+   "available": true,
+   "missing_for_kept": 564,
+   "sample": [
+    272,
+    273,
+    299,
+    300,
+    301,
+    329,
+    330,
+    395,
+    396,
+    402.2
+   ]
+  },
+  "ben": {
+   "available": true,
+   "missing_for_kept": 54,
+   "sample": [
+    183,
+    221,
+    402.2,
+    690.2,
+    774.2,
+    875,
+    1132.2,
+    1199.2,
+    1228.2,
+    1246
+   ]
+  }
+ },
+ {
+  "book": "muslim",
+  "declared": 7360,
+  "raw_ara": 7563,
+  "raw_eng": 7563,
+  "dup_numbers_ara": [],
+  "dup_numbers_eng": [],
+  "only_in_ara": [],
+  "only_in_eng": [],
+  "kept": 7360,
+  "kept_matches_declared": true,
+  "empty_both": 203,
+  "empty_arabic_only": {
+   "count": 0,
+   "sample": []
+  },
+  "empty_english_only": {
+   "count": 0,
+   "sample": []
+  },
+  "integer_gaps": {
+   "count": 201,
+   "sample": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    16,
+    17,
+    18,
+    19,
+    20
+   ]
+  },
+  "decimal_numbers": 0,
+  "repeated_english_texts": 192,
+  "no_grade": 7360,
+  "uncategorized": 0,
+  "sections_declared": 57,
+  "sections_with_hadith": 57,
+  "sections_empty_title": 0,
+  "overlapping_section_ranges": 4,
+  "urd": {
+   "available": false,
+   "error": "HTTP Error 404: Not Found"
+  },
+  "ben": {
+   "available": true,
+   "missing_for_kept": 36,
+   "sample": [
+    3,
+    4,
+    15,
+    136,
+    157,
+    164,
+    166,
+    242,
+    295,
+    304
+   ]
+  }
+ },
+ {
+  "book": "abudawud",
+  "declared": 5272,
+  "raw_ara": 5274,
+  "raw_eng": 5274,
+  "dup_numbers_ara": [],
+  "dup_numbers_eng": [],
+  "only_in_ara": [],
+  "only_in_eng": [],
+  "kept": 5272,
+  "kept_matches_declared": true,
+  "empty_both": 2,
+  "empty_arabic_only": {
+   "count": 0,
+   "sample": []
+  },
+  "empty_english_only": {
+   "count": 0,
+   "sample": []
+  },
+  "integer_gaps": {
+   "count": 2,
+   "sample": [
+    907,
+    4290
+   ]
+  },
+  "decimal_numbers": 0,
+  "repeated_english_texts": 2,
+  "no_grade": 0,
+  "uncategorized": 0,
+  "sections_declared": 44,
+  "sections_with_hadith": 43,
+  "sections_empty_title": 0,
+  "overlapping_section_ranges": 0,
+  "urd": {
+   "available": true,
+   "missing_for_kept": 1,
+   "sample": [
+    5274
+   ]
+  },
+  "ben": {
+   "available": true,
+   "missing_for_kept": 4,
+   "sample": [
+    285,
+    300,
+    3034,
+    4552
+   ]
+  }
+ },
+ {
+  "book": "tirmidhi",
+  "declared": 3926,
+  "raw_ara": 3998,
+  "raw_eng": 3998,
+  "dup_numbers_ara": [],
+  "dup_numbers_eng": [],
+  "only_in_ara": [],
+  "only_in_eng": [],
+  "kept": 3926,
+  "kept_matches_declared": true,
+  "empty_both": 72,
+  "empty_arabic_only": {
+   "count": 2,
+   "sample": [
+    2787.2,
+    2855.2
+   ]
+  },
+  "empty_english_only": {
+   "count": 0,
+   "sample": []
+  },
+  "integer_gaps": {
+   "count": 67,
+   "sample": [
+    391,
+    455,
+    457,
+    458,
+    945,
+    1205,
+    1208,
+    1209,
+    1225,
+    1255,
+    1258,
+    1301,
+    1317,
+    1322,
+    1365
+   ]
+  },
+  "decimal_numbers": 37,
+  "repeated_english_texts": 9,
+  "no_grade": 36,
+  "uncategorized": 0,
+  "sections_declared": 50,
+  "sections_with_hadith": 43,
+  "sections_empty_title": 0,
+  "overlapping_section_ranges": 4,
+  "urd": {
+   "available": true,
+   "missing_for_kept": 58,
+   "sample": [
+    277,
+    278,
+    815.2,
+    892,
+    893,
+    925,
+    926,
+    970,
+    971,
+    1114.2
+   ]
+  },
+  "ben": {
+   "available": true,
+   "missing_for_kept": 57,
+   "sample": [
+    182,
+    405,
+    529,
+    815.2,
+    824,
+    893,
+    924,
+    971,
+    1114.2,
+    1185
+   ]
+  }
+ },
+ {
+  "book": "nasai",
+  "declared": 5679,
+  "raw_ara": 5765,
+  "raw_eng": 5765,
+  "dup_numbers_ara": [],
+  "dup_numbers_eng": [],
+  "only_in_ara": [],
+  "only_in_eng": [],
+  "kept": 5679,
+  "kept_matches_declared": true,
+  "empty_both": 86,
+  "empty_arabic_only": {
+   "count": 0,
+   "sample": []
+  },
+  "empty_english_only": {
+   "count": 0,
+   "sample": []
+  },
+  "integer_gaps": {
+   "count": 86,
+   "sample": [
+    125,
+    1368,
+    1369,
+    1372,
+    3857,
+    3858,
+    3859,
+    3860,
+    3861,
+    3862,
+    3863,
+    3864,
+    3865,
+    3866,
+    3867
+   ]
+  },
+  "decimal_numbers": 7,
+  "repeated_english_texts": 65,
+  "no_grade": 7,
+  "uncategorized": 0,
+  "sections_declared": 52,
+  "sections_with_hadith": 51,
+  "sections_empty_title": 0,
+  "overlapping_section_ranges": 0,
+  "urd": {
+   "available": true,
+   "missing_for_kept": 1809,
+   "sample": [
+    207,
+    384.2,
+    1928,
+    2199,
+    2201,
+    2520,
+    2771,
+    2788,
+    2789,
+    3052
+   ]
+  },
+  "ben": {
+   "available": true,
+   "missing_for_kept": 26,
+   "sample": [
+    260,
+    352,
+    353,
+    384.2,
+    434.2,
+    796,
+    1057,
+    1234,
+    1294,
+    1752
+   ]
+  }
+ },
+ {
+  "book": "ibnmajah",
+  "declared": 4340,
+  "raw_ara": 4343,
+  "raw_eng": 4343,
+  "dup_numbers_ara": [],
+  "dup_numbers_eng": [],
+  "only_in_ara": [],
+  "only_in_eng": [],
+  "kept": 4340,
+  "kept_matches_declared": true,
+  "empty_both": 3,
+  "empty_arabic_only": {
+   "count": 2,
+   "sample": [
+    1928,
+    1929
+   ]
+  },
+  "empty_english_only": {
+   "count": 0,
+   "sample": []
+  },
+  "integer_gaps": {
+   "count": 3,
+   "sample": [
+    1955,
+    2490,
+    2497
+   ]
+  },
+  "decimal_numbers": 2,
+  "repeated_english_texts": 2,
+  "no_grade": 2,
+  "uncategorized": 0,
+  "sections_declared": 38,
+  "sections_with_hadith": 31,
+  "sections_empty_title": 0,
+  "overlapping_section_ranges": 2,
+  "urd": {
+   "available": true,
+   "missing_for_kept": 13,
+   "sample": [
+    675,
+    676,
+    900,
+    902,
+    1928,
+    1929,
+    1965,
+    2526,
+    2956,
+    2957
+   ]
+  },
+  "ben": {
+   "available": true,
+   "missing_for_kept": 6,
+   "sample": [
+    20,
+    32,
+    1929,
+    2179,
+    3930.2,
+    4089.2
+   ]
+  }
+ },
+ {
+  "book": "malik",
+  "declared": 1829,
+  "raw_ara": 1858,
+  "raw_eng": 1858,
+  "dup_numbers_ara": [],
+  "dup_numbers_eng": [],
+  "only_in_ara": [],
+  "only_in_eng": [],
+  "kept": 1829,
+  "kept_matches_declared": true,
+  "empty_both": 29,
+  "empty_arabic_only": {
+   "count": 0,
+   "sample": []
+  },
+  "empty_english_only": {
+   "count": 11,
+   "sample": [
+    471,
+    486,
+    523,
+    672,
+    695,
+    995,
+    1055,
+    1058,
+    1390,
+    1598
+   ]
+  },
+  "integer_gaps": {
+   "count": 29,
+   "sample": [
+    167,
+    470,
+    485,
+    522,
+    671,
+    684,
+    694,
+    927,
+    951,
+    958,
+    994,
+    1013,
+    1040,
+    1054,
+    1057
+   ]
+  },
+  "decimal_numbers": 0,
+  "repeated_english_texts": 0,
+  "no_grade": 0,
+  "uncategorized": 0,
+  "sections_declared": 62,
+  "sections_with_hadith": 61,
+  "sections_empty_title": 0,
+  "overlapping_section_ranges": 0,
+  "urd": {
+   "available": true,
+   "missing_for_kept": 254,
+   "sample": [
+    2,
+    15,
+    17,
+    34,
+    52,
+    65,
+    67,
+    76,
+    77,
+    80
+   ]
+  },
+  "ben": {
+   "available": true,
+   "missing_for_kept": 89,
+   "sample": [
+    17,
+    30,
+    38,
+    40,
+    52,
+    75,
+    80,
+    154,
+    180,
+    192
+   ]
+  }
+ }
+]

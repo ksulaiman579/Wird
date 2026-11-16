@@ -1,0 +1,53 @@
+{
+  "project": "Wird - Quran, Hadith & Dua memorization app",
+  "owner_address_as": "Waleed",
+  "updated": "2026-11-16",
+  "architecture": {
+    "stack": "Flutter 3.44.4, Riverpod 3, Drift (SQLite), go_router",
+    "targets": ["Android APK (per-ABI, self-update via update.json)", "PWA on Vercel: https://wird-alpha.vercel.app"],
+    "backend": "None. Offline-first, no accounts, no server DB. Content packs fetched as static files.",
+    "routes_file": "lib/router.dart",
+    "layers": "lib/core (logic, never imports features) / lib/features (screens) / lib/shared (UI kit)",
+    "l10n": "7 locales en ar ur hi bn ml fil; ARB in lib/l10n; add via tool/apply_l10n_batch.py then flutter gen-l10n"
+  },
+  "data_sources": {
+    "quran_text": "Tanzil Uthmani (bundled assets/data/quran)",
+    "translations": "fawazahmed0 quran-api editions, allowlist tool/editions_allowlist.json (vetted: King Fahd / IslamHouse)",
+    "hadith": "fawazahmed0 hadith-api via jsDelivr; books bukhari muslim abudawud tirmidhi nasai ibnmajah malik + bundled Nawawi 40; ur/bn text upstream",
+    "library": "IslamHouse catalogue (Knowledge Library)",
+    "provenance_doc": "DATA_SOURCES.md"
+  },
+  "content_rules": [
+    "Never type Quran or hadith text from memory; never 'fix' sourced text.",
+    "Never machine-translate hadith or duas. hi/ml/fil hadith stay English with a note.",
+    "Hadith grade never guessed (lib/core/hadith/hadith_grade.dart).",
+    "Summaries neutral, Ahlus Sunnah / Salaf standard."
+  ],
+  "traps": [
+    "flutter not on PowerShell PATH: use C:\\flutter\\bin\\flutter.bat",
+    "After adding a dependency run flutter pub get in PowerShell too before APK build (pub cache split)",
+    "sentry_flutter needs minSdk 26: use plain-Dart sentry package",
+    "compute() hangs widget tests: _offThread runs inline under 200 KB",
+    "Emulator deep links: am start -n pkg/.MainActivity -d \"'url'\" with MSYS_NO_PATHCONV=1",
+    "just_audio_background allows one player app-wide; Wird has several"
+  ],
+  "open_gaps": [
+    "Background/lock-screen audio needs redesign",
+    "Meaning search + read-along need model trial and Waleed's recordings",
+    "Sentry DSN not yet provided",
+    "Arabic-Indic digits option",
+    "Data-sources screen shows raw dev notes; reciter/palette names not localized",
+    "Not verified on a real phone or deployed PWA"
+  ],
+  "audit": {
+    "workspace": "docs/audit/ (start at HANDOVER.md)",
+    "rule": "Log only; fixes need Waleed's approval; religious text is never altered"
+  },
+  "learnings": [
+    {"date": "2026-11-16", "note": "Upstream hadith-api has empty entries (203 Muslim, 86 Nasai) and decimal numbers like 402.2; drop empties, show decimal label."}
+  ],
+  "changelog": [
+    {"date": "2026-11-16", "note": "Overnight build: hadith fix+l10n, 3-step onboarding, share cards, app links, fonts, Hijri, Sentry opt-in, khatmah, widget, offline PWA, 7-locale walk. 671 tests."},
+    {"date": "2026-11-16", "note": "Created this file; full QA audit started in docs/audit/."}
+  ]
+}

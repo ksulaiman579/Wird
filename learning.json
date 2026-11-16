@@ -1,0 +1,20 @@
+{
+  "current_state": "v1.2 line on main; overnight 2026-11-16 features shipped; full QA audit in progress (docs/audit/).",
+  "key_facts": [
+    "Hadith counts after dropping empties: bukhari 7580, muslim 7360, abudawud 5272, tirmidhi 3926, nasai 5679, ibnmajah 4340, malik 1829",
+    "Quran validation: 6,236 ayahs / 114 surahs / 30 juz",
+    "arm64 APK ~41.9 MB"
+  ],
+  "traps": [
+    "Walk script for 7-locale screen check: %TEMP%/claude/wirdtool/walk.py",
+    "TASKS.md and tool/l10n_batches are gitignored"
+  ],
+  "decisions": [
+    {"date": "2026-11-16", "by": "Waleed", "decision": "Audit is log-only; fix after he approves the list."},
+    {"date": "2026-11-16", "by": "Waleed", "decision": "Hadith audit: full script check + ~30 per book against sunnah.com."},
+    {"date": "2026-11-15", "by": "Waleed", "decision": "Crash reports opt-in anonymous; donation link optional later; no cloud backup."}
+  ],
+  "log": [
+    {"date": "2026-11-16", "entry": "Created learning.json. Started full audit per master QA brief."}
+  ]
+}
