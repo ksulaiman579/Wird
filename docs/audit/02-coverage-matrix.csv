@@ -3,7 +3,7 @@ Today / daily session,Core,/ /session,Not Started,,
 Onboarding (3 steps),Core,/onboarding,Failed,Emulator Urdu run; WQA-010/012,2026-11-16
 Quran browser + reader + audio,Quran,/quran /quran/:surah /read,In Progress,Reader opens; WQA-025/026; audio not tested,2026-11-16
 Reading hub,Quran,/reading,Not Started,,
-Khatmah plan + share link,Quran,/khatmah,In Progress,Screen opens and is fully Urdu; plan not run,2026-11-16
+Khatmah plan + share link,Quran,/khatmah,Passed,"30-day plan starts, portions split, day 1 highlighted (s37)",2026-11-16
 Hadith shelf + downloads,Hadith,/hadith,Passed,"Emulator: download Muslim, open, Urdu text loads",2026-11-16
 Hadith collections content (7 books),Hadith,/hadith/collections/*,Failed,"evidence/hadith_audit.md; WQA-002..005,009",2026-11-16
 Hadith sample vs sunnah.com,Hadith,—,Failed,evidence/hadith_sample.md: text OK; Malik 29/30; grades WQA-014/015; chapters WQA-004,2026-11-16
@@ -13,7 +13,7 @@ Adhkar morning/evening,Duas,/adhkar/:period,Not Started,,
 Knowledge Library (IslamHouse),Library,/knowledge,Failed,WQA-007/008/017,2026-11-16
 Book/EPUB/PDF readers,Library,/knowledge/book/:id,In Progress,Urdu PDF downloaded + opened OK (s16); EPUB and other langs not yet,2026-11-16
 Downloads + Library screen,Downloads,/downloads /library,Not Started,,
-Global search,Search,/search,Failed,WQA-019,2026-11-16
+Global search,Search,/search,Failed,Arabic with/without marks + ta-marbuta pass; English-only results WQA-019; WQA-033,2026-11-16
 Explore hub,Explore,/explore,Not Started,,
 Asma ul-Husna,Tools,/asma,Failed,WQA-029,2026-11-16
 Qibla,Tools,/qibla,In Progress,Opens; needs location,2026-11-16
@@ -32,7 +32,7 @@ Share cards + app links,Sharing,—,Passed,Card + sheet OK; app links verified; 
 Home widget,Android,—,Not Started,,
 Self-update (APK),Android,—,Not Started,,
 Announcements / What's new,Core,—,Not Started,,
-PWA offline start,Web,—,Not Started,Site back up; offline start not yet tested,2026-11-16
+PWA offline start,Web,—,In Progress,"Site loads 5.3 MB/1.5 s, SW active; WQA-032",2026-11-16
 Crash reports opt-in,Privacy,—,Blocked,No Sentry DSN yet,2026-11-16
 Static analysis,Code,—,Passed,evidence/analyze_2026-11-16.txt (0 errors; 12 info),2026-11-16
 Unit/widget tests,Code,—,Passed,671 passing (2026-11-16),2026-11-16

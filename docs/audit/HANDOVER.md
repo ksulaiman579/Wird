@@ -39,7 +39,15 @@ Source of truth: `03-bug-register.csv` and `02-coverage-matrix.csv`. Rule: log o
   - English leftovers in tools screens (WQA-029).
   - Audio plays; play/pause icon after the end is suspect (WQA-030).
 
+- 2026-11-16 s7:
+  - Vercel and Supabase restored by Waleed and verified.
+  - Arabic search passes.
+  - Web app loads; offline cache gap suspected (WQA-032).
+  - Khatmah passes.
+  - Repeat search link (WQA-033).
+
 ## Notes
+- If the emulator goes black (all apps), kill qemu, delete *.lock in ~/.android/avd/Medium_Phone.avd, then cold boot with -no-snapshot-load.
 - If the emulator system share sheet hangs ("IntentResolver isn't responding"), run `adb shell am force-stop com.android.intentresolver`.
 - The emulator boots an old snapshot with an old app build. The app signature differs, so uninstall it, then install `build/app/outputs/flutter-apk/app-x86_64-release.apk`.
 - sunnah.com blocks scripts. Read it with in-page `fetch` from the built-in browser on a sunnah.com tab.
