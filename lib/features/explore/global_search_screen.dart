@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:wird/l10n/gen/app_localizations.dart';
 
 import '../../core/search/search_index.dart';
-import '../../core/search/search_index_builder.dart';
+import 'search_providers.dart';
 import '../../core/theme/app_theme.dart' show quranTextStyle;
 import '../../shared/glass/glass.dart';
 
@@ -15,6 +15,9 @@ import '../../shared/glass/glass.dart';
 /// the 99 Names. Arabic is matched without diacritics and with common
 /// spelling variants folded (see arabic_normalizer.dart); "2:255" jumps to
 /// that ayah. Shows sourced text only — nothing is generated.
+/// Any Arabic-script letter (Arabic, Urdu).
+final _rtlScript = RegExp('[؀-ۿ]');
+
 class GlobalSearchScreen extends ConsumerStatefulWidget {
   const GlobalSearchScreen({super.key, this.initialQuery = ''});
 
@@ -42,6 +45,17 @@ class _GlobalSearchScreenState extends ConsumerState<GlobalSearchScreen> {
   late String _query = widget.initialQuery.trim();
   _Filter _filter = _Filter.all;
   Timer? _debounce;
+
+  // A new /search?q= link while search is open reuses this state; take its
+  // word instead of keeping the old one (audit WQA-033).
+  @override
+  void didUpdateWidget(GlobalSearchScreen old) {
+    super.didUpdateWidget(old);
+    if (widget.initialQuery != old.initialQuery) {
+      _controller.text = widget.initialQuery;
+      _query = widget.initialQuery.trim();
+    }
+  }
 
   @override
   void dispose() {
@@ -191,7 +205,11 @@ class _ResultCard extends StatelessWidget {
             const SizedBox(height: 4),
             Text(
               doc.text,
-              textDirection: TextDirection.ltr,
+              // Urdu/Arabic translations read right-to-left; English stays
+              // left-to-right even in an RTL UI.
+              textDirection: _rtlScript.hasMatch(doc.text)
+                  ? TextDirection.rtl
+                  : TextDirection.ltr,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: theme.textTheme.bodySmall,

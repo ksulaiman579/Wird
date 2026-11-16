@@ -182,6 +182,13 @@ class TranslationPackService {
         .go();
   }
 
+  /// The raw stored JSON of a downloaded edition, or null — used to index
+  /// the user's translation for search (audit WQA-019).
+  Future<String?> rawPack(String editionId) async {
+    final row = await _packRow(editionId);
+    return row?.status == 'downloaded' ? row?.data : null;
+  }
+
   /// Looks up the translation for one ayah from an already-downloaded
   /// pack. Returns `null` if the pack isn't downloaded (never throws for
   /// that — callers should just fall back to not showing the extra

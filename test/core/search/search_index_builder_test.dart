@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:wird/core/search/search_index.dart';
 import 'package:wird/core/search/search_index_builder.dart';
@@ -48,4 +50,56 @@ void main() {
     // Generous bound for slow CI machines; typically a few ms per query.
     expect(sw.elapsedMilliseconds / 10, lessThan(200));
   });
+
+  group('downloaded content (WQA-019)', () {
+    late SearchIndex ur;
+    setUpAll(() async {
+      // A tiny Urdu translation pack (2:255 only) and one hadith pack.
+      final surahs = {
+        for (var s = 1; s <= 114; s++) '$s': <Map<String, String>>[],
+      };
+      surahs['2'] = [
+        for (var a = 1; a <= 255; a++)
+          {'translation': a == 255 ? 'خدا وہ معبود برحق ہے' : ''},
+      ];
+      ur = await buildSearchIndex(
+        bundle: FileAssetBundle(),
+        lang: 'ur',
+        translationPack: '{"surahs": ${_json(surahs)}}',
+        hadithPacks: {
+          'tirmidhi': '{"chapters": {"41": {"title": "Knowledge", "hadith": ['
+              '{"number": 2654, "arabic": "مَنْ طَلَبَ الْعِلْمَ", '
+              '"translation": "Whoever seeks knowledge", '
+              '"tr": {"ur": "جو شخص علم حاصل کرے"}}]}}}',
+        },
+        collectionNames: {'tirmidhi': 'جامع ترمذی'},
+      );
+    });
+
+    test('the user translation is searched and shown', () {
+      final hit = ur.search('معبود برحق').first;
+      expect(hit.doc.route, '/read?surah=2&ayah=255');
+      expect(hit.doc.text, contains('معبود'));
+    });
+
+    test('English stays searchable behind the user translation', () {
+      expect(ur.search('Ever-Living').map((h) => h.doc.route),
+          contains('/read?surah=2&ayah=255'));
+    });
+
+    test('downloaded hadith are found in Urdu, Arabic and English', () {
+      for (final q in ['علم حاصل', 'طلب العلم', 'seeks knowledge']) {
+        final hit = ur.search(q, kinds: {SearchKind.hadith}).first;
+        expect(hit.doc.route, '/hadith/collections/tirmidhi/41', reason: q);
+        expect(hit.doc.title, 'جامع ترمذی 2654');
+      }
+    });
+
+    test('surah titles use Arabic names in an Urdu UI', () {
+      final d = ur.docs.firstWhere((d) => d.route == '/quran/1');
+      expect(d.title, contains('الفاتحة'));
+    });
+  });
 }
+
+String _json(Object o) => const JsonEncoder().convert(o);

@@ -274,6 +274,20 @@ class HadithPackRepository {
     return _langsCache[collection] ?? const ['en'];
   }
 
+  /// Raw stored JSON of every downloaded collection, keyed by collection —
+  /// used to make downloaded hadith searchable (audit WQA-019).
+  Future<Map<String, String>> rawInstalledPacks() async {
+    final rows = await (_db.select(_db.contentPacks)
+          ..where((t) =>
+              t.type.equals('hadithCollection') &
+              t.status.equals('downloaded')))
+        .get();
+    return {
+      for (final r in rows)
+        if (r.data != null) r.editionOrCollection: r.data!,
+    };
+  }
+
   /// The chapter key holding hadith [number], or null if the pack isn't
   /// installed (used to open a bookmarked hadith in place).
   Future<String?> chapterOf(String collection, num number) async {

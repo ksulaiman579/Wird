@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:wird/core/search/search_index.dart';
-import 'package:wird/core/search/search_index_builder.dart';
+import 'package:wird/features/explore/search_providers.dart';
 import 'package:wird/features/explore/global_search_screen.dart';
 import 'package:wird/l10n/gen/app_localizations.dart';
 
@@ -59,5 +59,23 @@ void main() {
     await t.pump(const Duration(milliseconds: 300));
     await t.pumpAndSettle();
     expect(find.text('No results'), findsOneWidget);
+  });
+
+  testWidgets('a new search link replaces the old word (WQA-033)', (t) async {
+    Widget app(String q) => ProviderScope(
+          overrides: [searchIndexProvider.overrideWith((ref) async => index)],
+          child: MaterialApp(
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            home: GlobalSearchScreen(key: const ValueKey('s'), initialQuery: q),
+          ),
+        );
+    await t.pumpWidget(app('Intentions'));
+    await t.pumpAndSettle();
+    expect(find.text('Actions Are Judged by Intentions'), findsOneWidget);
+    await t.pumpWidget(app('Ever-Living'));
+    await t.pumpAndSettle();
+    expect(find.text('Al-Baqarah 2:255'), findsOneWidget);
+    expect(find.text('Actions Are Judged by Intentions'), findsNothing);
   });
 }
