@@ -25,7 +25,7 @@
 // Bumping CACHE_NAME is now only needed when a CACHED DATA asset or icon must be
 // force-refreshed; code updates propagate on their own.
 // v5: M21 logo re-cut. v6: M22.8 palette. v7: M23 overhaul.
-const CACHE_NAME = 'wird-offline-v10'; // v10: fonts + Quran text precached (audit WQA-032)
+const CACHE_NAME = 'wird-offline-v11'; // v11: fonts + Quran text cached after activation (audit WQA-032)
 
 // Requests that must always prefer the network so updates reach returning
 // clients: the HTML document and the Flutter bootstrap/code entrypoints.
@@ -78,20 +78,42 @@ const OFFLINE_DATA = [
 ];
 
 self.addEventListener('install', (event) => {
+  // Only the small app shell blocks install. Fetching the fonts and 115
+  // Quran files here kept the worker stuck "installing" (no offline at all)
+  // on a slow link; they are fetched after activation instead.
   event.waitUntil(
-    caches.open(CACHE_NAME).then(async (cache) => {
-      await cache.addAll(APP_SHELL);
-      // Best-effort, one by one: a single missing file must not fail
-      // the install.
-      for (const url of OFFLINE_DATA) {
-        try {
-          if (!(await cache.match(url))) await cache.add(url);
-        } catch (_) {}
-      }
-    }),
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)),
   );
   self.skipWaiting();
 });
+
+let offlineDataJob = null;
+
+// Fills OFFLINE_DATA in the background: 6 at a time, 15 s per file,
+// skipping what is already cached. Safe to call repeatedly; a failed file
+// is retried on a later visit.
+function cacheOfflineData() {
+  if (offlineDataJob) return offlineDataJob;
+  offlineDataJob = (async () => {
+    const cache = await caches.open(CACHE_NAME);
+    const queue = [...OFFLINE_DATA];
+    const worker = async () => {
+      while (queue.length) {
+        const url = queue.shift();
+        try {
+          if (await cache.match(url)) continue;
+          const ctrl = new AbortController();
+          const timer = setTimeout(() => ctrl.abort(), 15000);
+          const res = await fetch(url, { signal: ctrl.signal });
+          clearTimeout(timer);
+          if (res.ok) await cache.put(url, res);
+        } catch (_) {}
+      }
+    };
+    await Promise.all(Array.from({ length: 6 }, worker));
+  })().finally(() => { offlineDataJob = null; });
+  return offlineDataJob;
+}
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
@@ -101,9 +123,10 @@ self.addEventListener('activate', (event) => {
           .filter((key) => key !== CACHE_NAME)
           .map((key) => caches.delete(key)),
       ),
-    ),
+    ).then(() => self.clients.claim()),
   );
-  self.clients.claim();
+  // Not awaited by activation; kept alive by the next fetch below.
+  cacheOfflineData();
 });
 
 self.addEventListener('fetch', (event) => {
@@ -112,6 +135,8 @@ self.addEventListener('fetch', (event) => {
   // (bundled assets, app shell); cross-origin requests (if any) pass
   // through untouched.
   if (request.method !== 'GET') return;
+  // Keep the worker alive while the background fill runs.
+  event.waitUntil(cacheOfflineData());
   const origin = new URL(request.url).origin;
   // Flutter's fallback fonts come from Google's font servers; keep a copy
   // so text still renders offline (cache-first, they never change).
