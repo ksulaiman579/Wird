@@ -25,14 +25,22 @@ Source of truth: `03-bug-register.csv` and `02-coverage-matrix.csv`. Rule: log o
   - Security first pass: 07-security.md (WQA-022, WQA-023).
   - Public release is still 1.2.1; last night's work is not released.
 
+- 2026-11-16 s5:
+  - Share works.
+  - Offline works.
+  - Backup has tests.
+  - Adhan and reminders can be up to 1h late (WQA-024, High).
+  - Urdu translation not installed after onboarding (WQA-025).
+  - Ayah counter is reversed in RTL (WQA-026).
+
 ## Notes
 - The emulator boots an old snapshot with an old app build. The app signature differs, so uninstall it, then install `build/app/outputs/flutter-apk/app-x86_64-release.apk`.
 - sunnah.com blocks scripts. Read it with in-page `fetch` from the built-in browser on a sunnah.com tab.
 - Malik on sunnah.com uses `/malik/<book>/<n>`. Map it from the in-book reference.
 
 ## Next, in order
-1. Share card + share link opening; offline/airplane mode (reader, failed download); Arabic word search (needs a typed-Arabic method on the emulator, or the web app).
-2. Settings: every switch; backup + restore round-trip; notifications/adhan firing; widget.
+1. Share link opening in the app (app links); Arabic word search (web app); audio playback + downloads.
+2. Settings: every switch; widget; khatmah; tasbih; zakah; qibla; asma; adhkar.
 3. Library: the EPUB, an Arabic book, a big (50 MB) book, one per language, offline reopen.
 5. User journeys and every control on every screen; edge cases; local DB; security; speed; accessibility; final report.
 

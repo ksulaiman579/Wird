@@ -30,7 +30,9 @@
 
 **Also:** no screen lists bookmarks (WQA-018). Search ignores downloaded Urdu and hadith (WQA-019). The live update file has no checksum (WQA-022). The public release is still 1.2.1.
 
-**Bugs:** 23 logged, none fixed. Fixes wait for Waleed.
+**Prayer times:** the adhan and all reminders are scheduled as "inexact", so Android may fire them up to an hour late (WQA-024).
+
+**Bugs:** 26 logged, none fixed. Fixes wait for Waleed.
 
 ## Coverage
 
