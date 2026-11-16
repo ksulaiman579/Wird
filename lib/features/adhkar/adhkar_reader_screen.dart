@@ -16,6 +16,7 @@ import '../../shared/glass/glass.dart';
 import '../achievements/achievement_providers.dart';
 import 'adhkar_providers.dart';
 import '../../core/haptics.dart';
+import '../../shared/ui/arabic_prose_text.dart';
 
 
 class AdhkarReaderScreen extends ConsumerStatefulWidget {
@@ -300,7 +301,7 @@ class _DhikrCard extends StatelessWidget {
                   children: [
                     Directionality(
                       textDirection: TextDirection.rtl,
-                      child: Text(
+                      child: ArabicProseText(
                         dhikr.arabic,
                         style: const TextStyle(
                           fontFamily: 'UthmanicHafs',

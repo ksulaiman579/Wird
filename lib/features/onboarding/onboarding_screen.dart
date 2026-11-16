@@ -155,11 +155,16 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
   Future<void> _finish() async {
     setState(() => _completing = true);
+    // Read the providers now: complete() sends the router to '/', which
+    // disposes this screen, and `ref` can't be used after that. Reading it
+    // later threw and silently skipped both downloads (audit WQA-025).
+    final startLanguagePack = _prepareLanguagePackDownload();
+    final startHadith = _prepareHadithCollectionDownloads();
     try {
       await ref.read(onboardingControllerProvider.notifier).complete();
-      await _rescheduleNotificationsBestEffort();
-      _downloadSelectedLanguagePackBestEffort();
-      _downloadSelectedHadithCollectionsBestEffort();
+      startLanguagePack();
+      startHadith();
+      if (mounted) await _rescheduleNotificationsBestEffort();
       if (mounted) context.go('/');
     } catch (e) {
       // M21.3: complete() failing used to leave the user silently stuck on
@@ -192,22 +197,27 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   /// on the final step, kick off its download in the background. Never
   /// awaited — a slow/failed download must not delay finishing onboarding
   /// (the Library screen lets the user retry later either way, per M13.7).
-  void _downloadSelectedLanguagePackBestEffort() {
+  void Function() _prepareLanguagePackDownload() {
     final lang = ref.read(appLanguageProvider).value ?? 'en';
-    if (lang == 'en' || lang == 'ar') return;
+    if (lang == 'en' || lang == 'ar') return () {};
     const iso3 = {'hi': 'hin', 'ml': 'mal', 'ur': 'urd', 'bn': 'ben'};
 
-    unawaited(() async {
+    // Read everything we need now: this runs after onboarding finishes,
+    // when this screen (and its `ref`) is already gone — using `ref` after
+    // an await threw, was swallowed, and no translation was ever installed
+    // (audit WQA-025).
+    final service = ref.read(translationPackServiceProvider);
+    final readerPrefs = ref.read(readerPrefsProvider.notifier);
+    return () => unawaited(() async {
       try {
-        final service = ref.read(translationPackServiceProvider);
         final allowlist = await service.loadAllowlist();
         final matches = allowlist.editions.where(
             (e) => e.languageCode == lang || e.languageCode == iso3[lang]);
         if (matches.isEmpty) return;
         final entry = matches.first;
-        await ref
-            .read(readerPrefsProvider.notifier)
-            .updatePrefs((p) => p.copyWith(extraEditionId: entry.id));
+        await readerPrefs
+            .updatePrefs((p) => p.copyWith(
+                extraEditionId: entry.id, showExtraTranslation: true));
         await service.downloadAndInstall(entry);
       } catch (_) {
         // Best-effort — the Library screen offers it again.
@@ -218,12 +228,14 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   /// Fire-and-forget, same rationale as the language-pack download: a
   /// slow/failed collection download must never block finishing
   /// onboarding. Runs each selected collection's download concurrently.
-  void _downloadSelectedHadithCollectionsBestEffort() {
+  void Function() _prepareHadithCollectionDownloads() {
     final selected = ref.read(selectedHadithCollectionsProvider);
     final repo = ref.read(hadithPackRepositoryProvider);
-    for (final collection in selected) {
-      unawaited(repo.downloadAndInstall(collection).catchError((_) {}));
-    }
+    return () {
+      for (final collection in selected) {
+        unawaited(repo.downloadAndInstall(collection).catchError((_) {}));
+      }
+    };
   }
 
   @override

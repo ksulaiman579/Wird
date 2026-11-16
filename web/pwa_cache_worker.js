@@ -25,7 +25,7 @@
 // Bumping CACHE_NAME is now only needed when a CACHED DATA asset or icon must be
 // force-refreshed; code updates propagate on their own.
 // v5: M21 logo re-cut. v6: M22.8 palette. v7: M23 overhaul.
-const CACHE_NAME = 'wird-offline-v9'; // v9: local CanvasKit + cached Google fonts (offline start)
+const CACHE_NAME = 'wird-offline-v10'; // v10: fonts + Quran text precached (audit WQA-032)
 
 // Requests that must always prefer the network so updates reach returning
 // clients: the HTML document and the Flutter bootstrap/code entrypoints.
@@ -59,9 +59,36 @@ const APP_SHELL = [
   'canvaskit/chromium/canvaskit.wasm',
 ];
 
+// Fetched in the background after install so the app still starts
+// offline in every language and opens any surah without a prior visit.
+// Before v10 these were only cached if the page happened to request them
+// through the worker, which left the script fonts out (audit WQA-032).
+const OFFLINE_DATA = [
+  'assets/FontManifest.json',
+  'assets/fonts/MaterialIcons-Regular.otf',
+  'assets/assets/fonts/UthmanicHafs.otf',
+  'assets/assets/fonts/Marcellus-Regular.ttf',
+  'assets/assets/fonts/NotoNastaliqUrdu.ttf',
+  'assets/assets/fonts/NotoSansBengali.ttf',
+  'assets/assets/fonts/NotoSansDevanagari.ttf',
+  'assets/assets/fonts/NotoSansMalayalam.ttf',
+  'assets/assets/data/quran/meta.json',
+  ...Array.from({ length: 114 }, (_, i) =>
+      `assets/assets/data/quran/surah_${String(i + 1).padStart(3, '0')}.json`),
+];
+
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)),
+    caches.open(CACHE_NAME).then(async (cache) => {
+      await cache.addAll(APP_SHELL);
+      // Best-effort, one by one: a single missing file must not fail
+      // the install.
+      for (const url of OFFLINE_DATA) {
+        try {
+          if (!(await cache.match(url))) await cache.add(url);
+        } catch (_) {}
+      }
+    }),
   );
   self.skipWaiting();
 });

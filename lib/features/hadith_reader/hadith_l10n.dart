@@ -16,6 +16,7 @@ String hadithCollectionName(BuildContext context, String collection) {
     'nasai' => l.hadithNameNasai,
     'ibnmajah' => l.hadithNameIbnmajah,
     'malik' => l.hadithNameMalik,
+    'nawawi' => l.hadithNawawiTitle,
     _ => hadithCollections[collection] ?? collection,
   };
 }

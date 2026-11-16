@@ -2202,4 +2202,14 @@ class AppLocalizationsBn extends AppLocalizations {
   String hadithOtherGrades(Object list) {
     return 'অন্যান্য আলেম: $list';
   }
+
+  @override
+  String get bookmarksTitle => 'বুকমার্ক';
+
+  @override
+  String get bookmarksDesc => 'আপনার সংরক্ষিত আয়াত ও হাদিস';
+
+  @override
+  String get bookmarksEmpty =>
+      'এখনো কোনো বুকমার্ক নেই। কোনো আয়াত বা হাদিসে বুকমার্ক আইকনে চাপ দিন, এখানে সংরক্ষিত হবে।';
 }

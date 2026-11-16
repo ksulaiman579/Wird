@@ -81,12 +81,16 @@ class AppUpdateService {
       final apkUrl = pickApkUrl(json, currentAbiKey());
       final sha = pickApkSha256(json, currentAbiKey());
       if (latest == null || apkUrl == null || latest <= current) return null;
+      // No checksum, no update: without it a swapped or truncated APK
+      // can't be caught before the installer (audit WQA-022). Write the
+      // manifest with tool/make_update_json.py so it is never forgotten.
+      if (sha == null || sha.isEmpty) return null;
       return UpdateInfo(
         versionName: json['versionName'] as String? ?? '',
         versionCode: latest,
         notes: json['notes'] as String? ?? '',
         apkUrl: apkUrl,
-        sha256: sha?.toLowerCase(),
+        sha256: sha.toLowerCase(),
       );
     } catch (_) {
       return null;

@@ -2227,4 +2227,14 @@ class AppLocalizationsFil extends AppLocalizations {
   String hadithOtherGrades(Object list) {
     return 'Ibang iskolar: $list';
   }
+
+  @override
+  String get bookmarksTitle => 'Mga bookmark';
+
+  @override
+  String get bookmarksDesc => 'Mga ayah at hadith na na-save mo';
+
+  @override
+  String get bookmarksEmpty =>
+      'Wala pang bookmark. I-tap ang bookmark icon sa isang ayah o hadith para ma-save ito rito.';
 }

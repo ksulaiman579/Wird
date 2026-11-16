@@ -254,6 +254,19 @@ void main() {
     expect(after.data, contains('"grouping":$hadithGroupingVersion'));
   });
 
+  test('chapterOf finds the chapter of a hadith (bookmarks, WQA-018)',
+      () async {
+    final client = _FakeClient({
+      arabicUrl: http.Response(_fakeEditionBody('AR'), 200),
+      englishUrl: http.Response(_fakeEditionBody('EN'), 200),
+    });
+    final repo = HadithPackRepository(db, client: client);
+    expect(await repo.chapterOf('bukhari', 4), isNull);
+    await repo.downloadAndInstall('bukhari');
+    expect(await repo.chapterOf('bukhari', 4), '2');
+    expect(await repo.chapterOf('bukhari', 1), '1');
+  });
+
   test('numberLabel keeps sub-numbers like 402.2', () {
     HadithEntry e(num n) => HadithEntry(
         number: n, arabic: '', translation: '', grades: const [], sharh: null);

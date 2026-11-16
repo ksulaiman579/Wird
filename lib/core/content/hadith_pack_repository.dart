@@ -274,6 +274,18 @@ class HadithPackRepository {
     return _langsCache[collection] ?? const ['en'];
   }
 
+  /// The chapter key holding hadith [number], or null if the pack isn't
+  /// installed (used to open a bookmarked hadith in place).
+  Future<String?> chapterOf(String collection, num number) async {
+    final chapters = await _decodedChapters(collection);
+    if (chapters == null) return null;
+    for (final entry in chapters.entries) {
+      final list = (entry.value as Map<String, dynamic>)['hadith'] as List;
+      if (list.any((h) => (h as Map)['number'] == number)) return entry.key;
+    }
+    return null;
+  }
+
   Future<List<HadithChapter>> chaptersFor(String collection) async {
     final chapters = await _decodedChapters(collection);
     if (chapters == null) return const [];

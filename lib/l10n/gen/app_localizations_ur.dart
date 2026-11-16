@@ -2201,4 +2201,14 @@ class AppLocalizationsUr extends AppLocalizations {
   String hadithOtherGrades(Object list) {
     return 'دیگر علماء: $list';
   }
+
+  @override
+  String get bookmarksTitle => 'بُک مارکس';
+
+  @override
+  String get bookmarksDesc => 'آپ کی محفوظ کردہ آیات اور احادیث';
+
+  @override
+  String get bookmarksEmpty =>
+      'ابھی کوئی بُک مارک نہیں۔ کسی آیت یا حدیث پر بُک مارک کا نشان دبائیں تاکہ وہ یہاں محفوظ ہو جائے۔';
 }

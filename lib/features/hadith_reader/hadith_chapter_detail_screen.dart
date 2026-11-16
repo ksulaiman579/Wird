@@ -15,6 +15,7 @@ import '../../core/prefs/app_language_provider.dart';
 import 'hadith_l10n.dart';
 import 'hadith_reader_providers.dart';
 import '../../core/search/arabic_normalizer.dart';
+import '../../shared/ui/arabic_prose_text.dart';
 
 final _isBookmarkedProvider =
     StreamProvider.autoDispose.family<bool, String>((ref, contentKey) {
@@ -266,7 +267,7 @@ class _HadithEntryCardState extends ConsumerState<_HadithEntryCard> {
             ),
             Directionality(
               textDirection: TextDirection.rtl,
-              child: Text(
+              child: ArabicProseText(
                 entry.arabic,
                 maxLines: _expanded ? null : 2,
                 overflow:

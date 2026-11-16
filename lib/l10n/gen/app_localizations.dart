@@ -3911,6 +3911,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Other scholars: {list}'**
   String hadithOtherGrades(Object list);
+
+  /// Title of the bookmarks list screen and its More-tab card.
+  ///
+  /// In en, this message translates to:
+  /// **'Bookmarks'**
+  String get bookmarksTitle;
+
+  /// More-tab card description for bookmarks.
+  ///
+  /// In en, this message translates to:
+  /// **'Ayahs and hadith you saved'**
+  String get bookmarksDesc;
+
+  /// Shown when the bookmarks list is empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No bookmarks yet. Tap the bookmark icon on an ayah or hadith to save it here.'**
+  String get bookmarksEmpty;
 }
 
 class _AppLocalizationsDelegate

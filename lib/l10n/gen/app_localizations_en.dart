@@ -2200,4 +2200,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String hadithOtherGrades(Object list) {
     return 'Other scholars: $list';
   }
+
+  @override
+  String get bookmarksTitle => 'Bookmarks';
+
+  @override
+  String get bookmarksDesc => 'Ayahs and hadith you saved';
+
+  @override
+  String get bookmarksEmpty =>
+      'No bookmarks yet. Tap the bookmark icon on an ayah or hadith to save it here.';
 }

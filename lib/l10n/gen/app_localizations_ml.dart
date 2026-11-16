@@ -2216,4 +2216,14 @@ class AppLocalizationsMl extends AppLocalizations {
   String hadithOtherGrades(Object list) {
     return 'മറ്റ് പണ്ഡിതർ: $list';
   }
+
+  @override
+  String get bookmarksTitle => 'ബുക്ക്മാർക്കുകൾ';
+
+  @override
+  String get bookmarksDesc => 'നിങ്ങൾ സൂക്ഷിച്ച ആയത്തുകളും ഹദീസുകളും';
+
+  @override
+  String get bookmarksEmpty =>
+      'ഇതുവരെ ബുക്ക്മാർക്കുകളില്ല. ഒരു ആയത്തിലോ ഹദീസിലോ ബുക്ക്മാർക്ക് ഐക്കൺ അമർത്തിയാൽ ഇവിടെ സൂക്ഷിക്കും.';
 }

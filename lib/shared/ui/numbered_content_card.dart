@@ -5,6 +5,7 @@ import '../glass/glass_card.dart';
 import 'font_size_chips.dart';
 import 'reference_line.dart';
 import 'verse_roundel.dart';
+import './arabic_prose_text.dart';
 
 /// The hadith/dua list-card pattern (M23 design spec): a big gold ordinal,
 /// bold title, a 2-line translation teaser, an optional single Arabic
@@ -78,7 +79,7 @@ class NumberedContentCard extends StatelessWidget {
           ),
           if (arabic != null) ...[
             const SizedBox(height: 12),
-            Text(
+            ArabicProseText(
               arabic!,
               textAlign: TextAlign.right,
               textDirection: TextDirection.rtl,

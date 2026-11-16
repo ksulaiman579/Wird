@@ -2198,4 +2198,14 @@ class AppLocalizationsHi extends AppLocalizations {
   String hadithOtherGrades(Object list) {
     return 'अन्य विद्वान: $list';
   }
+
+  @override
+  String get bookmarksTitle => 'बुकमार्क';
+
+  @override
+  String get bookmarksDesc => 'आपकी सहेजी गई आयतें और हदीसें';
+
+  @override
+  String get bookmarksEmpty =>
+      'अभी कोई बुकमार्क नहीं। किसी आयत या हदीस पर बुकमार्क आइकन दबाएँ, वह यहाँ सहेजी जाएगी।';
 }

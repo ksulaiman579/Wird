@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:wird/l10n/gen/app_localizations.dart';
+import '../ui/arabic_prose_text.dart';
 
 /// Public web app — shared links open the exact passage there (and, on
 /// Android with the app installed, in the app via app links).
@@ -168,7 +169,7 @@ class ShareCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
+          ArabicProseText(
             passage.arabic,
             textDirection: TextDirection.rtl,
             textAlign: TextAlign.center,

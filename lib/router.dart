@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'core/db/database.dart';
+import 'features/bookmarks/bookmarks_screen.dart';
 import 'features/khatmah/khatmah_screen.dart';
 import 'features/achievements/achievements_screen.dart';
 import 'features/adhan/adhan_playing_screen.dart';
@@ -170,6 +171,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/asma', builder: (context, state) => const AsmaScreen()),
       GoRoute(path: '/qibla', builder: (context, state) => const QiblaScreen()),
       GoRoute(path: '/zakah', builder: (context, state) => const ZakahScreen()),
+      GoRoute(
+        path: '/bookmarks',
+        builder: (context, state) => const BookmarksScreen(),
+      ),
       GoRoute(
         path: '/khatmah',
         builder: (context, state) => KhatmahScreen(

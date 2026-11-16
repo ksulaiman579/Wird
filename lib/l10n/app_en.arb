@@ -2915,5 +2915,17 @@
     "placeholders": {
       "list": {}
     }
+  },
+  "bookmarksTitle": "Bookmarks",
+  "@bookmarksTitle": {
+    "description": "Title of the bookmarks list screen and its More-tab card."
+  },
+  "bookmarksDesc": "Ayahs and hadith you saved",
+  "@bookmarksDesc": {
+    "description": "More-tab card description for bookmarks."
+  },
+  "bookmarksEmpty": "No bookmarks yet. Tap the bookmark icon on an ayah or hadith to save it here.",
+  "@bookmarksEmpty": {
+    "description": "Shown when the bookmarks list is empty."
   }
 }

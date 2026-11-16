@@ -9,6 +9,7 @@ import '../../shared/glass/glass.dart';
 import '../../shared/ui/verse_roundel.dart';
 import 'dua_category_titles.dart';
 import 'dua_providers.dart';
+import '../../shared/ui/arabic_prose_text.dart';
 
 class DuaCategoryScreen extends ConsumerWidget {
   const DuaCategoryScreen({super.key, required this.categoryId});
@@ -107,7 +108,7 @@ class _DuaCardState extends State<_DuaCard> {
             const SizedBox(height: 4),
             Directionality(
               textDirection: TextDirection.rtl,
-              child: Text(
+              child: ArabicProseText(
                 dua.arabic,
                 maxLines: _expanded ? null : 3,
                 overflow:

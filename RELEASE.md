@@ -65,11 +65,14 @@ anything distributed). To ship a real release:
 5. **Attach to a GitHub Release:** tag the commit (`git tag v1.0.0 && git
    push --tags`), then create a release on GitHub and upload the APK as a
    release asset.
-6. **Update manifest:** upload `update.json` next to `wird.apk`, including
-   the APK's hash so the in-app updater refuses a corrupt or wrong file:
+6. **Update manifest:** generate `update.json` with the script, which
+   writes every APK's sha256. The app now **refuses** a manifest without a
+   hash (audit WQA-022), so never write it by hand:
    ```sh
-   sha256sum wird.apk   # paste the hex into "sha256"
+   python tool/make_update_json.py --notes "What changed"
    ```
+   Upload `update.json`, `wird-<abi>.apk` for each ABI, and `wird.apk`
+   (the arm64 build).
    ```json
    { "versionCode": 4, "versionName": "1.2.2", "notes": "...",
      "apkUrl": "https://github.com/ksulaiman579/Wird/releases/latest/download/wird.apk",

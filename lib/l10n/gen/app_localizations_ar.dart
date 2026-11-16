@@ -2186,4 +2186,14 @@ class AppLocalizationsAr extends AppLocalizations {
   String hadithOtherGrades(Object list) {
     return 'علماء آخرون: $list';
   }
+
+  @override
+  String get bookmarksTitle => 'العلامات المرجعية';
+
+  @override
+  String get bookmarksDesc => 'الآيات والأحاديث التي حفظتها';
+
+  @override
+  String get bookmarksEmpty =>
+      'لا توجد علامات بعد. اضغط على أيقونة العلامة في آية أو حديث لحفظه هنا.';
 }

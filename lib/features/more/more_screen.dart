@@ -42,6 +42,13 @@ class MoreScreen extends StatelessWidget {
                 ctaLabel: l.commonView,
                 onTap: () => context.push('/achievements'),
               ),
+              HubCard(
+                glyph: WirdGlyph.scroll,
+                title: l.bookmarksTitle,
+                description: l.bookmarksDesc,
+                ctaLabel: l.commonOpen,
+                onTap: () => context.push('/bookmarks'),
+              ),
             ],
           ),
           SectionHeader(l.moreLibraryDownloads),

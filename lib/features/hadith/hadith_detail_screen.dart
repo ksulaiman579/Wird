@@ -11,6 +11,7 @@ import '../../shared/ui/ui.dart';
 import '../hadith_reader/hadith_chapter_detail_screen.dart' show GradeBadge;
 import '../../core/prefs/app_language_provider.dart';
 import 'hadith_providers.dart';
+import '../../shared/ui/arabic_prose_text.dart';
 
 /// The narrator field sometimes already contains a full narration formula
 /// ("It is narrated on the authority of …"); prefixing "Narrated by" then
@@ -147,7 +148,7 @@ class _HadithDetailScreenState extends ConsumerState<HadithDetailScreen> {
                   // Arabic first, then the translation (Item 1.18).
                   Directionality(
                     textDirection: TextDirection.rtl,
-                    child: Text(
+                    child: ArabicProseText(
                       hadith.arabic,
                       style: TextStyle(
                         fontFamily: 'UthmanicHafs',
