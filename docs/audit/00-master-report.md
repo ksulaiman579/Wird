@@ -26,7 +26,9 @@
 - Urdu wording is wrong in places (WQA-010).
 - 3 popups appear before the user picks a language (WQA-012).
 
-**Bugs:** 13 logged, none fixed. Fixes wait for Waleed.
+**Biggest so far:** 700 Tirmidhi and 437 Ibn Majah hadith sit under the wrong book, and whole books (Faith, Knowledge, Supplication...) are missing from the chapter list (WQA-004). The grade badge picks a scholar by source order, so weak/sound can flip against Darussalam (WQA-014).
+
+**Bugs:** 17 logged, none fixed. Fixes wait for Waleed.
 
 ## Coverage
 

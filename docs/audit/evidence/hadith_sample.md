@@ -23,3 +23,18 @@ This is a numbering difference, not a text error. Users who look up a cited numb
 **Grades.** Not compared. sunnah.com's grade field didn't come through the page reader. Still to do.
 
 **Verdict.** No confirmed text errors: 159 exact + 1 near of 162 comparable; 2 unverified. The Muslim numbering and the Malik check still need follow-up.
+
+## Session 3 additions (2026-11-16)
+
+**Malik.** sunnah.com book pages were matched against the app's chapter for each sampled hadith. 29 of 30 were found in the same book. 1363 was not found in book 31 (unverified).
+
+**Grades (110 of 132 compared so far).**
+- Same category as Darussalam: 83.
+- No grade on sunnah.com: 9.
+- Different: 18. Most are Sahih vs Hasan between scholars, which is a difference of opinion.
+- Weak vs sound flips: Nasai 947 and 2273, Ibn Majah 579, Tirmidhi 2654 and 2735. See WQA-014.
+- Nasai 2841 is graded "Shadh" and shows as Ungraded (WQA-015).
+
+**Chapter overlaps (WQA-004).** Confirmed with the sample:
+- Tirmidhi 2158, 2298, 2606, 2654, 3370 and Ibn Majah 2090, 2172, 2316, 2436 all sit in a different book on sunnah.com than in the app.
+- In every case, the narrowest matching range in the source gives sunnah.com's book.
