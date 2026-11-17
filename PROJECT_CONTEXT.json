@@ -1,7 +1,7 @@
 {
   "project": "Wird - Quran, Hadith & Dua memorization app",
   "owner_address_as": "Waleed",
-  "updated": "2026-11-16",
+  "updated": "2026-11-17",
   "architecture": {
     "stack": "Flutter 3.44.4, Riverpod 3, Drift (SQLite), go_router",
     "targets": [
@@ -55,6 +55,10 @@
     {
       "date": "2026-11-16",
       "note": "Vercel project production domain became wird-ebon.vercel.app; wird-alpha.vercel.app had to be re-added under Domains. Supabase free project pauses when idle - app falls back to jsDelivr."
+    },
+    {
+      "date": "2026-11-17",
+      "note": "Search index is built in features/explore/search_providers.dart (core must not import features). Hadith packs carry grouping:2; older packs re-download on start."
     }
   ],
   "changelog": [
@@ -69,6 +73,10 @@
     {
       "date": "2026-11-16",
       "note": "Full audit done (8 rounds): 37 issues in docs/audit/03-bug-register.csv. Readiness = internal testing. P0: WQA-004 hadith misfiled (1,137 Tirmidhi/Ibn Majah), WQA-024 adhan up to 1h late, WQA-014 grade source (Waleed decides). Vercel domain re-added + Supabase restored by Waleed."
+    },
+    {
+      "date": "2026-11-17",
+      "note": "P0 and P1 fixed and pushed (c33f31d..3de8153). Open: Medium 007, 010, 013, 034, 036; Low 17 items; WQA-024 adhan timing needs a real phone. Not released."
     }
   ]
 }

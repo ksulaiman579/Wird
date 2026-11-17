@@ -57,8 +57,10 @@ Source of truth: `03-bug-register.csv` and `02-coverage-matrix.csv`. Rule: log o
   - Widget blocked.
   - FINAL REPORT written (00-master-report.md). Readiness: internal testing.
 
+- 2026-11-17: P0 and P1 fixed and pushed (up to 3de8153), 689 tests. No release until every fix is done (Waleed).
+
 ## Next
-1. Waleed: approve fixes (P0: WQA-004, WQA-024; decide WQA-014).
+1. Medium fixes: WQA-034 (labels, tap size) first, then 007, 010, 013, 036. Then the 17 Low ones. WQA-024 adhan timing needs a real phone.
 2. Still open: Not Started rows in the coverage matrix; offline test in real Chrome (WQA-032); widget placed by hand.
 
 ## Notes

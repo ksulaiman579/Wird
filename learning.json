@@ -1,5 +1,5 @@
 {
-  "current_state": "v1.2 line on main; overnight 2026-11-16 features shipped; full QA audit in progress (docs/audit/).",
+  "current_state": "2026-11-17: P0 + P1 audit fixes done and pushed (last commit 3de8153). 689 tests pass. Not released - Waleed: release only once every fix is done. Next: Medium fixes (WQA-034 first, then 007, 010, 013, 036), then Low.",
   "key_facts": [
     "Hadith counts after dropping empties: bukhari 7580, muslim 7360, abudawud 5272, tirmidhi 3926, nasai 5679, ibnmajah 4340, malik 1829",
     "Quran validation: 6,236 ayahs / 114 surahs / 30 juz",
@@ -9,7 +9,9 @@
     "Walk script for 7-locale screen check: %TEMP%/claude/wirdtool/walk.py",
     "TASKS.md and tool/l10n_batches are gitignored",
     "sunnah.com blocks scripts (403): read it with in-page fetch from a browser tab",
-    "Emulator: if all apps go black, kill qemu, delete *.lock in the AVD folder, cold boot"
+    "Emulator: if all apps go black, kill qemu, delete *.lock in the AVD folder, cold boot",
+    "Onboarding: capture providers BEFORE complete() - it disposes the screen. Extra translation needs showExtraTranslation=true.",
+    "PWA worker: never fetch big data inside install - worker stays 'installing'. Cache data after activate (v11)."
   ],
   "decisions": [
     {
@@ -31,6 +33,11 @@
       "date": "2026-11-16",
       "by": "Waleed",
       "decision": "Hadith grade badge: Al-Albani first, Zubair Ali Zai fallback, show other scholars when they differ."
+    },
+    {
+      "date": "2026-11-17",
+      "by": "Waleed",
+      "decision": "No release until all audit fixes are done."
     }
   ],
   "log": [
@@ -45,6 +52,10 @@
     {
       "date": "2026-11-16",
       "entry": "Fixed WQA-004 (hadith books), WQA-024 (exact adhan), WQA-014/015 (grader order, Shadh). 681 tests. Not yet released (public = 1.2.1)."
+    },
+    {
+      "date": "2026-11-17",
+      "entry": "Fixed P1: WQA-009/025 Urdu translation after onboarding, 008 Arabic commas (ArabicProseText), 018 bookmarks page, 022 dead library links, 032 update checksum per ABI, web offline fonts+Quran (worker v11), 019/033 search in user's language + downloaded hadith. 689 tests."
     }
   ]
 }
